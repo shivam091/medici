@@ -1,0 +1,27 @@
+= title(t(".title"))
+.text-center
+  = link_to "", new_user_session_path, class: "medici-logo mb-2"
+  %h4.fw-bold.mb-4.fw-normal= t(".welcome_sign_in_to_your_account")
+= form_for resource, as: resource_name, url: session_path(resource_name),
+  data: {turbo: false}, html: {class: "login-form"} do |form|
+  .form-floating
+    = form.text_field :login, autofocus: true, autocomplete: "new-login", class: "form-control",
+      placeholder: t(".email_address_or_mobile_number")
+    = form.label :login, t(".email_address_or_mobile_number")
+  .form-floating{data: {controller: "secret-reveal", secret_reveal_hidden_class: "d-none"}}
+    = form.password_field :password, autofocus: true, autocomplete: "current-password", class: "form-control",
+      placeholder: t(".password"), data: {secret_reveal_target: "input"}
+    = form.label :password, t(".password")
+    = secret_reveal_button(for_devise_views: true)
+  .d-flex.justify-content-between.align-items-center.my-2
+    - if devise_mapping.rememberable?
+      .form-check.mb-0.min-height-0
+        = form.label :remember_me, class: "form-check-label" do
+          = form.check_box :remember_me, class: "form-check-input"
+          = t(".keep_me_signed_in")
+    %div
+      = link_to t(".forget_password"), new_password_path(resource_name), class: "d-flex justify-content-end"
+  = button_tag type: :submit, class: "w-100 justify-content-center btn btn-primary" do
+    = button_text(:sign_in)
+  %p.text-muted.my-2
+    = t(".sign_in_notice")
