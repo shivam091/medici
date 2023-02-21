@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_21_152728) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_21_172214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "request_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "uuid"
+    t.string "uri"
+    t.string "method"
+    t.string "session_id"
+    t.string "session_private_id"
+    t.inet "remote_address"
+    t.boolean "is_xhr", default: false
+    t.jsonb "ip_info", default: "{}"
+    t.uuid "user_id"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["ip_info"], name: "index_request_logs_on_ip_info", using: :gin
+    t.index ["remote_address"], name: "index_request_logs_on_remote_address"
+    t.index ["session_id"], name: "index_request_logs_on_session_id"
+    t.index ["user_id"], name: "index_request_logs_on_user_id"
+    t.index ["uuid"], name: "index_request_logs_on_uuid"
+    t.check_constraint "ip_info IS NOT NULL", name: "chk_a67eeb00f0"
+    t.check_constraint "method IS NOT NULL AND method::text <> ''::text", name: "chk_38d4d060e5"
+    t.check_constraint "remote_address IS NOT NULL", name: "chk_67128961e9"
+    t.check_constraint "session_id IS NOT NULL AND session_id::text <> ''::text", name: "chk_568158d334"
+    t.check_constraint "session_private_id IS NOT NULL AND session_private_id::text <> ''::text", name: "chk_cb186ad202"
+    t.check_constraint "uri IS NOT NULL AND uri::text <> ''::text", name: "chk_562eebdf81"
+    t.check_constraint "uuid IS NOT NULL AND uuid::text <> ''::text", name: "chk_a48d3e7955"
+  end
 
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
@@ -72,5 +98,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_152728) do
     t.check_constraint "sign_in_count IS NOT NULL", name: "chk_fc2e3b8e41"
   end
 
+  add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
 end
