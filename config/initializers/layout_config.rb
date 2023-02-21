@@ -6,5 +6,8 @@
 
 Medici::Application.configure do
   config.to_prepare do
+    User::SessionsController.layout        "devise"
+
+    Admin::BaseController.layout           "admin"
   end
 end
