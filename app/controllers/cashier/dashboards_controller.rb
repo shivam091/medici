@@ -2,9 +2,9 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class Admin::DashboardsController < Admin::BaseController
+class Cashier::DashboardsController < Cashier::BaseController
 
-  # GET /admin/dashboard
+  # GET /cashier/dashboard
   def show
   end
 end
