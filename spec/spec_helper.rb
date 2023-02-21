@@ -12,6 +12,7 @@ require_relative "../config/environment"
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 
 require "rspec/rails"
+require "shoulda/matchers"
 require "rspec-parameterized"
 
 def spec_root
