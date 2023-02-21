@@ -19,8 +19,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_172214) do
     t.string "uuid"
     t.string "uri"
     t.string "method"
-    t.string "session_id"
-    t.string "session_private_id"
+    t.string "session_id", default: ""
+    t.string "session_private_id", default: ""
     t.inet "remote_address"
     t.boolean "is_xhr", default: false
     t.jsonb "ip_info", default: "{}"

@@ -8,8 +8,8 @@ class CreateRequestLogs < Medici::Database::Migration[1.0]
       t.string :uuid, index: {using: :btree}
       t.string :uri
       t.string :method
-      t.string :session_id, index: {using: :btree}
-      t.string :session_private_id
+      t.string :session_id, default: "", index: {using: :btree}
+      t.string :session_private_id, default: ""
       t.inet :remote_address, index: {using: :btree}
       t.boolean :is_xhr, default: false
       t.jsonb :ip_info, default: "{}", index: {using: :gin}
