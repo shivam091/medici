@@ -14,4 +14,9 @@ Warden::Manager.after_set_user except: :fetch do |user, auth, opts|
 end
 
 Warden::Manager.on_request do |proxy, opts|
+  user = proxy.env["warden"].user
+  request = proxy.request
+
+  # Persist request logs
+  ::RequestLogs::CreateService.(user, request)
 end
