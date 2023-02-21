@@ -1,0 +1,48 @@
+.devise-section {
+  padding: 1rem;
+  margin: 0.5rem;
+  background-color: var(--bs-gray-100);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.5rem;
+  display: flex;
+  width: 100%;
+  flex-flow: column;
+  .form-floating {
+    &:focus-within {
+      z-index: 2;
+    }
+  }
+  footer {
+    margin-top: 0.5rem;
+    font-weight: bold;
+    color: var(--bs-gray);
+    text-align: center;
+  }
+}
+.login-form input[name="user[login]"],
+.password-reset-form input[name="user[password]"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.password-reset-form input[name="user[password_confirmation]"],
+.login-form input[name="user[password]"] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.devise-section .auth-form .btn-secret-reveal {
+  top: 31%;
+}
+@media (min-width: 992px) {
+  .devise-section {
+    max-width: 500px;
+  }
+}
+@media (max-width: 991px) {
+  .devise-section {
+    max-width: 450px;
+  }
+}
+.devise-section #icon-eye-visible, .devise-section #icon-eye-hidden {
+  fill: #0969da !important;
+}
