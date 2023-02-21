@@ -11,7 +11,7 @@ namespace :medici do
     desc "Seeds the database with default data"
     task seed: :environment do
       begin
-
+        Rake::Task["medici:db:seed_roles"].invoke
       rescue Exception => e
         raise "Database population is aborted due to internal errors!"
       end
