@@ -44,7 +44,7 @@ module MigrationHelpers
 
   # The base class for migrations moves around a lot
   def migration_class
-    "Clinica::Database::Migration[1.0]"
+    "Medici::Database::Migration[1.0]"
   end
 
   module ClassMethods
