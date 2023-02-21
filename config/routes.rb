@@ -9,4 +9,21 @@ Rails.application.routes.draw do
 
   get "favicon.png", to: favicon_redirect
   get "favicon.ico", to: favicon_redirect
+
+  devise_for :users,
+             path: "auth",
+             path_names: {
+               sign_in: "sign-in", sign_out: "sign-out", confirmation: "verification",
+               sign_up: "sign-up"
+             },
+             controllers: {
+               sessions: "user/sessions",
+               confirmations: "user/confirmations",
+               passwords: "user/passwords",
+               unlocks: "user/unlocks",
+               registrations: "user/registrations"
+             }
+
+  devise_scope :user do
+  end
 end
