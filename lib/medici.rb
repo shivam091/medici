@@ -9,6 +9,7 @@ module Medici
   require base_path + "/bootstrap_form_builder"
   require base_path + "/utils"
   require base_path + "/regex"
+  require base_path + "/i18n"
   require base_path + "/database/migration"
   require base_path + "/sql/functions"
 end
