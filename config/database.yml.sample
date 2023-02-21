@@ -1,0 +1,25 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  reconnect: false
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
+
+development:
+  <<: *default
+  host: localhost
+  port: 5432
+  database: medici-dev
+  username:
+  password:
+
+test:
+  <<: *default
+  host: localhost
+  port: 5432
+  database: medici-test
+  username:
+  password:
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
