@@ -18,6 +18,9 @@ def spec_root
   Pathname.new(File.expand_path(__dir__))
 end
 
+require "./spec/simplecov_env"
+SimpleCovEnv.start!
+
 begin
   # ActiveRecord::Migration.maintain_test_schema!
   if ActiveRecord::Base.connection.migration_context.needs_migration?
