@@ -48,7 +48,12 @@ class User::SessionsController < Devise::SessionsController
   protected
 
   def after_sign_in_path_for(resource)
-    stored_location_for(:user) || root_path # request.env["omniauth.origin"]
+    if resource.admin?
+      stored_location_for(:user) || admin_dashboard_path
+    elsif resource.cashier?
+      stored_location_for(:user) || cashier_dashboard_path
+    else
+    end
   end
 
   def after_sign_out_path_for(resource_or_scope)
