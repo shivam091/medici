@@ -1,0 +1,7 @@
+%footer.footer.py-2.bg-dark.text-white.border-top.container-fluid
+  .position-relative.d-flex.align-items-center.flex-column-reverse.flex-lg-row.flex-wrap.flex-lg-nowrap.my-2
+    .list-style-none.d-flex.flex-wrap.col-0.col-lg-6.justify-content-start.justify-content-lg-between
+      .d-flex.align-items-center.gap-2
+        = external_svg_tag("logo.svg", height: "24px", width: "24px")
+        %span.fw-bold.text-muted
+          = t(".copyright_notice", copyright_years: get_copyright_year).html_safe
