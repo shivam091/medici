@@ -24,4 +24,17 @@ class User < ApplicationRecord
   attribute :password_automatically_set, default: false
 
   belongs_to :role
+
+  validates :login, presence: true, if: :login_required
+  validates :password,
+            presence: true,
+            password: true,
+            length: {in: 8..15},
+            confirmation: {case_sensitive: false},
+            reduce: true,
+            if: :password_required
+  validates :password_confirmation,
+            presence: true,
+            reduce: true,
+            if: proc { password.present? }
 end
