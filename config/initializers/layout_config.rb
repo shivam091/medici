@@ -9,5 +9,7 @@ Medici::Application.configure do
     User::SessionsController.layout        "devise"
 
     Admin::BaseController.layout           "admin"
+
+    Cashier::BaseController.layout         "cashier"  
   end
 end
