@@ -2,8 +2,9 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-{
-  en: {
+# spec/models/role_spec.rb
 
-  }
-}
+require "spec_helper"
+
+RSpec.describe Role, type: :model do
+end
