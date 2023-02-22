@@ -8,6 +8,8 @@ class Country < ApplicationRecord
   attribute :is_active, default: false
   attribute :has_postal_code, default: false
 
+  has_many :addresses, dependent: :restrict_with_exception
+
   belongs_to :currency, inverse_of: :countries
 
   delegate :name, :iso_code, :symbol, to: :currency, prefix: true
