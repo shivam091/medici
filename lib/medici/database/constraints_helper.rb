@@ -79,6 +79,11 @@ module Medici
           name.presence || check_constraint_name(table, column, "uppercase")
         end
 
+        # Returns the name for a lowercase constraint
+        def lowercase_constraint_name(table, column, name: nil)
+          name.presence || check_constraint_name(table, column, "lowercase")
+        end
+
         def conditions_with_if(conditions, options = {})
           if options[:if].present?
             "NOT (#{options[:if]}) OR (#{conditions})"
@@ -123,6 +128,12 @@ module Medici
         # Returns definitions for a uppercase constraint
         def uppercase_constraint_definitions(column_name, options)
           definitions = "UPPER(#{column_name}) = #{column_name}"
+          conditions_with_if(definitions, options)
+        end
+
+        # Returns definitions for a lowercase constraint
+        def lowercase_constraint_definitions(column_name, options)
+          definitions = "LOWER(#{column_name}) = #{column_name}"
           conditions_with_if(definitions, options)
         end
 
