@@ -15,41 +15,29 @@
               = external_svg_tag("svgs/home.svg")
               = t(".home")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
-          - if user_signed_in?
-            %li.nav-item.dropdown
-              = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1 dropdown-toggle",
-                aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
-                = t(".hello_username", username: current_user.full_name)
-              %ul.dropdown-menu.dropdown-menu-end
-                %li
-                  %h6.dropdown-header.fw-bold= t(".your_account")
-                %li
-                  = link_to t(".your_profile"), "javascript:void(0)", class: "dropdown-item"
-                %li.dropdown-divider
-                %li
-                  = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
-          - else
-            %li.nav-item
-              = link_to t(".sign_in"), "javascript:void(0)", class: "nav-link"
-            %li.nav-item
-              = link_to t(".sign_up"), "javascript:void(0)", class: "nav-link"
+          %li.nav-item.dropdown
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1 dropdown-toggle",
+              aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
+              = t(".hello_username", username: current_user.full_name)
+            %ul.dropdown-menu.dropdown-menu-end
+              %li
+                %h6.dropdown-header.fw-bold= t(".your_account")
+              %li
+                = link_to t(".your_profile"), "javascript:void(0)", class: "dropdown-item"
+              %li.dropdown-divider
+              %li
+                = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
         %ul.navbar-nav.d-lg-none
           %li.nav-item-divider
-          - if user_signed_in?
-            %li.nav-item.dropdown
-              = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1 dropdown-toggle",
-                aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
-                = t(".hello_username", username: current_user.full_name)
-              %ul.dropdown-menu.dropdown-menu-end
-                %li
-                  %h6.dropdown-header.fw-bold= t(".your_account")
-                %li
-                  = link_to t(".your_profile"), "javascript:void(0)", class: "dropdown-item"
-                %li.dropdown-divider
-                %li
-                  = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
-          - else
-            %li.nav-item
-              = link_to t(".sign_in"), "javascript:void(0)", class: "nav-link"
-            %li.nav-item
-              = link_to t(".sign_up"), "javascript:void(0)", class: "nav-link"
+          %li.nav-item.dropdown
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1 dropdown-toggle",
+              aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
+              = t(".hello_username", username: current_user.full_name)
+            %ul.dropdown-menu.dropdown-menu-end
+              %li
+                %h6.dropdown-header.fw-bold= t(".your_account")
+              %li
+                = link_to t(".your_profile"), "javascript:void(0)", class: "dropdown-item"
+              %li.dropdown-divider
+              %li
+                = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
