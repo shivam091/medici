@@ -4,7 +4,7 @@
 
 {
   en: {
-    admin: {
+    cashier: {
       dashboards: {
         show: {
           title: "Dashboard",

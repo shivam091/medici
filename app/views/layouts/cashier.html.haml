@@ -22,11 +22,11 @@
     = yield(:javascript) if content_for?(:javascript)
   %body
     #main-container
-      = render_if_exists("layouts/admin/header")
+      = render_if_exists("layouts/cashier/header")
       .clearfix
       %main.container-fluid.p-2
         = turbo_frame_tag :flash do
           = render_if_exists "shared/flash_messages"
         = yield
-      = render_if_exists("layouts/admin/footer")
+      = render_if_exists("layouts/cashier/footer")
       = turbo_frame_tag :remote_modal, target: :_top

@@ -5,7 +5,7 @@
 {
   en: {
     layouts: {
-      admin: {
+      cashier: {
         header: {
           main_navigation: "Main navigation",
           toggle_navigation: "Toggle navigation",
