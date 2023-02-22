@@ -74,6 +74,16 @@ module Medici
           name.presence || check_constraint_name(table, column, "inclusion")
         end
 
+        # Returns the name for a uppercase constraint
+        def uppercase_constraint_name(table, column, name: nil)
+          name.presence || check_constraint_name(table, column, "uppercase")
+        end
+
+        # Returns the name for a lowercase constraint
+        def lowercase_constraint_name(table, column, name: nil)
+          name.presence || check_constraint_name(table, column, "lowercase")
+        end
+
         def conditions_with_if(conditions, options = {})
           if options[:if].present?
             "NOT (#{options[:if]}) OR (#{conditions})"
@@ -112,6 +122,18 @@ module Medici
         # Returns definitions for a not null constraint
         def not_null_constraint_definitions(column_name, options)
           definitions = "#{column_name} IS NOT NULL"
+          conditions_with_if(definitions, options)
+        end
+
+        # Returns definitions for a uppercase constraint
+        def uppercase_constraint_definitions(column_name, options)
+          definitions = "UPPER(#{column_name}) = #{column_name}"
+          conditions_with_if(definitions, options)
+        end
+
+        # Returns definitions for a lowercase constraint
+        def lowercase_constraint_definitions(column_name, options)
+          definitions = "LOWER(#{column_name}) = #{column_name}"
           conditions_with_if(definitions, options)
         end
 
@@ -216,6 +238,30 @@ module Medici
             table,
             inclusion_constraint_definitions(column_name, options),
             name: match_constraint_name(table, column_name, name: name)
+          )
+        end
+
+        # Helper for adding uppercase constraint to the column.
+        def add_uppercase_constraint(table, column_name, options = {})
+          column_name = quote_column_name(column_name)
+          name = options.delete(:name)
+
+          add_check_constraint(
+            table,
+            uppercase_constraint_definitions(column_name, options),
+            name: uppercase_constraint_name(table, column_name, name: name)
+          )
+        end
+
+        # Helper for adding lowercase constraint to the column.
+        def add_lowercase_constraint(table, column_name, options = {})
+          column_name = quote_column_name(column_name)
+          name = options.delete(:name)
+
+          add_check_constraint(
+            table,
+            lowercase_constraint_definitions(column_name, options),
+            name: lowercase_constraint_name(table, column_name, name: name)
           )
         end
 
