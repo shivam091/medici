@@ -6,7 +6,23 @@
   en: {
     activerecord: {
       attributes: {
-
+        role: {
+          name: "Name",
+          is_active: "Is active"
+        },
+        user: {
+          first_name: "First name",
+          last_name: "Last name",
+          login: "Email address or mobile number",
+          remember_me: "Keep me signed in",
+          password: "Password",
+          password_confirmation: "Password confirmation",
+          current_password: "Current password",
+          email: "Email address",
+          unconfirmed_email: "Unconfirmed email address",
+          mobile_number: "Mobile number",
+          unconfirmed_mobile_number: "Unconfirmed mobile number",
+        },
       },
       help_texts: {
 

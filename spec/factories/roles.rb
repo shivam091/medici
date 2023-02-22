@@ -8,6 +8,10 @@ FactoryBot.define do
       name { "admin" }
     end
 
+    factory :cashier_role, parent: :role do
+      name { "cashier" }
+    end
+
     trait :active do
       is_active { true }
     end

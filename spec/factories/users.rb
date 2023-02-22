@@ -8,6 +8,9 @@ FactoryBot.define do
     last_name { "Ladhe" }
     password { Rails.application.credentials.config[:TEST_PASSWORD] }
     password_confirmation { Rails.application.credentials.config[:TEST_PASSWORD] }
+    last_password_updated_at { DateTime.now }
+    password_expires_at { ::User::DEFAULT_PASSWORD_EXPIRY_PERIOD }
+    password_automatically_set { true }
 
     factory :admin, parent: :user do
       email { "admin@medici.com" }
@@ -16,13 +19,20 @@ FactoryBot.define do
       association :role, factory: :admin_role
     end
 
+    factory :cashier, parent: :user do
+      email { "cashier@medici.com" }
+      mobile_number { "+918879001262" }
+
+      association :role, factory: :cashier_role
+    end
+
     trait :active do
       is_active { true }
     end
 
     trait :confirmed do
       unconfirmed_email { "" }
-      confirmation_token { "" }
+      confirmation_token { nil }
       confirmed_at { DateTime.current }
       confirmation_sent_at { nil }
     end

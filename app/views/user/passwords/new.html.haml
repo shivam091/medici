@@ -1,0 +1,11 @@
+= title(t(".title"))
+.text-center
+  = link_to "", new_user_session_path, class: "medici-logo"
+  %h4.fw-bold.fw-normal= t(".password_assistance")
+  %p=t (".password_reset_note")
+= bootstrap_form_with model: resource, as: resource_name, url: password_path(resource_name),
+  layout: :floating, data: {turbo: false} do |form|
+  = form.text_field :login, autocomplete: "new-login", data: {controller: "autofocus"},
+    value: (params[:login] || resource.login || resource.email)
+  = button_tag type: :submit, class: "w-100 justify-content-center btn btn-primary mt-2" do
+    = button_text(:continue)

@@ -1,0 +1,20 @@
+:root, [data-theme="light"] {
+  --bs-body-font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  --bs-body-color: #24292f;
+  --bs-border-color: #d0d7de;
+  --bs-dropdown-link-active-bg: #0969da;
+  --bs-dropdown-link-active-color: #ffffff;
+  --bs-blue: #0969da;
+
+  --color-neutral-muted: rgba(0,0,0,0.2);
+  --color-dropdown-shadow: rgba(27,31,36,0.3);
+  --color-primer-shadow-focus: 0 0 0 .15rem rgba(9,105,218,0.3);
+  --color-canvas-inset: rgb(244, 245, 245);
+  --color-accent-fg: #0969da;
+  --color-accent-emphasis: #0969da;
+  --color-accent-subtle: #ddf4ff;
+
+  .navbar-light {
+    --bs-navbar-color: rgba(0, 0, 0, 1);
+  }
+}

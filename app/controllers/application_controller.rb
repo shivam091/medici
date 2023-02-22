@@ -10,4 +10,9 @@ class ApplicationController < ActionController::Base
   include InternalRedirect,
           WithoutTimestamps
 
+  def render_flash
+    turbo_stream.update(:flash, partial: "shared/flash_messages")
+  end
+
+  before_action :authenticate_user!
 end

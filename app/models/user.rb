@@ -18,6 +18,7 @@ class User < ApplicationRecord
   attr_accessor :login, :password_required, :login_required
 
   THROTTLE_RESET_PERIOD = 2
+  DEFAULT_PASSWORD_EXPIRY_PERIOD = 1.months.from_now
 
   attribute :is_banned, default: false
   attribute :is_active, default: false
@@ -92,6 +93,30 @@ class User < ApplicationRecord
 
   def active_for_authentication?
     super && is_active?
+  end
+
+  def admin?
+    self.has_role?("admin")
+  end
+
+  def cashier?
+    self.has_role?("cashier")
+  end
+
+  def has_role?(role)
+    role.eql?(self.role.name)
+  end
+
+  def has_any_role?(*roles)
+    roles.include?(self.role.name)
+  end
+
+  def has_no_role?(role)
+    !has_role?(role)
+  end
+
+  def has_no_roles?(*roles)
+    !has_any_role?(*roles)
   end
 
   private
