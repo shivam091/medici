@@ -29,7 +29,7 @@
           %li.nav-item
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
               = external_svg_tag("svgs/medicine.svg")
-              = t(".medicine")
+              = t(".medicines")
           %li.nav-item
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
               = external_svg_tag("svgs/medicine-bag.svg")
@@ -56,10 +56,13 @@
                   = t(".countries")
               %li
                 = link_to "javascript:void(0)", class: "dropdown-item" do
-                  = t(".medicine_types")
+                  = t(".dosage_forms")
               %li
                 = link_to "javascript:void(0)", class: "dropdown-item" do
                   = t(".medicine_categories")
+              %li
+                = link_to "javascript:void(0)", class: "dropdown-item" do
+                  = t(".ingredients")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
           %li.nav-item.dropdown
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1 dropdown-toggle",
