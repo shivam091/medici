@@ -97,6 +97,12 @@ body {
 .navbar-toggler-icon {
   background-image: image-url("svgs/hamburger.svg");
 }
+.nav-item-divider {
+  height: 1px;
+  background: var(--bs-border-color);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 .medici-logo {
   content: image-url("logo.svg");
   background-repeat: no-repeat;
