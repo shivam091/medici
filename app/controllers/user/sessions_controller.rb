@@ -41,7 +41,7 @@ class User::SessionsController < Devise::SessionsController
   def check_login_and_password_present
     if params[:user][:login].blank? || params[:user][:password].blank?
       set_flash_message!(:error, :missing_email_mobile_or_password)
-      redirect_to new_session_path(resource_name) and return
+      redirect_to new_user_session_path and return
     end
   end
 
@@ -57,7 +57,7 @@ class User::SessionsController < Devise::SessionsController
   end
 
   def after_sign_out_path_for(resource_or_scope)
-    new_session_path(resource_name)
+    new_user_session_path
   end
 
   def configure_sign_in_params
