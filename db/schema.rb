@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_22_163051) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_22_165422) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -89,6 +89,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_22_163051) do
     t.check_constraint "symbol IS NOT NULL AND symbol::text <> ''::text", name: "chk_9051c710f3"
     t.check_constraint "thousands_separator IS NOT NULL AND thousands_separator::text <> ''::text", name: "chk_879dba1f31"
     t.check_constraint "upper(iso_code::text) = iso_code::text", name: "chk_63e9b93f93"
+  end
+
+  create_table "dosage_forms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_active", default: false
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["name"], name: "index_dosage_forms_on_name", unique: true
+    t.check_constraint "char_length(name::text) <= 55", name: "chk_ca1407d42a"
+    t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_6fb39fa26d"
   end
 
   create_table "request_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
