@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get "favicon.png", to: favicon_redirect
   get "favicon.ico", to: favicon_redirect
 
+  root to: "admin/dashboards#show"
+
   devise_for :users,
              path: "auth",
              path_names: {
@@ -25,5 +27,12 @@ Rails.application.routes.draw do
              }
 
   devise_scope :user do
+    namespace :admin do
+      resource :dashboard
+    end
+
+    namespace :cashier do
+      resource :dashboard
+    end
   end
 end

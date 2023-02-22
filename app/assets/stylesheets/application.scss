@@ -1,2 +1,257 @@
 @charset "utf-8";
 @import "bootstrap";
+@import "variables";
+@import "mixins";
+@import "devise";
+@import "animators";
+
+/* General */
+/* 1rem = 16px */
+html {
+  font-family: inherit;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: "smooth";
+}
+body {
+  font-size: 0.875rem !important;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  background-image: image-url("background.svg");
+  min-height: 100vh;
+  min-width: calc(100vw - 2rem);
+  padding-right: 0 !important;
+}
+* {
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-decoration-skip: ink !important;
+}
+:root, [data-theme=light]  {
+  color-scheme: light;
+}
+* > svg {
+  fill: currentColor;
+}
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+[class^="icon-"], [class*=" icon-"] {
+  display: inline-block;
+  text-decoration: inherit;
+  text-rendering: auto;
+  text-transform: none;
+  vertical-align: -4px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  speak: none;
+}
+.middle-dot-divider {
+  @include middle-dot-divider;
+}
+.navbar {
+  --bs-navbar-nav-link-padding-x: 0.25rem;
+}
+.navbar .navbar-toggler {
+  border: 1px solid var(--bs-blue);
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+}
+.navbar .navbar-toggler .icon-bar {
+  background-color: var(--bs-blue);
+  display: block;
+  height: 2px;
+  margin-top: 0.25rem;
+  transition: all .2s;
+  width: 20px;
+}
+.navbar .navbar-toggler.collapsed .middle-bar {
+  opacity: 1;
+}
+.navbar .navbar-toggler .middle-bar {
+  opacity: 0;
+}
+.navbar .navbar-toggler.collapsed .top-bar {
+  background-color: var(--bs-blue);
+  transform: rotate(0);
+}
+.navbar .navbar-toggler .top-bar {
+  background-color: var(--bs-blue);
+  transform: rotate3d(0,0,1,45deg);
+  transform-origin: 16% 190%;
+  -webkit-transform: rotate3d(0,0,1,45deg);
+  -webkit-transform-origin: 16% 190%;
+}
+.navbar .navbar-toggler.collapsed .bottom-bar {
+  background-color: var(--bs-blue);
+  transform: rotate(0);
+}
+.navbar .navbar-toggler .bottom-bar {
+  background-color: var(--bs-blue);
+  transform: rotate3d(0,0,1,-45deg);
+  transform-origin: 10% -80%;
+  -webkit-transform: rotate3d(0,0,1,-45deg);
+  -webkit-transform-origin: 10% -80%;
+}
+.navbar-toggler-icon {
+  background-image: image-url("svgs/hamburger.svg");
+}
+.medici-logo {
+  content: image-url("logo.svg");
+  background-repeat: no-repeat;
+  height: 48px;
+  width: 48px;
+  margin-right: 0.5rem;
+}
+
+// Form elements
+
+.form-control, .form-select {
+  font-size: 0.875rem !important;
+  border-radius: 0.25rem;
+}
+.form-label, .form-check-label {
+  font-weight: 600;
+}
+.form-control, .form-select, .form-floating > .form-control, .form-floating > .form-select {
+  color: var(--bs-body-color);
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-color: var(--color-canvas-inset);
+  border-color: var(--bs-border-color);
+}
+.form-floating > .form-control:focus, .form-control:focus, .form-floating > .form-select:focus, .form-select:focus {
+  background-color: var(--color-canvas-default);
+  border-color: var(--color-accent-emphasis);
+  color: var(--bs-body-color);
+}
+.form-check-input {
+  background-color: var(--color-canvas-inset);
+  border: 1px solid var(--bs-border-color);
+  vertical-align: middle;
+}
+.form-check-input:checked, .form-check-input[type="checkbox"]:indeterminate {
+  background-color: var(--color-accent-emphasis);
+  border-color: var(--color-accent-subtle);
+}
+.form-select, .form-floating > .form-select, input[list] {
+  background-image: image-url("svgs/select-list-arrow.svg");
+  background-repeat: no-repeat;
+  background-position: right .25rem center;
+  background-size: 16px;
+}
+.form-control:focus, .form-select:focus, .form-check-input:focus {
+  box-shadow: var(--color-primer-shadow-focus);
+  -webkit-box-shadow: var(--color-primer-shadow-focus);
+  border-color: var(--color-accent-fg);
+  border-style: solid;
+}
+// Dropdowns
+.dropdown-menu {
+  color: var(--bs-body-color);
+  border: 1.5px solid var(--bs-border-color);
+  box-shadow: 0 .25rem .5rem var(--color-dropdown-shadow);
+  -webkit-box-shadow: 0 .25rem .5rem var(--color-dropdown-shadow);
+  font-size: 0.875rem;
+}
+.dropdown-toggle::after {
+  color: currentColor;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-in-out;
+  vertical-align: middle;
+  margin-left: auto;
+}
+.dropdown-menu.show {
+  max-height: 30rem;
+  overflow-y: overlay;
+  margin-bottom: 0.5rem;
+}
+.dropdown-toggle.show::after {
+  transform: rotate(180deg);
+}
+.dropdown-divider {
+  border-color: var(--bs-border-color);
+}
+.dropdown-menu::before, .dropdown-menu::after {
+  position: absolute;
+  display: inline-block;
+  content: "";
+}
+.dropdown-menu.show {
+  animation-duration: 0.3s;
+  -webkit-animation-duration: 0.3s;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+  -webkit-animation-name: slide-in;
+  animation-name: slide-in;
+}
+.footer-item:not(:last-child) {
+  border-bottom: 1px solid var(--bs-border-color);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+.footer-stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 0;
+  margin-top: 1rem;
+  padding-left: 0;
+}
+.footer-stats-list-item {
+  color: var(--bs-light);
+  list-style: none;
+  margin-left: 0;
+  padding: 0;
+  text-align: center;
+}
+.footer-stats-item {
+  color: var(--bs-light);
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.text-muted {
+  color: var(--bs-gray) !important;
+}
+div[class*="card-"] {
+  border-bottom-width: 4px !important;
+}
+.btn-secret-reveal {
+  position: absolute;
+  left: auto;
+  right: 2%;
+  top: 30%;
+  bottom: auto;
+  cursor: pointer;
+  background: transparent;
+  border: transparent;
+  z-index: 4;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border-radius: 0.25rem;
+  transition: .2s cubic-bezier(0.3, 0, 0.5, 1) !important;
+  transition-property: color,background-color,border-color,box-shadow !important;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+.btn-close {
+  background: transparent image-url("svgs/x-mark.svg") center/1em auto no-repeat;
+}
+p {
+  word-wrap: break-word;
+  word-spacing: normal;
+  text-align: justify;
+}

@@ -19,6 +19,13 @@ FactoryBot.define do
       association :role, factory: :admin_role
     end
 
+    factory :cashier, parent: :user do
+      email { "cashier@medici.com" }
+      mobile_number { "+918879001262" }
+
+      association :role, factory: :cashier_role
+    end
+
     trait :active do
       is_active { true }
     end
