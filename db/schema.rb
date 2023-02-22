@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_21_172214) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_22_153726) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "currencies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "iso_code"
+    t.string "symbol"
+    t.string "subunit"
+    t.integer "subunit_to_unit"
+    t.boolean "symbol_first"
+    t.string "decimal_mark"
+    t.string "thousands_separator"
+    t.boolean "is_active", default: false
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["iso_code"], name: "index_currencies_on_iso_code", unique: true
+    t.index ["name"], name: "index_currencies_on_name", unique: true
+    t.check_constraint "char_length(decimal_mark::text) = 1", name: "chk_67f7771463"
+    t.check_constraint "char_length(iso_code::text) = 3", name: "chk_61a2c44427"
+    t.check_constraint "char_length(name::text) <= 55", name: "chk_1dd815c813"
+    t.check_constraint "char_length(thousands_separator::text) = 1", name: "chk_9cdc5548c1"
+    t.check_constraint "decimal_mark IS NOT NULL AND decimal_mark::text <> ''::text", name: "chk_cbd3b74101"
+    t.check_constraint "iso_code IS NOT NULL AND iso_code::text <> ''::text", name: "chk_b9da1bf950"
+    t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_9df5dbe3a5"
+    t.check_constraint "symbol IS NOT NULL AND symbol::text <> ''::text", name: "chk_9051c710f3"
+    t.check_constraint "thousands_separator IS NOT NULL AND thousands_separator::text <> ''::text", name: "chk_879dba1f31"
+    t.check_constraint "upper(iso_code::text) = iso_code::text", name: "chk_63e9b93f93"
+  end
 
   create_table "request_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "uuid"
