@@ -253,6 +253,18 @@ module Medici
           )
         end
 
+        # Helper for adding lowercase constraint to the column.
+        def add_lowercase_constraint(table, column_name, options = {})
+          column_name = quote_column_name(column_name)
+          name = options.delete(:name)
+
+          add_check_constraint(
+            table,
+            lowercase_constraint_definitions(column_name, options),
+            name: lowercase_constraint_name(table, column_name, name: name)
+          )
+        end
+
         def rename_constraint(table_name, old_name, new_name)
           execute <<~SQL
             ALTER TABLE #{quote_table_name(table_name)}
