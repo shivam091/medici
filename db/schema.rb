@@ -10,10 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_22_162254) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_22_163051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "country_id"
+    t.string "addressable_type"
+    t.uuid "addressable_id"
+    t.string "address1"
+    t.string "address2"
+    t.string "city"
+    t.string "region"
+    t.string "postal_code"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
+    t.index ["country_id"], name: "index_addresses_on_country_id"
+    t.check_constraint "address1 IS NOT NULL AND address1::text <> ''::text", name: "chk_dd06263840"
+    t.check_constraint "addressable_id IS NOT NULL", name: "chk_764e04cfbe"
+    t.check_constraint "addressable_type IS NOT NULL", name: "chk_d04b2c3c0f"
+    t.check_constraint "char_length(address1::text) <= 100", name: "chk_79a0b55f17"
+    t.check_constraint "char_length(address2::text) <= 100", name: "chk_9d9af86e34"
+    t.check_constraint "char_length(city::text) <= 100", name: "chk_fc9ec5eb57"
+    t.check_constraint "char_length(postal_code::text) <= 20", name: "chk_39c4bcf78a"
+    t.check_constraint "char_length(region::text) <= 100", name: "chk_26dd3e9819"
+    t.check_constraint "city IS NOT NULL AND city::text <> ''::text", name: "chk_6c705ebe2e"
+    t.check_constraint "country_id IS NOT NULL", name: "chk_f7e0314437"
+  end
 
   create_table "countries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
@@ -149,6 +174,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_22_162254) do
     t.check_constraint "sign_in_count IS NOT NULL", name: "chk_fc2e3b8e41"
   end
 
+  add_foreign_key "addresses", "countries", name: "fk_addresses_country_id_on_countries", on_delete: :restrict
   add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
