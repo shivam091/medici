@@ -1,0 +1,251 @@
+name,iso2,iso3,has_postal_code,calling_code,currency_code
+Afghanistan,AF,AFG,false,93,AFN
+Åland Islands,AX,ALA,true,358,EUR
+Albania,AL,ALB,false,355,ALL
+Algeria,DZ,DZA,false,213,DZD
+American Samoa,AS,ASM,false,1684,USD
+Andorra,AD,AND,false,376,EUR
+Angola,AO,AGO,false,244,AOA
+Anguilla,AI,AIA,false,1264,XCD
+Antarctica,AQ,ATA,false,672,GBP
+Antigua and Barbuda,AG,ATG,false,1268,XCD
+Argentina,AR,ARG,false,54,ARS
+Armenia,AM,ARM,false,374,AMD
+Aruba,AW,ABW,false,297,AWG
+Australia,AU,AUS,true,61,AUD
+Austria,AT,AUT,true,43,EUR
+Azerbaijan,AZ,AZE,false,994,AZN
+Bahamas,BS,BHS,false,1242,BSD
+Bahrain,BH,BHR,false,973,BHD
+Bangladesh,BD,BGD,false,880,BDT
+Barbados,BB,BRB,false,1246,BBD
+Belarus,BY,BLR,false,375,BYN
+Belgium,BE,BEL,true,32,EUR
+Belize,BZ,BLZ,false,51,BZD
+Benin,BJ,BEN,false,229,XOF
+Bermuda,BM,BMU,false,1441,BMD
+Bhutan,BT,BTN,false,975,BTN
+Bolivia,BO,BOL,false,591,BOB
+Bosnia and Herzegovina,BA,BIH,false,387,BAM
+Botswana,BW,BWA,false,267,BWP
+Bouvet Island,BV,BVT,false,55,NOK
+Brazil,BR,BRA,true,55,BRL
+British Indian Ocean Territory,IO,IOT,false,246,USD
+Brunei Darussalam,BN,BRN,false,673,BND
+Bulgaria,BG,BGR,true,359,BGN
+Burkina Faso,BF,BFA,false,226,XOF
+Burundi,BI,BDI,false,257,BIF
+Cambodia,KH,KHM,false,855,KHR
+Cameroon,CM,CMR,false,237,XAF
+Canada,CA,CAN,true,1,CAD
+Cape Verde,CV,CPV,false,238,CVE
+Caribbean Netherlands,BQ,BES,true,599,USD
+Cayman Islands,KY,CYM,false,1345,KYD
+Central African Republic,CF,CAF,false,236,XAF
+Chad,TD,TCD,false,235,XAF
+Chile,CL,CHL,false,56,CLP
+China,CN,CHN,true,86,CNY
+Christmas Island,CX,CXR,false,61,AUD
+Cocos (keeling) Islands,CC,CCK,false,61891,AUD
+Colombia,CO,COL,false,57,COP
+Comoros,KM,COM,false,269,KMF
+Congo,CG,COG,false,242,CDF
+Cook Islands,CK,COK,false,682,NZD
+Costa Rica,CR,CRI,false,56,CRC
+Cote D'ivoire,CI,CIV,false,225,XOF
+Croatia,HR,HRV,false,385,HRK
+Cuba,CU,CUB,false,53,CUP
+Curaçao,CW,CUW,false,5999,ANG
+Cyprus,CY,CYP,false,357,EUR
+Czech Republic,CZ,CZE,true,420,CZK
+Democratic People's Republic of Korea,KP,PRK,true,850,KPW
+Denmark,DK,DNK,true,45,DKK
+Djibouti,DJ,DJI,false,253,DJF
+Dominica,DM,DMA,false,1767,XCD
+Dominican Republic,DO,DOM,false,1809,DOP
+East Timor,TL,TLS,false,670,USD
+Ecuador,EC,ECU,false,593,USD
+Egypt,EG,EGY,true,20,EGP
+El Salvador,SV,SLV,false,53,USD
+Equatorial Guinea,GQ,GNQ,false,240,XAF
+Eritrea,ER,ERI,false,291,ERN
+Estonia,EE,EST,false,372,EUR
+Ethiopia,ET,ETH,false,251,ETB
+Falkland Islands,FK,FLK,false,500,FKP
+Faroe Islands,FO,FRO,false,298,DKK
+Federated States of Micronesia,FM,FSM,false,691,USD
+Fiji,FJ,FJI,false,679,FJD
+Finland,FI,FIN,true,358,EUR
+France,FR,FRA,true,33,EUR
+French Guiana,GF,GUF,true,594,EUR
+French Polynesia,PF,PYF,false,689,XPF
+French Southern Territories,TF,ATF,false,262,EUR
+Gabon,GA,GAB,false,241,XAF
+Gambia,GM,GMB,false,220,GMD
+Georgia,GE,GEO,false,995,GEL
+Germany,DE,DUE,true,49,EUR
+Ghana,GH,GHA,false,233,GHS
+Gibraltar,GI,GIB,false,350,GIP
+Greece,GR,GRC,false,30,EUR
+Greenland,GL,GRL,false,299,DKK
+Grenada,GD,GRD,false,1473,XCD
+Guadeloupe,GP,GLP,true,590,EUR
+Guam,GU,GUM,true,1671,USD
+Guatemala,GT,GTM,true,52,GTQ
+Guernsey,GG,GGY,true,44,GBP
+Guinea,GN,GIN,false,224,GNF
+Guinea-bissau,GW,GNB,false,245,XOF
+Guyana,GY,GUY,false,592,GYD
+Haiti,HT,HTI,false,59,HTG
+Heard Island and Mcdonald Islands,HM,HMD,false,672,AUD
+Honduras,HN,HND,false,54,HNL
+Hong Kong,HK,HKG,false,852,HKD
+Hungary,HU,HUN,true,36,HUF
+Iceland,IS,ISL,false,354,ISK
+India,IN,IND,true,91,INR
+Indonesia,ID,IDN,true,62,IDR
+Iran,IR,IRN,false,98,IRR
+Iraq,IQ,IRQ,false,964,IQD
+Ireland,IE,IRL,false,353,EUR
+Isle of Man,IM,IMN,true,44,GBP
+Israel,IL,ISR,true,972,ILS
+Italy,IT,ITA,true,39,EUR
+Jamaica,JM,JAM,false,1876,JMD
+Japan,JP,JPN,true,81,JPY
+Jersey,JE,JEY,true,44,GBP
+Jordan,JO,JOR,false,962,JOD
+Kazakhstan,KZ,KAZ,false,7,KZT
+Kenya,KE,KEN,false,254,KES
+Kiribati,KI,KIR,false,686,AUD
+Kosovo,KV,RKS,false,383,EUR
+Kuwait,KW,KWT,false,965,KWD
+Kyrgyzstan,KG,KGZ,false,996,KGS
+Lao People's Democratic Republic,LA,LAO,false,856,LAK
+Latvia,LV,LVA,false,371,EUR
+Lebanon,LB,LBN,false,961,LBP
+Lesotho,LS,LSO,false,266,LSL
+Liberia,LR,LBR,false,231,LRD
+Libya,LY,LBY,false,218,LYD
+Liechtenstein,LI,LIE,true,423,CHF
+Lithuania,LT,LTU,false,370,LTL
+Luxembourg,LU,LUX,false,352,EUR
+Macao,MO,MAC,false,853,MOP
+Madagascar,MG,MDG,false,261,MGA
+Malawi,MW,MWI,false,265,MWK
+Malaysia,MY,MYS,true,60,MYR
+Maldives,MV,MDV,false,960,MVR
+Mali,ML,MLI,false,223,XOF
+Malta,MT,MLT,false,356,EUR
+Marshall Islands,MH,MHL,true,692,USD
+Martinique,MQ,MTQ,true,596,EUR
+Mauritania,MR,MRT,false,222,MRO
+Mauritius,MU,MUS,false,230,MUR
+Mayotte,YT,MYT,true,269,EUR
+Mexico,MX,MEX,true,52,MXN
+Moldova,MD,MDA,true,373,MDL
+Monaco,MC,MCO,true,377,EUR
+Mongolia,MN,MNG,false,976,MNT
+Montenegro,ME,MNE,false,382,EUR
+Montserrat,MS,MSR,false,1664,XCD
+Morocco,MA,MAR,false,211,MAD
+Mozambique,MZ,MOZ,false,258,MZN
+Myanmar,MM,MMR,false,95,MMK
+Namibia,NA,NAM,false,264,NAD
+Nauru,NR,MRU,false,674,AUD
+Nepal,NP,NPL,false,977,NPR
+Netherlands,NL,NLD,true,31,EUR
+Netherlands Antilles,AN,ANT,false,599,ANG
+New Caledonia,NC,NCL,false,687,XPF
+New Zealand,NZ,NZL,true,64,NZD
+Nicaragua,NI,NIC,false,55,NIO
+Niger,NE,NER,false,227,XOF
+Nigeria,NG,NGA,false,234,NGN
+Niue,NU,NIU,false,683,NZD
+Norfolk Island,NF,NFK,false,6723,AUD
+Northern Mariana Islands,MP,MNP,true,1670,USD
+Norway,NO,NOR,true,47,NOK
+Oman,OM,OMN,false,968,OMR
+Pakistan,PK,PAK,true,92,PKR
+Palau,PW,PLW,false,680,USD
+Palestine,PS,PSE,false,970,EGP
+Panama,PA,PAN,false,57,PAB
+Papua New Guinea,PG,PNG,false,675,PGK
+Paraguay,PY,PRY,false,595,PYG
+Peru,PE,PER,false,51,PEN
+Philippines,PH,PHL,true,63,PHP
+Pitcairn Islands,PN,PCN,false,649,NZD
+Poland,PL,POL,true,48,PLN
+Portugal,PT,PRT,true,351,EUR
+Puerto Rico,PR,PRI,true,1939,USD
+Qatar,QA,QAT,false,974,QAR
+Republic of Korea,KR,KOR,false,82,KRW
+Reunion (Mayotte),RE,REU,true,262,EUR
+Romania,RO,ROU,true,40,RON
+Russian Federation,RU,RUS,true,7,RUB
+Rwanda,RW,RWA,false,250,RWF
+Saint Barthélemy,BL,BLM,false,590,EUR
+Saint Helena,SH,SHN,false,290,SHP
+Saint Kitts and Nevis,KN,KNA,false,1869,XCD
+Saint Lucia,LC,LCA,false,1758,XCD
+Saint Pierre and Miquelon,PM,SPM,true,508,EUR
+Saint Vincent and the Grenadines,VC,VCT,false,1784,XCD
+Samoa,WS,WSM,false,685,WST
+San Marino,SM,SMR,false,378,EUR
+Sao Tome and Principe,ST,STP,false,239,STD
+Saudi Arabia,SA,SAU,false,966,SAR
+Senegal,SN,SEN,false,221,XOF
+Serbia,RS,SRB,false,381,RSD
+Seychelles,SC,SYC,false,248,SCR
+Sierra Leone,SL,SLE,false,232,SLL
+Singapore,SG,SGP,false,65,SGD
+Sint Maarten,SX,SXM,true,599,ANG
+Slovak Republic,SK,SVK,true,421,EUR
+Slovenia,SI,SVN,false,386,EUR
+Solomon Islands,SB,SLB,false,677,SBD
+Somalia,SO,SOM,false,252,SOS
+South Africa,ZA,ZAF,true,27,ZAR
+South Georgia and the South Sandwich Islands,GS,SGS,false,500,GBP
+South Sudan,SS,SSD,false,211,SDG
+Spain,ES,ESP,true,34,EUR
+Sri Lanka,LK,LKA,false,94,LKR
+Sudan,SD,SDN,false,249,SDG
+Suriname,SR,SUR,false,597,SRD
+Svalbard and Jan Mayen,SJ,SJM,true,47,NOK
+Swaziland,SZ,SWZ,false,268,SZL
+Sweden,SE,SWE,true,46,SEK
+Switzerland,CH,CHE,true,41,CHF
+Syrian Arab Republic,SY,SYR,false,963,SYP
+Taiwan,TW,TWN,true,886,TWD
+Tajikistan,TJ,TJK,false,992,TJS
+Thailand,TH,THA,true,66,THB
+The Democratic Republic of the Congo,CD,COD,false,243,CDF
+The Former Yugoslav Republic of Macedonia,MK,MKD,false,389,MKD
+Togo,TG,TGO,false,228,XOF
+Tokelau,TK,TKL,false,690,NZD
+Tonga,TO,TON,false,676,TOP
+Trinidad and Tobago,TT,TTO,false,1868,TTD
+Tunisia,TN,TUN,false,216,TND
+Turkey,TR,TUR,true,90,TRY
+Turkmenistan,TM,TKM,false,993,TMM
+Turks and Caicos Islands,TC,TCA,false,1649,USD
+Tuvalu,TV,TUV,false,688,AUD
+Uganda,UG,UGA,false,256,UGX
+Ukraine,UA,UKR,false,380,UAH
+United Arab Emirates,AE,ARE,false,971,AED
+United Kingdom,GB,GBR,true,44,GBP
+United Republic of Tanzania,TZ,TZA,false,255,TZS
+United States,US,USA,true,1,USD
+United States Minor Outlying Islands,UM,UMI,false,246,USD
+Uruguay,UY,URY,false,598,UYU
+Uzbekistan,UZ,UZB,false,998,UZS
+Vanuatu,VU,VUT,false,678,VUV
+Vatican City State,VA,VAT,false,3906,EUR
+Venezuela,VE,VEN,false,58,VES
+Viet Nam,VN,VNM,false,84,VND
+Virgin Islands (British),VG,VGB,false,1284,USD
+Virgin Islands (U.S.),VI,VIT,true,1340,USD
+Wallis and Futuna,WF,WLF,false,681,XPF
+Western Sahara,EH,ESH,false,212,MAD
+Yemen,YE,YEM,false,967,YER
+Zambia,ZM,ZMB,false,260,ZMK
+Zimbabwe,ZW,ZWE,false,263,ZWD
