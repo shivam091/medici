@@ -37,6 +37,8 @@ class User < ApplicationRecord
             reduce: true,
             if: proc { password.present? }
 
+  has_many :request_logs, dependent: :nullify
+
   belongs_to :role
 
   class << self
