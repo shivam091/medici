@@ -7,5 +7,7 @@ class Currency < ApplicationRecord
 
   attribute :is_active, default: false
 
+  has_many :countries, dependent: :nullify
+
   default_scope -> { order(arel_table[:iso_code].asc) }
 end

@@ -2,9 +2,9 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-# spec/models/request_log_spec.rb
+# spec/models/country_spec.rb
 
 require "spec_helper"
 
-RSpec.describe RequestLog, type: :model do
+RSpec.describe Country, type: :model do
 end

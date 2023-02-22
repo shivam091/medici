@@ -10,10 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_22_153726) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_22_162254) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "countries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "iso2"
+    t.string "iso3"
+    t.string "calling_code"
+    t.boolean "has_postal_code", default: false
+    t.boolean "is_active", default: false
+    t.uuid "currency_id"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["currency_id"], name: "index_countries_on_currency_id"
+    t.index ["iso2"], name: "index_countries_on_iso2", unique: true
+    t.index ["iso3"], name: "index_countries_on_iso3", unique: true
+    t.index ["name"], name: "index_countries_on_name", unique: true
+    t.check_constraint "char_length(iso2::text) = 2", name: "chk_1e56054f5a"
+    t.check_constraint "char_length(iso3::text) = 3", name: "chk_291f18a38d"
+    t.check_constraint "char_length(name::text) <= 55", name: "chk_68ab57466f"
+    t.check_constraint "currency_id IS NOT NULL", name: "chk_940fe1eee7"
+    t.check_constraint "iso2 IS NOT NULL AND iso2::text <> ''::text", name: "chk_b1bf328063"
+    t.check_constraint "iso3 IS NOT NULL AND iso3::text <> ''::text", name: "chk_87680983ee"
+    t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_03b9f57701"
+    t.check_constraint "upper(iso2::text) = iso2::text", name: "chk_91b43fb014"
+    t.check_constraint "upper(iso3::text) = iso3::text", name: "chk_915d162f3f"
+  end
 
   create_table "currencies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
@@ -124,6 +149,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_22_153726) do
     t.check_constraint "sign_in_count IS NOT NULL", name: "chk_fc2e3b8e41"
   end
 
+  add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
 end
