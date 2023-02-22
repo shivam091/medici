@@ -74,6 +74,11 @@ module Medici
           name.presence || check_constraint_name(table, column, "inclusion")
         end
 
+        # Returns the name for a uppercase constraint
+        def uppercase_constraint_name(table, column, name: nil)
+          name.presence || check_constraint_name(table, column, "uppercase")
+        end
+
         def conditions_with_if(conditions, options = {})
           if options[:if].present?
             "NOT (#{options[:if]}) OR (#{conditions})"
@@ -112,6 +117,12 @@ module Medici
         # Returns definitions for a not null constraint
         def not_null_constraint_definitions(column_name, options)
           definitions = "#{column_name} IS NOT NULL"
+          conditions_with_if(definitions, options)
+        end
+
+        # Returns definitions for a uppercase constraint
+        def uppercase_constraint_definitions(column_name, options)
+          definitions = "UPPER(#{column_name}) = #{column_name}"
           conditions_with_if(definitions, options)
         end
 
