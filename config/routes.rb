@@ -32,6 +32,9 @@ Rails.application.routes.draw do
 
       resources :currencies, except: :show, param: :uuid
       resources :countries, except: :show, param: :uuid
+      resources :ingredients, except: :show, param: :uuid
+      resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms"
+      resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories"
     end
 
     namespace :cashier do

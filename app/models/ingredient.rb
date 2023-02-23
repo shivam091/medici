@@ -7,5 +7,15 @@ class Ingredient < ApplicationRecord
 
   attribute :is_active, default: false
 
+  validates :name,
+            presence: true,
+            length: {maximum: 55},
+            uniqueness: true,
+            reduce: true
+  validates :description,
+            presence: true,
+            length: {maximum: 1000},
+            reduce: true
+
   default_scope -> { order_name_asc }
 end

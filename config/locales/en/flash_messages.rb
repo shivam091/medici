@@ -33,6 +33,48 @@
           error: "Country '%{country_name}' could not be destroyed.",
         }
       },
+      ingredients: {
+        create: {
+          success: "Ingredients '%{ingredient_name}' was successfully created.",
+          error: "Ingredients could not be created.",
+        },
+        update: {
+          success: "Ingredients '%{ingredient_name}' was successfully updated.",
+          error: "Ingredients could not be updated.",
+        },
+        destroy: {
+          success: "Ingredients '%{ingredient_name}' was successfully destroyed.",
+          error: "Ingredients '%{ingredient_name}' could not be destroyed.",
+        }
+      },
+      dosage_forms: {
+        create: {
+          success: "Dosage form '%{dosage_form_name}' was successfully created.",
+          error: "Dosage form could not be created.",
+        },
+        update: {
+          success: "Dosage form '%{dosage_form_name}' was successfully updated.",
+          error: "Dosage form could not be updated.",
+        },
+        destroy: {
+          success: "Dosage form '%{dosage_form_name}' was successfully destroyed.",
+          error: "Dosage form '%{dosage_form_name}' could not be destroyed.",
+        }
+      },
+      medicine_categories: {
+        create: {
+          success: "Medicine category '%{medicine_category_name}' was successfully created.",
+          error: "Medicine category could not be created.",
+        },
+        update: {
+          success: "Medicine category '%{medicine_category_name}' was successfully updated.",
+          error: "Medicine category could not be updated.",
+        },
+        destroy: {
+          success: "Medicine category '%{medicine_category_name}' was successfully destroyed.",
+          error: "Medicine category '%{medicine_category_name}' could not be destroyed.",
+        }
+      },
     }
   }
 }
