@@ -44,6 +44,9 @@
           is_active: "Is active",
           currency_id: "Currency",
         },
+        dosage_form: {
+          name: "Name",
+        },
         medicine_category: {
           name: "Name",
           description: "Description",
