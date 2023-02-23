@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       resource :dashboard
 
       resources :countries, except: :show, param: :uuid
+      resources :ingredients, except: :show, param: :uuid
     end
 
     namespace :cashier do
