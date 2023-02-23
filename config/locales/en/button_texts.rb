@@ -14,6 +14,9 @@
       new_country: "New country",
       create_country: "Create country",
       update_country: "Update country",
+      new_medicine_category: "New medicine category",
+      create_medicine_category: "Create medicine category",
+      update_medicine_category: "Update medicine category",
     }
   }
 }
