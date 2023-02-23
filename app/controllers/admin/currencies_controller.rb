@@ -3,4 +3,10 @@
 # -*- warn_indent: true -*-
 
 class Admin::CurrenciesController < Admin::BaseController
+
+  # GET /admin/currencies
+  def index
+    @currencies = ::Currency.active.includes(:countries)
+    @pagy, @currencies = pagy(@currencies)
+  end
 end

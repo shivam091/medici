@@ -1,0 +1,17 @@
+.card.card-primary.border.border-primary
+  .card-header
+    .d-flex.justify-content-between.align-items-center
+      %ul.nav.nav-pills.flex-column.flex-lg-row.nav-justified
+        %li.nav-item
+          = link_to t(".active"), admin_currencies_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
+        %li.nav-item
+          = link_to t(".inactive"), "javascript:void(0)", class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
+      = link_to new_admin_currency_path, class: "btn btn-primary", data: {turbo_frame: :remote_modal} do
+        = external_svg_tag("svgs/plus.svg")
+        %span.d-block.d-lg-none= button_text("new")
+        %span.d-none.d-lg-block= t(".new_currency")
+  .card-body{data: {controller: "select-all-checkbox"}}
+    = render_if_exists("admin/currencies/currency")
+  - if @pagy.pages > 1
+    .card-footer
+      = render_if_exists("shared/pagination", locals: {pagy: @pagy})
