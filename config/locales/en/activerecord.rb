@@ -44,6 +44,10 @@
           is_active: "Is active",
           currency_id: "Currency",
         },
+        dosage_form: {
+          name: "Name",
+          is_active: "Is active",
+        },
       },
       help_texts: {
 
