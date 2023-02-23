@@ -8,6 +8,9 @@
       sign_in: "Sign in",
       continue: "Continue",
       save_changes: "Save changes",
+      new: "New",
+      create: "Create",
+      update: "Update",
     }
   }
 }
