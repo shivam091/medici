@@ -53,6 +53,10 @@ body {
 .navbar {
   --bs-navbar-nav-link-padding-x: 0.25rem;
 }
+.nav {
+  --bs-nav-link-padding-x: 0.5rem;
+  --bs-nav-link-padding-y: 0.25rem;
+}
 .navbar .navbar-toggler {
   border: 1px solid var(--bs-blue);
   margin-left: 0.5rem;
@@ -222,8 +226,14 @@ body {
 .text-muted {
   color: var(--bs-gray) !important;
 }
-div[class*="card-"] {
+.card-primary {
   border-bottom-width: 4px !important;
+}
+.card {
+  --bs-card-spacer-y: 0.5rem;
+  --bs-card-spacer-x: 0.5rem;
+  --bs-card-cap-padding-y: 0.5rem;
+  --bs-card-cap-padding-x: 0.5rem;
 }
 .btn-secret-reveal {
   position: absolute;
@@ -256,6 +266,11 @@ div[class*="card-"] {
 .btn-close {
   background: transparent image-url("svgs/x-mark.svg") center/1em auto no-repeat;
 }
+.btn-sm, .btn-group-sm > .btn {
+  --bs-btn-padding-y: 0.3rem;
+  --bs-btn-padding-x: 0.3rem;
+  padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+}
 p {
   word-wrap: break-word;
   word-spacing: normal;
@@ -263,4 +278,47 @@ p {
 }
 .alert {
   --bs-alert-margin-bottom: 0.5rem;
+}
+.table {
+  margin-bottom: 0rem;
+}
+.table td, .table th {
+  color: var(--bs-body-color);
+  white-space: nowrap;
+  padding: .75rem .75rem;
+}
+.table th {
+  background-color: var(--bs-gray-100);
+  letter-spacing: 1px;
+  white-space: nowrap !important;
+  font-weight: bold !important;
+}
+th, td {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+.table-fixed {
+  table-layout: fixed;
+}
+thead input[type="checkbox"], tbody input[type="checkbox"] {
+  margin-top: 0;
+}
+.actions .btn + .btn {
+  margin-left: 0.25rem;
+}
+.actions form {
+  display: inline-block;
+}
+.actions form + form {
+  margin-left: 0.25rem;
+}
+.modal-actions, .actions {
+  border-top: 1px solid var(--bs-border-color);
+  padding-top: 0.5rem;
+}
+.modal-actions .btn {
+  float: right;
+}
+.modal-actions .btn + .btn {
+  margin-right: 0.25rem;
 }
