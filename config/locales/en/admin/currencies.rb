@@ -28,6 +28,11 @@
         },
         edit: {
           title: "Edit currency",
+        },
+        form: {
+          create_currency: "Create currency",
+          update_currency: "Update currency",
+          select_countries: "Select countries",
         }
       }
     }

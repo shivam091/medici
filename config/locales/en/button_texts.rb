@@ -11,6 +11,7 @@
       new: "New",
       create: "Create",
       update: "Update",
+      cancel: "Cancel",
     }
   }
 }
