@@ -61,6 +61,18 @@ class Admin::CountriesController < Admin::BaseController
     end
   end
 
+  # DELETE /admin/countries/:uuid
+  def destroy
+    response = ::Countries::DestroyService.(@country)
+    @country = response.payload[:country]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_countries_path
+  end
+
   private
 
   def country_params
