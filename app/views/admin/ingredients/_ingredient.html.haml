@@ -1,0 +1,30 @@
+= label_tag :selections, "", class: "form-label", data: {select_all_checkbox_target: "count"}
+.table-responsive
+  %table.table.table-striped.table-bordered
+    %thead
+      %tr
+        %th{width: "25px", scope: "col"}#
+        - if @ingredients&.count > 0
+          %th{width: "25px", scope: "col"}
+            = check_box_tag "checkbox", nil, false, class: "form-check-input", data: {select_all_checkbox_target: "selectAllCheckbox"}
+        %th{scope: "col"}= t(".name")
+        %th{scope: "col"}= t(".description")
+        %th{width: "25px", scope: "col"}= t(".actions")
+    %tbody
+      - if @ingredients&.each.with_index(1) do |ingredient, index|
+        %tr
+          %td.fw-bold
+            = (@pagy.offset + index)
+          %td
+            = check_box_tag "ingredient_ids[]", ingredient.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
+          %td.fw-bold= ingredient.name
+          %td= ingredient.description
+          %td.actions
+            = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_ingredient_path(ingredient), class: "btn btn-sm btn-secondary",
+              data: {turbo_frame: :remote_modal}
+            = link_to external_svg_tag("svgs/trash.svg"), admin_ingredient_path(ingredient), class: "btn btn-sm btn-danger",
+              data: {turbo_confirm: t(".delete_ingredient_confirmation_text", ingredient_name: ingredient.name), turbo_method: :delete}
+      - end.empty?
+        %tr
+          %td.fw-bold{colspan: ::Ingredient.columns.count}
+            = t(".no_ingredients_to_display")
