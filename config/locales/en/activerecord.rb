@@ -23,6 +23,27 @@
           mobile_number: "Mobile number",
           unconfirmed_mobile_number: "Unconfirmed mobile number",
         },
+        currency: {
+          name: "Name",
+          iso_code: "Code",
+          symbol: "Symbol",
+          subunit: "Sub unit",
+          subunit_to_unit: "Sub units to unit",
+          symbol_first: "Symbol first",
+          decimal_mark: "Decimal mark",
+          thousands_separator: "Thousands separator",
+          is_active: "Is active",
+          country_ids: "Countries",
+        },
+        country: {
+          name: "Name",
+          iso2: "Alpha-2 code",
+          iso3: "Alpha-3 code",
+          calling_code: "Calling code",
+          has_postal_code: "Has postal code",
+          is_active: "Is active",
+          currency_id: "Currency",
+        },
       },
       help_texts: {
 

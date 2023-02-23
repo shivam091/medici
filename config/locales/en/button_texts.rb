@@ -15,6 +15,9 @@
       new_currency: "New currency",
       create_currency: "Create currency",
       update_currency: "Update currency",
+      new_country: "New country",
+      create_country: "Create country",
+      update_country: "Update country",
     }
   }
 }

@@ -18,7 +18,21 @@
           success: "Currency '%{currency_name}' was successfully destroyed.",
           error: "Currency '%{currency_name}' could not be destroyed.",
         }
-      }
+      },
+      countries: {
+        create: {
+          success: "Country '%{country_name}' was successfully created.",
+          error: "Country could not be created.",
+        },
+        update: {
+          success: "Country '%{country_name}' was successfully updated.",
+          error: "Country could not be updated.",
+        },
+        destroy: {
+          success: "Country '%{country_name}' was successfully destroyed.",
+          error: "Country '%{country_name}' could not be destroyed.",
+        }
+      },
     }
   }
 }
