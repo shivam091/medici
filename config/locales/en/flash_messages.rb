@@ -33,6 +33,20 @@
           error: "Country '%{country_name}' could not be destroyed.",
         }
       },
+      medicine_categories: {
+        create: {
+          success: "Medicine category '%{medicine_category_name}' was successfully created.",
+          error: "Medicine category could not be created.",
+        },
+        update: {
+          success: "Medicine category '%{medicine_category_name}' was successfully updated.",
+          error: "Medicine category could not be updated.",
+        },
+        destroy: {
+          success: "Medicine category '%{medicine_category_name}' was successfully destroyed.",
+          error: "Medicine category '%{medicine_category_name}' could not be destroyed.",
+        }
+      },
     }
   }
 }

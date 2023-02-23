@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       resource :dashboard
 
       resources :countries, except: :show, param: :uuid
+      resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories"
     end
 
     namespace :cashier do
