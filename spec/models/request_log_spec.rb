@@ -2,8 +2,9 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-require 'rails_helper'
+# spec/models/request_log_spec.rb
+
+require "spec_helper"
 
 RSpec.describe RequestLog, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
 end

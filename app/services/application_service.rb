@@ -8,4 +8,9 @@ class ApplicationService
       new(*args, &block).call
     end
   end
+
+  def t(key, options = {})
+    options.reverse_merge!(scope: "flash_messages")
+    I18n.t(key, **options)
+  end
 end

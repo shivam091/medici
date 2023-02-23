@@ -1,0 +1,12 @@
+= turbo_frame_tag :remote_modal do
+  = tag.div class: "modal fade #{position_class}", id: "modal-window", tabindex: "-1",
+    role: "dialog", aria: {labelledby: "modalWindow", hidden: false},
+    data: {controller: "remote-modal", action: "turbo:before-render@document->remote-modal#hideBeforeRender"} do
+    = tag.div class: "modal-dialog #{dialog_class} modal-dialog-centered justify-content-center" do
+      = tag.div class: "modal-content" do
+        - if title.present?
+          = tag.div class: "modal-header" do
+            = tag.h5 class: "modal-title" do
+              = title
+        = tag.div class: "modal-body", id: "remote-modal-body" do
+          = yield
