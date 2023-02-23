@@ -3,6 +3,8 @@
 # -*- warn_indent: true -*-
 
 module ApplicationHelper
+  include Pagy::Frontend
+
   def render_if_exists(partial = nil, **options)
     return unless partial_exists?(partial || options[:partial])
 
