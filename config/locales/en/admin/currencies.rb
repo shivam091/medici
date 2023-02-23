@@ -10,7 +10,6 @@
           title: "Currencies",
           active: "Active",
           inactive: "Inactive",
-          new_currency: "New currency"
         },
         currency: {
           name: "Name",
@@ -30,8 +29,6 @@
           title: "Edit currency",
         },
         form: {
-          create_currency: "Create currency",
-          update_currency: "Update currency",
           select_countries: "Select countries",
         }
       }

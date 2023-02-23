@@ -12,6 +12,9 @@
       create: "Create",
       update: "Update",
       cancel: "Cancel",
+      new_currency: "New currency",
+      create_currency: "Create currency",
+      update_currency: "Update currency",
     }
   }
 }
