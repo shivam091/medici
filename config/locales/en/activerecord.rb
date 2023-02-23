@@ -44,8 +44,14 @@
           is_active: "Is active",
           currency_id: "Currency",
         },
+        ingredient: {
+          name: "Name",
+          description: "Description",
+          is_active: "Is active",
+        },
         dosage_form: {
           name: "Name",
+          is_active: "Is active",
         },
         medicine_category: {
           name: "Name",
