@@ -4,6 +4,8 @@
 
 class Admin::CurrenciesController < Admin::BaseController
 
+  before_action :find_currency, except: [:index, :new, :create]
+
   # GET /admin/currencies
   def index
     @currencies = ::Currency.active.includes(:countries)
@@ -35,7 +37,35 @@ class Admin::CurrenciesController < Admin::BaseController
     end
   end
 
+  # GET /admin/currencies/:uuid/edit
+  def edit
+  end
+
+  # PUT/PATCH /admin/currencies/:uuid
+  def update
+    response = ::Currencies::UpdateService.(@currency, currency_params)
+    @currency = response.payload[:currency]
+    if response.success?
+      flash[:notice] = response.message
+      redirect_to admin_currencies_path
+    else
+      flash.now[:alert] = response.message
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(:currency_form, partial: "admin/currencies/form"),
+            render_flash
+          ], status: :unprocessable_entity
+        end
+      end
+    end
+  end
+
   private
+
+  def find_currency
+    @currency = ::Currency.find(params.fetch(:uuid))
+  end
 
   def currency_params
     params.require(:currency).permit(
