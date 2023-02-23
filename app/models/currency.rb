@@ -10,4 +10,10 @@ class Currency < ApplicationRecord
   has_many :countries, dependent: :nullify
 
   default_scope -> { order(arel_table[:iso_code].asc) }
+
+  class << self
+    def select_options
+      active.pluck(:name, :id)
+    end
+  end
 end

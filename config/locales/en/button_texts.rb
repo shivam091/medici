@@ -8,6 +8,12 @@
       sign_in: "Sign in",
       continue: "Continue",
       save_changes: "Save changes",
+      new: "New",
+      create: "Create",
+      update: "Update",
+      new_country: "New country",
+      create_country: "Create country",
+      update_country: "Update country",
     }
   }
 }
