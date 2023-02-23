@@ -10,7 +10,6 @@
           title: "Countries",
           active: "Active",
           inactive: "Inactive",
-          new_country: "New country"
         },
         country: {
           name: "Name",
@@ -30,8 +29,6 @@
           title: "Edit country",
         },
         form: {
-          create_country: "Create country",
-          update_country: "Update country",
           select_currency: "Select currency",
         }
       }
