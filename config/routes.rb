@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     namespace :admin do
       resource :dashboard
 
+      resources :currencies, except: :show, param: :uuid
       resources :countries, except: :show, param: :uuid
       resources :ingredients, except: :show, param: :uuid
       resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms"

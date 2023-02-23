@@ -10,7 +10,6 @@
           title: "Currencies",
           active: "Active",
           inactive: "Inactive",
-          new_currency: "New currency"
         },
         currency: {
           name: "Name",
@@ -28,6 +27,9 @@
         },
         edit: {
           title: "Edit currency",
+        },
+        form: {
+          select_countries: "Select countries",
         }
       }
     }

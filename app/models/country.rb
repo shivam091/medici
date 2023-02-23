@@ -15,4 +15,10 @@ class Country < ApplicationRecord
   delegate :name, :iso_code, :symbol, to: :currency, prefix: true
 
   default_scope -> { order(arel_table[:iso2].asc) }
+
+  class << self
+    def select_options
+      active.pluck(:name, :id)
+    end
+  end
 end
