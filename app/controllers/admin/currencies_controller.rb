@@ -61,6 +61,18 @@ class Admin::CurrenciesController < Admin::BaseController
     end
   end
 
+  # DELETE /admin/currencies/:uuid
+  def destroy
+    response = ::Currencies::DestroyService.(@currency)
+    @currency = response.payload[:currency]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_currencies_path
+  end
+
   private
 
   def find_currency
