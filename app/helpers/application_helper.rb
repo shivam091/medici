@@ -5,14 +5,8 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  def render_if_exists(partial = nil, **options)
-    return unless partial_exists?(partial || options[:partial])
-
-    if partial.nil?
-      render(**options)
-    else
-      render(partial, options)
-    end
+  def render_if_exists(partial, locals: {}, &block)
+    render(partial, locals, &block) if partial_exists?(partial)
   end
 
   def partial_exists?(partial)
