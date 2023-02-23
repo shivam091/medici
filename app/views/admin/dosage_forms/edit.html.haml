@@ -1,0 +1,3 @@
+= render_modal(title: t(".title")) do
+  = turbo_frame_tag :dosage_form_form do
+    = render_if_exists "admin/dosage_forms/form"
