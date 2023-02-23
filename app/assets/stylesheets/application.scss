@@ -322,3 +322,12 @@ thead input[type="checkbox"], tbody input[type="checkbox"] {
 .modal-actions .btn + .btn {
   margin-right: 0.25rem;
 }
+#main-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
+footer {
+  margin-top: auto;
+}
