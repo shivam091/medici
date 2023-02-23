@@ -44,6 +44,11 @@
           is_active: "Is active",
           currency_id: "Currency",
         },
+        medicine_category: {
+          name: "Name",
+          description: "Description",
+          is_active: "Is active",
+        },
       },
       help_texts: {
 
