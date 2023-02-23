@@ -33,6 +33,20 @@
           error: "Country '%{country_name}' could not be destroyed.",
         }
       },
+      dosage_forms: {
+        create: {
+          success: "Dosage form '%{dosage_form_name}' was successfully created.",
+          error: "Dosage form could not be created.",
+        },
+        update: {
+          success: "Dosage form '%{dosage_form_name}' was successfully updated.",
+          error: "Dosage form could not be updated.",
+        },
+        destroy: {
+          success: "Dosage form '%{dosage_form_name}' was successfully destroyed.",
+          error: "Dosage form '%{dosage_form_name}' could not be destroyed.",
+        }
+      },
     }
   }
 }
