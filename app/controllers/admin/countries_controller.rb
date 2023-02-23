@@ -4,6 +4,8 @@
 
 class Admin::CountriesController < Admin::BaseController
 
+  before_action :find_country, except: [:index, :new, :create]
+
   # GET /admin/countries
   def index
     @countries = ::Country.active.includes(:currency)
@@ -35,6 +37,30 @@ class Admin::CountriesController < Admin::BaseController
     end
   end
 
+  # GET /admin/countries/:uuid/edit
+  def edit
+  end
+
+  # PUT/PATCH /admin/countries/:uuid
+  def update
+    response = ::Countries::UpdateService.(@country, country_params)
+    @country = response.payload[:country]
+    if response.success?
+      flash[:notice] = response.message
+      redirect_to admin_countries_path
+    else
+      flash.now[:alert] = response.message
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(:country_form, partial: "admin/countries/form"),
+            render_flash
+          ], status: :unprocessable_entity
+        end
+      end
+    end
+  end
+
   private
 
   def country_params
@@ -47,5 +73,9 @@ class Admin::CountriesController < Admin::BaseController
       :is_active,
       :currency_id
     )
+  end
+
+  def find_country
+    @country = ::Country.find(params.fetch(:uuid))
   end
 end
