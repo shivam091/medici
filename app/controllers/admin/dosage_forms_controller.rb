@@ -61,6 +61,18 @@ class Admin::DosageFormsController < Admin::BaseController
     end
   end
 
+  # DELETE /admin/dosage-forms/:uuid
+  def destroy
+    response = ::DosageForms::DestroyService.(@dosage_form)
+    @dosage_form = response.payload[:dosage_form]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_dosage_forms_path
+  end
+
   private
 
   def dosage_form_params
