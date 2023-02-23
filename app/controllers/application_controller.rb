@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
   layout proc { false if request.xhr? }
 
   include InternalRedirect,
-          WithoutTimestamps
+          WithoutTimestamps,
+          Pagy::Backend
 
   def render_flash
     turbo_stream.update(:flash, partial: "shared/flash_messages")
