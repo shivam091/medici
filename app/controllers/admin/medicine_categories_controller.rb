@@ -61,6 +61,18 @@ class Admin::MedicineCategoriesController < Admin::BaseController
     end
   end
 
+  # DELETE /admin/medicine-categories/:uuid
+  def destroy
+    response = ::MedicineCategories::DestroyService.(@medicine_category)
+    @medicine_category = response.payload[:medicine_category]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_medicine_categories_path
+  end
+
   private
 
   def medicine_category_params
