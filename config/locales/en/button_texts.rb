@@ -14,6 +14,9 @@
       new_country: "New country",
       create_country: "Create country",
       update_country: "Update country",
+      new_ingredient: "New ingredient",
+      create_ingredient: "Create ingredient",
+      update_ingredient: "Update ingredient",
     }
   }
 }
