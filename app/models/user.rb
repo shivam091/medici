@@ -38,6 +38,7 @@ class User < ApplicationRecord
             if: proc { password.present? }
 
   has_many :request_logs, dependent: :nullify
+  has_many :audit_trails, dependent: :nullify
 
   belongs_to :role
 

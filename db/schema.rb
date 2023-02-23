@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_23_021957) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_23_045143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -38,6 +38,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_021957) do
     t.check_constraint "char_length(region::text) <= 100", name: "chk_26dd3e9819"
     t.check_constraint "city IS NOT NULL AND city::text <> ''::text", name: "chk_6c705ebe2e"
     t.check_constraint "country_id IS NOT NULL", name: "chk_f7e0314437"
+  end
+
+  create_table "audit_trails", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "auditable_type"
+    t.uuid "auditable_id"
+    t.string "associated_type"
+    t.uuid "associated_id"
+    t.uuid "user_id"
+    t.string "action"
+    t.string "request_uuid"
+    t.string "remote_ip"
+    t.jsonb "audited_changes", default: "{}"
+    t.integer "version"
+    t.timestamptz "created_at"
+    t.index ["associated_type", "associated_id"], name: "index_audit_trails_on_associated"
+    t.index ["auditable_type", "auditable_id"], name: "index_audit_trails_on_auditable"
+    t.index ["audited_changes"], name: "index_audit_trails_on_audited_changes", using: :gin
+    t.index ["remote_ip"], name: "index_audit_trails_on_remote_ip"
+    t.index ["request_uuid"], name: "index_audit_trails_on_request_uuid", unique: true
+    t.index ["user_id"], name: "index_audit_trails_on_user_id"
+    t.check_constraint "action IS NOT NULL AND action::text <> ''::text", name: "chk_9761ac2e4e"
+    t.check_constraint "action::text = ANY (ARRAY['create'::character varying, 'update'::character varying, 'delete'::character varying]::text[])", name: "chk_ee324baa3b"
+    t.check_constraint "remote_ip IS NOT NULL AND remote_ip::text <> ''::text", name: "chk_909a45ecc0"
+    t.check_constraint "request_uuid IS NOT NULL AND request_uuid::text <> ''::text", name: "chk_71b0d7673b"
   end
 
   create_table "countries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -210,6 +234,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_021957) do
   end
 
   add_foreign_key "addresses", "countries", name: "fk_addresses_country_id_on_countries", on_delete: :restrict
+  add_foreign_key "audit_trails", "users", name: "fk_audit_trails_user_id_on_users", on_delete: :nullify
   add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
