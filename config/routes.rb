@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     namespace :admin do
       resource :dashboard
+
+      resources :currencies, except: :show, param: :uuid
     end
 
     namespace :cashier do
