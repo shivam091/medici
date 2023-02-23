@@ -61,6 +61,18 @@ class Admin::IngredientsController < Admin::BaseController
     end
   end
 
+  # DELETE /admin/ingredients/:uuid
+  def destroy
+    response = ::Ingredients::DestroyService.(@ingredient)
+    @ingredient = response.payload[:ingredient]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_ingredients_path
+  end
+
   private
 
   def ingredient_params
