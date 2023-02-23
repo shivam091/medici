@@ -4,6 +4,8 @@
 
 class Admin::MedicineCategoriesController < Admin::BaseController
 
+  before_action :find_medicine_category, except: [:index, :new, :create]
+
   # GET /admin/medicine-categories
   def index
     @medicine_categories = ::MedicineCategory.active
@@ -35,6 +37,30 @@ class Admin::MedicineCategoriesController < Admin::BaseController
     end
   end
 
+  # GET /admin/medicine-categories/:uuid/edit
+  def edit
+  end
+
+  # PUT/PATCH /admin/medicine-categories/:uuid
+  def update
+    response = ::MedicineCategories::UpdateService.(@medicine_category, medicine_category_params)
+    @medicine_category = response.payload[:medicine_category]
+    if response.success?
+      flash[:notice] = response.message
+      redirect_to admin_medicine_categories_path
+    else
+      flash.now[:alert] = response.message
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(:medicine_category_form, partial: "admin/medicine_categories/form"),
+            render_flash
+          ], status: :unprocessable_entity
+        end
+      end
+    end
+  end
+
   private
 
   def medicine_category_params
@@ -43,5 +69,9 @@ class Admin::MedicineCategoriesController < Admin::BaseController
       :description,
       :is_active,
     )
+  end
+
+  def find_medicine_category
+    @medicine_category = ::MedicineCategory.find(params.fetch(:uuid))
   end
 end
