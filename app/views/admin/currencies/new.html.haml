@@ -1,0 +1,3 @@
+= render_modal(title: t(".title"), size: :lg) do
+  = turbo_frame_tag :currency_form do
+    = render_if_exists "admin/currencies/form"

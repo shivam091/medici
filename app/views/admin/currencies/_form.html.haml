@@ -1,0 +1,31 @@
+= bootstrap_form_with model: [:admin, @currency] do |form|
+  .row.row-cols-1.row-cols-lg-2
+    = form.text_field :name, data: {controller: "autofocus"}
+    = form.text_field :iso_code
+  .row.row-cols-1.row-cols-lg-2
+    = form.text_field :symbol
+    = form.text_field :subunit
+  .row.row-cols-1.row-cols-lg-2
+    = form.text_field :subunit_to_unit
+    = form.text_field :decimal_mark
+  .row.row-cols-1.row-cols-lg-2
+    = form.text_field :thousands_separator
+    = form.select :country_ids, options_for_select(::Country.select_options, form.object.country_ids),
+      {include_blank: "Select countries"}, multiple: true, rows: 1
+  .row.row-cols-1.row-cols-lg-2
+    = form.check_box :symbol_first, switch: true
+    = form.check_box :is_active, switch: true
+  .modal-actions
+    - if form.object.new_record?
+      = button_tag type: :submit, class: "btn btn-primary" do
+        = external_svg_tag("svgs/plus.svg")
+        Add
+        %span.d-none.d-lg-block currency
+    - if form.object.persisted?
+      = button_tag type: :submit, class: "btn btn-primary" do
+        = external_svg_tag("svgs/floppy.svg")
+        Update
+        %span.d-none.d-lg-block currency
+    = button_tag type: :button, class: "btn btn-secondary", data: {action: "click->remote-modal#hide"} do
+      = external_svg_tag("svgs/cancel.svg")
+      Cancel
