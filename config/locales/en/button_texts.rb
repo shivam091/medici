@@ -17,6 +17,12 @@
       new_ingredient: "New ingredient",
       create_ingredient: "Create ingredient",
       update_ingredient: "Update ingredient",
+      new_dosage_form: "New dosage form",
+      create_dosage_form: "Create dosage form",
+      update_dosage_form: "Update dosage form",
+      new_medicine_category: "New medicine category",
+      create_medicine_category: "Create medicine category",
+      update_medicine_category: "Update medicine category",
     }
   }
 }
