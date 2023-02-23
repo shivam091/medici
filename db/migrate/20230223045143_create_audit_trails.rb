@@ -24,9 +24,9 @@ class CreateAuditTrails < Medici::Database::Migration[1.0]
       t.not_null_and_empty_constraint :request_uuid
       t.not_null_and_empty_constraint :remote_ip
 
-      t.inclusion_constraint :action, in: %i(create update delete)
+      t.inclusion_constraint :action, in: %i(create update destroy)
 
-      t.timestamptz :created_at
+      t.timestamptz :created_at, null: false
     end
   end
 end

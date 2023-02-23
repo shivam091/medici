@@ -51,7 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_045143) do
     t.string "remote_ip"
     t.jsonb "audited_changes", default: "{}"
     t.integer "version"
-    t.timestamptz "created_at"
+    t.timestamptz "created_at", null: false
     t.index ["associated_type", "associated_id"], name: "index_audit_trails_on_associated"
     t.index ["auditable_type", "auditable_id"], name: "index_audit_trails_on_auditable"
     t.index ["audited_changes"], name: "index_audit_trails_on_audited_changes", using: :gin
@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_045143) do
     t.index ["request_uuid"], name: "index_audit_trails_on_request_uuid", unique: true
     t.index ["user_id"], name: "index_audit_trails_on_user_id"
     t.check_constraint "action IS NOT NULL AND action::text <> ''::text", name: "chk_9761ac2e4e"
-    t.check_constraint "action::text = ANY (ARRAY['create'::character varying, 'update'::character varying, 'delete'::character varying]::text[])", name: "chk_ee324baa3b"
+    t.check_constraint "action::text = ANY (ARRAY['create'::character varying, 'update'::character varying, 'destroy'::character varying]::text[])", name: "chk_ee324baa3b"
     t.check_constraint "remote_ip IS NOT NULL AND remote_ip::text <> ''::text", name: "chk_909a45ecc0"
     t.check_constraint "request_uuid IS NOT NULL AND request_uuid::text <> ''::text", name: "chk_71b0d7673b"
   end
