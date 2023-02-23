@@ -46,6 +46,10 @@
         },
         dosage_form: {
           name: "Name",
+        },
+        medicine_category: {
+          name: "Name",
+          description: "Description",
           is_active: "Is active",
         },
       },
