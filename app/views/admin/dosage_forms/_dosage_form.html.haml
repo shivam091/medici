@@ -1,0 +1,28 @@
+= label_tag :selections, "", class: "form-label", data: {select_all_checkbox_target: "count"}
+.table-responsive
+  %table.table.table-striped.table-bordered
+    %thead
+      %tr
+        %th{width: "25px", scope: "col"}#
+        - if @dosage_forms&.count > 0
+          %th{width: "25px", scope: "col"}
+            = check_box_tag "checkbox", nil, false, class: "form-check-input", data: {select_all_checkbox_target: "selectAllCheckbox"}
+        %th{scope: "col"}= t(".name")
+        %th{width: "25px", scope: "col"}= t(".actions")
+    %tbody
+      - if @dosage_forms&.each.with_index(1) do |dosage_form, index|
+        %tr
+          %td.fw-bold
+            = (@pagy.offset + index)
+          %td
+            = check_box_tag "dosage_form_ids[]", dosage_form.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
+          %td.fw-bold= dosage_form.name
+          %td.actions
+            = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_dosage_form_path(dosage_form), class: "btn btn-sm btn-secondary",
+              data: {turbo_frame: :remote_modal}
+            = link_to external_svg_tag("svgs/trash.svg"), admin_dosage_form_path(dosage_form), class: "btn btn-sm btn-danger",
+              data: {turbo_confirm: t(".delete_dosage_form_confirmation_text", dosage_form_name: dosage_form.name), turbo_method: :delete}
+      - end.empty?
+        %tr
+          %td.fw-bold{colspan: ::DosageForm.columns.count}
+            = t(".no_dosage_forms_to_display")
