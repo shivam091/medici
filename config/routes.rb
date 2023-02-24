@@ -40,5 +40,9 @@ Rails.application.routes.draw do
     namespace :cashier do
       resource :dashboard
     end
+
+    namespace :manager do
+      resource :dashboard
+    end
   end
 end
