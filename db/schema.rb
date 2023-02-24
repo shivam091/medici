@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_24_154433) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_24_154909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -211,11 +211,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_24_154433) do
     t.boolean "is_banned", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.uuid "store_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mobile_number"], name: "index_users_on_mobile_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
+    t.index ["store_id"], name: "index_users_on_store_id"
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.check_constraint "char_length(first_name::text) <= 55", name: "chk_c231bcb127"
     t.check_constraint "char_length(last_name::text) <= 55", name: "chk_2123b67efb"
@@ -233,4 +235,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_24_154433) do
   add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
+  add_foreign_key "users", "stores", name: "fk_users_store_id_on_stores", on_delete: :cascade
 end
