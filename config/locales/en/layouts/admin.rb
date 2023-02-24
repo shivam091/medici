@@ -27,6 +27,7 @@
           suppliers: "Suppliers",
           sales: "Sales",
           reports: "Reports",
+          stores: "Stores",
         },
         footer: {
           medicines: "Medicines",
