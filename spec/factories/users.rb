@@ -19,10 +19,19 @@ FactoryBot.define do
       association :role, factory: :admin_role
     end
 
+    factory :manager, parent: :user do
+      email { "manager@medici.com" }
+      mobile_number { "+911234567890" }
+
+      store { ::Store.first || association(:store) }
+      association :role, factory: :manager_role
+    end
+
     factory :cashier, parent: :user do
       email { "cashier@medici.com" }
       mobile_number { "+918879001262" }
 
+      store { ::Store.first || association(:store) }
       association :role, factory: :cashier_role
     end
 
