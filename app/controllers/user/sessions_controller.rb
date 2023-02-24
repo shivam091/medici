@@ -52,6 +52,8 @@ class User::SessionsController < Devise::SessionsController
       stored_location_for(:user) || admin_dashboard_path
     elsif resource.cashier?
       stored_location_for(:user) || cashier_dashboard_path
+    elsif resource.manager?
+      stored_location_for(:user) || manager_dashboard_path
     else
     end
   end

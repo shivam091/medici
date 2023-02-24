@@ -10,6 +10,8 @@ Medici::Application.configure do
 
     Admin::BaseController.layout           "admin"
 
-    Cashier::BaseController.layout         "cashier"  
+    Cashier::BaseController.layout         "cashier"
+
+    Manager::BaseController.layout         "manager"  
   end
 end
