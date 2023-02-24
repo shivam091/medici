@@ -7,5 +7,7 @@ class Store < ApplicationRecord
 
   attribute :is_active, default: false
 
+  has_many :users, dependent: :destroy
+
   default_scope -> { order_name_asc }
 end
