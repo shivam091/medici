@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_23_021957) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_24_154433) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -160,6 +160,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_021957) do
     t.index ["name"], name: "index_roles_on_name", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_859b734ae2"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_ac03779a47"
+  end
+
+  create_table "stores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "phone_number"
+    t.string "fax_number"
+    t.boolean "is_active", default: false
+    t.string "registration_number"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["email"], name: "index_stores_on_email", unique: true
+    t.index ["phone_number"], name: "index_stores_on_phone_number", unique: true
+    t.check_constraint "char_length(email::text) <= 55", name: "chk_0966276692"
+    t.check_constraint "char_length(fax_number::text) <= 32", name: "chk_55cbeaf1bf"
+    t.check_constraint "char_length(phone_number::text) <= 32", name: "chk_304d33223a"
+    t.check_constraint "email IS NOT NULL AND email::text <> ''::text", name: "chk_fc84f48d5e"
+    t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_8f1459e838"
+    t.check_constraint "phone_number IS NOT NULL AND phone_number::text <> ''::text", name: "chk_2d9bb89816"
+    t.check_constraint "registration_number IS NOT NULL AND registration_number::text <> ''::text", name: "chk_48a4cf1224"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
