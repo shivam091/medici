@@ -16,12 +16,28 @@
               = t(".home")
           %li.nav-item
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
+              = external_svg_tag("svgs/users.svg")
+              = t(".cashiers")
+          %li.nav-item
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
+              = external_svg_tag("svgs/medicine.svg")
+              = t(".medicines")
+          %li.nav-item
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
+              = external_svg_tag("svgs/medicine-bag.svg")
+              = t(".suppliers")
+          %li.nav-item
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
               = external_svg_tag("svgs/monitoring-dashboard.svg")
               = t(".sales")
           %li.nav-item
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
               = external_svg_tag("svgs/report.svg")
               = t(".daily_sales")
+          %li.nav-item
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
+              = external_svg_tag("svgs/report.svg")
+              = t(".reports")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
           %li.nav-item.dropdown
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1 dropdown-toggle",
@@ -32,6 +48,8 @@
                 %h6.dropdown-header.fw-bold= t(".your_account")
               %li
                 = link_to t(".your_profile"), "javascript:void(0)", class: "dropdown-item"
+              %li
+                = link_to t(".your_store_details"), "javascript:void(0)", class: "dropdown-item"
               %li.dropdown-divider
               %li
                 = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
@@ -46,6 +64,8 @@
                 %h6.dropdown-header.fw-bold= t(".your_account")
               %li
                 = link_to t(".your_profile"), "javascript:void(0)", class: "dropdown-item"
+              %li
+                = link_to t(".your_store_details"), "javascript:void(0)", class: "dropdown-item"
               %li.dropdown-divider
               %li
                 = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}

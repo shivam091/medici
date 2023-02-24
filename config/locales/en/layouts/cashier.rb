@@ -16,6 +16,8 @@
           sign_up: "Sign up",
           your_account: "Your account",
           your_profile: "Your profile",
+          sales: "Sales",
+          daily_sales: "Daily sales",
         },
         footer: {
           copyright_notice: "&copy; %{copyright_years}, Medici LLP or its affiliates, all rights reserved."

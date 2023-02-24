@@ -28,6 +28,7 @@
           sales: "Sales",
           reports: "Reports",
           stores: "Stores",
+          managers: "Managers",
         },
         footer: {
           medicines: "Medicines",
