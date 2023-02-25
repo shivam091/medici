@@ -31,7 +31,7 @@ module SuppliersShared
           respond_to do |format|
             format.turbo_stream do
               render turbo_stream: [
-                turbo_stream.update(:supplier_form, partial: "admin/suppliers/form"),
+                turbo_stream.update(:supplier_form, partial: "suppliers/form"),
                 render_flash
               ], status: :unprocessable_entity
             end

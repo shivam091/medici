@@ -24,9 +24,9 @@
           %td= supplier.phone_number
           %td= supplier.country_name
           %td.actions
-            = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_supplier_path(supplier), class: "btn btn-sm btn-secondary",
+            = link_to external_svg_tag("svgs/pencil.svg"), edit_supplier_path(supplier), class: "btn btn-sm btn-secondary",
               data: {turbo_frame: :remote_modal}
-            = link_to external_svg_tag("svgs/trash.svg"), admin_supplier_path(supplier), class: "btn btn-sm btn-danger",
+            = link_to external_svg_tag("svgs/trash.svg"), supplier_path(supplier), class: "btn btn-sm btn-danger",
               data: {turbo_confirm: t(".delete_supplier_confirmation_text", supplier_name: supplier.name), turbo_method: :delete}
       - end.empty?
         %tr
