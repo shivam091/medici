@@ -66,6 +66,18 @@ module SuppliersShared
           end
         end
       end
+
+      # DELETE /(admin|manager)/suppliers/:uuid
+      def destroy
+        response = ::Suppliers::DestroyService.(@supplier)
+        @supplier = response.payload[:supplier]
+        if response.success?
+          flash[:info] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.suppliers_path
+      end
     end
   end
 
