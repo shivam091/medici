@@ -34,6 +34,9 @@
       new_store: "New store",
       create_store: "Create store",
       update_store: "Update store",
+      new_packing_type: "New packing type",
+      create_packing_type: "Create packing type",
+      update_packing_type: "Update packing type",
     }
   }
 }
