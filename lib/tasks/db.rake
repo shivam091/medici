@@ -15,6 +15,7 @@ namespace :medici do
         Rake::Task["medici:db:seed_currencies"].invoke
         Rake::Task["medici:db:seed_countries"].invoke
         Rake::Task["medici:db:seed_medicine_categories"].invoke
+        Rake::Task["medici:db:seed_dosage_forms"].invoke
       rescue Exception => e
         raise "Database population is aborted due to internal errors!"
       end
