@@ -3,10 +3,10 @@
     .d-flex.justify-content-between.align-items-center
       %ul.nav.nav-pills.flex-column.flex-lg-row.nav-justified
         %li.nav-item
-          = link_to t(".active"), admin_suppliers_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
+          = link_to t(".active"), suppliers_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
         %li.nav-item
           = link_to t(".inactive"), "javascript:void(0)", class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
-      = link_to new_admin_supplier_path, class: "btn btn-primary" do
+      = link_to new_supplier_path, class: "btn btn-primary" do
         = external_svg_tag("svgs/plus.svg")
         %span.d-block.d-lg-none= button_text(:new)
         %span.d-none.d-lg-block= button_text(:new_supplier)
