@@ -75,6 +75,20 @@
           error: "Medicine category '%{medicine_category_name}' could not be destroyed.",
         }
       },
+      suppliers: {
+        create: {
+          success: "Supplier '%{supplier_name}' was successfully created.",
+          error: "Supplier could not be created.",
+        },
+        update: {
+          success: "Supplier '%{supplier_name}' was successfully updated.",
+          error: "Supplier could not be updated.",
+        },
+        destroy: {
+          success: "Supplier '%{supplier_name}' was successfully destroyed.",
+          error: "Supplier '%{supplier_name}' could not be destroyed.",
+        }
+      },
     }
   }
 }
