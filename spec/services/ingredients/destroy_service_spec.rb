@@ -7,9 +7,4 @@
 require "spec_helper"
 
 RSpec.describe Ingredients::DestroyService, type: :service do
-  context "doing something" do
-    it "should test something" do
-      skip
-    end
-  end
 end
