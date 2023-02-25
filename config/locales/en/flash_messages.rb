@@ -103,6 +103,20 @@
           error: "Store '%{store_name}' could not be destroyed.",
         }
       },
+      packing_types: {
+        create: {
+          success: "Packing type '%{packing_type_name}' was successfully created.",
+          error: "Packing type could not be created.",
+        },
+        update: {
+          success: "Packing type '%{packing_type_name}' was successfully updated.",
+          error: "Packing type could not be updated.",
+        },
+        destroy: {
+          success: "Packing type '%{packing_type_name}' was successfully destroyed.",
+          error: "Packing type '%{packing_type_name}' could not be destroyed.",
+        }
+      },
     }
   }
 }
