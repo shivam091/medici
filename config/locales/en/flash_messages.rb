@@ -89,6 +89,20 @@
           error: "Supplier '%{supplier_name}' could not be destroyed.",
         }
       },
+      stores: {
+        create: {
+          success: "Store '%{store_name}' was successfully created.",
+          error: "Store could not be created.",
+        },
+        update: {
+          success: "Store '%{store_name}' was successfully updated.",
+          error: "Store could not be updated.",
+        },
+        destroy: {
+          success: "Store '%{store_name}' was successfully destroyed.",
+          error: "Store '%{store_name}' could not be destroyed.",
+        }
+      },
     }
   }
 }

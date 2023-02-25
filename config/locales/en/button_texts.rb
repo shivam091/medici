@@ -31,6 +31,9 @@
       new_supplier: "New supplier",
       create_supplier: "Create supplier",
       update_supplier: "Update supplier",
+      new_store: "New store",
+      create_store: "Create store",
+      update_store: "Update store",
     }
   }
 }
