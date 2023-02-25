@@ -61,6 +61,18 @@ class Admin::StoresController < Admin::BaseController
     end
   end
 
+  # DELETE /admin/stores/:uuid
+  def destroy
+    response = ::Stores::DestroyService.(@store)
+    @store = response.payload[:store]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_stores_path
+  end
+
   private
 
   def find_store
