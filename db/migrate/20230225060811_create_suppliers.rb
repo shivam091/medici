@@ -10,6 +10,14 @@ class CreateSuppliers < Medici::Database::Migration[1.0]
       t.string :phone_number, index: {using: :btree, unique: true}
       t.boolean :is_active, default: false
 
+      t.not_null_and_empty_constraint :name
+      t.not_null_and_empty_constraint :email
+      t.not_null_and_empty_constraint :phone_number
+
+      t.length_constraint :name, less_than_or_equal_to: 110
+      t.length_constraint :email, less_than_or_equal_to: 55
+      t.length_constraint :phone_number, less_than_or_equal_to: 32
+
       t.timestamps_with_timezone null: false
     end
   end
