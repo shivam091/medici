@@ -4,21 +4,44 @@
 
 FactoryBot.define do
   factory :store do
-    name { "Pharmacy" }
-    email { "pharmacy@example.com" }
-    phone_number { "+911234567890" }
-    fax_number { "+911234567890" }
-    registration_number { "1234567890" }
+    factory :main_store, parent: :store do
+      name { "Pharmacy store" }
+      email { "pharmacy_store@medici.com" }
+      phone_number { "+911234567890" }
+      fax_number { "+911234567890" }
+      registration_number { "1234567890" }
+      is_main_store { true }
 
-    trait :with_manager do
-      after(:create) do |store|
-        store.users << create(:manager, :confirmed, :active)
+      trait :with_manager do
+        after(:create) do |store|
+          store.users << create(:main_store_manager, :confirmed, :active)
+        end
+      end
+
+      trait :with_cashier do
+        after(:create) do |store|
+          store.users << create(:main_store_cashier, :confirmed, :active)
+        end
       end
     end
 
-    trait :with_cashier do
-      after(:create) do |store|
-        store.users << create(:cashier, :confirmed, :active)
+    factory :mini_store, parent: :store do
+      name { "Pharmacy mini store" }
+      email { "pharmacy_mini_store@medici.com" }
+      phone_number { "+910987654321" }
+      fax_number { "+910987654321" }
+      registration_number { "0987654321" }
+
+      trait :with_manager do
+        after(:create) do |store|
+          store.users << create(:mini_store_manager, :confirmed, :active)
+        end
+      end
+
+      trait :with_cashier do
+        after(:create) do |store|
+          store.users << create(:mini_store_cashier, :confirmed, :active)
+        end
       end
     end
 
