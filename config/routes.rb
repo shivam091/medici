@@ -41,6 +41,8 @@ Rails.application.routes.draw do
       resources :ingredients, except: :show, param: :uuid
       resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms"
       resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories"
+
+      resources :stores, param: :uuid
     end
 
     namespace :cashier do
