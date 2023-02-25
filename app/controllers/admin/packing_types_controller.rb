@@ -61,6 +61,18 @@ class Admin::PackingTypesController < Admin::BaseController
     end
   end
 
+  # DELETE /admin/packing-types/:uuid
+  def destroy
+    response = ::PackingTypes::DestroyService.(@packing_type)
+    @packing_type = response.payload[:packing_type]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_packing_types_path
+  end
+
   private
 
   def packing_type_params
