@@ -22,17 +22,21 @@
             %ul.dropdown-menu
               %li
                 = link_to "javascript:void(0)", class: "dropdown-item" do
-                  = t(".admins")
+                  = t(".managers")
               %li
                 = link_to "javascript:void(0)", class: "dropdown-item" do
                   = t(".cashiers")
+          %li.nav-item
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
+              = external_svg_tag("svgs/store.svg")
+              = t(".stores")
           %li.nav-item
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
               = external_svg_tag("svgs/medicine.svg")
               = t(".medicines")
           %li.nav-item
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
-              = external_svg_tag("svgs/medicine-bag.svg")
+              = external_svg_tag("svgs/truck.svg")
               = t(".suppliers")
           %li.nav-item
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do

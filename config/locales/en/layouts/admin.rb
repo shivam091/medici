@@ -11,7 +11,6 @@
           toggle_navigation: "Toggle navigation",
           home: "Home",
           users: "Users",
-          admins: "Admins",
           cashiers: "Cashiers",
           hello_username: "Hello %{username}",
           sign_out: "Sign out",
@@ -27,11 +26,15 @@
           suppliers: "Suppliers",
           sales: "Sales",
           reports: "Reports",
+          stores: "Stores",
+          managers: "Managers",
         },
         footer: {
           medicines: "Medicines",
           sales: "Sales",
           revenue: "Revenue",
+          stores: "Stores",
+          suppliers: "Suppliers",
           copyright_notice: "&copy; %{copyright_years}, Medici LLP or its affiliates, all rights reserved."
         },
       }
