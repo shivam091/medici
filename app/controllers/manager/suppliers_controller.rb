@@ -2,6 +2,6 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class Manager::SuppliersController < ApplicationController
+class Manager::SuppliersController < SuppliersController
   include SuppliersShared
 end

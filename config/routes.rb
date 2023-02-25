@@ -26,8 +26,14 @@ Rails.application.routes.draw do
                registrations: "user/registrations"
              }
 
+  concern :shareable do
+    resources :suppliers, param: :uuid
+  end
+
   devise_scope :user do
     namespace :admin do
+      concerns :shareable
+
       resource :dashboard
 
       resources :currencies, except: :show, param: :uuid
@@ -42,6 +48,8 @@ Rails.application.routes.draw do
     end
 
     namespace :manager do
+      concerns :shareable
+
       resource :dashboard
     end
   end
