@@ -8,6 +8,8 @@ module SuppliersShared
   def self.included(base_class)
     base_class.class_eval do
 
+      before_action :find_supplier, except: [:index, :new, :create]
+
       # GET /(admin|manager)/suppliers
       def index
         @suppliers = ::Supplier.active.includes(:address)
@@ -38,10 +40,40 @@ module SuppliersShared
           end
         end
       end
+
+
+
+      # GET /(admin|manager)/suppliers/:uuid/edit
+      def edit
+      end
+
+      # PUT/PATCH /(admin|manager)/suppliers/:uuid
+      def update
+        response = ::Suppliers::UpdateService.(@supplier, supplier_params)
+        @supplier = response.payload[:supplier]
+        if response.success?
+          flash[:notice] = response.message
+          redirect_to helpers.suppliers_path
+        else
+          flash.now[:alert] = response.message
+          respond_to do |format|
+            format.turbo_stream do
+              render turbo_stream: [
+                turbo_stream.update(:supplier_form, partial: "suppliers/form"),
+                render_flash
+              ], status: :unprocessable_entity
+            end
+          end
+        end
+      end
     end
   end
 
   private
+
+  def find_supplier
+    @supplier = ::Supplier.find(params.fetch(:uuid))
+  end
 
   def supplier_params
     params.require(:supplier).permit(
