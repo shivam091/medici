@@ -8,8 +8,8 @@
           = link_to t(".inactive"), "javascript:void(0)", class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
       = link_to new_admin_packing_type_path, class: "btn btn-primary", data: {turbo_frame: :remote_modal} do
         = external_svg_tag("svgs/plus.svg")
-        %span.d-block.d-lg-none= button_text(:new)
-        %span.d-none.d-lg-block= button_text(:new_packing_type)
+        %span.d-block.d-lg-none= button_text("new")
+        %span.d-none.d-lg-block= button_text("new_packing_type")
   .card-body{data: {controller: "select-all-checkbox"}}
     = render_if_exists("admin/packing_types/packing_type")
   - if @pagy.pages > 1
