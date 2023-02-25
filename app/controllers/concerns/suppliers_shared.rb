@@ -41,8 +41,6 @@ module SuppliersShared
         end
       end
 
-
-
       # GET /(admin|manager)/suppliers/:uuid/edit
       def edit
       end

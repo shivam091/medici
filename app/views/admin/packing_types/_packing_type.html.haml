@@ -1,0 +1,28 @@
+= label_tag :selections, "", class: "form-label", data: {select_all_checkbox_target: "count"}
+.table-responsive
+  %table.table.table-striped.table-bordered
+    %thead
+      %tr
+        %th{width: "25px", scope: "col"}#
+        - if @packing_types&.count > 0
+          %th{width: "25px", scope: "col"}
+            = check_box_tag "checkbox", nil, false, class: "form-check-input", data: {select_all_checkbox_target: "selectAllCheckbox"}
+        %th{scope: "col"}= t(".name")
+        %th{width: "25px", scope: "col"}= t(".actions")
+    %tbody
+      - if @packing_types&.each.with_index(1) do |packing_type, index|
+        %tr
+          %td.fw-bold
+            = (@pagy.offset + index)
+          %td
+            = check_box_tag "packing_type_ids[]", packing_type.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
+          %td.fw-bold= packing_type.name
+          %td.actions
+            = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_packing_type_path(packing_type), class: "btn btn-sm btn-secondary",
+              data: {turbo_frame: :remote_modal}
+            = link_to external_svg_tag("svgs/trash.svg"), admin_packing_type_path(packing_type), class: "btn btn-sm btn-danger",
+              data: {turbo_confirm: t(".delete_packing_type_confirmation_text", packing_type_name: packing_type.name), turbo_method: :delete}
+      - end.empty?
+        %tr
+          %td.fw-bold{colspan: ::DosageForm.columns.count}
+            = t(".no_packing_types_to_display")

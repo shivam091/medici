@@ -28,6 +28,7 @@
           reports: "Reports",
           stores: "Stores",
           managers: "Managers",
+          packing_types: "Packing types",
         },
         footer: {
           medicines: "Medicines",
