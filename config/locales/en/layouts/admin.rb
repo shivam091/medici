@@ -11,7 +11,6 @@
           toggle_navigation: "Toggle navigation",
           home: "Home",
           users: "Users",
-          admins: "Admins",
           cashiers: "Cashiers",
           hello_username: "Hello %{username}",
           sign_out: "Sign out",

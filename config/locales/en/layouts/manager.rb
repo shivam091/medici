@@ -20,7 +20,6 @@
           sales: "Sales",
           daily_sales: "Daily sales",
           reports: "Reports",
-          your_store_details: "Your store details",
         },
         footer: {
           medicines: "Medicines",
