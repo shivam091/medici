@@ -34,6 +34,8 @@
           medicines: "Medicines",
           sales: "Sales",
           revenue: "Revenue",
+          stores: "Stores",
+          suppliers: "Suppliers",
           copyright_notice: "&copy; %{copyright_years}, Medici LLP or its affiliates, all rights reserved."
         },
       }
