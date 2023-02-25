@@ -6,6 +6,7 @@ class Store < ApplicationRecord
   include Filterable, Sortable
 
   attribute :is_active, default: false
+  attribute :is_main_store, default: false
 
   has_many :users, dependent: :destroy
 

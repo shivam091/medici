@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_24_154909) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_25_053819) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -171,6 +171,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_24_154909) do
     t.string "registration_number"
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.boolean "is_main_store", default: false
     t.index ["email"], name: "index_stores_on_email", unique: true
     t.index ["phone_number"], name: "index_stores_on_phone_number", unique: true
     t.check_constraint "char_length(email::text) <= 55", name: "chk_0966276692"
