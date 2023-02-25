@@ -22,7 +22,7 @@
           %td.fw-bold= supplier.name
           %td= supplier.email
           %td= supplier.phone_number
-          %td
+          %td= supplier.country_name
           %td.actions
             = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_supplier_path(supplier), class: "btn btn-sm btn-secondary",
               data: {turbo_frame: :remote_modal}
