@@ -12,6 +12,7 @@
       create: "Create",
       update: "Update",
       cancel: "Cancel",
+      go_back: "Go back",
       new_currency: "New currency",
       create_currency: "Create currency",
       update_currency: "Update currency",
@@ -27,6 +28,15 @@
       new_medicine_category: "New medicine category",
       create_medicine_category: "Create medicine category",
       update_medicine_category: "Update medicine category",
+      new_supplier: "New supplier",
+      create_supplier: "Create supplier",
+      update_supplier: "Update supplier",
+      new_store: "New store",
+      create_store: "Create store",
+      update_store: "Update store",
+      new_packing_type: "New packing type",
+      create_packing_type: "Create packing type",
+      update_packing_type: "Update packing type",
     }
   }
 }

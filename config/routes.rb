@@ -26,8 +26,14 @@ Rails.application.routes.draw do
                registrations: "user/registrations"
              }
 
+  concern :shareable do
+    resources :suppliers, param: :uuid
+  end
+
   devise_scope :user do
     namespace :admin do
+      concerns :shareable
+
       resource :dashboard
 
       resources :currencies, except: :show, param: :uuid
@@ -35,6 +41,9 @@ Rails.application.routes.draw do
       resources :ingredients, except: :show, param: :uuid
       resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms"
       resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories"
+      resources :packing_types, except: :show, param: :uuid, path: "packing-types"
+
+      resources :stores, param: :uuid
     end
 
     namespace :cashier do
@@ -42,6 +51,8 @@ Rails.application.routes.draw do
     end
 
     namespace :manager do
+      concerns :shareable
+
       resource :dashboard
     end
   end
