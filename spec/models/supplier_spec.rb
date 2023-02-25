@@ -2,9 +2,9 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-# spec/services/ingredients/create_service_spec.rb
+# spec/models/supplier_spec.rb
 
 require "spec_helper"
 
-RSpec.describe Ingredients::CreateService, type: :service do
+RSpec.describe Supplier, type: :model do
 end
