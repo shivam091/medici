@@ -4,6 +4,8 @@
 
 class Admin::StoresController < Admin::BaseController
 
+  before_action :find_store, except: [:index, :new, :create]
+
   # GET /admin/stores
   def index
     @stores = ::Store.active.includes(:address)
@@ -33,6 +35,36 @@ class Admin::StoresController < Admin::BaseController
         end
       end
     end
+  end
+
+  # GET /admin/stores/:uuid/edit
+  def edit
+  end
+
+  # PUT/PATCH /admin/stores/:uuid
+  def update
+    response = ::Stores::UpdateService.(@store, store_params)
+    @store = response.payload[:store]
+    if response.success?
+      flash[:notice] = response.message
+      redirect_to admin_stores_path
+    else
+      flash.now[:alert] = response.message
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(:store_form, partial: "admin/stores/form"),
+            render_flash
+          ], status: :unprocessable_entity
+        end
+      end
+    end
+  end
+
+  private
+
+  def find_store
+    @store = ::Store.find(params.fetch(:uuid))
   end
 
   def store_params
