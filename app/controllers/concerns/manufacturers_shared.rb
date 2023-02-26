@@ -64,6 +64,18 @@ module ManufacturersShared
           end
         end
       end
+
+      # DELETE /(admin|manager)/manufacturers/:uuid
+      def destroy
+        response = ::Manufacturers::DestroyService.(@manufacturer)
+        @manufacturer = response.payload[:manufacturer]
+        if response.success?
+          flash[:info] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.manufacturers_path
+      end
     end
   end
 
