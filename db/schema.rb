@@ -10,10 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_26_092751) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_26_132848) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "unit_of_measures", [["kg", "g", "mg", "mcg", "l", "ml", "cc", "mol", "mmol", "ww", "qs", "wv", "lb", "f", "c", "oz", "tbsp", "tsp", "gtt", "gr", "gal", "pt", "m", "qt", "floz", "fldr", "dr", "vv"]]
 
   create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "country_id"
