@@ -37,6 +37,9 @@
       new_packing_type: "New packing type",
       create_packing_type: "Create packing type",
       update_packing_type: "Update packing type",
+      new_manufacturer: "New manufacturer",
+      create_manufacturer: "Create manufacturer",
+      update_manufacturer: "Update manufacturer",
     }
   }
 }

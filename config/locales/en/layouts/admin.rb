@@ -24,6 +24,7 @@
           medicines: "Medicines",
           ingredients: "Ingredients",
           suppliers: "Suppliers",
+          manufacturers: "Manufacturers",
           sales: "Sales",
           reports: "Reports",
           stores: "Stores",

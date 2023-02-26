@@ -75,6 +75,19 @@
           registration_number: "Registration number",
           logo: "Logo",
         },
+        supplier: {
+          name: "Name",
+          email: "Email address",
+          phone_number: "Phone number",
+          is_active: "Is active",
+        },
+        manufacturer: {
+          name: "Name",
+          email: "Email address",
+          phone_number: "Phone number",
+          customer_care_number: "Customer care number",
+          is_active: "Is active",
+        }
       },
       help_texts: {
 

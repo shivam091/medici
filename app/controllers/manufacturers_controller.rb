@@ -2,7 +2,7 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class SuppliersController < ApplicationController
+class ManufacturersController < ApplicationController
   def self.local_prefixes
     [controller_path]
   end
