@@ -25,6 +25,8 @@ class Manufacturer < ApplicationRecord
 
   has_one :address, as: :addressable, dependent: :destroy
 
+  has_many :medicines, dependent: :restrict_with_exception
+
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true
 
