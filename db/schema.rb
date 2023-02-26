@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_26_154621) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_26_155635) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -226,6 +226,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_154621) do
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_c41aed63fb"
   end
 
+  create_table "replenishments", primary_key: "medicine_id", id: :uuid, default: nil, force: :cascade do |t|
+    t.integer "quantity_pending_from_supplier", default: 0
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["medicine_id"], name: "index_replenishments_on_medicine_id", unique: true
+    t.check_constraint "quantity_pending_from_supplier >= 0", name: "chk_13a13af222"
+    t.check_constraint "quantity_pending_from_supplier IS NOT NULL", name: "chk_037df1962d"
+  end
+
   create_table "request_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "uuid"
     t.string "uri"
@@ -368,6 +377,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_154621) do
   add_foreign_key "medicines", "manufacturers", name: "fk_medicines_manufacturer_id_on_manufacturers", on_delete: :restrict
   add_foreign_key "medicines", "medicine_categories", name: "fk_medicines_medicine_category_id_on_medicine_categories", on_delete: :restrict
   add_foreign_key "medicines", "packing_types", name: "fk_medicines_packing_type_id_on_packing_types", on_delete: :restrict
+  add_foreign_key "replenishments", "medicines", name: "fk_replenishments_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "stocks", "medicines", name: "fk_stocks_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
