@@ -8,6 +8,8 @@ module ManufacturersShared
   def self.included(base_class)
     base_class.class_eval do
 
+      before_action :find_manufacturer, except: [:index, :new, :create]
+
       # GET /(admin|manager)/manufacturers
       def index
         @manufacturers = ::Manufacturer.active.includes(:address)
@@ -38,7 +40,37 @@ module ManufacturersShared
           end
         end
       end
+
+      # GET /(admin|manager)/manufacturers/:uuid/edit
+      def edit
+      end
+
+      # PUT/PATCH /(admin|manager)/manufacturers/:uuid
+      def update
+        response = ::Manufacturers::UpdateService.(@manufacturer, manufacturer_params)
+        @manufacturer = response.payload[:manufacturer]
+        if response.success?
+          flash[:notice] = response.message
+          redirect_to helpers.manufacturers_path
+        else
+          flash.now[:alert] = response.message
+          respond_to do |format|
+            format.turbo_stream do
+              render turbo_stream: [
+                turbo_stream.update(:manufacturer_form, partial: "manufacturers/form"),
+                render_flash
+              ], status: :unprocessable_entity
+            end
+          end
+        end
+      end
     end
+  end
+
+  private
+
+  def find_manufacturer
+    @manufacturer = ::Manufacturer.find(params.fetch(:uuid))
   end
 
   def manufacturer_params
