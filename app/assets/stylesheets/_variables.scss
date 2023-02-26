@@ -9,10 +9,16 @@
   --color-neutral-muted: rgba(0,0,0,0.2);
   --color-dropdown-shadow: rgba(27,31,36,0.3);
   --color-primer-shadow-focus: 0 0 0 .15rem rgba(9,105,218,0.3);
+  --color-invalid-shadow-focus: 0 0 0 .15rem rgba(218,9,9,0.3);
   --color-canvas-inset: rgb(244, 245, 245);
   --color-accent-fg: #0969da;
   --color-accent-emphasis: #0969da;
   --color-accent-subtle: #ddf4ff;
+  --color-danger-fg: #cf222e;
+  --color-danger-emphasis: #cf222e;
+  --color-danger-muted: rgba(255,129,130,0.4);
+  --color-danger-subtle: #FFEBE9;
+  --color-danger-shadow: rgba(253, 53, 80, 0.7);
 
   .navbar-light {
     --bs-navbar-color: rgba(0, 0, 0, 1);

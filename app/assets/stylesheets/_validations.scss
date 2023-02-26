@@ -1,0 +1,87 @@
+/* Server side validation error block styles */
+#error-explanation {
+  border: 1.5px solid var(--color-danger-muted) !important;
+  border-radius: .25rem !important;
+  padding: 7px;
+  padding-bottom: 0;
+  background-color: var(--color-danger-subtle);
+  color: var(--bs-body-color);
+  margin-bottom: 0.5rem;
+  h6 {
+    text-align: left;
+    font-weight: bold;
+    padding: 0.25rem;
+    background-color: var(--color-danger-emphasis);
+    min-height: auto;
+    border-radius: 0.25rem;
+  }
+  dl {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  dl dd {
+    font-size: 12px;
+    list-style: none;
+  }
+  svg {
+    vertical-align: -2px;
+  }
+}
+#error-explanation svg {
+  fill: var(--bs-body-color);
+}
+// Styles for form fields.
+.form-control.is-invalid, .form-select.is-invalid {
+  background-image: image-url("svgs/exclamation-triangle.svg") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.5rem center, center right 2rem !important;
+  background-size: 24px 24px, calc(0.75em + 0.375rem) calc(0.75em + 0.375rem) !important;
+}
+.form-control.is-loading, .form-select.is-loading {
+  background-image: image-url("svgs/loading.svg") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.5rem center, center right 2rem !important;
+  background-size: 24px 24px, calc(0.75em + 0.375rem) calc(0.75em + 0.375rem) !important;
+}
+.form-control.is-invalid, .form-select.is-invalid, .form-check-input.is-invalid {
+  border-color: var(--color-danger-fg);
+}
+.is-invalid .input-group-text, .is-invalid .btn {
+  border-color: var(--color-danger-fg) !important;
+  color: var(--color-danger-fg) !important;
+}
+.is-invalid svg {
+  fill: var(--color-danger-fg) !important;
+}
+.form-control.is-invalid:focus, .form-select.is-invalid:focus, .form-check-input.is-invalid:focus {
+  border-color: var(--color-danger-fg);
+  box-shadow: var(--color-invalid-shadow-focus);
+  -webkit-box-shadow: var(--color-invalid-shadow-focus);
+}
+label.is-invalid {
+  color: var(--color-danger-fg);
+}
+.invalid-feedback {
+  color: var(--color-danger-fg);
+  text-align: left;
+}
+.is-invalid-file {
+  opacity: 0 !important;
+  position: absolute !important;
+  z-index: -1 !important;
+}
+.was-validated .form-check-input:invalid~.form-check-label, .form-check-input.is-invalid~.form-check-label {
+  color: var(--color-danger-fg);
+}
+.form-label.required::after,
+.form-floating label.required::after,
+.form-check:not(.form-check-inline) .form-check-label.required::after {
+  color: var(--color-danger-fg);
+  content: "*";
+  padding-left: .25rem;
+  top: -2px;
+  font-weight: bolder;
+}
+.form-check-inline .form-check-input~.invalid-feedback {
+  margin-left: 0;
+}
