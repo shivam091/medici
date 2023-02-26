@@ -3,4 +3,5 @@
 # -*- warn_indent: true -*-
 
 class Manager::ManufacturersController < ManufacturersController
+  include ManufacturersShared
 end

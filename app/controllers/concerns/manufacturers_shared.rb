@@ -7,6 +7,12 @@ module ManufacturersShared
 
   def self.included(base_class)
     base_class.class_eval do
+
+      # GET /(admin|manager)/manufacturers
+      def index
+        @manufacturers = ::Manufacturer.active.includes(:address)
+        @pagy, @manufacturers = pagy(@manufacturers)
+      end
     end
   end
 end
