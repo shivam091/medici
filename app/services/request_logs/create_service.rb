@@ -17,6 +17,8 @@ class RequestLogs::CreateService < ApplicationService
   attr_reader :user, :request
 
   def persist_request_log
+    request.session.send(:load!)
+    
     request_log = ::RequestLog.new
     if user.present?
       request_log.assign_attributes(user: user)
