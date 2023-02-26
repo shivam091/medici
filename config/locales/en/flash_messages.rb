@@ -117,6 +117,20 @@
           error: "Packing type '%{packing_type_name}' could not be destroyed.",
         }
       },
+      manufacturers: {
+        create: {
+          success: "Manufacturer '%{manufacturer_name}' was successfully created.",
+          error: "Manufacturer could not be created.",
+        },
+        update: {
+          success: "Manufacturer '%{manufacturer_name}' was successfully updated.",
+          error: "Manufacturer could not be updated.",
+        },
+        destroy: {
+          success: "Manufacturer '%{manufacturer_name}' was successfully destroyed.",
+          error: "Manufacturer '%{manufacturer_name}' could not be destroyed.",
+        }
+      },
     }
   }
 }

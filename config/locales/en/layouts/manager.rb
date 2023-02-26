@@ -17,6 +17,7 @@
           cashiers: "Cashiers",
           medicines: "Medicines",
           suppliers: "Suppliers",
+          manufacturers: "Manufacturers",
           sales: "Sales",
           daily_sales: "Daily sales",
           reports: "Reports",
