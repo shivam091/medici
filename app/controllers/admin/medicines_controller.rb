@@ -3,5 +3,5 @@
 # -*- warn_indent: true -*-
 
 class Admin::MedicinesController < MedicinesController
-  include ManufacturersShared
+  include MedicinesShared
 end
