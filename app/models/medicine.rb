@@ -12,6 +12,11 @@ class Medicine < ApplicationRecord
            through: :medicine_suppliers,
            source: :supplier,
            inverse_of: :medicine_suppliers
+  has_many :medicine_ingredients, dependent: :destroy
+  has_many :ingredients,
+           through: :medicine_ingredients,
+           source: :ingredient,
+           inverse_of: :medicine_ingredients
 
   belongs_to :manufacturer, inverse_of: :medicines
   belongs_to :medicine_category, inverse_of: :medicines

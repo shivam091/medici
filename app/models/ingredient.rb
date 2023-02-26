@@ -17,5 +17,11 @@ class Ingredient < ApplicationRecord
             length: {maximum: 1000},
             reduce: true
 
+  has_many :medicine_ingredients, dependent: :restrict_with_exception
+  has_many :medicines,
+           through: :medicine_ingredients,
+           source: :medicine,
+           inverse_of: :medicine_ingredients
+
   default_scope -> { order_name_asc }
 end
