@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   concern :shareable do
     resources :suppliers, param: :uuid
+    resources :manufacturers, param: :uuid
   end
 
   devise_scope :user do

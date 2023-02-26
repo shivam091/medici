@@ -39,6 +39,10 @@
               = external_svg_tag("svgs/truck.svg")
               = t(".suppliers")
           %li.nav-item
+            = link_to admin_manufacturers_path, class: "nav-link d-inline-flex align-items-center gap-1" do
+              = external_svg_tag("svgs/company.svg")
+              = t(".manufacturers")
+          %li.nav-item
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
               = external_svg_tag("svgs/monitoring-dashboard.svg")
               = t(".sales")
