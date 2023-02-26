@@ -6,14 +6,16 @@
 
 Medici::Application.configure do
   config.to_prepare do
-    User::SessionsController.layout        "devise"
+    User::SessionsController.layout          "devise"
 
-    Admin::BaseController.layout           "admin"
-    Admin::SuppliersController.layout      "admin"
+    Admin::BaseController.layout             "admin"
+    Admin::SuppliersController.layout        "admin"
+    Admin::ManufacturersController.layout    "admin"
 
-    Cashier::BaseController.layout         "cashier"
+    Cashier::BaseController.layout           "cashier"
 
-    Manager::BaseController.layout         "manager"
-    Manager::SuppliersController.layout    "manager"
+    Manager::BaseController.layout           "manager"
+    Manager::SuppliersController.layout      "manager"
+    Manager::ManufacturersController.layout  "manager"
   end
 end
