@@ -4,7 +4,7 @@
 
 class SuppliersController < ApplicationController
   def self.local_prefixes
-    [controller_path, controller_path.sub(/^(admin|cashier|manager)\//, "")]
+    [controller_path]
   end
 
   private_class_method :local_prefixes
