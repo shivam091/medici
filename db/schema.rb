@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_26_144323) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_26_153540) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -146,6 +146,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_144323) do
     t.check_constraint "char_length(description::text) <= 255", name: "chk_563b95552d"
     t.check_constraint "char_length(name::text) <= 55", name: "chk_03e39c141b"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_fc60a64610"
+  end
+
+  create_table "medicine_ingredients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "medicine_id"
+    t.uuid "ingredient_id"
+    t.boolean "active", default: false
+    t.decimal "strength", precision: 8, scale: 2
+    t.enum "uom", enum_type: "unit_of_measures"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_medicine_ingredients_on_ingredient_id"
+    t.index ["medicine_id"], name: "index_medicine_ingredients_on_medicine_id"
   end
 
   create_table "medicine_suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -339,6 +351,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_144323) do
 
   add_foreign_key "addresses", "countries", name: "fk_addresses_country_id_on_countries", on_delete: :restrict
   add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
+  add_foreign_key "medicine_ingredients", "ingredients", name: "fk_medicine_ingredients_ingredient_id_on_ingredients", on_delete: :restrict
+  add_foreign_key "medicine_ingredients", "medicines", name: "fk_medicine_ingredients_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "medicine_suppliers", "medicines", name: "fk_medicine_suppliers_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "medicine_suppliers", "suppliers", name: "fk_medicine_suppliers_supplier_id_on_suppliers", on_delete: :restrict
   add_foreign_key "medicines", "dosage_forms", name: "fk_medicines_dosage_form_id_on_dosage_forms", on_delete: :restrict
