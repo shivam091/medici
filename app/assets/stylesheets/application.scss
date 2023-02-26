@@ -4,6 +4,7 @@
 @import "mixins";
 @import "devise";
 @import "animators";
+@import "validations";
 
 /* General */
 /* 1rem = 16px */
@@ -345,4 +346,7 @@ footer {
 }
 .subheader:first-of-type {
   margin-top: 0;
+}
+.translation_missing {
+  color: var(--color-danger-fg);
 }
