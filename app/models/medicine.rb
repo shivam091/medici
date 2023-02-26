@@ -8,6 +8,7 @@ class Medicine < ApplicationRecord
   attribute :is_active, default: false
 
   has_one :stock, dependent: :destroy
+  has_one :replenishment, dependent: :destroy
 
   has_many :medicine_suppliers, dependent: :destroy
   has_many :suppliers,
@@ -25,7 +26,7 @@ class Medicine < ApplicationRecord
   belongs_to :packing_type, inverse_of: :medicines
   belongs_to :dosage_form, inverse_of: :medicines
 
-  after_create :create_stock
+  after_create :create_stock, :create_replenishment
 
   delegate :quantity_in_hand, to: :stock
   delegate :quantity_pending_from_supplier, to: :replenishment
@@ -40,9 +41,17 @@ class Medicine < ApplicationRecord
     super.presence || build_stock
   end
 
+  def replenishment
+    super.presence || build_replenishment
+  end
+
   private
 
   def create_stock
     stock.save
+  end
+
+  def create_replenishment
+    replenishment.save
   end
 end
