@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_26_134903) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_26_144323) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -146,6 +146,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_134903) do
     t.check_constraint "char_length(description::text) <= 255", name: "chk_563b95552d"
     t.check_constraint "char_length(name::text) <= 55", name: "chk_03e39c141b"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_fc60a64610"
+  end
+
+  create_table "medicine_suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "medicine_id"
+    t.uuid "supplier_id"
+    t.integer "total_quantity_supplied", default: 0
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["medicine_id"], name: "index_medicine_suppliers_on_medicine_id"
+    t.index ["supplier_id"], name: "index_medicine_suppliers_on_supplier_id"
+    t.check_constraint "total_quantity_supplied >= 0", name: "chk_fde59c4d35"
+    t.check_constraint "total_quantity_supplied IS NOT NULL", name: "chk_95cd4feefd"
   end
 
   create_table "medicines", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -327,6 +339,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_134903) do
 
   add_foreign_key "addresses", "countries", name: "fk_addresses_country_id_on_countries", on_delete: :restrict
   add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
+  add_foreign_key "medicine_suppliers", "medicines", name: "fk_medicine_suppliers_medicine_id_on_medicines", on_delete: :cascade
+  add_foreign_key "medicine_suppliers", "suppliers", name: "fk_medicine_suppliers_supplier_id_on_suppliers", on_delete: :restrict
   add_foreign_key "medicines", "dosage_forms", name: "fk_medicines_dosage_form_id_on_dosage_forms", on_delete: :restrict
   add_foreign_key "medicines", "manufacturers", name: "fk_medicines_manufacturer_id_on_manufacturers", on_delete: :restrict
   add_foreign_key "medicines", "medicine_categories", name: "fk_medicines_medicine_category_id_on_medicine_categories", on_delete: :restrict
