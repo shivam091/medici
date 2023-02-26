@@ -7,6 +7,8 @@ class Medicine < ApplicationRecord
 
   attribute :is_active, default: false
 
+  has_one :stock, dependent: :destroy
+
   has_many :medicine_suppliers, dependent: :destroy
   has_many :suppliers,
            through: :medicine_suppliers,
@@ -23,5 +25,24 @@ class Medicine < ApplicationRecord
   belongs_to :packing_type, inverse_of: :medicines
   belongs_to :dosage_form, inverse_of: :medicines
 
+  after_create :create_stock
+
+  delegate :quantity_in_hand, to: :stock
+  delegate :quantity_pending_from_supplier, to: :replenishment
+  delegate :name, :email, :phone_number, to: :manufacturer, prefix: true
+  delegate :name, to: :medicine_category, prefix: true
+  delegate :name, to: :packing_type, prefix: true
+  delegate :name, to: :dosage_form, prefix: true
+
   default_scope -> { order(arel_table[:code].asc) }
+
+  def stock
+    super.presence || build_stock
+  end
+
+  private
+
+  def create_stock
+    stock.save
+  end
 end
