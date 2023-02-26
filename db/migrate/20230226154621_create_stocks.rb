@@ -1,0 +1,26 @@
+# -*- encoding: utf-8 -*-
+# -*- frozen_string_literal: true -*-
+# -*- warn_indent: true -*-
+
+class CreateStocks < Medici::Database::Migration[1.0]
+  def change
+    create_table_with_constraints :stocks, id: false do |t|
+      t.references :medicine,
+                   type: :uuid,
+                   foreign_key: {
+                     to_table: :medicines,
+                     name: :fk_stocks_medicine_id_on_medicines,
+                     on_delete: :cascade
+                   },
+                   primary_key: true,
+                   index: {using: :btree, unique: true}
+      t.integer :quantity_in_hand, default: 0
+
+      t.not_null_constraint :quantity_in_hand
+
+      t.numericality_constraint :quantity_in_hand, greater_than_or_equal_to: 0
+
+      t.timestamps_with_timezone null: false
+    end
+  end
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_26_153540) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_26_154621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -262,6 +262,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_153540) do
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_ac03779a47"
   end
 
+  create_table "stocks", primary_key: "medicine_id", id: :uuid, default: nil, force: :cascade do |t|
+    t.integer "quantity_in_hand", default: 0
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["medicine_id"], name: "index_stocks_on_medicine_id", unique: true
+    t.check_constraint "quantity_in_hand >= 0", name: "chk_f5833a0a29"
+    t.check_constraint "quantity_in_hand IS NOT NULL", name: "chk_07ed382b70"
+  end
+
   create_table "stores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -360,6 +369,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_153540) do
   add_foreign_key "medicines", "medicine_categories", name: "fk_medicines_medicine_category_id_on_medicine_categories", on_delete: :restrict
   add_foreign_key "medicines", "packing_types", name: "fk_medicines_packing_type_id_on_packing_types", on_delete: :restrict
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
+  add_foreign_key "stocks", "medicines", name: "fk_stocks_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
   add_foreign_key "users", "stores", name: "fk_users_store_id_on_stores", on_delete: :cascade
 end
