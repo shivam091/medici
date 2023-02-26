@@ -41,6 +41,7 @@ class User < ApplicationRecord
   has_many :audit_trails, dependent: :nullify
 
   belongs_to :role
+  belongs_to :store, optional: true
 
   class << self
     def with_email_or_mobile_number(login)
@@ -104,6 +105,10 @@ class User < ApplicationRecord
 
   def cashier?
     self.has_role?("cashier")
+  end
+
+  def manager?
+    self.has_role?("manager")
   end
 
   def has_role?(role)

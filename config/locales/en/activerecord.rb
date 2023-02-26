@@ -66,6 +66,15 @@
           country_id: "Country",
           postal_code: "Postal code, Postcode, or PIN code",
         },
+        store: {
+          name: "Name",
+          email: "Email address",
+          phone_number: "Phone number",
+          fax_number: "Fax number",
+          is_active: "Is active",
+          registration_number: "Registration number",
+          logo: "Logo",
+        },
       },
       help_texts: {
 

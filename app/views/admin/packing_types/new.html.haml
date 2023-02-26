@@ -1,0 +1,3 @@
+= render_modal(title: t(".title")) do
+  = turbo_frame_tag :packing_type_form do
+    = render_if_exists "admin/packing_types/form"

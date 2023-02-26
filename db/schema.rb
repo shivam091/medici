@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_23_045143) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_25_155751) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -150,6 +150,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_045143) do
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_fc60a64610"
   end
 
+  create_table "packing_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_active", default: false
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["name"], name: "index_packing_types_on_name", unique: true
+    t.check_constraint "char_length(name::text) <= 55", name: "chk_9ef2625dfe"
+    t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_c41aed63fb"
+  end
+
   create_table "request_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "uuid"
     t.string "uri"
@@ -186,6 +196,44 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_045143) do
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_ac03779a47"
   end
 
+  create_table "stores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "phone_number"
+    t.string "fax_number"
+    t.boolean "is_active", default: false
+    t.string "registration_number"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.boolean "is_main_store", default: false
+    t.index ["email"], name: "index_stores_on_email", unique: true
+    t.index ["phone_number"], name: "index_stores_on_phone_number", unique: true
+    t.check_constraint "char_length(email::text) <= 55", name: "chk_0966276692"
+    t.check_constraint "char_length(fax_number::text) <= 32", name: "chk_55cbeaf1bf"
+    t.check_constraint "char_length(phone_number::text) <= 32", name: "chk_304d33223a"
+    t.check_constraint "email IS NOT NULL AND email::text <> ''::text", name: "chk_fc84f48d5e"
+    t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_8f1459e838"
+    t.check_constraint "phone_number IS NOT NULL AND phone_number::text <> ''::text", name: "chk_2d9bb89816"
+    t.check_constraint "registration_number IS NOT NULL AND registration_number::text <> ''::text", name: "chk_48a4cf1224"
+  end
+
+  create_table "suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "phone_number"
+    t.boolean "is_active", default: false
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["email"], name: "index_suppliers_on_email", unique: true
+    t.index ["phone_number"], name: "index_suppliers_on_phone_number", unique: true
+    t.check_constraint "char_length(email::text) <= 55", name: "chk_b1c47b4cbe"
+    t.check_constraint "char_length(name::text) <= 110", name: "chk_427b1088f0"
+    t.check_constraint "char_length(phone_number::text) <= 32", name: "chk_826f24ed62"
+    t.check_constraint "email IS NOT NULL AND email::text <> ''::text", name: "chk_98cae18516"
+    t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_9b9db7504e"
+    t.check_constraint "phone_number IS NOT NULL AND phone_number::text <> ''::text", name: "chk_e5ebd50398"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "mobile_number"
@@ -215,11 +263,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_045143) do
     t.boolean "is_banned", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.uuid "store_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mobile_number"], name: "index_users_on_mobile_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
+    t.index ["store_id"], name: "index_users_on_store_id"
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.check_constraint "char_length(first_name::text) <= 55", name: "chk_c231bcb127"
     t.check_constraint "char_length(last_name::text) <= 55", name: "chk_2123b67efb"
@@ -238,4 +288,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_045143) do
   add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
+  add_foreign_key "users", "stores", name: "fk_users_store_id_on_stores", on_delete: :cascade
 end

@@ -112,6 +112,14 @@ module Medici
             t.instance_eval(&block) if block_given?
           end
         end
+
+        def change_table_with_constraints(table_name, **options, &block)
+          helper_context = self
+
+          change_table(table_name, **options) do |t|
+            t.instance_eval(&block) if block_given?
+          end
+        end
       end
 
       def self.[](version)

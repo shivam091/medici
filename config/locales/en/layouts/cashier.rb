@@ -11,11 +11,11 @@
           toggle_navigation: "Toggle navigation",
           home: "Home",
           hello_username: "Hello %{username}",
-          sign_in: "Sign in",
           sign_out: "Sign out",
-          sign_up: "Sign up",
           your_account: "Your account",
           your_profile: "Your profile",
+          sales: "Sales",
+          daily_sales: "Daily sales",
         },
         footer: {
           copyright_notice: "&copy; %{copyright_years}, Medici LLP or its affiliates, all rights reserved."

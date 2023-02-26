@@ -331,3 +331,18 @@ thead input[type="checkbox"], tbody input[type="checkbox"] {
 footer {
   margin-top: auto;
 }
+.subheader {
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+.subheader:first-of-type {
+  margin-top: 0;
+}
