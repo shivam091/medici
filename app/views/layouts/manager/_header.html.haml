@@ -11,40 +11,16 @@
       #navbar.navbar-collapse.collapse
         %ul.navbar-nav.me-auto.order-1
           %li.nav-item
-            = link_to manager_dashboard_path, class: "nav-link d-inline-flex align-items-center gap-1" do
+            = link_to manager_dashboard_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("manager/dashboards"))}" do
               = external_svg_tag("svgs/home.svg")
               = t(".home")
           %li.nav-item
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
-              = external_svg_tag("svgs/users.svg")
-              = t(".users")
-          %li.nav-item
-            = link_to manager_medicines_path, class: "nav-link d-inline-flex align-items-center gap-1" do
+            = link_to manager_medicines_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("manager/medicines"))}" do
               = external_svg_tag("svgs/medicine.svg")
               = t(".medicines")
-          %li.nav-item
-            = link_to manager_suppliers_path, class: "nav-link d-inline-flex align-items-center gap-1" do
-              = external_svg_tag("svgs/truck.svg")
-              = t(".suppliers")
-          %li.nav-item
-            = link_to manager_manufacturers_path, class: "nav-link d-inline-flex align-items-center gap-1" do
-              = external_svg_tag("svgs/company.svg")
-              = t(".manufacturers")
-          %li.nav-item
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
-              = external_svg_tag("svgs/monitoring-dashboard.svg")
-              = t(".sales")
-          %li.nav-item
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
-              = external_svg_tag("svgs/calendar.svg")
-              = t(".daily_sales")
-          %li.nav-item
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
-              = external_svg_tag("svgs/report.svg")
-              = t(".reports")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
           %li.nav-item.dropdown
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1 dropdown-toggle",
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center dropdown-toggle",
               aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
               = t(".hello_username", username: current_user.full_name)
             %ul.dropdown-menu.dropdown-menu-end
@@ -58,7 +34,7 @@
         %ul.navbar-nav.d-lg-none
           %li.nav-item-divider
           %li.nav-item.dropdown
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1 dropdown-toggle",
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center dropdown-toggle",
               aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
               = t(".hello_username", username: current_user.full_name)
             %ul.dropdown-menu.dropdown-menu-end
@@ -69,3 +45,17 @@
               %li.dropdown-divider
               %li
                 = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
+.nav-scroller.shadow-sm.border-bottom.bg-light
+  %nav.nav.nav-underline{aria: {label: t(".secondary_navigation")}}
+    = link_to manager_suppliers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("suppliers"))}" do
+      = external_svg_tag("svgs/truck.svg")
+      = t(".suppliers")
+    = link_to manager_manufacturers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("manufacturers"))}" do
+      = external_svg_tag("svgs/company.svg")
+      = t(".manufacturers")
+    = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("sales"))}" do
+      = external_svg_tag("svgs/monitoring-dashboard.svg")
+      = t(".sales")
+    = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("reports"))}" do
+      = external_svg_tag("svgs/report.svg")
+      = t(".reports")

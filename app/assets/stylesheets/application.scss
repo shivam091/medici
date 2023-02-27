@@ -1,5 +1,6 @@
 @charset "utf-8";
 @import "bootstrap";
+@import "nav_scroller";
 @import "variables";
 @import "mixins";
 @import "devise";
@@ -172,7 +173,6 @@ body {
   transform: rotate(0deg);
   transition: transform 0.2s ease-in-out;
   vertical-align: middle;
-  margin-left: auto;
 }
 .dropdown-menu.show {
   max-height: 30rem;
@@ -349,6 +349,20 @@ footer {
 }
 .translation_missing {
   color: var(--color-danger-fg);
+}
+.nav-pills {
+  --bs-nav-pills-border-radius: 0.25rem;
+}
+.nav-link {
+  text-indent: 0.25rem;
+  color: var(--bs-body-color);
+  &:hover {
+    color: var(--color-accent-fg) !important;
+  }
+  &.active {
+    font-weight: 400;
+    color: var(--color-accent-fg) !important;
+  }
 }
 fieldset {
   border: 1px solid var(--bs-border-color);
