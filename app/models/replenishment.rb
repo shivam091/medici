@@ -7,5 +7,5 @@ class Replenishment < ApplicationRecord
 
   attribute :quantity_pending_from_supplier, default: 0
 
-  belongs_to :medicine, inverse_of: :replenishment
+  belongs_to :medicine, inverse_of: :replenishment, touch: true
 end
