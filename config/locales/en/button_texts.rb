@@ -43,6 +43,8 @@
       new_medicine: "New medicine",
       create_medicine: "Create medicine",
       update_medicine: "Update medicine",
+      add_ingredient: "Add ingredient",
+      remove_ingredient: "Remove ingredient",
     }
   }
 }
