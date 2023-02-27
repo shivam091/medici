@@ -3,4 +3,9 @@
 # -*- warn_indent: true -*-
 
 class CashiersController < ApplicationController
+  def self.local_prefixes
+    [controller_path]
+  end
+
+  private_class_method :local_prefixes
 end
