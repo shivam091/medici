@@ -1,0 +1,31 @@
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  color: var(--color-accent-fg);
+  .nav {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    color: var(--color-fg-header);
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-link {
+    padding: 0.75rem 0.75rem;
+    &:first-child {
+      padding-left: 0rem;
+    }
+  }
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  background-color: var(--color-accent-emphasis);
+  color: #ffffff !important;
+}

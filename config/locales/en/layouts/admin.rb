@@ -30,6 +30,7 @@
           stores: "Stores",
           managers: "Managers",
           packing_types: "Packing types",
+          secondary_navigation: "Secondary navigation",
         },
         footer: {
           medicines: "Medicines",
