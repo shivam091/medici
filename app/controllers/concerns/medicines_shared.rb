@@ -13,6 +13,65 @@ module MedicinesShared
         @medicines = ::Medicine.active
         @pagy, @medicines = pagy(@medicines)
       end
+
+      # GET /(admin|manager)/medicines/new
+      def new
+        @medicine = ::Medicine.new
+      end
+
+      # POST /(admin|manager)/medicines
+      def create
+        response = ::Medicines::CreateService.(medicine_params)
+        @medicine = response.payload[:medicine]
+        if response.success?
+          flash[:notice] = response.message
+          redirect_to helpers.medicines_path
+        else
+          flash.now[:alert] = response.message
+          respond_to do |format|
+            format.turbo_stream do
+              render turbo_stream: [
+                turbo_stream.update(:medicine_form, partial: "medicines/form"),
+                render_flash
+              ], status: :unprocessable_entity
+            end
+          end
+        end
+      end
     end
+  end
+
+  private
+
+  def medicine_params
+    params.require(:medicine).permit(
+      :medicine_category_id,
+      :dosage_form_id,
+      :packing_type_id,
+      :manufacturer_id,
+      :code,
+      :name,
+      :description,
+      :batch_number,
+      :purchase_price,
+      :sell_price,
+      :manufacture_date,
+      :expiry_date,
+      :proprietary_name,
+      :strength,
+      :uom,
+      :pack_size,
+      :therapeutic_areas,
+      :is_active,
+      supplier_ids: [],
+      medicine_ingredients_attributes: [
+        :id,
+        :_destroy,
+        :ingredient_id,
+        :active,
+        :strength,
+        :uom
+      ]
+    )
   end
 end
