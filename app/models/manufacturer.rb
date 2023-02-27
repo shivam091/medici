@@ -37,4 +37,10 @@ class Manufacturer < ApplicationRecord
   def address
     super.presence || build_address
   end
+
+  class << self
+    def select_options
+      active.pluck(:name, :id)
+    end
+  end
 end

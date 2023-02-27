@@ -24,4 +24,10 @@ class Ingredient < ApplicationRecord
            inverse_of: :medicine_ingredients
 
   default_scope -> { order_name_asc }
+
+  class << self
+    def select_options
+      active.pluck(:name, :id)
+    end
+  end
 end

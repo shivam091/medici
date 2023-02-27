@@ -21,4 +21,10 @@ class MedicineCategory < ApplicationRecord
   has_many :medicines, dependent: :restrict_with_exception
 
   default_scope -> { order_name_asc }
+
+  class << self
+    def select_options
+      active.pluck(:name, :id)
+    end
+  end
 end
