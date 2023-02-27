@@ -11,11 +11,13 @@ Medici::Application.configure do
     Admin::BaseController.layout             "admin"
     Admin::SuppliersController.layout        "admin"
     Admin::ManufacturersController.layout    "admin"
+    Admin::CashiersController.layout         "admin"
 
     Cashier::BaseController.layout           "cashier"
 
     Manager::BaseController.layout           "manager"
     Manager::SuppliersController.layout      "manager"
     Manager::ManufacturersController.layout  "manager"
+    Manager::CashiersController.layout       "manager"
   end
 end
