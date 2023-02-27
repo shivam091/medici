@@ -3,7 +3,7 @@
 # -*- warn_indent: true -*-
 
 class Replenishment < ApplicationRecord
-  self.primary_key = :variant_id
+  self.primary_key = :medicine_id
 
   attribute :quantity_pending_from_supplier, default: 0
 
