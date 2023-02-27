@@ -19,23 +19,13 @@
     -webkit-overflow-scrolling: touch;
   }
   .nav-link {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    font-size: .875rem;
-    text-indent: 0.25rem;
-    color: var(--bs-body-color);
-    &:hover {
-      color: var(--color-accent-fg) !important;
+    padding: 0.75rem 0.75rem;
+    &:first-child {
+      padding-left: 0rem;
     }
-  }
-  .nav-link:first-child {
-    padding-left: 0rem;
-  }
-  .active {
-    font-weight: 400;
-    color: var(--color-accent-fg) !important;
   }
 }
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   background-color: var(--color-accent-emphasis);
+  color: #ffffff !important;
 }
