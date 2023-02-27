@@ -11,23 +11,23 @@
       #navbar.navbar-collapse.collapse
         %ul.navbar-nav.me-auto.order-1
           %li.nav-item
-            = link_to admin_dashboard_path, class: "nav-link d-inline-flex align-items-center gap-1" do
+            = link_to admin_dashboard_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/dashboards"))}" do
               = external_svg_tag("svgs/home.svg")
               = t(".home")
           %li.nav-item
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/users"))}" do
               = external_svg_tag("svgs/users.svg")
               = t(".users")
           %li.nav-item
-            = link_to admin_stores_path, class: "nav-link d-inline-flex align-items-center gap-1" do
+            = link_to admin_stores_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/stores"))}" do
               = external_svg_tag("svgs/store.svg")
               = t(".stores")
           %li.nav-item
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/medicines"))}" do
               = external_svg_tag("svgs/medicine.svg")
               = t(".medicines")
           %li.nav-item.dropdown
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1 dropdown-toggle",
+            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center dropdown-toggle",
               aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
               = external_svg_tag("svgs/database.svg")
               = t(".metadata")
@@ -79,15 +79,15 @@
                 = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
 .nav-scroller.shadow-sm.border-bottom.bg-light
   %nav.nav.nav-underline{aria: {label: t(".secondary_navigation")}}
-    = link_to admin_suppliers_path, class: "nav-link d-flex px-2 align-items-center" do
+    = link_to admin_suppliers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("suppliers"))}" do
       = external_svg_tag("svgs/truck.svg")
       = t(".suppliers")
-    = link_to admin_manufacturers_path, class: "nav-link d-flex px-2 align-items-center" do
+    = link_to admin_manufacturers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("manufacturers"))}" do
       = external_svg_tag("svgs/company.svg")
       = t(".manufacturers")
-    = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center" do
+    = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("sales"))}" do
       = external_svg_tag("svgs/monitoring-dashboard.svg")
       = t(".sales")
-    = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center" do
+    = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("reports"))}" do
       = external_svg_tag("svgs/report.svg")
       = t(".reports")
