@@ -64,6 +64,18 @@ module MedicinesShared
           end
         end
       end
+
+      # DELETE /(admin|manager)/medicines/:uuid
+      def destroy
+        response = ::Medicines::DestroyService.(@medicine)
+        @medicine = response.payload[:medicine]
+        if response.success?
+          flash[:info] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.medicines_path
+      end
     end
   end
 
@@ -93,7 +105,7 @@ module MedicinesShared
       :pack_size,
       :therapeutic_areas,
       :is_active,
-      supplier_ids: [],
+      medicine_ids: [],
       medicine_ingredients_attributes: [
         :id,
         :_destroy,
