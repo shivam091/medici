@@ -8,6 +8,8 @@ module MedicinesShared
   def self.included(base_class)
     base_class.class_eval do
 
+      before_action :find_medicine, except: [:index, :new, :create]
+
       # GET /(admin|manager)/medicines
       def index
         @medicines = ::Medicine.active
@@ -38,10 +40,38 @@ module MedicinesShared
           end
         end
       end
+
+      # GET /(admin|manager)/medicines/:uuid/edit
+      def edit
+      end
+
+      # PUT/PATCH /(admin|manager)/medicines/:uuid
+      def update
+        response = ::Medicines::UpdateService.(@medicine, medicine_params)
+        @medicine = response.payload[:medicine]
+        if response.success?
+          flash[:notice] = response.message
+          redirect_to helpers.medicines_path
+        else
+          flash.now[:alert] = response.message
+          respond_to do |format|
+            format.turbo_stream do
+              render turbo_stream: [
+                turbo_stream.update(:medicine_form, partial: "medicines/form"),
+                render_flash
+              ], status: :unprocessable_entity
+            end
+          end
+        end
+      end
     end
   end
 
   private
+
+  def find_medicine
+    @medicine = ::Medicine.find(params.fetch(:uuid))
+  end
 
   def medicine_params
     params.require(:medicine).permit(
