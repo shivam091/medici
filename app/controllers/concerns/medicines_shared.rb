@@ -12,7 +12,7 @@ module MedicinesShared
 
       # GET /(admin|manager)/medicines
       def index
-        @medicines = ::Medicine.active
+        @medicines = ::Medicine.active.includes(:stock, :replenishment)
         @pagy, @medicines = pagy(@medicines)
       end
 
@@ -105,7 +105,7 @@ module MedicinesShared
       :pack_size,
       :therapeutic_areas,
       :is_active,
-      medicine_ids: [],
+      supplier_ids: [],
       medicine_ingredients_attributes: [
         :id,
         :_destroy,
