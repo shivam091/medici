@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_26_155635) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_27_051518) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -212,7 +212,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_155635) do
     t.check_constraint "manufacture_date IS NOT NULL", name: "chk_a3d10b57f2"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_7db414700d"
     t.check_constraint "purchase_price IS NOT NULL", name: "chk_f7b18baf4f"
-    t.check_constraint "sell_price <= purchase_price", name: "sale_price_lteq_purchase_price"
+    t.check_constraint "sell_price <= purchase_price", name: "sell_price_lteq_purchase_price"
     t.check_constraint "sell_price IS NOT NULL", name: "chk_b79c9e345f"
   end
 
