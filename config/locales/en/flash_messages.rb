@@ -131,6 +131,20 @@
           error: "Manufacturer '%{manufacturer_name}' could not be destroyed.",
         }
       },
+      medicines: {
+        create: {
+          success: "Medicine '%{medicine_code} (%{medicine_name})' was successfully created.",
+          error: "Medicine could not be created.",
+        },
+        update: {
+          success: "Medicine '%{medicine_code} (%{medicine_name})' was successfully updated.",
+          error: "Medicine could not be updated.",
+        },
+        destroy: {
+          success: "Medicine '%{medicine_code} (%{medicine_name})' was successfully destroyed.",
+          error: "Medicine '%{medicine_code} (%{medicine_name})' could not be destroyed.",
+        }
+      },
     }
   }
 }
