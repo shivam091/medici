@@ -57,7 +57,7 @@ class Medicine < ApplicationRecord
   belongs_to :packing_type, inverse_of: :medicines
   belongs_to :dosage_form, inverse_of: :medicines
 
-  after_initialize :set_code
+  before_create :set_code
   after_create :create_stock, :create_replenishment
 
   delegate :quantity_in_hand, to: :stock
@@ -81,10 +81,16 @@ class Medicine < ApplicationRecord
     super.presence || build_replenishment
   end
 
+  def humanized_strength
+    "#{try(:strength)} #{try(:uom)}"
+  end
+
   private
 
   def set_code
-    self.code = "MED%.10d" % (self.class.count + 1)
+    last_code = self.class.maximum(:code)
+    new_code = last_code.present? ? (last_code.scan(/\d+/).first.to_i + 1) : 1
+    self.code = "MED%.10d" % new_code
   end
 
   def create_stock
