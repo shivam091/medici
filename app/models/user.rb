@@ -6,7 +6,8 @@ class User < ApplicationRecord
   include CaseSensitivity,
           StripAttribute,
           DowncaseAttribute,
-          Filterable
+          Filterable,
+          Sortable
 
   devise :database_authenticatable, :registerable, :confirmable, :lockable,
          :recoverable, :rememberable, :validatable, :timeoutable, :trackable,
@@ -41,6 +42,22 @@ class User < ApplicationRecord
 
   belongs_to :role
   belongs_to :store, optional: true
+
+  delegate :name, to: :store, prefix: true
+
+  scope :with_role, -> (role_name) do
+    roles_arel = ::Role.arel_table
+    users_arel = ::User.arel_table
+    join = users_arel.join(roles_arel)
+      .on(users_arel[:role_id].eq(roles_arel[:id]))
+      .join_sources
+
+    joins(join).where(roles_arel[:name].eq(role_name))
+  end
+  scope :managers, -> { with_role("manager") }
+  scope :cashiers, -> { with_role("cashier") }
+
+  default_scope -> { order_created_desc }
 
   class << self
     def with_email_or_mobile_number(login)
