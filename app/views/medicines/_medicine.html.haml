@@ -38,7 +38,7 @@
           %td= medicine.sell_price
           %td= medicine.manufacture_date.to_fs(:long)
           %td= medicine.expiry_date.to_fs(:long)
-          %td= medicine.humanized_strength
+          %td= humanized_strength(medicine)
           %td.actions
             = link_to external_svg_tag("svgs/pencil.svg"), edit_medicine_path(medicine), class: "btn btn-sm btn-secondary"
             = link_to external_svg_tag("svgs/trash.svg"), medicine_path(medicine), class: "btn btn-sm btn-danger",

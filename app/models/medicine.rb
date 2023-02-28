@@ -81,10 +81,6 @@ class Medicine < ApplicationRecord
     super.presence || build_replenishment
   end
 
-  def humanized_strength
-    "#{try(:strength)} #{try(:uom)}"
-  end
-
   private
 
   def set_code

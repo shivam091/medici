@@ -30,4 +30,8 @@ module MedicinesHelper
     when current_user.manager? then manager_medicine_path(medicine)
     end
   end
+
+  def humanized_strength(medicine)
+    "#{medicine.try(:strength)} #{medicine.try(:uom)}"
+  end
 end
