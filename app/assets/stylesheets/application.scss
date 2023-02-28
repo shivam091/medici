@@ -154,7 +154,7 @@ body {
   background-position: right .25rem center;
   background-size: 16px;
 }
-.form-control:focus, .form-select:focus, .form-check-input:focus {
+.form-control:focus, .form-select:focus, .form-check-input:focus, .page-link:focus {
   box-shadow: var(--color-primer-shadow-focus);
   -webkit-box-shadow: var(--color-primer-shadow-focus);
   border-color: var(--color-accent-fg);
@@ -370,4 +370,10 @@ fieldset {
   border-style: dashed;
   padding: .5rem;
   margin-bottom: .5rem;
+}
+.pagination {
+  margin: 8px 12px;
+}
+.page-link {
+  --bs-pagination-border-radius: 0.25rem;
 }

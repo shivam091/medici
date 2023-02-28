@@ -18,7 +18,13 @@
           %td
             = check_box_tag "medicine_category_ids[]", medicine_category.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
           %td.fw-bold= medicine_category.name
-          %td= medicine_category.description
+          %td{data: {controller: "collapsible-content", collapsible_content_show_more_text_value: t("javascripts.show_more"), collapsible_content_show_less_text_value: t("javascripts.show_less")}}
+            %span{data: {collapsible_content_target: "collapsedContent"}}
+              = truncate(medicine_category.description, length: 55).html_safe
+            - if (medicine_category.description.length > 55)
+              = link_to t("javascripts.show_more"), "javascript:void(0)", data: {action: "click->collapsible-content#toggle"}
+            %template{data: {collapsible_content_target: "expandedContent"}}
+              = word_wrap(medicine_category.description, line_width: 55).html_safe
           %td.actions
             = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_medicine_category_path(medicine_category), class: "btn btn-sm btn-secondary",
               data: {turbo_frame: :remote_modal}
