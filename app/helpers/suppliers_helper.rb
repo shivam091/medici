@@ -30,4 +30,11 @@ module SuppliersHelper
     when current_user.manager? then manager_supplier_path(supplier)
     end
   end
+
+  def form_model(supplier)
+    case
+    when current_user.admin? then [:admin, supplier]
+    when current_user.manager? then [:manager, supplier]
+    end
+  end
 end

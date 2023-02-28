@@ -30,4 +30,11 @@ module ManufacturersHelper
     when current_user.manager? then manager_manufacturer_path(manufacturer)
     end
   end
+
+  def form_model(manufacturer)
+    case
+    when current_user.admin? then [:admin, manufacturer]
+    when current_user.manager? then [:manager, manufacturer]
+    end
+  end
 end

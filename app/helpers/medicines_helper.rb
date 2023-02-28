@@ -31,6 +31,13 @@ module MedicinesHelper
     end
   end
 
+  def form_model(medicine)
+    case
+    when current_user.admin? then [:admin, medicine]
+    when current_user.manager? then [:manager, medicine]
+    end
+  end
+
   def humanized_strength(medicine)
     "#{medicine.try(:strength)} #{medicine.try(:uom)}"
   end
