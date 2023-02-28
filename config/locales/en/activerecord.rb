@@ -87,7 +87,46 @@
           phone_number: "Phone number",
           customer_care_number: "Customer care number",
           is_active: "Is active",
-        }
+        },
+        medicine: {
+          medicine_category_id: "Medicine category",
+          dosage_form_id: "Dosage form",
+          packing_type_id: "Packing type",
+          manufacturer_id: "Manufacturer",
+          name: "Name",
+          description: "Description",
+          batch_number: "Batch number",
+          purchase_price: "Purchase price",
+          sale_price: "Sale price",
+          manufacture_date: "Manufacture date",
+          expiry_date: "Expiry date",
+          proprietary_name: "Proprietary name",
+          strength: "Strength",
+          uom: "Unit of measurement",
+          pack_size: "Pack size",
+          therapeutic_areas: "Therapeutic areas",
+          is_active: "Is active"
+        },
+        medicine_supplier: {
+          medicine_id: "Medicine",
+          supplier_id: "Supplier",
+          total_quantity_supplied: "Total quantity supplied",
+        },
+        medicine_ingredient: {
+          medicine_id: "Medicine",
+          ingredient_id: "Ingredient",
+          active: "Active",
+          strength: "Strength",
+          uom: "Unit of measurement",
+        },
+        stock: {
+          medicine_id: "Medicine",
+          quantity_in_hand: "Quantity in hand",
+        },
+        replenishment: {
+          medicine_id: "Medicine",
+          quantity_pending_from_supplier: "Quantity pending from supplier",
+        },
       },
       help_texts: {
 

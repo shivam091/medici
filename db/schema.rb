@@ -10,10 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_26_092751) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_26_155635) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "unit_of_measures", [["kg", "g", "mg", "mcg", "l", "ml", "cc", "mol", "mmol", "ww", "qs", "wv", "lb", "f", "c", "oz", "tbsp", "tsp", "gtt", "gr", "gal", "pt", "m", "qt", "floz", "fldr", "dr", "vv"]]
 
   create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "country_id"
@@ -144,6 +148,74 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_092751) do
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_fc60a64610"
   end
 
+  create_table "medicine_ingredients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "medicine_id"
+    t.uuid "ingredient_id"
+    t.boolean "active", default: false
+    t.decimal "strength", precision: 8, scale: 2
+    t.enum "uom", enum_type: "unit_of_measures"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_medicine_ingredients_on_ingredient_id"
+    t.index ["medicine_id"], name: "index_medicine_ingredients_on_medicine_id"
+  end
+
+  create_table "medicine_suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "medicine_id"
+    t.uuid "supplier_id"
+    t.integer "total_quantity_supplied", default: 0
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["medicine_id"], name: "index_medicine_suppliers_on_medicine_id"
+    t.index ["supplier_id"], name: "index_medicine_suppliers_on_supplier_id"
+    t.check_constraint "total_quantity_supplied >= 0", name: "chk_fde59c4d35"
+    t.check_constraint "total_quantity_supplied IS NOT NULL", name: "chk_95cd4feefd"
+  end
+
+  create_table "medicines", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "medicine_category_id"
+    t.uuid "dosage_form_id"
+    t.uuid "packing_type_id"
+    t.uuid "manufacturer_id"
+    t.string "code"
+    t.string "name"
+    t.text "description"
+    t.string "batch_number"
+    t.decimal "purchase_price", precision: 8, scale: 2
+    t.decimal "sell_price", precision: 8, scale: 2
+    t.date "manufacture_date"
+    t.date "expiry_date"
+    t.string "proprietary_name"
+    t.decimal "strength", precision: 8, scale: 2
+    t.enum "uom", enum_type: "unit_of_measures"
+    t.integer "pack_size"
+    t.string "therapeutic_areas"
+    t.boolean "is_active", default: false
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["dosage_form_id"], name: "index_medicines_on_dosage_form_id"
+    t.index ["manufacturer_id"], name: "index_medicines_on_manufacturer_id"
+    t.index ["medicine_category_id"], name: "index_medicines_on_medicine_category_id"
+    t.index ["packing_type_id"], name: "index_medicines_on_packing_type_id"
+    t.check_constraint "batch_number IS NOT NULL AND batch_number::text <> ''::text", name: "chk_977b947e5e"
+    t.check_constraint "char_length(batch_number::text) <= 55", name: "chk_b952d93e37"
+    t.check_constraint "char_length(code::text) <= 15", name: "chk_f2d0605361"
+    t.check_constraint "char_length(description) <= 1000", name: "chk_ce3da558a4"
+    t.check_constraint "char_length(name::text) <= 255", name: "chk_0e33ee0ead"
+    t.check_constraint "char_length(proprietary_name::text) <= 255", name: "chk_5e9dfe5c73"
+    t.check_constraint "char_length(therapeutic_areas::text) <= 255", name: "chk_46218b7add"
+    t.check_constraint "code IS NOT NULL AND code::text <> ''::text", name: "chk_77ace052f1"
+    t.check_constraint "expiry_date > CURRENT_DATE", name: "manufacture_date_gt_today"
+    t.check_constraint "expiry_date IS NOT NULL", name: "chk_95781602a5"
+    t.check_constraint "manufacture_date < expiry_date", name: "expiry_date_gt_manufacture_date"
+    t.check_constraint "manufacture_date <= CURRENT_DATE", name: "manufacture_date_lteq_today"
+    t.check_constraint "manufacture_date IS NOT NULL", name: "chk_a3d10b57f2"
+    t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_7db414700d"
+    t.check_constraint "purchase_price IS NOT NULL", name: "chk_f7b18baf4f"
+    t.check_constraint "sell_price <= purchase_price", name: "sale_price_lteq_purchase_price"
+    t.check_constraint "sell_price IS NOT NULL", name: "chk_b79c9e345f"
+  end
+
   create_table "packing_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.boolean "is_active", default: false
@@ -152,6 +224,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_092751) do
     t.index ["name"], name: "index_packing_types_on_name", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_9ef2625dfe"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_c41aed63fb"
+  end
+
+  create_table "replenishments", primary_key: "medicine_id", id: :uuid, default: nil, force: :cascade do |t|
+    t.integer "quantity_pending_from_supplier", default: 0
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["medicine_id"], name: "index_replenishments_on_medicine_id", unique: true
+    t.check_constraint "quantity_pending_from_supplier >= 0", name: "chk_13a13af222"
+    t.check_constraint "quantity_pending_from_supplier IS NOT NULL", name: "chk_037df1962d"
   end
 
   create_table "request_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -188,6 +269,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_092751) do
     t.index ["name"], name: "index_roles_on_name", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_859b734ae2"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_ac03779a47"
+  end
+
+  create_table "stocks", primary_key: "medicine_id", id: :uuid, default: nil, force: :cascade do |t|
+    t.integer "quantity_in_hand", default: 0
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["medicine_id"], name: "index_stocks_on_medicine_id", unique: true
+    t.check_constraint "quantity_in_hand >= 0", name: "chk_f5833a0a29"
+    t.check_constraint "quantity_in_hand IS NOT NULL", name: "chk_07ed382b70"
   end
 
   create_table "stores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -279,7 +369,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_092751) do
 
   add_foreign_key "addresses", "countries", name: "fk_addresses_country_id_on_countries", on_delete: :restrict
   add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
+  add_foreign_key "medicine_ingredients", "ingredients", name: "fk_medicine_ingredients_ingredient_id_on_ingredients", on_delete: :restrict
+  add_foreign_key "medicine_ingredients", "medicines", name: "fk_medicine_ingredients_medicine_id_on_medicines", on_delete: :cascade
+  add_foreign_key "medicine_suppliers", "medicines", name: "fk_medicine_suppliers_medicine_id_on_medicines", on_delete: :cascade
+  add_foreign_key "medicine_suppliers", "suppliers", name: "fk_medicine_suppliers_supplier_id_on_suppliers", on_delete: :restrict
+  add_foreign_key "medicines", "dosage_forms", name: "fk_medicines_dosage_form_id_on_dosage_forms", on_delete: :restrict
+  add_foreign_key "medicines", "manufacturers", name: "fk_medicines_manufacturer_id_on_manufacturers", on_delete: :restrict
+  add_foreign_key "medicines", "medicine_categories", name: "fk_medicines_medicine_category_id_on_medicine_categories", on_delete: :restrict
+  add_foreign_key "medicines", "packing_types", name: "fk_medicines_packing_type_id_on_packing_types", on_delete: :restrict
+  add_foreign_key "replenishments", "medicines", name: "fk_replenishments_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
+  add_foreign_key "stocks", "medicines", name: "fk_stocks_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
   add_foreign_key "users", "stores", name: "fk_users_store_id_on_stores", on_delete: :cascade
 end

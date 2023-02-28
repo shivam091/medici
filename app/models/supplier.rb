@@ -25,6 +25,12 @@ class Supplier < ApplicationRecord
 
   has_one :address, as: :addressable, dependent: :destroy
 
+  has_many :medicine_suppliers, dependent: :restrict_with_exception
+  has_many :medicines,
+           through: :medicine_suppliers,
+           source: :medicine,
+           inverse_of: :medicine_suppliers
+
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true
 
