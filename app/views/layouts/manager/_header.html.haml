@@ -15,7 +15,7 @@
               = external_svg_tag("svgs/home.svg")
               = t(".home")
           %li.nav-item
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("manager/medicines"))}" do
+            = link_to manager_medicines_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("manager/medicines"))}" do
               = external_svg_tag("svgs/medicine.svg")
               = t(".medicines")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3

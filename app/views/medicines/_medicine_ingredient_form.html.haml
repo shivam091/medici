@@ -1,0 +1,13 @@
+%fieldset.border-dashed.medicine-ingredient-form-wrapper{data: {new_record: form.object.new_record?}}
+  = form.hidden_field :id, value: form.object.id
+  = form.hidden_field :_destroy
+  .row.row-cols-1.row-cols-lg-4.align-items-center
+    = form.select :ingredient_id, options_for_select(::Ingredient.select_options, form.object.ingredient_id),
+      {include_blank: t(".select_ingredient")}
+    = form.number_field :strength
+    = form.select :uom, enum_options_for_select(::MedicineIngredient, :unit_of_measurements),
+      {include_blank: t(".select_uom")}
+    = form.check_box :active
+  = button_tag :remove, class: "btn btn-sm btn-danger", data: {action: "click->nested-forms#removeAssociation"} do
+    = external_svg_tag("svgs/trash.svg")
+    = button_text("remove_ingredient")

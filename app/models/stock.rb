@@ -7,5 +7,5 @@ class Stock < ApplicationRecord
 
   attribute :quantity_in_hand, default: 0
 
-  belongs_to :medicine, inverse_of: :stock
+  belongs_to :medicine, inverse_of: :stock, touch: true
 end

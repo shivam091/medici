@@ -40,6 +40,11 @@
       new_manufacturer: "New manufacturer",
       create_manufacturer: "Create manufacturer",
       update_manufacturer: "Update manufacturer",
+      new_medicine: "New medicine",
+      create_medicine: "Create medicine",
+      update_medicine: "Update medicine",
+      add_ingredient: "Add ingredient",
+      remove_ingredient: "Remove ingredient",
     }
   }
 }

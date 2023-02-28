@@ -1,0 +1,49 @@
+= label_tag :selections, "", class: "form-label", data: {select_all_checkbox_target: "count"}
+.table-responsive
+  %table.table.table-striped.table-bordered
+    %thead
+      %tr
+        %th{scope: "col", rowspan: 2}#
+        - if @medicines&.count > 0
+          %th{width: "25px", scope: "col", rowspan: 2}
+            = check_box_tag "checkbox", nil, false, class: "form-check-input", data: {select_all_checkbox_target: "selectAllCheckbox"}
+        %th{scope: "col", rowspan: 2}= t(".code")
+        %th{scope: "col", rowspan: 2}= t(".name")
+        %th{scope: "col", rowspan: 2}= t(".category")
+        %th{scope: "col", rowspan: 2}= t(".manufacturer")
+        %th{scope: "col", colspan: 2}= t(".inventory")
+        %th{scope: "col", rowspan: 2}= t(".purchase_price")
+        %th{scope: "col", rowspan: 2}= t(".sell_price")
+        %th{scope: "col", rowspan: 2}= t(".manufacture_date")
+        %th{scope: "col", rowspan: 2}= t(".expiry_date")
+        %th{scope: "col", rowspan: 2}= t(".strength")
+        %th{scope: "col", rowspan: 2}= t(".actions")
+      %tr
+        %th{scope: "col"}= t(".quantity_in_hand")
+        %th{scope: "col"}= t(".quantity_pending_from_supplier")
+    %tbody
+      - if @medicines&.each.with_index(1) do |medicine, index|
+        %tr
+          %td.fw-bold
+            = (@pagy.offset + index)
+          %td
+            = check_box_tag "medicine_ids[]", medicine.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
+          %td.fw-bold= medicine.code
+          %td.fw-bold= medicine.name
+          %td= medicine.medicine_category_name
+          %td= medicine.manufacturer_name
+          %td= medicine.quantity_in_hand
+          %td= medicine.quantity_pending_from_supplier
+          %td= medicine.purchase_price
+          %td= medicine.sell_price
+          %td= medicine.manufacture_date.to_fs(:long)
+          %td= medicine.expiry_date.to_fs(:long)
+          %td= humanized_strength(medicine)
+          %td.actions
+            = link_to external_svg_tag("svgs/pencil.svg"), edit_medicine_path(medicine), class: "btn btn-sm btn-secondary"
+            = link_to external_svg_tag("svgs/trash.svg"), medicine_path(medicine), class: "btn btn-sm btn-danger",
+              data: {turbo_confirm: t(".delete_medicine_confirmation_text", medicine_name: medicine.name), turbo_method: :delete}
+      - end.empty?
+        %tr
+          %td.fw-bold{colspan: ::Medicine.columns.count}
+            = t(".no_medicines_to_display")

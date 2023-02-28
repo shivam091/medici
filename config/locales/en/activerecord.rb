@@ -97,7 +97,7 @@
           description: "Description",
           batch_number: "Batch number",
           purchase_price: "Purchase price",
-          sale_price: "Sale price",
+          sell_price: "Sell price",
           manufacture_date: "Manufacture date",
           expiry_date: "Expiry date",
           proprietary_name: "Proprietary name",
@@ -105,7 +105,9 @@
           uom: "Unit of measurement",
           pack_size: "Pack size",
           therapeutic_areas: "Therapeutic areas",
-          is_active: "Is active"
+          is_active: "Is active",
+          supplier_ids: "Suppliers",
+          image: "Image",
         },
         medicine_supplier: {
           medicine_id: "Medicine",
