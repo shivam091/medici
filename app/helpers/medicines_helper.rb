@@ -31,7 +31,7 @@ module MedicinesHelper
     end
   end
 
-  def form_model(medicine)
+  def medicine_object(medicine)
     case
     when current_user.admin? then [:admin, medicine]
     when current_user.manager? then [:manager, medicine]
