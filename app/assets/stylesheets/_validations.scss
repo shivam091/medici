@@ -53,7 +53,8 @@
 .is-invalid svg {
   fill: var(--color-danger-fg) !important;
 }
-.form-control.is-invalid:focus, .form-select.is-invalid:focus, .form-check-input.is-invalid:focus {
+.form-control.is-invalid:focus, .form-select.is-invalid:focus, .form-check-input.is-invalid:focus,
+.form-floating>.form-control.is-invalid:focus, .form-floating>.form-select.is-invalid:focus {
   border-color: var(--color-danger-fg);
   box-shadow: var(--color-invalid-shadow-focus);
   -webkit-box-shadow: var(--color-invalid-shadow-focus);
