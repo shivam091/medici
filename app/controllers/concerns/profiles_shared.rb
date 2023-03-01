@@ -8,6 +8,9 @@ module ProfilesShared
   def self.included(base_class)
     base_class.class_eval do
 
+      # GET /(admin|manager|cashier)/profile
+      def show
+      end
     end
   end
 end
