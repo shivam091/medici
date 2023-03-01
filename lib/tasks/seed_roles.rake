@@ -4,9 +4,10 @@
 
 # rake medici:db:seed_roles RAILS_ENV=XXX
 
-desc "Seeds roles"
 namespace :medici do
   namespace :db do
+    desc "Seeds roles"
+
     task seed_roles: :environment do
       CSV.foreach("#{Rails.root}/db/data/roles.csv", headers: true) do |row|
         begin
