@@ -61,6 +61,18 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
+  # DELETE /admin/users/:uuid
+  def destroy
+    response = ::Users::DestroyService.(@user)
+    @user = response.payload[:user]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_users_path
+  end
+
   private
 
   def user_params
