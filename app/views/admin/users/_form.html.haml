@@ -1,0 +1,33 @@
+= bootstrap_form_with model: [:admin, @user] do |form|
+  .subheader
+    = t(".basic_details")
+  .row.row-cols-1.row-cols-lg-3
+    = form.text_field :first_name, data: {controller: "autofocus"}
+    = form.text_field :last_name
+    = form.text_field :email
+  .row.row-cols-1.row-cols-lg-3
+    = form.phone_field :mobile_number
+    = form.select :role_id, options_for_select(::Role.select_options, form.object.role_id),
+      {include_blank: t(".select_role")}
+    = form.select :store_id, options_for_select(::Store.select_options, form.object.store_id),
+      {include_blank: t(".select_store")}
+  .row.row-cols-1
+    = form.check_box :is_active, switch: true
+  .subheader
+    = t(".address")
+  = form.fields_for :address, form.object.address, include_id: false do |address_form_fields|
+    = render_if_exists("shared/address_form_fields", locals: {form: address_form_fields})
+  .actions
+    - if form.object.new_record?
+      = button_tag type: :submit, class: "btn btn-primary" do
+        = external_svg_tag("svgs/plus.svg")
+        %span.d-block.d-lg-none= button_text("create")
+        %span.d-none.d-lg-block= button_text("create_user")
+    - if form.object.persisted?
+      = button_tag type: :submit, class: "btn btn-primary" do
+        = external_svg_tag("svgs/floppy.svg")
+        %span.d-block.d-lg-none= button_text("update")
+        %span.d-none.d-lg-block= button_text("update_user")
+    = link_to "javascript:history.back()", class: "btn btn-secondary" do
+      = external_svg_tag("svgs/arrow-left.svg")
+      = button_text("go_back")
