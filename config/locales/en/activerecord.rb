@@ -22,6 +22,8 @@
           unconfirmed_email: "Unconfirmed email address",
           mobile_number: "Mobile number",
           unconfirmed_mobile_number: "Unconfirmed mobile number",
+          role_id: "Role",
+          store_id: "Store",
         },
         currency: {
           name: "Name",
