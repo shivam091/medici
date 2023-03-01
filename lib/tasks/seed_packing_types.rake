@@ -6,7 +6,7 @@
 
 namespace :medici do
   namespace :db do
-    desc "Seeds packing"
+    desc "Seeds packing types"
     task seed_packing_types: :environment do
       CSV.foreach("#{Rails.root}/db/data/packing_types.csv", headers: true) do |row|
         begin
