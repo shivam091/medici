@@ -159,6 +159,12 @@
           error: "User '%{user_name}' could not be destroyed.",
         }
       },
+      profiles: {
+        update: {
+          success: "Your profile was successfully updated.",
+          error: "Your profile could not be updated."
+        }
+      }
     }
   }
 }

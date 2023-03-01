@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       concerns :shareable
 
       resource :dashboard
+      resource :profile, only: [:show, :edit, :update]
 
       resources :currencies, except: :show, param: :uuid
       resources :countries, except: :show, param: :uuid
@@ -51,12 +52,14 @@ Rails.application.routes.draw do
 
     namespace :cashier do
       resource :dashboard
+      resource :profile, only: [:show, :edit, :update]
     end
 
     namespace :manager do
       concerns :shareable
 
       resource :dashboard
+      resource :profile, only: [:show, :edit, :update]
     end
   end
 end

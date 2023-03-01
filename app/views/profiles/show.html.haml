@@ -1,0 +1,43 @@
+= title(t(".title"))
+.card.card-primary.border.border-primary
+  .card-body
+    .widget
+      .widget-header.d-flex.align-items-center.justify-content-between
+        .d-block
+          .widget-title
+            = t(".your_profile")
+          .widget-help= t(".edit_profile_details")
+        = link_to edit_profile_path, class: "btn btn-secondary" do
+          = external_svg_tag("svgs/pencil.svg")
+          = button_text("edit")
+      .widget-row.d-flex
+        .flex-auto
+          .widget-row-title= t(".name")
+          .widget-row-body= current_user.full_name
+    .widget
+      .widget-header
+        .widget-title
+          = t(".login_and_security_preferences")
+        .widget-help= t(".login_and_security_preferences_help_text")
+      .widget-row.d-flex.align-items-center.justify-content-between
+        .order-md-1.order-2
+        .flex-auto
+          .widget-row-title= t(".email")
+          .widget-row-body= current_user.email
+      .widget-row.d-flex.align-items-center.justify-content-between
+        .order-md-1.order-2
+          = link_to "javascript:void(0)", class: "btn btn-secondary" do
+            = external_svg_tag("svgs/pencil.svg")
+            = button_text("edit")
+        .flex-auto
+          .widget-row-title= t(".mobile_number")
+          .widget-row-body= current_user.mobile_number
+          .text-muted= t(".mobile_number_help_text")
+      .widget-row.d-flex.align-items-center.justify-content-between
+        .order-md-1.order-2
+          = link_to "javascript:void(0)", class: "btn btn-secondary", data: {turbo_frame: :remote_modal} do
+            = external_svg_tag("svgs/pencil.svg")
+            = button_text("edit")
+        .flex-auto
+          .widget-row-title= t(".password")
+          .widget-row-body ******

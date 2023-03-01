@@ -1,0 +1,19 @@
+= bootstrap_form_with model: user_form_model, url: profile_path do |form|
+  .subheader
+    = t(".profile_details")
+  .row.row-cols-1.row-cols-lg-3
+    = form.text_field :first_name, data: {controller: "autofocus"}
+    = form.text_field :last_name
+    = form.phone_field :mobile_number
+  .subheader
+    = t(".address")
+  = form.fields_for :address, form.object.address, include_id: false do |address_form_fields|
+    = render_if_exists("shared/address_form_fields", locals: {form: address_form_fields})
+  .actions
+    = button_tag type: :submit, class: "btn btn-primary" do
+      = external_svg_tag("svgs/floppy.svg")
+      %span.d-block.d-lg-none= button_text("update")
+      %span.d-none.d-lg-block= button_text("update_profile")
+    = link_to "javascript:history.back()", class: "btn btn-secondary" do
+      = external_svg_tag("svgs/arrow-left.svg")
+      = button_text("go_back")
