@@ -12,10 +12,6 @@ class Ingredient < ApplicationRecord
             length: {maximum: 55},
             uniqueness: true,
             reduce: true
-  validates :description,
-            presence: true,
-            length: {maximum: 1000},
-            reduce: true
 
   has_many :medicine_ingredients, dependent: :restrict_with_exception
   has_many :medicines,

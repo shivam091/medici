@@ -46,7 +46,6 @@
         },
         ingredient: {
           name: "Name",
-          description: "Description",
           is_active: "Is active",
         },
         dosage_form: {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_27_051518) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -107,14 +107,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_051518) do
 
   create_table "ingredients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
-    t.text "description"
     t.boolean "is_active", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["name"], name: "index_ingredients_on_name", unique: true
-    t.check_constraint "char_length(description) <= 1000", name: "chk_e3f3556190"
     t.check_constraint "char_length(name::text) <= 55", name: "chk_62cbc59142"
-    t.check_constraint "description IS NOT NULL AND description <> ''::text", name: "chk_f81cf0f75f"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_44ab271035"
   end
 

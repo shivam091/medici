@@ -1,6 +1,5 @@
 = bootstrap_form_with model: [:admin, @ingredient] do |form|
   = form.text_field :name, data: {controller: "autofocus"}
-  = form.text_area :description
   = form.check_box :is_active, switch: true
   .modal-actions
     - if form.object.new_record?
