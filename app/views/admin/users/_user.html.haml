@@ -1,0 +1,35 @@
+= label_tag :selections, "", class: "form-label", data: {select_all_checkbox_target: "count"}
+.table-responsive
+  %table.table.table-striped.table-bordered
+    %thead
+      %tr
+        %th{width: "25px", scope: "col"}#
+        - if @users&.count > 0
+          %th{width: "25px", scope: "col"}
+            = check_box_tag "checkbox", nil, false, class: "form-check-input", data: {select_all_checkbox_target: "selectAllCheckbox"}
+        %th{scope: "col"}= t(".name")
+        %th{scope: "col"}= t(".email")
+        %th{scope: "col"}= t(".mobile_number")
+        %th{scope: "col"}= t(".role")
+        %th{scope: "col"}= t(".store")
+        %th{width: "25px", scope: "col"}= t(".actions")
+    %tbody
+      - if @users&.each.with_index(1) do |user, index|
+        %tr
+          %td.fw-bold
+            = (@pagy.offset + index)
+          %td
+            = check_box_tag "user_ids[]", user.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
+          %td.fw-bold= user.full_name
+          %td= mail_to user.email
+          %td= user.mobile_number
+          %td= user.role_name.humanize
+          %td= user.store_name
+          %td.actions
+            = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_user_path(user), class: "btn btn-sm btn-secondary"
+            = link_to external_svg_tag("svgs/trash.svg"), admin_user_path(user), class: "btn btn-sm btn-danger",
+              data: {turbo_confirm: t(".delete_user_confirmation_text", user_name: user.full_name), turbo_method: :delete}
+      - end.empty?
+        %tr
+          %td.fw-bold{colspan: ::User.columns.count}
+            = t(".no_users_to_display")

@@ -45,6 +45,9 @@
       update_medicine: "Update medicine",
       add_ingredient: "Add ingredient",
       remove_ingredient: "Remove ingredient",
+      new_user: "New user",
+      create_user: "Create user",
+      update_user: "Update user",
     }
   }
 }

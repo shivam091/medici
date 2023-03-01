@@ -50,5 +50,9 @@ class Store < ApplicationRecord
     def mini_stores
       where(is_main_store: false)
     end
+    
+    def select_options
+      active.pluck(:name, :id)
+    end
   end
 end

@@ -15,7 +15,7 @@
               = external_svg_tag("svgs/home.svg")
               = t(".home")
           %li.nav-item
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/users"))}" do
+            = link_to admin_users_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/users"))}" do
               = external_svg_tag("svgs/users.svg")
               = t(".users")
           %li.nav-item

@@ -14,4 +14,10 @@ class Role < ApplicationRecord
             reduce: true
 
   has_many :users, dependent: :restrict_with_exception
+
+  class << self
+    def select_options
+      active.collect { |role| [role.name.humanize, role.id] }
+    end
+  end
 end
