@@ -161,8 +161,9 @@ module Medici
         end
 
         # Helper for adding not null constraint to the column.
-        def add_not_null_constraint(table, column_name, name: nil)
+        def add_not_null_constraint(table, column_name, options = {})
           column_name = quote_column_name(column_name)
+          name = options.delete(:name)
 
           add_check_constraint(
             table,
@@ -172,8 +173,9 @@ module Medici
         end
 
         # Helper for adding not empty constraint to the column.
-        def add_not_empty_constraint(table, column_name, name: nil)
+        def add_not_empty_constraint(table, column_name, options = {})
           column_name = quote_column_name(column_name)
+          name = options.delete(:name)
 
           add_check_constraint(
             table,
@@ -183,12 +185,13 @@ module Medici
         end
 
         # Helper for adding not null and empty constraint to the column.
-        def add_not_null_and_empty_constraint(table, column_name, name: nil)
+        def add_not_null_and_empty_constraint(table, column_name, options = {})
           column_name = quote_column_name(column_name)
+          name = options.delete(:name)
 
           add_check_constraint(
             table,
-            not_null_and_empty_constraint_definitions(column_name),
+            not_null_and_empty_constraint_definitions(column_name, options),
             name: not_null_and_empty_constraint_name(table, column_name, name: name)
           )
         end

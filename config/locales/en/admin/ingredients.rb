@@ -13,7 +13,6 @@
         },
         ingredient: {
           name: "Name",
-          description: "Description",
           actions: "Actions",
           delete_ingredient_confirmation_text: "Are you sure you want to delete the ingredient '%{ingredient_name}'?",
           no_ingredients_to_display: "No ingredients to display."
