@@ -27,7 +27,7 @@
               %li
                 %h6.dropdown-header.fw-bold= t(".your_account")
               %li
-                = link_to t(".your_profile"), "javascript:void(0)", class: "dropdown-item"
+                = link_to t(".your_profile"), manager_profile_path, class: "dropdown-item"
               %li.dropdown-divider
               %li
                 = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
@@ -41,7 +41,7 @@
               %li
                 %h6.dropdown-header.fw-bold= t(".your_account")
               %li
-                = link_to t(".your_profile"), "javascript:void(0)", class: "dropdown-item"
+                = link_to t(".your_profile"), manager_profile_path, class: "dropdown-item"
               %li.dropdown-divider
               %li
                 = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}

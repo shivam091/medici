@@ -10,6 +10,7 @@
       save_changes: "Save changes",
       new: "New",
       create: "Create",
+      edit: "Edit",
       update: "Update",
       cancel: "Cancel",
       go_back: "Go back",
@@ -48,6 +49,7 @@
       new_user: "New user",
       create_user: "Create user",
       update_user: "Update user",
+      update_profile: "Update profile",
     }
   }
 }
