@@ -23,7 +23,7 @@ class Ingredients::DestroyService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("ingredients.destroy.success", ingredient_name: ingredient.name),
+        message: t("ingredients.destroy.error", ingredient_name: ingredient.name),
         payload: {ingredient: ingredient}
       )
     end
