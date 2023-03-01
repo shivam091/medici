@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms"
       resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories"
       resources :packing_types, except: :show, param: :uuid, path: "packing-types"
+      resources :users, param: :uuid
 
       resources :stores, param: :uuid
     end

@@ -145,6 +145,20 @@
           error: "Medicine '%{medicine_code} (%{medicine_name})' could not be destroyed.",
         }
       },
+      users: {
+        create: {
+          success: "User '%{user_name}' was successfully created.",
+          error: "User could not be created.",
+        },
+        update: {
+          success: "User '%{user_name}' was successfully updated.",
+          error: "User could not be updated.",
+        },
+        destroy: {
+          success: "User '%{user_name}' was successfully destroyed.",
+          error: "User '%{user_name}' could not be destroyed.",
+        }
+      },
     }
   }
 }
