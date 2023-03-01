@@ -31,7 +31,7 @@ module ManufacturersHelper
     end
   end
 
-  def form_model(manufacturer)
+  def manufacturer_object(manufacturer)
     case
     when current_user.admin? then [:admin, manufacturer]
     when current_user.manager? then [:manager, manufacturer]
