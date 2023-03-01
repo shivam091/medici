@@ -35,16 +35,16 @@
       },
       ingredients: {
         create: {
-          success: "Ingredients '%{ingredient_name}' was successfully created.",
-          error: "Ingredients could not be created.",
+          success: "Ingredient '%{ingredient_name}' was successfully created.",
+          error: "Ingredient could not be created.",
         },
         update: {
-          success: "Ingredients '%{ingredient_name}' was successfully updated.",
-          error: "Ingredients could not be updated.",
+          success: "Ingredient '%{ingredient_name}' was successfully updated.",
+          error: "Ingredient could not be updated.",
         },
         destroy: {
-          success: "Ingredients '%{ingredient_name}' was successfully destroyed.",
-          error: "Ingredients '%{ingredient_name}' could not be destroyed.",
+          success: "Ingredient '%{ingredient_name}' was successfully destroyed.",
+          error: "Ingredient '%{ingredient_name}' could not be destroyed.",
         }
       },
       dosage_forms: {
