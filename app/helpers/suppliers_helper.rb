@@ -31,7 +31,7 @@ module SuppliersHelper
     end
   end
 
-  def form_model(supplier)
+  def supplier_object(supplier)
     case
     when current_user.admin? then [:admin, supplier]
     when current_user.manager? then [:manager, supplier]
