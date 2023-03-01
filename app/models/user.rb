@@ -6,7 +6,8 @@ class User < ApplicationRecord
   include CaseSensitivity,
           StripAttribute,
           DowncaseAttribute,
-          Filterable
+          Filterable,
+          Sortable
 
   devise :database_authenticatable, :registerable, :confirmable, :lockable,
          :recoverable, :rememberable, :validatable, :timeoutable, :trackable,
@@ -37,10 +38,27 @@ class User < ApplicationRecord
             reduce: true,
             if: proc { password.present? }
 
+  has_one :address, as: :addressable, dependent: :destroy
+
   has_many :request_logs, dependent: :nullify
+
+  before_validation on: :create do
+    pass = "Coxefgu@1"
+    self.password = pass
+    self.password_confirmation = pass
+  end
 
   belongs_to :role
   belongs_to :store, optional: true
+
+  delegate :name, to: :store, allow_nil: true, prefix: true
+  delegate :name, to: :role, prefix: true
+  delegate :country, to: :address
+  delegate :name, to: :country, prefix: true
+
+  default_scope { order_created_asc }
+
+  accepts_nested_attributes_for :address, update_only: true
 
   class << self
     def with_email_or_mobile_number(login)
@@ -124,6 +142,10 @@ class User < ApplicationRecord
 
   def has_no_roles?(*roles)
     !has_any_role?(*roles)
+  end
+
+  def address
+    super.presence || build_address
   end
 
   private
