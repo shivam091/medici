@@ -4,6 +4,8 @@
 
 FactoryBot.define do
   factory :supplier do
-
+    name { "Supplier" }
+    email { "supplier@medici.com" }
+    phone_number { "+911234567890" }
   end
 end
