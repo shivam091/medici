@@ -4,6 +4,14 @@
 
 FactoryBot.define do
   factory :country do
+    name { "India" }
+    iso2 { "IN" }
+    iso3 { "IND" }
+    calling_code { "+91" }
+    currency { ::Currency.first || association(:currency) }
 
+    trait :active do
+      is_active { true }
+    end
   end
 end

@@ -4,6 +4,11 @@
 
 FactoryBot.define do
   factory :address do
-
+    address1 { "New Panvel (E)" }
+    city { "Navi Mumbai" }
+    region { "Maharashtra" }
+    postal_code { "410206" }
+    country { ::Country.first || association(:country) }
+    association :addressable
   end
 end
