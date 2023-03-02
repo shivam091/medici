@@ -4,6 +4,7 @@
 
 FactoryBot.define do
   factory :medicine_category do
-
+    name { "Antineoplastics" }
+    description { "Drugs used to treat cancer." }
   end
 end
