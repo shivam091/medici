@@ -4,6 +4,6 @@
 
 FactoryBot.define do
   factory :packing_type do
-
+    name { "Strips" }
   end
 end
