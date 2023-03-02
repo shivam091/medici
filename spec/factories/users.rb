@@ -16,7 +16,7 @@ FactoryBot.define do
       email { "admin@medici.com" }
       mobile_number { "+919136558669" }
 
-      store { ::Store.first || association(:store, :with_address) }
+      store { ::Store.first || association(:store, :with_address, :active) }
       role { ::Role.find_by(name: "admin") || association(:admin_role, :active) }
     end
 
@@ -24,7 +24,7 @@ FactoryBot.define do
       email { "manager@medici.com" }
       mobile_number { "+911234567890" }
 
-      store { ::Store.first || association(:store, :with_address) }
+      store { ::Store.first || association(:store, :with_address, :active) }
       role { ::Role.find_by(name: "manager") || association(:manager_role, :active) }
     end
 
@@ -32,14 +32,8 @@ FactoryBot.define do
       email { "cashier@medici.com" }
       mobile_number { "+918879001262" }
 
-      store { ::Store.first || association(:store, :with_address) }
+      store { ::Store.first || association(:store, :with_address, :active) }
       role { ::Role.find_by(name: "cashier") || association(:cashier_role, :active) }
-    end
-
-    trait :with_address do
-      after(:build) do |user|
-        user.address = create(:address, addressable: user)
-      end
     end
 
     trait :confirmed do

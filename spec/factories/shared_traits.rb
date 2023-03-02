@@ -6,4 +6,10 @@ FactoryBot.define do
   trait :active do
     is_active { true }
   end
+
+  trait :with_address do
+    after(:build) do |object|
+      object.address = create(:address, addressable: object)
+    end
+  end
 end

@@ -29,12 +29,6 @@ FactoryBot.define do
     end
   end
 
-  trait :with_address do
-    after(:build) do |store|
-      store.address = create(:address, addressable: store)
-    end
-  end
-
   trait :main_store do
     is_main_store { true }
   end
