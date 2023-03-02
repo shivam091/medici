@@ -16,39 +16,30 @@ FactoryBot.define do
       email { "admin@medici.com" }
       mobile_number { "+919136558669" }
 
+      store { ::Store.first || association(:store, :with_address) }
       association :role, factory: :admin_role
     end
 
-    factory :main_store_manager, parent: :user do
-      email { "main_store_manager@medici.com" }
+    factory :manager, parent: :user do
+      email { "manager@medici.com" }
       mobile_number { "+911234567890" }
 
-      store { ::Store.main_store || association(:main_store) }
+      store { ::Store.first || association(:store, :with_address) }
       role { ::Role.find_by(name: "manager") || association(:manager_role) }
     end
 
-    factory :main_store_cashier, parent: :user do
-      email { "main_store_cashier@medici.com" }
+    factory :cashier, parent: :user do
+      email { "cashier@medici.com" }
       mobile_number { "+918879001262" }
 
-      store { ::Store.main_store || association(:main_store) }
+      store { ::Store.first || association(:store, :with_address) }
       role { ::Role.find_by(name: "cashier") || association(:cashier_role) }
     end
 
-    factory :mini_store_manager, parent: :user do
-      email { "mini_store_manager@medici.com" }
-      mobile_number { "+913334567889" }
-
-      store { ::Store.mini_stores.first || association(:mini_store) }
-      role { ::Role.find_by(name: "manager") || association(:manager_role) }
-    end
-
-    factory :mini_store_cashier, parent: :user do
-      email { "mini_store_cashier@medici.com" }
-      mobile_number { "+910987654321" }
-
-      store { ::Store.mini_stores.first || association(:mini_store) }
-      role { ::Role.find_by(name: "cashier") || association(:cashier_role) }
+    trait :with_address do
+      after(:build) do |user|
+        user.address = create(:address, addressable: user)
+      end
     end
 
     trait :active do
