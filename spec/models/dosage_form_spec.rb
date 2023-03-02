@@ -44,11 +44,7 @@ RSpec.describe DosageForm, type: :model do
     it { is_expected.to have_many(:medicines).dependent(:restrict_with_exception) }
   end
 
-  describe "default scope" do
-    it "should apply default scope on #name" do
-      expect(described_class.all.to_sql).to eq described_class.order(described_class.arel_table[:name].lower.asc).to_sql
-    end
-  end
+  include_examples "apply default scope on name"
 
   describe "validations" do
     describe "#name" do
