@@ -32,9 +32,6 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-Dir[Rails.root.join("spec/support/helpers/*.rb")].sort.each { |file| require file }
-Dir[Rails.root.join("spec/support/shared_contexts/*.rb")].sort.each { |file| require file }
-Dir[Rails.root.join("spec/support/shared_examples/*.rb")].sort.each { |file| require file }
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |file| require file }
 
 RSpec.configure do |config|

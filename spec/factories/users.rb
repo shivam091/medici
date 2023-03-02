@@ -42,10 +42,6 @@ FactoryBot.define do
       end
     end
 
-    trait :active do
-      is_active { true }
-    end
-
     trait :confirmed do
       unconfirmed_email { "" }
       confirmation_token { nil }

@@ -12,9 +12,5 @@ FactoryBot.define do
     symbol_first { true }
     decimal_mark { "." }
     thousands_separator { "," }
-
-    trait :active do
-      is_active { true }
-    end
   end
 end
