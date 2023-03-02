@@ -57,8 +57,11 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.include FactoryBot::Syntax::Methods
-  config.include Rails.application.routes.url_helpers, type: :routing
-  config.include MigrationHelpers
+  config.include Rails.application.routes.url_helpers
+  config.include Devise::Test::ControllerHelpers, type: :view
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Warden::Test::Helpers
 
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
@@ -73,6 +76,7 @@ RSpec.configure do |config|
 
   # Include support classes and modules.
   config.include RailsHelpers
+  config.include MigrationHelpers
   config.include ViewAssigns, type: :request
 
   config.before do
