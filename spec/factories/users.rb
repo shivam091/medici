@@ -17,7 +17,7 @@ FactoryBot.define do
       mobile_number { "+919136558669" }
 
       store { ::Store.first || association(:store, :with_address) }
-      association :role, factory: :admin_role
+      role { ::Role.find_by(name: "admin") || association(:admin_role, :active) }
     end
 
     factory :manager, parent: :user do
@@ -25,7 +25,7 @@ FactoryBot.define do
       mobile_number { "+911234567890" }
 
       store { ::Store.first || association(:store, :with_address) }
-      role { ::Role.find_by(name: "manager") || association(:manager_role) }
+      role { ::Role.find_by(name: "manager") || association(:manager_role, :active) }
     end
 
     factory :cashier, parent: :user do
@@ -33,7 +33,7 @@ FactoryBot.define do
       mobile_number { "+918879001262" }
 
       store { ::Store.first || association(:store, :with_address) }
-      role { ::Role.find_by(name: "cashier") || association(:cashier_role) }
+      role { ::Role.find_by(name: "cashier") || association(:cashier_role, :active) }
     end
 
     trait :with_address do

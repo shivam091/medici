@@ -8,7 +8,7 @@ FactoryBot.define do
     iso2 { "IN" }
     iso3 { "IND" }
     calling_code { "+91" }
-    currency { ::Currency.first || association(:currency) }
+    currency { ::Currency.first || association(:currency, :active) }
 
     trait :active do
       is_active { true }

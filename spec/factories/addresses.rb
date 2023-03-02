@@ -8,7 +8,7 @@ FactoryBot.define do
     city { "Navi Mumbai" }
     region { "Maharashtra" }
     postal_code { "410206" }
-    country { ::Country.first || association(:country) }
+    country { ::Country.first || association(:country, :active) }
     association :addressable
   end
 end
