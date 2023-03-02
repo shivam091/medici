@@ -25,7 +25,7 @@ RSpec::Matchers.define :have_a_valid_factory do
   end
 
   description do
-    "checks if the #{described_class} has valid factory"
+    "have valid factory"
   end
 
   failure_message do
