@@ -14,9 +14,9 @@ class Currency < ApplicationRecord
             reduce: true
   validates :iso_code,
             presence: true,
+            length: {is: 3},
             uniqueness: true,
             uppercase: true,
-            length: {is: 3},
             reduce: true
   validates :symbol,
             presence: true,
