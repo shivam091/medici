@@ -63,6 +63,8 @@ RSpec.describe Supplier, type: :model do
     it { is_expected.to delegate_method(:name).to(:country).with_prefix(true) }
   end
 
+  include_examples "apply default scope on name"
+
   describe "validations" do
     subject { build(:supplier, :with_address) }
 
