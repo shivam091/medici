@@ -7,4 +7,130 @@
 require "spec_helper"
 
 RSpec.describe Store, type: :model do
+  describe "valid factory" do
+    it { is_expected.to have_a_valid_factory }
+  end
+
+  describe "superclasses" do
+    it { expect(described_class.ancestors).to include ApplicationRecord }
+  end
+
+  describe "included modules" do
+    it { is_expected.to include_module(Filterable) }
+    it { is_expected.to include_module(Sortable) }
+  end
+
+  describe "attributes and indexes" do
+    it { is_expected.to have_db_column(:id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:name).of_type(:string) }
+    it { is_expected.to have_db_column(:email).of_type(:string) }
+    it { is_expected.to have_db_column(:phone_number).of_type(:string) }
+    it { is_expected.to have_db_column(:fax_number).of_type(:string) }
+    it { is_expected.to have_db_column(:registration_number).of_type(:string) }
+    it { is_expected.to have_db_column(:is_active).of_type(:boolean).with_options(default: false) }
+    it { is_expected.to have_db_column(:is_main_store).of_type(:boolean).with_options(default: false) }
+    it { is_expected.to have_db_column(:created_at).of_type(:timestamptz).with_options(null: false) }
+    it { is_expected.to have_db_column(:updated_at).of_type(:timestamptz).with_options(null: false) }
+
+    it { is_expected.to have_db_index(:email).unique(true) }
+    it { is_expected.to have_db_index(:phone_number).unique(true) }
+
+    it { is_expected.to have_check_constraint("chk_0966276692").with_condition("char_length(email::text) <= 55") }
+    it { is_expected.to have_check_constraint("chk_55cbeaf1bf").with_condition("char_length(fax_number::text) <= 32") }
+    it { is_expected.to have_check_constraint("chk_304d33223a").with_condition("char_length(phone_number::text) <= 32") }
+    it { is_expected.to have_check_constraint("chk_fc84f48d5e").with_condition("email IS NOT NULL AND email::text <> ''::text") }
+    it { is_expected.to have_check_constraint("chk_8f1459e838").with_condition("name IS NOT NULL AND name::text <> ''::text") }
+    it { is_expected.to have_check_constraint("chk_2d9bb89816").with_condition("phone_number IS NOT NULL AND phone_number::text <> ''::text") }
+    it { is_expected.to have_check_constraint("chk_48a4cf1224").with_condition("registration_number IS NOT NULL AND registration_number::text <> ''::text") }
+  end
+
+  describe "default values" do
+    it "should set false as default value for #is_active" do
+      store = build(:store)
+      expect(store.is_active).to be_falsy
+    end
+
+    it "should set false as default value for #is_main_store" do
+      store = build(:store)
+      expect(store.is_main_store).to be_falsy
+    end
+  end
+
+  describe "associations" do
+    it { is_expected.to have_one(:address).dependent(:destroy) }
+    it { is_expected.to have_many(:users).dependent(:destroy) }
+  end
+
+  describe "nested attributes" do
+    it { is_expected.to accept_nested_attributes_for(:address).update_only(true) }
+  end
+
+  describe "delegates" do
+    it { is_expected.to delegate_method(:country).to(:address) }
+    it { is_expected.to delegate_method(:name).to(:country).with_prefix(true).allow_nil }
+  end
+
+  include_examples "apply default scope on name"
+
+  describe "validations" do
+    subject { build(:store) }
+
+    describe "#name" do
+      it { is_expected.to validate_presence_of(:name).with_message("is required") }
+      it { is_expected.to validate_length_of(:name).is_at_most(110).with_message("is too long (maximum is 110 characters)") }
+    end
+
+    describe "#email" do
+      it { is_expected.to validate_presence_of(:email).with_message("is required") }
+      it { is_expected.to validate_length_of(:email).is_at_most(55).with_message("is too long (maximum is 55 characters)") }
+      it { is_expected.to validate_uniqueness_of(:email).with_message("is already in use") }
+    end
+
+    describe "#phone_number" do
+      it { is_expected.to validate_presence_of(:phone_number).with_message("is required") }
+      it { is_expected.to validate_length_of(:phone_number).is_at_most(32).with_message("is too long (maximum is 32 characters)") }
+      it { is_expected.to validate_uniqueness_of(:phone_number).with_message("is already in use").case_insensitive }
+    end
+
+    describe "#registration_number" do
+      it { is_expected.to validate_presence_of(:registration_number).with_message("is required") }
+    end
+  end
+
+  describe "#address" do
+    context "when store has no address" do
+      it "returns new instance of the address" do
+        expect(subject.address).to be_a_new(::Address)
+      end
+    end
+
+    context "when store has an address" do
+      it "returns address of the store" do
+        store = create(:store, :with_address)
+
+        expect(store.address.address1).to eq("New Panvel (E)")
+      end
+    end
+  end
+
+  describe ".main_store" do
+    it "returns main stores" do
+      store = create(:store, :active, :main_store)
+      expect(described_class.main_store).to include(store)
+    end
+  end
+
+  describe ".mini_stores" do
+    it "returns mini stores" do
+      store = create(:store, :active)
+      expect(described_class.mini_stores).to include(store)
+    end
+  end
+
+  describe ".select_options" do
+    it "should return array of stores for select list" do
+      store = create(:store, :active)
+      expect(described_class.select_options).to eq([[store.name, store.id]])
+    end
+  end
 end
