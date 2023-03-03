@@ -4,6 +4,6 @@
 
 FactoryBot.define do
   factory :dosage_form do
-    name { "Tablet 1" }
+    name { "Spray" }
   end
 end

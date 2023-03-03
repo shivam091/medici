@@ -4,7 +4,7 @@
 
 FactoryBot.define do
   factory :medicine_category do
-    name { "Antineoplastics" }
-    description { "Drugs used to treat cancer." }
+    name { "Antihistamines" }
+    description { "Drugs used primarily to counteract the effects of histamine, one of the chemicals involved in allergic reactions." }
   end
 end
