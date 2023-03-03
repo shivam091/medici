@@ -6,8 +6,8 @@ FactoryBot.define do
   factory :store do
     name { "Pharmacy store" }
     email { "store@medici.com" }
-    phone_number { "+911234567890" }
-    fax_number { "+911234567890" }
+    phone_number { generate(:phone_number) }
+    fax_number { generate(:phone_number) }
     registration_number { "1234567890" }
 
     trait :with_admin do
