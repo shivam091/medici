@@ -86,7 +86,7 @@ class Medicine < ApplicationRecord
   def set_code
     last_code = self.class.maximum(:code)
     new_code = last_code.present? ? (last_code.scan(/\d+/).first.to_i + 1) : 1
-    self.code = "MED%.10d" % new_code
+    self.code = "MED" + new_code.to_s.rjust(10, "0")
   end
 
   def create_stock
