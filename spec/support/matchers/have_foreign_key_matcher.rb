@@ -26,14 +26,14 @@ RSpec::Matchers.define :have_foreign_key do |column_name|
     foreign_key = model.class.connection.foreign_keys(model.class.table_name).find do |foreign_key|
       foreign_key.column == column_name.to_s
     end
-    options = foreign_key.options
+    options = foreign_key&.options
 
     if @identifier.present? && @on_delete.present?
-      foreign_key.present? && options[:name] == @identifier.to_s && options[:on_delete] == @on_delete
+      foreign_key.present? && options.present? && options[:name] == @identifier.to_s && options[:on_delete] == @on_delete
     elsif @identifier.present?
-      foreign_key.present? && options[:name] == @identifier.to_s
+      foreign_key.present? && options.present? && options[:name] == @identifier.to_s
     elsif @on_delete.present?
-      foreign_key.present? && options[:on_delete] == @on_delete
+      foreign_key.present? && options.present? && options[:on_delete] == @on_delete
     else
       foreign_key.present?
     end
