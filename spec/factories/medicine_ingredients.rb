@@ -4,6 +4,10 @@
 
 FactoryBot.define do
   factory :medicine_ingredient do
-
+    association :medicine
+    association(:ingredient, :active)
+    active { true }
+    strength { 27.5 }
+    uom { "mcg" }
   end
 end
