@@ -15,7 +15,7 @@ RSpec.describe Replenishment, type: :model do
     it { expect(described_class.ancestors).to include ApplicationRecord }
   end
 
-  describe "attributes and indexes" do
+  describe "attributes, indexes, and foreign keys" do
     it { is_expected.to have_db_column(:medicine_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:quantity_pending_from_supplier).of_type(:integer).with_options(default: 0) }
     it { is_expected.to have_db_column(:created_at).of_type(:timestamptz).with_options(null: false) }

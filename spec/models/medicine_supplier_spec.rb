@@ -25,7 +25,7 @@ RSpec.describe MedicineSupplier, type: :model do
     end
   end
 
-  describe "attributes and indexes" do
+  describe "attributes, indexes, and foreign keys" do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
     it { is_expected.to have_db_column(:medicine_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:supplier_id).of_type(:uuid) }

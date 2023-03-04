@@ -18,7 +18,7 @@ RSpec.describe MedicineIngredient, type: :model do
     it { expect(described_class.ancestors).to include ApplicationRecord }
   end
 
-  describe "attributes and indexes" do
+  describe "attributes, indexes, and foreign keys" do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
     it { is_expected.to have_db_column(:medicine_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:ingredient_id).of_type(:uuid) }

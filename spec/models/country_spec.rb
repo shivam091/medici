@@ -19,7 +19,7 @@ RSpec.describe Country, type: :model do
     it { is_expected.to include_module(Filterable) }
   end
 
-  describe "attributes and indexes" do
+  describe "attributes, indexes, and foreign keys" do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
     it { is_expected.to have_db_column(:name).of_type(:string) }
     it { is_expected.to have_db_column(:iso2).of_type(:string) }

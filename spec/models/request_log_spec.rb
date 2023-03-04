@@ -31,7 +31,7 @@ RSpec.describe RequestLog, type: :model do
     it { is_expected.to include_module(UpcaseAttribute) }
   end
 
-  describe "attributes and indexes" do
+  describe "attributes, indexes, and foreign keys" do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
     it { is_expected.to have_db_column(:uuid).of_type(:string) }
     it { is_expected.to have_db_column(:uri).of_type(:string) }
