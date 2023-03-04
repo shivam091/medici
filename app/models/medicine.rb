@@ -88,10 +88,13 @@ class Medicine < ApplicationRecord
             :manufacturer_id,
             presence: true,
             reduce: true
-  validates :uom, presence: true, reduce: true
   validates :strength,
             presence: true,
             numericality: {greater_than: 0.0},
+            reduce: true
+  validates :uom,
+            presence: true,
+            inclusion: {in: unit_of_measurements.keys},
             reduce: true
 
   has_one :stock, dependent: :destroy

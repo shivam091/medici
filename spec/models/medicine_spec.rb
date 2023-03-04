@@ -160,6 +160,7 @@ RSpec.describe Medicine, type: :model do
 
     describe "#uom" do
       it { is_expected.to validate_presence_of(:uom).with_message("is required") }
+      it { is_expected.to validate_inclusion_of(:uom).in_array(described_class.unit_of_measurements.keys) }
     end
   end
 
