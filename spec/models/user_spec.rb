@@ -7,4 +7,203 @@
 require "spec_helper"
 
 RSpec.describe User, type: :model do
+
+  subject(:user) { build(:admin, :confirmed) }
+
+  describe "valid factory" do
+    it { is_expected.to have_a_valid_factory(:admin) }
+  end
+
+  describe "superclasses" do
+    it { expect(described_class.ancestors).to include ApplicationRecord }
+  end
+
+  describe "included modules" do
+    it { is_expected.to include_module(CaseSensitivity) }
+    it { is_expected.to include_module(StripAttribute) }
+    it { is_expected.to include_module(DowncaseAttribute) }
+    it { is_expected.to include_module(Filterable) }
+    it { is_expected.to include_module(Sortable) }
+  end
+
+  describe "model configuration" do
+    it { is_expected.to strip_attribute(:email) }
+    it { is_expected.to downcase_attribute(:email) }
+  end
+
+  describe "constants" do
+    it { is_expected.to have_constant(:THROTTLE_RESET_PERIOD) }
+    it { is_expected.to have_constant(:DEFAULT_PASSWORD_EXPIRY_PERIOD) }
+  end
+
+  describe "attributes, indexes, and foreign keys" do
+    it { is_expected.to have_db_column(:id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:email).of_type(:string) }
+    it { is_expected.to have_db_column(:mobile_number).of_type(:string) }
+    it { is_expected.to have_db_column(:encrypted_password).of_type(:string) }
+    it { is_expected.to have_db_column(:reset_password_token).of_type(:string) }
+    it { is_expected.to have_db_column(:reset_password_sent_at).of_type(:timestamptz) }
+    it { is_expected.to have_db_column(:remember_created_at).of_type(:timestamptz) }
+    it { is_expected.to have_db_column(:sign_in_count).of_type(:integer).with_options(default: 0) }
+    it { is_expected.to have_db_column(:current_sign_in_at).of_type(:timestamptz) }
+    it { is_expected.to have_db_column(:last_sign_in_at).of_type(:timestamptz) }
+    it { is_expected.to have_db_column(:current_sign_in_ip).of_type(:string) }
+    it { is_expected.to have_db_column(:last_sign_in_ip).of_type(:string) }
+    it { is_expected.to have_db_column(:confirmation_token).of_type(:string) }
+    it { is_expected.to have_db_column(:confirmed_at).of_type(:timestamptz) }
+    it { is_expected.to have_db_column(:confirmation_sent_at).of_type(:timestamptz) }
+    it { is_expected.to have_db_column(:unconfirmed_email).of_type(:string) }
+    it { is_expected.to have_db_column(:failed_attempts).of_type(:integer).with_options(default: 0) }
+    it { is_expected.to have_db_column(:unlock_token).of_type(:string) }
+    it { is_expected.to have_db_column(:locked_at).of_type(:timestamptz) }
+    it { is_expected.to have_db_column(:first_name).of_type(:string) }
+    it { is_expected.to have_db_column(:last_name).of_type(:string) }
+    it { is_expected.to have_db_column(:last_password_updated_at).of_type(:timestamptz) }
+    it { is_expected.to have_db_column(:role_id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:store_id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:password_automatically_set).of_type(:boolean).with_options(default: false) }
+    it { is_expected.to have_db_column(:password_expires_at).of_type(:timestamptz) }
+    it { is_expected.to have_db_column(:is_active).of_type(:boolean).with_options(default: false) }
+    it { is_expected.to have_db_column(:is_banned).of_type(:boolean).with_options(default: false) }
+    it { is_expected.to have_db_column(:id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:created_at).of_type(:timestamptz).with_options(null: false) }
+    it { is_expected.to have_db_column(:updated_at).of_type(:timestamptz).with_options(null: false) }
+
+    it { is_expected.to have_db_column(:created_at).of_type(:timestamptz).with_options(null: false) }
+    it { is_expected.to have_db_column(:updated_at).of_type(:timestamptz).with_options(null: false) }
+
+    it { is_expected.to have_db_index(:confirmation_token).unique(true) }
+    it { is_expected.to have_db_index(:email).unique(true) }
+    it { is_expected.to have_db_index(:mobile_number).unique(true) }
+    it { is_expected.to have_db_index(:reset_password_token).unique(true) }
+    it { is_expected.to have_db_index(:role_id) }
+    it { is_expected.to have_db_index(:store_id) }
+    it { is_expected.to have_db_index(:unlock_token).unique(true) }
+
+    it { is_expected.to have_foreign_key(:role_id).with_name(:fk_users_role_id_on_roles).on_delete(:restrict) }
+    it { is_expected.to have_foreign_key(:store_id).with_name(:fk_users_store_id_on_stores).on_delete(:cascade) }
+
+    it { is_expected.to have_check_constraint("chk_c231bcb127").with_condition("char_length(first_name::text) <= 55") }
+    it { is_expected.to have_check_constraint("chk_2123b67efb").with_condition("char_length(last_name::text) <= 55") }
+    it { is_expected.to have_check_constraint("chk_9a467af0b9").with_condition("char_length(mobile_number::text) <= 32") }
+    it { is_expected.to have_check_constraint("chk_004c265d57").with_condition("email IS NOT NULL AND email::text <> ''::text") }
+    it { is_expected.to have_check_constraint("chk_e1cfcf7283").with_condition("encrypted_password IS NOT NULL AND encrypted_password::text <> ''::text") }
+    it { is_expected.to have_check_constraint("chk_973db23f5c").with_condition("failed_attempts IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_1e55406a3e").with_condition("first_name IS NOT NULL AND first_name::text <> ''::text") }
+    it { is_expected.to have_check_constraint("chk_a86d1f69fa").with_condition("last_name IS NOT NULL AND last_name::text <> ''::text") }
+    it { is_expected.to have_check_constraint("chk_b6b6a77b49").with_condition("role_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_fc2e3b8e41").with_condition("sign_in_count IS NOT NULL") }
+  end
+
+  describe "default values" do
+    it "should set false as default value for #is_banned" do
+      expect(user.is_banned).to be_falsy
+    end
+
+    it "should set false as default value for #is_active" do
+      expect(user.is_active).to be_falsy
+    end
+
+    it "should set false as default value for #password_automatically_set" do
+      expect(user.password_automatically_set).to be_falsy
+    end
+  end
+
+  describe "associations" do
+    it { is_expected.to have_one(:address).dependent(:destroy) }
+    it { is_expected.to have_many(:request_logs).dependent(:nullify) }
+    it { is_expected.to belong_to(:role) }
+    it { is_expected.to belong_to(:store).optional }
+  end
+
+  describe "delegates" do
+    it { is_expected.to delegate_method(:name).to(:store).with_prefix(true).allow_nil }
+    it { is_expected.to delegate_method(:name).to(:role).with_prefix(true) }
+    it { is_expected.to delegate_method(:country).to(:address) }
+    it { is_expected.to delegate_method(:name).to(:country).with_prefix(true) }
+  end
+
+  include_examples "apply default scope on created_at asc"
+
+  describe "nested attributes" do
+    it { is_expected.to accept_nested_attributes_for(:address).update_only(true) }
+  end
+
+  describe "validations" do
+    describe "#login" do
+      context "when login is required" do
+        before { allow(subject).to receive(:login_required?).and_return(true) }
+
+        it { is_expected.to validate_presence_of(:login) }
+      end
+
+      context "when login is not required" do
+        before { allow(subject).to receive(:login_required?).and_return(false) }
+
+        it { is_expected.not_to validate_presence_of(:login) }
+      end
+    end
+
+    describe "#password" do
+      context "when password is required" do
+        before { allow(subject).to receive(:password_required?).and_return(true) }
+
+        it { is_expected.to validate_presence_of(:password) }
+        it { is_expected.to validate_length_of(:password).is_at_least(8).with_message("is too short (minimum is 8 characters)") }
+        it { is_expected.to validate_length_of(:password).is_at_most(15).with_message("is too long (maximum is 15 characters)") }
+        it { is_expected.to validate_confirmation_of(:password) }
+      end
+
+      context "when password is not required" do
+        before { allow(subject).to receive(:password_required?).and_return(false) }
+
+        it { is_expected.not_to validate_presence_of(:password) }
+        it { is_expected.not_to validate_confirmation_of(:password) }
+      end
+    end
+
+    describe "#password_confirmation" do
+      context "when password is present" do
+        before { allow(subject).to receive(:password_present?).and_return(true) }
+
+        it { is_expected.to validate_presence_of(:password_confirmation) }
+      end
+
+      context "when password is not present" do
+        before { allow(subject).to receive(:password_present?).and_return(false) }
+
+        it { is_expected.not_to validate_presence_of(:password_confirmation) }
+      end
+    end
+  end
+
+  describe "instance methods" do
+    describe "#admin?" do
+      it "returns true" do
+        expect(user.admin?).to be_truthy
+      end
+    end
+
+    describe "#manager?" do
+      it "returns true" do
+        manager = create(:manager, :confirmed)
+        expect(manager.manager?).to be_truthy
+      end
+    end
+
+    describe "#cashier?" do
+      it "returns true" do
+        cashier = create(:cashier, :confirmed)
+        expect(cashier.cashier?).to be_truthy
+      end
+    end
+
+    describe "#full_name" do
+      it "returns full name of the user" do
+        expect(user.full_name).to eq("Harshal Ladhe")
+      end
+    end
+
+    include_examples "has address"
+  end
 end
