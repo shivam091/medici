@@ -4,6 +4,6 @@
 
 RSpec.shared_examples "does not change count of objects" do |klass|
   it "does not change count of #{klass.model_name.human.downcase.pluralize}" do
-    expect { subject }.not_to change { klass.count }
+    expect { subject }.not_to change(klass, :count)
   end
 end

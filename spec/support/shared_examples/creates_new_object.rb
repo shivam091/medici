@@ -4,6 +4,6 @@
 
 RSpec.shared_examples "creates a new object" do |klass|
   it "creates a new #{klass.model_name.human.downcase}" do
-    expect { subject }.to change { klass.count }.by(1)
+    expect { subject }.to change(klass, :count).by(1)
   end
 end
