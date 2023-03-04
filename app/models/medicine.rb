@@ -38,6 +38,62 @@ class Medicine < ApplicationRecord
 
   attribute :is_active, default: false
 
+  validates :name,
+            presence: true,
+            length: {maximum: 255},
+            reduce: true
+  validates :proprietary_name,
+            length: {maximum: 255},
+            allow_blank: true,
+            allow_nil: true,
+            reduce: true
+  validates :description,
+            length: {maximum: 1000},
+            allow_blank: true,
+            allow_nil: true,
+            reduce: true
+  validates :batch_number,
+            presence: true,
+            length: {maximum: 55},
+            reduce: true
+  validates :code,
+            length: {maximum: 15},
+            reduce: true
+  validates :therapeutic_areas,
+            length: {maximum: 255},
+            allow_blank: true,
+            allow_nil: true,
+            reduce: true
+  validates :manufacture_date,
+            presence: true,
+            comparison: {
+              less_than_or_equal_to: Date.current,
+              less_than: :expiry_date
+            },
+            reduce: true
+  validates :expiry_date,
+            presence: true,
+            comparison: {greater_than: Date.current},
+            reduce: true
+  validates :purchase_price,
+            presence: true,
+            reduce: true
+  validates :sell_price,
+            presence: true,
+            numericality: {less_than_or_equal_to: :purchase_price},
+            reduce: true
+  validates :medicine_category_id,
+            :dosage_form_id,
+            :packing_type_id,
+            :manufacturer_id,
+            presence: true,
+            reduce: true
+  validates :uom, presence: true, reduce: true
+  validates :strength,
+            presence: true,
+            numericality: {greater_than: 0.0},
+            reduce: true
+
   has_one :stock, dependent: :destroy
   has_one :replenishment, dependent: :destroy
 

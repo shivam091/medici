@@ -33,5 +33,43 @@ module Medici
       parameter if parameter.is_a?(Array)
       parameter.split(",").map(&:strip)
     end
+
+    def indent(string, width)
+      return if !string
+
+      indentation = " " * width
+      string.split(/[\n\r]/).map { |line| indentation + line }.join("\n")
+    end
+
+    def a_or_an(next_word)
+      if next_word =~ /\A[aeiou]/i && next_word != "unique"
+        "an #{next_word}"
+      else
+        "a #{next_word}"
+      end
+    end
+
+    def dummy_value_for(column_type, array: false)
+      if array
+        [dummy_value_for(column_type, array: false)]
+      else
+        case column_type
+        when :integer
+          0
+        when :date
+          Date.new(2100, 1, 1)
+        when :datetime, :timestamp
+          DateTime.new(2100, 1, 1)
+        when :time
+          Time.new(2000, 1, 1)
+        when :uuid
+          SecureRandom.uuid
+        when :boolean
+          true
+        else
+          "dummy value"
+        end
+      end
+    end
   end
 end
