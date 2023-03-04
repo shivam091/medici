@@ -10,7 +10,7 @@ FactoryBot.define do
     password_confirmation { Rails.application.credentials.config[:TEST_PASSWORD] }
     last_password_updated_at { DateTime.now }
     password_expires_at { ::User::DEFAULT_PASSWORD_EXPIRY_PERIOD }
-    password_automatically_set { true }
+    password_automatically_set { false }
 
     factory :admin, parent: :user do
       email { "admin@medici.com" }
