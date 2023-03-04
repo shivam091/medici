@@ -42,12 +42,6 @@ class User < ApplicationRecord
 
   has_many :request_logs, dependent: :nullify
 
-  before_validation on: :create do
-    pass = "Coxefgu@1"
-    self.password = pass
-    self.password_confirmation = pass
-  end
-
   belongs_to :role
   belongs_to :store, optional: true
 
