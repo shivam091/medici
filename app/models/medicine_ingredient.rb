@@ -37,6 +37,16 @@ class MedicineIngredient < ApplicationRecord
 
   attribute :active, default: false
 
+  validates :medicine_id, :ingredient_id, presence: true, reduce: true
+  validates :strength,
+            presence: true,
+            numericality: {greater_than: 0.0},
+            reduce: true
+  validates :uom,
+            presence: true,
+            inclusion: {in: unit_of_measurements.keys},
+            reduce: true
+
   belongs_to :medicine, inverse_of: :medicine_ingredients, touch: true
   belongs_to :ingredient, inverse_of: :medicine_ingredients
 

@@ -5,6 +5,8 @@
 class MedicineSupplier < ApplicationRecord
   attribute :total_quantity_supplied, default: 0
 
+  validates :medicine_id, :ingredient_id, presence: true, reduce: true
+
   belongs_to :medicine, inverse_of: :medicine_suppliers, touch: true
   belongs_to :supplier, inverse_of: :medicine_suppliers
 
