@@ -2,7 +2,7 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-RSpec::Matchers.define :have_a_valid_factory do
+RSpec::Matchers.define :have_a_valid_factory do |factory_name|
   chain :with_associations do |associations|
     @associations = associations
   end
@@ -12,7 +12,7 @@ RSpec::Matchers.define :have_a_valid_factory do
   end
 
   match do
-    factory = described_class.table_name.singularize.to_sym
+    factory = (factory_name || described_class.table_name.singularize.to_sym)
     if @associations
       FactoryBot.build(factory, **@associations).should be_valid
     elsif @traits
@@ -25,7 +25,7 @@ RSpec::Matchers.define :have_a_valid_factory do
   end
 
   description do
-    "checks if the #{described_class} has valid factory"
+    "have valid factory"
   end
 
   failure_message do

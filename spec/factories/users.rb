@@ -10,49 +10,30 @@ FactoryBot.define do
     password_confirmation { Rails.application.credentials.config[:TEST_PASSWORD] }
     last_password_updated_at { DateTime.now }
     password_expires_at { ::User::DEFAULT_PASSWORD_EXPIRY_PERIOD }
-    password_automatically_set { true }
+    password_automatically_set { false }
 
     factory :admin, parent: :user do
       email { "admin@medici.com" }
-      mobile_number { "+919136558669" }
+      mobile_number { generate(:mobile_number) }
 
-      association :role, factory: :admin_role
+      store { ::Store.first || association(:store, :with_address, :active) }
+      role { ::Role.find_by(name: "admin") || association(:admin_role, :active) }
     end
 
-    factory :main_store_manager, parent: :user do
-      email { "main_store_manager@medici.com" }
-      mobile_number { "+911234567890" }
+    factory :manager, parent: :user do
+      email { "manager@medici.com" }
+      mobile_number { generate(:mobile_number) }
 
-      store { ::Store.main_store || association(:main_store) }
-      role { ::Role.find_by(name: "manager") || association(:manager_role) }
+      store { ::Store.first || association(:store, :with_address, :active) }
+      role { ::Role.find_by(name: "manager") || association(:manager_role, :active) }
     end
 
-    factory :main_store_cashier, parent: :user do
-      email { "main_store_cashier@medici.com" }
-      mobile_number { "+918879001262" }
+    factory :cashier, parent: :user do
+      email { "cashier@medici.com" }
+      mobile_number { generate(:mobile_number) }
 
-      store { ::Store.main_store || association(:main_store) }
-      role { ::Role.find_by(name: "cashier") || association(:cashier_role) }
-    end
-
-    factory :mini_store_manager, parent: :user do
-      email { "mini_store_manager@medici.com" }
-      mobile_number { "+913334567889" }
-
-      store { ::Store.mini_stores.first || association(:mini_store) }
-      role { ::Role.find_by(name: "manager") || association(:manager_role) }
-    end
-
-    factory :mini_store_cashier, parent: :user do
-      email { "mini_store_cashier@medici.com" }
-      mobile_number { "+910987654321" }
-
-      store { ::Store.mini_stores.first || association(:mini_store) }
-      role { ::Role.find_by(name: "cashier") || association(:cashier_role) }
-    end
-
-    trait :active do
-      is_active { true }
+      store { ::Store.first || association(:store, :with_address, :active) }
+      role { ::Role.find_by(name: "cashier") || association(:cashier_role, :active) }
     end
 
     trait :confirmed do

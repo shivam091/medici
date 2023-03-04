@@ -4,6 +4,6 @@
 
 FactoryBot.define do
   factory :ingredient do
-
+    name { "Fluticasone furoate" }
   end
 end

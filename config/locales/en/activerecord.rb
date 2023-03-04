@@ -172,6 +172,8 @@
           odd: "must be odd",
           required: "must exist",
           taken: "is already in use",
+          uppercase: "must be in uppercase",
+          lowercase: "must be in lowercase",
           too_long: {
             one: "is too long (maximum is 1 character)",
             other: "is too long (maximum is %{count} characters)"

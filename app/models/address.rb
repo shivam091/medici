@@ -19,7 +19,7 @@ class Address < ApplicationRecord
             length: {maximum: 100},
             reduce: true
   validates :region,
-            length: {maximum: 20},
+            length: {maximum: 100},
             allow_nil: true,
             allow_blank: true,
             reduce: true

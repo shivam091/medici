@@ -88,10 +88,13 @@ class Medicine < ApplicationRecord
             :manufacturer_id,
             presence: true,
             reduce: true
-  validates :uom, presence: true, reduce: true
   validates :strength,
             presence: true,
             numericality: {greater_than: 0.0},
+            reduce: true
+  validates :uom,
+            presence: true,
+            inclusion: {in: unit_of_measurements.keys},
             reduce: true
 
   has_one :stock, dependent: :destroy
@@ -142,7 +145,7 @@ class Medicine < ApplicationRecord
   def set_code
     last_code = self.class.maximum(:code)
     new_code = last_code.present? ? (last_code.scan(/\d+/).first.to_i + 1) : 1
-    self.code = "MED%.10d" % new_code
+    self.code = "MED" + new_code.to_s.rjust(10, "0")
   end
 
   def create_stock

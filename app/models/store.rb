@@ -44,13 +44,13 @@ class Store < ApplicationRecord
 
   class << self
     def main_store
-      find_by(is_main_store: true)
+      where(is_main_store: true)
     end
 
     def mini_stores
       where(is_main_store: false)
     end
-    
+
     def select_options
       active.pluck(:name, :id)
     end

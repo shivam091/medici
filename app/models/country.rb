@@ -8,6 +8,30 @@ class Country < ApplicationRecord
   attribute :is_active, default: false
   attribute :has_postal_code, default: false
 
+  validates :name,
+            presence: true,
+            uniqueness: true,
+            length: {maximum: 55},
+            reduce: true
+  validates :iso2,
+            presence: true,
+            length: {is: 2},
+            uniqueness: true,
+            uppercase: true,
+            reduce: true
+  validates :iso3,
+            presence: true,
+            length: {is: 3},
+            uniqueness: true,
+            uppercase: true,
+            reduce: true
+  validates :calling_code,
+            presence: true,
+            length: {in: 2..10},
+            format: {with: /\A[\+{1}]+[\d]*\z/},
+            reduce: true
+  validates :currency_id, presence: true, reduce: true
+
   has_many :addresses, dependent: :restrict_with_exception
 
   belongs_to :currency, inverse_of: :countries

@@ -4,6 +4,7 @@
 
 FactoryBot.define do
   factory :replenishment do
-
+    quantity_pending_from_supplier { 0 }
+    medicine { create(:medicine, :active) }
   end
 end

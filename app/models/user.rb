@@ -25,28 +25,22 @@ class User < ApplicationRecord
   attribute :is_active, default: false
   attribute :password_automatically_set, default: false
 
-  validates :login, presence: true, if: :login_required
+  validates :login, presence: true, if: :login_required?
   validates :password,
             presence: true,
             password: true,
             length: {in: 8..15},
             confirmation: {case_sensitive: false},
             reduce: true,
-            if: :password_required
+            if: :password_required?
   validates :password_confirmation,
             presence: true,
             reduce: true,
-            if: proc { password.present? }
+            if: :password_present?
 
   has_one :address, as: :addressable, dependent: :destroy
 
   has_many :request_logs, dependent: :nullify
-
-  before_validation on: :create do
-    pass = "Coxefgu@1"
-    self.password = pass
-    self.password_confirmation = pass
-  end
 
   belongs_to :role
   belongs_to :store, optional: true
@@ -150,11 +144,15 @@ class User < ApplicationRecord
 
   private
 
-  def validate_login
-    login_required
+  def password_present?
+    password.present?
   end
 
-  def validate_password
-    password_required
+  def password_required?
+    !!password_required
+  end
+
+  def login_required?
+    !!login_required
   end
 end

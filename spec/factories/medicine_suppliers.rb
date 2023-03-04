@@ -4,6 +4,7 @@
 
 FactoryBot.define do
   factory :medicine_supplier do
-
+    association :medicine
+    association(:supplier, :with_address, :active)
   end
 end
