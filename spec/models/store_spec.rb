@@ -7,6 +7,8 @@
 require "spec_helper"
 
 RSpec.describe Store, type: :model do
+  subject(:store) { build(:store, :active) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
   end
@@ -97,20 +99,8 @@ RSpec.describe Store, type: :model do
     end
   end
 
-  describe "#address" do
-    context "when store has no address" do
-      it "returns new instance of the address" do
-        expect(subject.address).to be_a_new(::Address)
-      end
-    end
-
-    context "when store has an address" do
-      it "returns address of the store" do
-        store = create(:store, :with_address)
-
-        expect(store.address.address1).to eq("New Panvel (E)")
-      end
-    end
+  describe "instance methods" do
+    include_examples "has address"
   end
 
   describe "class methods" do
