@@ -18,10 +18,12 @@
             = check_box_tag "ingredient_ids[]", ingredient.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
           %td.fw-bold= ingredient.name
           %td.actions
-            = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_ingredient_path(ingredient), class: "btn btn-sm btn-secondary",
-              data: {turbo_frame: :remote_modal}
-            = link_to external_svg_tag("svgs/trash.svg"), admin_ingredient_path(ingredient), class: "btn btn-sm btn-danger",
-              data: {turbo_confirm: t(".delete_ingredient_confirmation_text", ingredient_name: ingredient.name), turbo_method: :delete}
+            - if policy(ingredient).edit?
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_ingredient_path(ingredient), class: "btn btn-sm btn-secondary",
+                data: {turbo_frame: :remote_modal}
+            - if policy(ingredient).destroy?
+              = link_to external_svg_tag("svgs/trash.svg"), admin_ingredient_path(ingredient), class: "btn btn-sm btn-danger",
+                data: {turbo_confirm: t(".delete_ingredient_confirmation_text", ingredient_name: ingredient.name), turbo_method: :delete}
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Ingredient.columns.count}
