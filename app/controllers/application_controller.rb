@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
           WithoutTimestamps,
           Pagy::Backend
 
+  rescue_from Exception, with: :internal_server_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken do |exception|
     if user_signed_in?
@@ -39,5 +40,9 @@ class ApplicationController < ActionController::Base
 
   def forbidden
     render "errors/forbidden", status: :forbidden, layout: "error"
+  end
+
+  def internal_server_error
+    render "errors/internal_server_error", status: :internal_server_error, layout: "error"
   end
 end
