@@ -62,4 +62,6 @@ Rails.application.routes.draw do
       resource :profile, only: [:show, :edit, :update]
     end
   end
+
+  get "*unmatched_route", to: "application#not_found", format: false
 end

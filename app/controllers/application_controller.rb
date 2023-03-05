@@ -24,8 +24,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::DeleteRestrictionError do |exception|
     redirect_to :back, alert: exception.message
   end
-  rescue_from ActionController::RoutingError, with: :not_found
   rescue_from Pundit::NotAuthorizedError, with: :forbidden
+  rescue_from ActionController::RoutingError, with: :not_found
 
   before_action :authenticate_user!
 
@@ -33,11 +33,11 @@ class ApplicationController < ActionController::Base
     turbo_stream.update(:flash, partial: "shared/flash_messages")
   end
 
-  private
-
   def not_found
     render "errors/not_found", status: :not_found, layout: "error"
   end
+
+  private
 
   def forbidden
     render "errors/forbidden", status: :forbidden, layout: "error"
