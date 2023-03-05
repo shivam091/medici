@@ -29,11 +29,11 @@ RSpec::Matchers.define :permit_action do |action|
     "permit #{action} on the object"
   end
 
-  failure_message do |policy|
-    "#{policy.class} does not permit #{action} on #{policy.record} for #{policy.user.inspect}."
+  failure_message do |_|
+    "Expected user to be able to perform action #{action}, but they can't."
   end
 
-  failure_message_when_negated do |policy|
-    "#{policy.class} does not forbid #{action} on #{policy.record} for #{policy.user.inspect}."
+  failure_message_when_negated do |_|
+    "Expected user to not be able to perform action #{action}, but they can't."
   end
 end
