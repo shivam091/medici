@@ -11,9 +11,20 @@ class ApplicationController < ActionController::Base
           WithoutTimestamps,
           Pagy::Backend
 
-  def render_flash
-    turbo_stream.update(:flash, partial: "shared/flash_messages")
+  rescue_from ActionController::InvalidAuthenticityToken do |exception|
+    if user_signed_in?
+      sign_out(current_user)
+    else
+      redirect_to new_user_session_path
+    end
+  end
+  rescue_from ActiveRecord::DeleteRestrictionError do |exception|
+    redirect_to :back, alert: exception.message
   end
 
   before_action :authenticate_user!
+
+  def render_flash
+    turbo_stream.update(:flash, partial: "shared/flash_messages")
+  end
 end
