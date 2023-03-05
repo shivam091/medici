@@ -1,0 +1,25 @@
+!!! 5
+%html{dir: t("direction"), lang: I18n.locale}
+  %head
+    %title
+      = if content_for?(:title) then yield(:title) + " · " end
+      Medici - Pharmacy Management System
+    %meta{"http-equiv": "Content-Type", content: "text/html; charset=UTF-8"}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1, shrink-to-fit=no"}
+    %meta{name: "version", content: "1.0"}
+    %meta{name: "author", content: "Harshal Ladhe"}
+    %meta{name: "turbo-cache-control", content: "no-cache"}
+    = favicon_link_tag
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", media: "all", data: {turbo_track: "reload"}
+    = yield(:stylesheet) if content_for?(:stylesheet)
+    = javascript_importmap_tags
+    = yield(:javascript) if content_for?(:javascript)
+  %body
+    .clearfix
+    %main.container-fluid
+      .container
+        .error-pages
+          = yield
+      = render_if_exists "layouts/error/footer"
