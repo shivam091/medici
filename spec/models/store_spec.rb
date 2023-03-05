@@ -113,24 +113,26 @@ RSpec.describe Store, type: :model do
     end
   end
 
-  describe ".main_store" do
-    it "returns main stores" do
-      store = create(:store, :active, :main_store)
-      expect(described_class.main_store).to include(store)
+  describe "class methods" do
+    describe ".main_store" do
+      it "returns main stores" do
+        store = create(:store, :active, :main_store)
+        expect(described_class.main_store).to include(store)
+      end
     end
-  end
 
-  describe ".mini_stores" do
-    it "returns mini stores" do
-      store = create(:store, :active)
-      expect(described_class.mini_stores).to include(store)
+    describe ".mini_stores" do
+      it "returns mini stores" do
+        store = create(:store, :active)
+        expect(described_class.mini_stores).to include(store)
+      end
     end
-  end
 
-  describe ".select_options" do
-    it "should return array of stores for select list" do
-      store = create(:store, :active)
-      expect(described_class.select_options).to eq([[store.name, store.id]])
+    describe ".select_options" do
+      it "should return array of stores for select list" do
+        store = create(:store, :active)
+        expect(described_class.select_options).to eq([[store.name, store.id]])
+      end
     end
   end
 end

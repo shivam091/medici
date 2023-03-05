@@ -111,10 +111,12 @@ RSpec.describe Currency, type: :model do
     end
   end
 
-  describe ".select_options" do
-    it "should return array of currencies for select list" do
-      currency = create(:currency, :active)
-      expect(described_class.select_options).to eq([[currency.name, currency.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of currencies for select list" do
+        currency = create(:currency, :active)
+        expect(described_class.select_options).to eq([[currency.name, currency.id]])
+      end
     end
   end
 end

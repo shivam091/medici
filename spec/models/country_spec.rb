@@ -116,10 +116,12 @@ RSpec.describe Country, type: :model do
     end
   end
 
-  describe ".select_options" do
-    it "should return array of countries for select list" do
-      country = create(:country, :active)
-      expect(described_class.select_options).to eq([[country.name, country.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of countries for select list" do
+        country = create(:country, :active)
+        expect(described_class.select_options).to eq([[country.name, country.id]])
+      end
     end
   end
 end

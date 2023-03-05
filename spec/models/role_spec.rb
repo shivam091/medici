@@ -53,10 +53,12 @@ RSpec.describe Role, type: :model do
     end
   end
 
-  describe ".select_options" do
-    it "should return array of roles for select list" do
-      cashier_role = create(:cashier_role, :active)
-      expect(described_class.select_options).to eq([[cashier_role.name.humanize, cashier_role.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of roles for select list" do
+        cashier_role = create(:cashier_role, :active)
+        expect(described_class.select_options).to eq([[cashier_role.name.humanize, cashier_role.id]])
+      end
     end
   end
 end

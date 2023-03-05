@@ -102,10 +102,12 @@ RSpec.describe Supplier, type: :model do
     end
   end
 
-  describe ".select_options" do
-    it "should return array of suppliers for select list" do
-      supplier = create(:supplier, :active)
-      expect(described_class.select_options).to eq([[supplier.name, supplier.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of suppliers for select list" do
+        supplier = create(:supplier, :active)
+        expect(described_class.select_options).to eq([[supplier.name, supplier.id]])
+      end
     end
   end
 end

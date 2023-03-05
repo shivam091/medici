@@ -58,10 +58,12 @@ RSpec.describe Ingredient, type: :model do
     end
   end
 
-  describe ".select_options" do
-    it "should return array of ingredients for select list" do
-      ingredient = create(:ingredient, :active)
-      expect(described_class.select_options).to eq([[ingredient.name, ingredient.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of ingredients for select list" do
+        ingredient = create(:ingredient, :active)
+        expect(described_class.select_options).to eq([[ingredient.name, ingredient.id]])
+      end
     end
   end
 end

@@ -57,10 +57,12 @@ RSpec.describe PackingType, type: :model do
     end
   end
 
-  describe ".select_options" do
-    it "should return array of packing types for select list" do
-      packing_type = create(:packing_type, :active)
-      expect(described_class.select_options).to eq([[packing_type.name, packing_type.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of packing types for select list" do
+        packing_type = create(:packing_type, :active)
+        expect(described_class.select_options).to eq([[packing_type.name, packing_type.id]])
+      end
     end
   end
 end

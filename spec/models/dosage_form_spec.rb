@@ -57,10 +57,12 @@ RSpec.describe DosageForm, type: :model do
     end
   end
 
-  describe ".select_options" do
-    it "should return array of dosage forms for select list" do
-      dosage_form = create(:dosage_form, :active)
-      expect(described_class.select_options).to eq([[dosage_form.name, dosage_form.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of dosage forms for select list" do
+        dosage_form = create(:dosage_form, :active)
+        expect(described_class.select_options).to eq([[dosage_form.name, dosage_form.id]])
+      end
     end
   end
 end

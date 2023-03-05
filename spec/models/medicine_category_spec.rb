@@ -68,10 +68,12 @@ RSpec.describe MedicineCategory, type: :model do
     end
   end
 
-  describe ".select_options" do
-    it "should return array of dosage forms for select list" do
-      medicine_category = create(:medicine_category, :active)
-      expect(described_class.select_options).to eq([[medicine_category.name, medicine_category.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of dosage forms for select list" do
+        medicine_category = create(:medicine_category, :active)
+        expect(described_class.select_options).to eq([[medicine_category.name, medicine_category.id]])
+      end
     end
   end
 end

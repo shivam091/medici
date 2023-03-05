@@ -100,10 +100,12 @@ RSpec.describe Manufacturer, type: :model do
     end
   end
 
-  describe ".select_options" do
-    it "should return array of manufacturers for select list" do
-      manufacturer = create(:manufacturer, :active)
-      expect(described_class.select_options).to eq([[manufacturer.name, manufacturer.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of manufacturers for select list" do
+        manufacturer = create(:manufacturer, :active)
+        expect(described_class.select_options).to eq([[manufacturer.name, manufacturer.id]])
+      end
     end
   end
 end
