@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
     redirect_to :back, alert: exception.message
   end
   rescue_from ActionController::RoutingError, with: :not_found
+  rescue_from Pundit::NotAuthorizedError, with: :forbidden
 
   before_action :authenticate_user!
 
@@ -34,5 +35,9 @@ class ApplicationController < ActionController::Base
 
   def not_found
     render "errors/not_found", status: :not_found, layout: "error"
+  end
+
+  def forbidden
+    render "errors/forbidden", status: :forbidden, layout: "error"
   end
 end
