@@ -1,0 +1,33 @@
+.error-pages {
+  margin: 0 auto;
+  max-width: 60%;
+  text-align: center;
+  margin-top: 10%;
+}
+.error-title {
+  font-size: 8rem;
+  line-height: 8rem;
+  color: var(--color-danger-emphasis);
+}
+.error-title svg {
+  fill: var(--color-danger-emphasis);
+}
+.error-sub-title {
+  font-size: 30px;
+  line-height: 30px;
+}
+.error-pages > * {
+  text-align: center;
+}
+@media only screen and (max-width: 1024px) {
+  .error-pages {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .error-pages {
+    width: 100%;
+    max-width: 100%;
+  }
+}
