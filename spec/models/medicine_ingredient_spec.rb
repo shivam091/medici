@@ -17,9 +17,7 @@ RSpec.describe MedicineIngredient, type: :model do
     it { is_expected.to have_a_valid_factory.with_associations({medicine:, ingredient:}) }
   end
 
-  describe "superclasses" do
-    it { expect(described_class.ancestors).to include ApplicationRecord }
-  end
+  it_behaves_like "subclass of ApplicationRecord"
 
   describe "attributes, indexes, and foreign keys" do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }

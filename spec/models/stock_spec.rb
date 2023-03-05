@@ -11,9 +11,7 @@ RSpec.describe Stock, type: :model do
     it { is_expected.to have_a_valid_factory }
   end
 
-  describe "superclasses" do
-    it { expect(described_class.ancestors).to include ApplicationRecord }
-  end
+  it_behaves_like "subclass of ApplicationRecord"
 
   describe "attributes, indexes, and foreign keys" do
     it { is_expected.to have_db_column(:medicine_id).of_type(:uuid) }

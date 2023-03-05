@@ -11,10 +11,8 @@ RSpec.describe Country, type: :model do
     it { is_expected.to have_a_valid_factory.with_traits(:with_currency) }
   end
 
-  describe "superclasses" do
-    it { expect(described_class.ancestors).to include ApplicationRecord }
-  end
-
+  it_behaves_like "subclass of ApplicationRecord"
+  
   describe "included modules" do
     it { is_expected.to include_module(Filterable) }
   end
