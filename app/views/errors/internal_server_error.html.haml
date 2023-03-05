@@ -1,0 +1,16 @@
+= title(t(".title"))
+%h2.error-title
+  500
+%h2.error-sub-title.mb-2
+  = t(".internal_server_error")
+%p.error-message
+  = t(".error_primary_text", admin_email: (mail_to "admin@medici.com")).html_safe
+%p.error-message
+  = t(".error_secondary_text")
+.actions
+  = link_to root_path, class: "btn btn-danger" do
+    = external_svg_tag("svgs/home.svg")
+    = button_text(:go_to_home)
+  = link_to :back, class: "btn btn-danger" do
+    = external_svg_tag("svgs/arrow-left.svg")
+    = button_text(:previous_page)

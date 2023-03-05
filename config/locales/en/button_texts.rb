@@ -50,6 +50,8 @@
       create_user: "Create user",
       update_user: "Update user",
       update_profile: "Update profile",
+      go_to_home: "Go to home",
+      previous_page: "Previous page",
     }
   }
 }
