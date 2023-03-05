@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
           WithoutTimestamps,
           Pagy::Backend
 
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken do |exception|
     if user_signed_in?
       sign_out(current_user)
@@ -21,10 +22,17 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::DeleteRestrictionError do |exception|
     redirect_to :back, alert: exception.message
   end
+  rescue_from ActionController::RoutingError, with: :not_found
 
   before_action :authenticate_user!
 
   def render_flash
     turbo_stream.update(:flash, partial: "shared/flash_messages")
+  end
+
+  private
+
+  def not_found
+    render "errors/not_found", status: :not_found, layout: "error"
   end
 end
