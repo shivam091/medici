@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
 
   include InternalRedirect,
           WithoutTimestamps,
-          Pagy::Backend
+          Pagy::Backend,
+          Pundit::Authorization
 
   rescue_from Exception, with: :internal_server_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
