@@ -7,6 +7,9 @@
 require "spec_helper"
 
 RSpec.describe DosageForm, type: :model do
+
+  subject(:dosage_form) { build(:dosage_form) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
   end

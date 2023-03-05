@@ -7,7 +7,7 @@
 require "spec_helper"
 
 RSpec.describe Manufacturer, type: :model do
-  subject(:manufacturer) { build(:manufacturer, :active) }
+  subject(:manufacturer) { build(:manufacturer) }
 
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
@@ -49,7 +49,6 @@ RSpec.describe Manufacturer, type: :model do
 
   describe "default values" do
     it "should set false as default value for #is_active" do
-      manufacturer = build(:manufacturer)
       expect(manufacturer.is_active).to be_falsy
     end
   end
@@ -66,8 +65,6 @@ RSpec.describe Manufacturer, type: :model do
   include_examples "apply default scope on name"
 
   describe "validations" do
-    subject { build(:manufacturer, :with_address) }
-
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_most(110).with_message("is too long (maximum is 110 characters)") }

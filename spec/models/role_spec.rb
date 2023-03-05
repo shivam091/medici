@@ -7,6 +7,9 @@
 require "spec_helper"
 
 RSpec.describe Role, type: :model do
+
+  subject(:cashier_role) { build(:cashier_role) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory(:cashier_role) }
   end
@@ -34,7 +37,6 @@ RSpec.describe Role, type: :model do
 
   describe "default values" do
     it "should set false as default value for #is_active" do
-      cashier_role = build(:cashier_role)
       expect(cashier_role.is_active).to be_falsy
     end
   end
@@ -45,8 +47,6 @@ RSpec.describe Role, type: :model do
 
   describe "validations" do
     describe "#name" do
-      subject { build(:cashier_role) }
-
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_most(55).with_message("is too long (maximum is 55 characters)") }
       it { is_expected.to validate_uniqueness_of(:name).with_message("is already in use") }

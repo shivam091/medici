@@ -7,6 +7,9 @@
 require "spec_helper"
 
 RSpec.describe MedicineIngredient, type: :model do
+
+  subject(:medicine_ingredient) { build(:medicine_ingredient) }
+
   describe "valid factory" do
     let(:medicine) { create(:medicine) }
     let(:ingredient) { create(:ingredient) }
@@ -38,7 +41,6 @@ RSpec.describe MedicineIngredient, type: :model do
 
   describe "default values" do
     it "should set false as default value for #is_active" do
-      medicine_ingredient = build(:medicine_ingredient)
       expect(medicine_ingredient.active).to be_falsy
     end
   end

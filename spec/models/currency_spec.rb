@@ -7,6 +7,9 @@
 require "spec_helper"
 
 RSpec.describe Currency, type: :model do
+
+  subject(:currency) { build(:currency) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
   end
@@ -50,7 +53,6 @@ RSpec.describe Currency, type: :model do
 
   describe "default values" do
     it "should set false as default value for #is_active" do
-      currency = build(:currency)
       expect(currency.is_active).to be_falsy
     end
   end
@@ -66,8 +68,6 @@ RSpec.describe Currency, type: :model do
   end
 
   describe "validations" do
-    subject { build(:currency) }
-
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_most(55).with_message("is too long (maximum is 55 characters)") }

@@ -7,6 +7,9 @@
 require "spec_helper"
 
 RSpec.describe Ingredient, type: :model do
+
+  subject(:ingredient) { build(:ingredient) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
   end
@@ -35,7 +38,6 @@ RSpec.describe Ingredient, type: :model do
 
   describe "default values" do
     it "should set false as default value for #is_active" do
-      ingredient = build(:ingredient)
       expect(ingredient.is_active).to be_falsy
     end
   end
@@ -49,8 +51,6 @@ RSpec.describe Ingredient, type: :model do
 
   describe "validations" do
     describe "#name" do
-      subject { build(:ingredient) }
-
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_least(0) }
       it { is_expected.to validate_length_of(:name).is_at_most(55).with_message("is too long (maximum is 55 characters)") }

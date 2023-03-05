@@ -75,8 +75,6 @@ RSpec.describe Store, type: :model do
   include_examples "apply default scope on name"
 
   describe "validations" do
-    subject { build(:store) }
-
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_most(110).with_message("is too long (maximum is 110 characters)") }

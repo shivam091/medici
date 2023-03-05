@@ -7,8 +7,11 @@
 require "spec_helper"
 
 RSpec.describe Address, type: :model do
+
+  let(:addressable) { create(:admin, :confirmed) }
+  subject(:address) { build(:address, addressable:) }
+
   describe "valid factory" do
-    let(:addressable) { create(:admin, :confirmed) }
     it { is_expected.to have_a_valid_factory.with_associations(addressable:) }
   end
 

@@ -7,6 +7,9 @@
 require "spec_helper"
 
 RSpec.describe MedicineCategory, type: :model do
+
+  subject(:medicine_category) { build(:medicine_category) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
   end
@@ -37,7 +40,6 @@ RSpec.describe MedicineCategory, type: :model do
 
   describe "default values" do
     it "should set false as default value for #is_active" do
-      medicine_category = build(:medicine_category)
       expect(medicine_category.is_active).to be_falsy
     end
   end
@@ -47,8 +49,6 @@ RSpec.describe MedicineCategory, type: :model do
   end
 
   describe "validations" do
-    subject { build(:medicine_category) }
-
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_least(0) }
