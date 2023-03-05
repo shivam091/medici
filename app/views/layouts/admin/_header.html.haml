@@ -44,9 +44,10 @@
               %li
                 = link_to admin_medicine_categories_path, class: "dropdown-item" do
                   = t(".medicine_categories")
-              %li
-                = link_to admin_ingredients_path, class: "dropdown-item" do
-                  = t(".ingredients")
+              - if policy(::Ingredient).index?
+                %li
+                  = link_to admin_ingredients_path, class: "dropdown-item" do
+                    = t(".ingredients")
               %li
                 = link_to admin_packing_types_path, class: "dropdown-item" do
                   = t(".packing_types")

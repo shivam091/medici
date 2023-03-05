@@ -5,10 +5,17 @@
 class Admin::IngredientsController < Admin::BaseController
 
   before_action :find_ingredient, except: [:index, :new, :create]
+  before_action do
+    if action_name.in?(["index", "new", "create"])
+      authorize ::Ingredient
+    else
+      authorize @ingredient
+    end
+  end
 
   # GET /admin/ingredients
   def index
-    @ingredients = ::Ingredient.active
+    @ingredients = policy_scope(::Ingredient).active
     @pagy, @ingredients = pagy(@ingredients)
   end
 
@@ -83,6 +90,6 @@ class Admin::IngredientsController < Admin::BaseController
   end
 
   def find_ingredient
-    @ingredient = ::Ingredient.find(params.fetch(:uuid))
+    @ingredient = policy_scope(::Ingredient).find(params.fetch(:uuid))
   end
 end
