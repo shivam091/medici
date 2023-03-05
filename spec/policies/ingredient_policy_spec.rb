@@ -4,5 +4,7 @@
 
 # spec/policies/ingredient_policy_spec.rb
 
+require "spec_helper"
+
 RSpec.describe IngredientPolicy, type: :policy do
 end

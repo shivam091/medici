@@ -4,5 +4,7 @@
 
 # spec/policies/admin_policy_spec.rb
 
+require "spec_helper"
+
 RSpec.describe AdminPolicy, type: :policy do
 end
