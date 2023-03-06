@@ -7,6 +7,9 @@
 require "spec_helper"
 
 RSpec.describe MedicineIngredient, type: :model do
+
+  subject(:medicine_ingredient) { build(:medicine_ingredient) }
+
   describe "valid factory" do
     let(:medicine) { create(:medicine) }
     let(:ingredient) { create(:ingredient) }
@@ -14,9 +17,7 @@ RSpec.describe MedicineIngredient, type: :model do
     it { is_expected.to have_a_valid_factory.with_associations({medicine:, ingredient:}) }
   end
 
-  describe "superclasses" do
-    it { expect(described_class.ancestors).to include ApplicationRecord }
-  end
+  it_behaves_like "subclass of ApplicationRecord"
 
   describe "attributes, indexes, and foreign keys" do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
@@ -38,7 +39,6 @@ RSpec.describe MedicineIngredient, type: :model do
 
   describe "default values" do
     it "should set false as default value for #is_active" do
-      medicine_ingredient = build(:medicine_ingredient)
       expect(medicine_ingredient.active).to be_falsy
     end
   end

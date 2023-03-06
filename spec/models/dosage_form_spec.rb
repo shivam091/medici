@@ -7,13 +7,14 @@
 require "spec_helper"
 
 RSpec.describe DosageForm, type: :model do
+
+  subject(:dosage_form) { build(:dosage_form) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
   end
 
-  describe "superclasses" do
-    it { expect(described_class.ancestors).to include ApplicationRecord }
-  end
+  it_behaves_like "subclass of ApplicationRecord"
 
   describe "included modules" do
     it { is_expected.to include_module(Sortable) }
@@ -51,16 +52,17 @@ RSpec.describe DosageForm, type: :model do
       subject { build(:dosage_form) }
 
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
-      it { is_expected.to validate_length_of(:name).is_at_least(0) }
       it { is_expected.to validate_length_of(:name).is_at_most(55).with_message("is too long (maximum is 55 characters)") }
       it { is_expected.to validate_uniqueness_of(:name).with_message("is already in use") }
     end
   end
 
-  describe ".select_options" do
-    it "should return array of dosage forms for select list" do
-      dosage_form = create(:dosage_form, :active)
-      expect(described_class.select_options).to eq([[dosage_form.name, dosage_form.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of dosage forms for select list" do
+        dosage_form = create(:dosage_form, :active)
+        expect(described_class.select_options).to eq([[dosage_form.name, dosage_form.id]])
+      end
     end
   end
 end

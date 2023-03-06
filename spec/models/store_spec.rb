@@ -7,13 +7,13 @@
 require "spec_helper"
 
 RSpec.describe Store, type: :model do
+  subject(:store) { build(:store, :active) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
   end
 
-  describe "superclasses" do
-    it { expect(described_class.ancestors).to include ApplicationRecord }
-  end
+  it_behaves_like "subclass of ApplicationRecord"
 
   describe "included modules" do
     it { is_expected.to include_module(Filterable) }
@@ -73,8 +73,6 @@ RSpec.describe Store, type: :model do
   include_examples "apply default scope on name"
 
   describe "validations" do
-    subject { build(:store) }
-
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_most(110).with_message("is too long (maximum is 110 characters)") }
@@ -97,40 +95,30 @@ RSpec.describe Store, type: :model do
     end
   end
 
-  describe "#address" do
-    context "when store has no address" do
-      it "returns new instance of the address" do
-        expect(subject.address).to be_a_new(::Address)
+  describe "instance methods" do
+    include_examples "has address"
+  end
+
+  describe "class methods" do
+    describe ".main_store" do
+      it "returns main stores" do
+        store = create(:store, :active, :main_store)
+        expect(described_class.main_store).to include(store)
       end
     end
 
-    context "when store has an address" do
-      it "returns address of the store" do
-        store = create(:store, :with_address)
-
-        expect(store.address.address1).to eq("New Panvel (E)")
+    describe ".mini_stores" do
+      it "returns mini stores" do
+        store = create(:store, :active)
+        expect(described_class.mini_stores).to include(store)
       end
     end
-  end
 
-  describe ".main_store" do
-    it "returns main stores" do
-      store = create(:store, :active, :main_store)
-      expect(described_class.main_store).to include(store)
-    end
-  end
-
-  describe ".mini_stores" do
-    it "returns mini stores" do
-      store = create(:store, :active)
-      expect(described_class.mini_stores).to include(store)
-    end
-  end
-
-  describe ".select_options" do
-    it "should return array of stores for select list" do
-      store = create(:store, :active)
-      expect(described_class.select_options).to eq([[store.name, store.id]])
+    describe ".select_options" do
+      it "should return array of stores for select list" do
+        store = create(:store, :active)
+        expect(described_class.select_options).to eq([[store.name, store.id]])
+      end
     end
   end
 end

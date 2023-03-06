@@ -7,13 +7,13 @@
 require "spec_helper"
 
 RSpec.describe Manufacturer, type: :model do
+  subject(:manufacturer) { build(:manufacturer) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
   end
 
-  describe "superclasses" do
-    it { expect(described_class.ancestors).to include ApplicationRecord }
-  end
+  it_behaves_like "subclass of ApplicationRecord"
 
   describe "included modules" do
     it { is_expected.to include_module(Filterable) }
@@ -47,7 +47,6 @@ RSpec.describe Manufacturer, type: :model do
 
   describe "default values" do
     it "should set false as default value for #is_active" do
-      manufacturer = build(:manufacturer)
       expect(manufacturer.is_active).to be_falsy
     end
   end
@@ -64,8 +63,6 @@ RSpec.describe Manufacturer, type: :model do
   include_examples "apply default scope on name"
 
   describe "validations" do
-    subject { build(:manufacturer, :with_address) }
-
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_most(110).with_message("is too long (maximum is 110 characters)") }
@@ -84,26 +81,16 @@ RSpec.describe Manufacturer, type: :model do
     end
   end
 
-  describe "#address" do
-    context "when manufacturer has no address" do
-      it "returns new instance of the address" do
-        expect(subject.address).to be_a_new(::Address)
-      end
-    end
-
-    context "when manufacturer has an address" do
-      it "returns address of the manufacturer" do
-        manufacturer = create(:manufacturer, :with_address)
-
-        expect(manufacturer.address.address1).to eq("New Panvel (E)")
-      end
-    end
+  describe "instance methods" do
+    include_examples "has address"
   end
 
-  describe ".select_options" do
-    it "should return array of manufacturers for select list" do
-      manufacturer = create(:manufacturer, :active)
-      expect(described_class.select_options).to eq([[manufacturer.name, manufacturer.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of manufacturers for select list" do
+        manufacturer = create(:manufacturer, :active)
+        expect(described_class.select_options).to eq([[manufacturer.name, manufacturer.id]])
+      end
     end
   end
 end

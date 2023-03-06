@@ -7,13 +7,14 @@
 require "spec_helper"
 
 RSpec.describe Currency, type: :model do
+
+  subject(:currency) { build(:currency) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
   end
 
-  describe "superclasses" do
-    it { expect(described_class.ancestors).to include ApplicationRecord }
-  end
+  it_behaves_like "subclass of ApplicationRecord"
 
   describe "included modules" do
     it { is_expected.to include_module(Filterable) }
@@ -50,7 +51,6 @@ RSpec.describe Currency, type: :model do
 
   describe "default values" do
     it "should set false as default value for #is_active" do
-      currency = build(:currency)
       expect(currency.is_active).to be_falsy
     end
   end
@@ -66,8 +66,6 @@ RSpec.describe Currency, type: :model do
   end
 
   describe "validations" do
-    subject { build(:currency) }
-
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_most(55).with_message("is too long (maximum is 55 characters)") }
@@ -111,10 +109,12 @@ RSpec.describe Currency, type: :model do
     end
   end
 
-  describe ".select_options" do
-    it "should return array of currencies for select list" do
-      currency = create(:currency, :active)
-      expect(described_class.select_options).to eq([[currency.name, currency.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of currencies for select list" do
+        currency = create(:currency, :active)
+        expect(described_class.select_options).to eq([[currency.name, currency.id]])
+      end
     end
   end
 end

@@ -7,13 +7,14 @@
 require "spec_helper"
 
 RSpec.describe Supplier, type: :model do
+
+  subject(:supplier) { build(:supplier) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
   end
 
-  describe "superclasses" do
-    it { expect(described_class.ancestors).to include ApplicationRecord }
-  end
+  it_behaves_like "subclass of ApplicationRecord"
 
   describe "included modules" do
     it { is_expected.to include_module(Filterable) }
@@ -49,7 +50,6 @@ RSpec.describe Supplier, type: :model do
 
   describe "default values" do
     it "should set false as default value for #is_active" do
-      supplier = build(:supplier)
       expect(supplier.is_active).to be_falsy
     end
   end
@@ -66,8 +66,6 @@ RSpec.describe Supplier, type: :model do
   include_examples "apply default scope on name"
 
   describe "validations" do
-    subject { build(:supplier, :with_address) }
-
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_most(110).with_message("is too long (maximum is 110 characters)") }
@@ -86,26 +84,16 @@ RSpec.describe Supplier, type: :model do
     end
   end
 
-  describe "#address" do
-    context "when supplier has no address" do
-      it "returns new instance of the address" do
-        expect(subject.address).to be_a_new(::Address)
-      end
-    end
-
-    context "when supplier has an address" do
-      it "returns address of the supplier" do
-        supplier = create(:supplier, :with_address)
-
-        expect(supplier.address.address1).to eq("New Panvel (E)")
-      end
-    end
+  describe "instance methods" do
+    include_examples "has address"
   end
 
-  describe ".select_options" do
-    it "should return array of suppliers for select list" do
-      supplier = create(:supplier, :active)
-      expect(described_class.select_options).to eq([[supplier.name, supplier.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of suppliers for select list" do
+        supplier = create(:supplier, :active)
+        expect(described_class.select_options).to eq([[supplier.name, supplier.id]])
+      end
     end
   end
 end

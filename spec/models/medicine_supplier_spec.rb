@@ -7,6 +7,9 @@
 require "spec_helper"
 
 RSpec.describe MedicineSupplier, type: :model do
+
+  subject(:medicine_supplier) { build(:medicine_supplier) }
+
   describe "valid factory" do
     let(:medicine) { create(:medicine) }
     let(:supplier) { create(:supplier) }
@@ -14,13 +17,10 @@ RSpec.describe MedicineSupplier, type: :model do
     it { is_expected.to have_a_valid_factory.with_associations({medicine:, supplier:}) }
   end
 
-  describe "superclasses" do
-    it { expect(described_class.ancestors).to include ApplicationRecord }
-  end
+  it_behaves_like "subclass of ApplicationRecord"
 
   describe "default values" do
     it "should set 0 as default value for #total_quantity_supplied" do
-      medicine_supplier = build(:medicine_supplier)
       expect(medicine_supplier.total_quantity_supplied).to eq(0)
     end
   end

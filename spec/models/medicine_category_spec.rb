@@ -7,13 +7,14 @@
 require "spec_helper"
 
 RSpec.describe MedicineCategory, type: :model do
+
+  subject(:medicine_category) { build(:medicine_category) }
+
   describe "valid factory" do
     it { is_expected.to have_a_valid_factory }
   end
 
-  describe "superclasses" do
-    it { expect(described_class.ancestors).to include ApplicationRecord }
-  end
+  it_behaves_like "subclass of ApplicationRecord"
 
   describe "included modules" do
     it { is_expected.to include_module(Sortable) }
@@ -37,7 +38,6 @@ RSpec.describe MedicineCategory, type: :model do
 
   describe "default values" do
     it "should set false as default value for #is_active" do
-      medicine_category = build(:medicine_category)
       expect(medicine_category.is_active).to be_falsy
     end
   end
@@ -47,17 +47,13 @@ RSpec.describe MedicineCategory, type: :model do
   end
 
   describe "validations" do
-    subject { build(:medicine_category) }
-
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
-      it { is_expected.to validate_length_of(:name).is_at_least(0) }
       it { is_expected.to validate_length_of(:name).is_at_most(55).with_message("is too long (maximum is 55 characters)") }
       it { is_expected.to validate_uniqueness_of(:name).with_message("is already in use") }
     end
 
     describe "#description" do
-      it { is_expected.to validate_length_of(:description).is_at_least(0) }
       it do
         is_expected.to validate_length_of(:description)
                          .is_at_most(255)
@@ -68,10 +64,12 @@ RSpec.describe MedicineCategory, type: :model do
     end
   end
 
-  describe ".select_options" do
-    it "should return array of dosage forms for select list" do
-      medicine_category = create(:medicine_category, :active)
-      expect(described_class.select_options).to eq([[medicine_category.name, medicine_category.id]])
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of dosage forms for select list" do
+        medicine_category = create(:medicine_category, :active)
+        expect(described_class.select_options).to eq([[medicine_category.name, medicine_category.id]])
+      end
     end
   end
 end
