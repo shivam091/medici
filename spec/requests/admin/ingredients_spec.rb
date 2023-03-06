@@ -9,7 +9,7 @@ require "spec_helper"
 RSpec.describe "Admin::Ingredients", type: :request do
   let!(:ingredient) { create(:ingredient, :active) }
 
-  context "when admin user is not logged in" do
+  context "when admin is not logged in" do
     describe "GET /admin/ingredients" do
       subject { get admin_ingredients_path }
 
