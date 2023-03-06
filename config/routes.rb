@@ -2,7 +2,16 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
+require "sidekiq/web"
+require "sidekiq-scheduler/web"
+
 Rails.application.routes.draw do
+  authenticate :user, -> (user) { user.admin? } do
+    mount Sidekiq::Web => "/sidekiq"
+  end
+
+  mount ActionCable.server => "/cable"
+
   favicon_redirect = redirect do |_params, _request|
     ActionController::Base.helpers.asset_url(::Medici::Favicon.main)
   end
