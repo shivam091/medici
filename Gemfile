@@ -42,7 +42,7 @@ gem "haml"
 
 # Job scheduler
 gem "sidekiq", "~> 6.4.1"
-gem "sidekiq-scheduler"
+gem "sidekiq-scheduler", "5.0.2"
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.7.1"

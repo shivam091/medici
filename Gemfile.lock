@@ -398,7 +398,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers (~> 5.0)
   sidekiq (~> 6.4.1)
-  sidekiq-scheduler
+  sidekiq-scheduler (= 5.0.2)
   simplecov
   sprockets-rails
   stimulus-rails
