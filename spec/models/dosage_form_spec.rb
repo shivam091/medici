@@ -52,7 +52,6 @@ RSpec.describe DosageForm, type: :model do
       subject { build(:dosage_form) }
 
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
-      it { is_expected.to validate_length_of(:name).is_at_least(0) }
       it { is_expected.to validate_length_of(:name).is_at_most(55).with_message("is too long (maximum is 55 characters)") }
       it { is_expected.to validate_uniqueness_of(:name).with_message("is already in use") }
     end
