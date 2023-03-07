@@ -44,10 +44,16 @@ module ReferenceCode
       new_reference_code = REFERENCE_CODE_MAPPINGS[model.to_s] + "-"
       last_code = relation.maximum(:reference_code)
     when "User"
-      new_reference_code = case
-      when self.admin? then REFERENCE_CODE_MAPPINGS["Admin"] + "-"
-      when self.manager? then REFERENCE_CODE_MAPPINGS["Manager"] + "-"
-      when self.cashier? then REFERENCE_CODE_MAPPINGS["Cashier"] + "-"
+      case
+      when self.admin?
+        new_reference_code = REFERENCE_CODE_MAPPINGS["Admin"] + "-"
+        last_code = relation.admins.maximum(:reference_code)
+      when self.manager?
+        new_reference_code = REFERENCE_CODE_MAPPINGS["Manager"] + "-"
+        last_code = relation.managers.maximum(:reference_code)
+      when self.cashier?
+        new_reference_code = REFERENCE_CODE_MAPPINGS["Cashier"] + "-"
+        last_code = relation.cashiers.maximum(:reference_code)
       end
     end
 

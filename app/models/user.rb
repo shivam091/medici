@@ -54,6 +54,18 @@ class User < ApplicationRecord
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true
 
+  scope :with_role, -> (role_name) do
+    role_table = ::Role.arel_table
+    user_table = ::User.arel_table
+    join = user_table.join(role_table)
+     .on(user_table[:role_id].eq(role_table[:id]))
+     .join_sources
+   joins(join).where(role_table[:name].eq(role_name))
+  end
+  scope :admins, -> { with_role("admin") }
+  scope :managers, -> { with_role("manager") }
+  scope :cashiers, -> { with_role("cashier") }
+
   default_scope { order_created_asc }
 
   accepts_nested_attributes_for :address, update_only: true
