@@ -37,7 +37,8 @@ class MedicineIngredient < ApplicationRecord
 
   attribute :active, default: false
 
-  validates :medicine_id, :ingredient_id, presence: true, reduce: true
+  validates :medicine_id, presence: true, reduce: true, on: :update
+  validates :ingredient_id, presence: true, reduce: true
   validates :strength,
             presence: true,
             numericality: {greater_than: 0.0},
