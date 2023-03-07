@@ -36,6 +36,7 @@ class CreateUsers < Medici::Database::Migration[1.0]
       t.timestamptz :locked_at
 
       # Additional attributes
+      t.string :reference_code
       t.string :first_name
       t.string :last_name
       t.timestamptz :last_password_updated_at
@@ -54,14 +55,16 @@ class CreateUsers < Medici::Database::Migration[1.0]
 
       t.timestamps_with_timezone null: false
 
-      t.length_constraint :mobile_number, less_than_or_equal_to: 32
+      t.length_constraint :reference_code, less_than_or_equal_to: 15
       t.length_constraint :first_name, less_than_or_equal_to: 55
       t.length_constraint :last_name, less_than_or_equal_to: 55
+      t.length_constraint :mobile_number, less_than_or_equal_to: 32
 
       t.not_null_constraint :sign_in_count
       t.not_null_constraint :failed_attempts
       t.not_null_constraint :role_id
 
+      t.not_null_and_empty_constraint :reference_code
       t.not_null_and_empty_constraint :email
       t.not_null_and_empty_constraint :first_name
       t.not_null_and_empty_constraint :last_name
