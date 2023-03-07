@@ -11,6 +11,7 @@
         inactive: "Inactive",
       },
       medicine: {
+        reference_code: "Reference code",
         name: "Name",
         code: "Code",
         category: "Category",

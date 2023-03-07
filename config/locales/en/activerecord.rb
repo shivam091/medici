@@ -11,6 +11,7 @@
           is_active: "Is active"
         },
         user: {
+          reference_code: "Reference code",
           first_name: "First name",
           last_name: "Last name",
           login: "Email address or mobile number",
@@ -47,6 +48,7 @@
           currency_id: "Currency",
         },
         ingredient: {
+          reference_code: "Reference code",
           name: "Name",
           is_active: "Is active",
         },
@@ -68,6 +70,7 @@
           postal_code: "Postal code, Postcode, or PIN code",
         },
         store: {
+          reference_code: "Reference code",
           name: "Name",
           email: "Email address",
           phone_number: "Phone number",
@@ -77,12 +80,14 @@
           logo: "Logo",
         },
         supplier: {
+          reference_code: "Reference code",
           name: "Name",
           email: "Email address",
           phone_number: "Phone number",
           is_active: "Is active",
         },
         manufacturer: {
+          reference_code: "Reference code",
           name: "Name",
           email: "Email address",
           phone_number: "Phone number",
@@ -90,6 +95,7 @@
           is_active: "Is active",
         },
         medicine: {
+          reference_code: "Reference code",
           medicine_category_id: "Medicine category",
           dosage_form_id: "Dosage form",
           packing_type_id: "Packing type",
