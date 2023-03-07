@@ -28,8 +28,4 @@ FactoryBot.define do
       end
     end
   end
-
-  trait :main_store do
-    is_main_store { true }
-  end
 end

@@ -28,7 +28,6 @@ RSpec.describe Store, type: :model do
     it { is_expected.to have_db_column(:fax_number).of_type(:string) }
     it { is_expected.to have_db_column(:registration_number).of_type(:string) }
     it { is_expected.to have_db_column(:is_active).of_type(:boolean).with_options(default: false) }
-    it { is_expected.to have_db_column(:is_main_store).of_type(:boolean).with_options(default: false) }
     it { is_expected.to have_db_column(:created_at).of_type(:timestamptz).with_options(null: false) }
     it { is_expected.to have_db_column(:updated_at).of_type(:timestamptz).with_options(null: false) }
 
@@ -48,11 +47,6 @@ RSpec.describe Store, type: :model do
     it "should set false as default value for #is_active" do
       store = build(:store)
       expect(store.is_active).to be_falsy
-    end
-
-    it "should set false as default value for #is_main_store" do
-      store = build(:store)
-      expect(store.is_main_store).to be_falsy
     end
   end
 

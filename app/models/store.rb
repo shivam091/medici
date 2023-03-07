@@ -6,7 +6,6 @@ class Store < ApplicationRecord
   include Filterable, Sortable
 
   attribute :is_active, default: false
-  attribute :is_main_store, default: false
 
   validates :name,
             presence: true,
@@ -43,14 +42,6 @@ class Store < ApplicationRecord
   end
 
   class << self
-    def main_store
-      where(is_main_store: true)
-    end
-
-    def mini_stores
-      where(is_main_store: false)
-    end
-
     def select_options
       active.pluck(:name, :id)
     end
