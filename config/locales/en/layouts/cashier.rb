@@ -16,6 +16,7 @@
           your_profile: "Your profile",
           sales: "Sales",
           daily_sales: "Daily sales",
+          pos: "PoS",
         },
         footer: {
           copyright_notice: "&copy; %{copyright_years}, Medici LLP or its affiliates, all rights reserved."
