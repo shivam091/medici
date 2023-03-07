@@ -7,7 +7,8 @@ class User < ApplicationRecord
           StripAttribute,
           DowncaseAttribute,
           Filterable,
-          Sortable
+          Sortable,
+          ReferenceCode
 
   devise :database_authenticatable, :registerable, :confirmable, :lockable,
          :recoverable, :rememberable, :validatable, :timeoutable, :trackable,
@@ -25,6 +26,9 @@ class User < ApplicationRecord
   attribute :is_active, default: false
   attribute :password_automatically_set, default: false
 
+  validates :reference_code,
+            length: {maximum: 15},
+            reduce: true
   validates :login, presence: true, if: :login_required?
   validates :password,
             presence: true,
