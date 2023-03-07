@@ -7,6 +7,9 @@ class Store < ApplicationRecord
 
   attribute :is_active, default: false
 
+  validates :reference_code,
+            length: {maximum: 15},
+            reduce: true
   validates :name,
             presence: true,
             length: {maximum: 110},
