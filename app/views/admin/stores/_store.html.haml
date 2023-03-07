@@ -7,6 +7,7 @@
         - if @stores&.count > 0
           %th{width: "25px", scope: "col"}
             = check_box_tag "checkbox", nil, false, class: "form-check-input", data: {select_all_checkbox_target: "selectAllCheckbox"}
+        %th{width: "25px", scope: "col"}= t(".reference_code")
         %th{scope: "col"}= t(".registration_number")
         %th{scope: "col"}= t(".name")
         %th{scope: "col"}= t(".email")
@@ -20,8 +21,9 @@
             = (@pagy.offset + index)
           %td
             = check_box_tag "store_ids[]", store.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
-          %td.fw-bold= store.registration_number
-          %td.fw-bold= store.name
+          %td.fw-bold= store.reference_code
+          %td= store.registration_number
+          %td= store.name
           %td= mail_to store.email
           %td= store.phone_number
           %td= store.country_name
