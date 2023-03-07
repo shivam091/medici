@@ -3,7 +3,7 @@
 # -*- warn_indent: true -*-
 
 class Medicine < ApplicationRecord
-  include Filterable, Sortable
+  include Filterable, Sortable, ReferenceCode
 
   enum unit_of_measurement: {
     kg: "kg",
@@ -38,6 +38,9 @@ class Medicine < ApplicationRecord
 
   attribute :is_active, default: false
 
+  validates :reference_code,
+            length: {maximum: 15},
+            reduce: true
   validates :name,
             presence: true,
             length: {maximum: 255},
@@ -55,9 +58,6 @@ class Medicine < ApplicationRecord
   validates :batch_number,
             presence: true,
             length: {maximum: 55},
-            reduce: true
-  validates :code,
-            length: {maximum: 15},
             reduce: true
   validates :therapeutic_areas,
             length: {maximum: 255},
@@ -116,7 +116,6 @@ class Medicine < ApplicationRecord
   belongs_to :packing_type, inverse_of: :medicines
   belongs_to :dosage_form, inverse_of: :medicines
 
-  before_create :set_code
   after_create :create_stock, :create_replenishment
 
   delegate :quantity_in_hand, to: :stock
@@ -130,7 +129,7 @@ class Medicine < ApplicationRecord
                                 allow_destroy: true,
                                 reject_if: :reject_medicine_ingredient?
 
-  default_scope -> { order(arel_table[:code].asc) }
+  default_scope -> { order(arel_table[:reference_code].asc) }
 
   def stock
     super.presence || build_stock
@@ -141,12 +140,6 @@ class Medicine < ApplicationRecord
   end
 
   private
-
-  def set_code
-    last_code = self.class.maximum(:code)
-    new_code = last_code.present? ? (last_code.scan(/\d+/).first.to_i + 1) : 1
-    self.code = "MED" + new_code.to_s.rjust(10, "0")
-  end
 
   def create_stock
     stock.save
