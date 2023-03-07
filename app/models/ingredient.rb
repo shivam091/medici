@@ -3,10 +3,13 @@
 # -*- warn_indent: true -*-
 
 class Ingredient < ApplicationRecord
-  include Filterable, Sortable
+  include Filterable, Sortable, ReferenceCode
 
   attribute :is_active, default: false
 
+  validates :reference_code,
+            length: {maximum: 15},
+            reduce: true
   validates :name,
             presence: true,
             length: {maximum: 55},
