@@ -15,7 +15,3 @@ ActionMailer::Base.smtp_settings = {
 }
 
 ActionMailer::Base.perform_deliveries = true
-
-Medici::Application.config.action_mailer.default_url_options = {
-  host: Rails.application.credentials.config[:DOMAIN]
-}
