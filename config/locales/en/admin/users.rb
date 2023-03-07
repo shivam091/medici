@@ -12,6 +12,7 @@
           inactive: "Inactive"
         },
         user: {
+          reference_code: "Reference code",
           name: "Name",
           email: "Email address",
           mobile_number: "Mobile number",

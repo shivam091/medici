@@ -5,7 +5,8 @@
 class MedicineSupplier < ApplicationRecord
   attribute :total_quantity_supplied, default: 0
 
-  validates :medicine_id, :supplier_id, presence: true, reduce: true
+  validates :medicine_id, presence: true, reduce: true, on: :update
+  validates :supplier_id, presence: true, reduce: true
   validates :total_quantity_supplied,
             presence: true,
             numericality: {only_integer: true, greater_than_or_equal_to: 0},

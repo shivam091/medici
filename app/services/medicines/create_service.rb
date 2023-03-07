@@ -19,7 +19,7 @@ class Medicines::CreateService < ApplicationService
     medicine = ::Medicine.new(medicine_attributes)
     if medicine.save
       ::ServiceResponse.success(
-        message: t("medicines.create.success", medicine_name: medicine.name, medicine_code: medicine.code),
+        message: t("medicines.create.success", medicine_name: medicine.name, medicine_code: medicine.reference_code),
         payload: {medicine: medicine}
       )
     else

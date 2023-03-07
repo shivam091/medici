@@ -87,6 +87,7 @@ class Admin::StoresController < Admin::BaseController
       :registration_number,
       :fax_number,
       :is_active,
+      :currency_id,
       address_attributes: [
         :address1,
         :address2,

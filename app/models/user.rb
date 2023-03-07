@@ -7,7 +7,8 @@ class User < ApplicationRecord
           StripAttribute,
           DowncaseAttribute,
           Filterable,
-          Sortable
+          Sortable,
+          ReferenceCode
 
   devise :database_authenticatable, :registerable, :confirmable, :lockable,
          :recoverable, :rememberable, :validatable, :timeoutable, :trackable,
@@ -25,6 +26,9 @@ class User < ApplicationRecord
   attribute :is_active, default: false
   attribute :password_automatically_set, default: false
 
+  validates :reference_code,
+            length: {maximum: 15},
+            reduce: true
   validates :login, presence: true, if: :login_required?
   validates :password,
             presence: true,
@@ -49,6 +53,18 @@ class User < ApplicationRecord
   delegate :name, to: :role, prefix: true
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true
+
+  scope :with_role, -> (role_name) do
+    role_table = ::Role.arel_table
+    user_table = ::User.arel_table
+    join = user_table.join(role_table)
+     .on(user_table[:role_id].eq(role_table[:id]))
+     .join_sources
+   joins(join).where(role_table[:name].eq(role_name))
+  end
+  scope :admins, -> { with_role("admin") }
+  scope :managers, -> { with_role("manager") }
+  scope :cashiers, -> { with_role("cashier") }
 
   default_scope { order_created_asc }
 

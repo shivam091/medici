@@ -18,10 +18,12 @@ RSpec.describe Manufacturer, type: :model do
   describe "included modules" do
     it { is_expected.to include_module(Filterable) }
     it { is_expected.to include_module(Sortable) }
+    it { is_expected.to include_module(ReferenceCode) }
   end
 
   describe "attributes, indexes, and foreign keys" do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:reference_code).of_type(:string) }
     it { is_expected.to have_db_column(:name).of_type(:string) }
     it { is_expected.to have_db_column(:email).of_type(:string) }
     it { is_expected.to have_db_column(:phone_number).of_type(:string) }
@@ -38,6 +40,8 @@ RSpec.describe Manufacturer, type: :model do
     it { is_expected.to have_check_constraint("chk_7601216330").with_condition("email IS NOT NULL AND email::text <> ''::text") }
     it { is_expected.to have_check_constraint("chk_64d76cfbb0").with_condition("name IS NOT NULL AND name::text <> ''::text") }
     it { is_expected.to have_check_constraint("chk_8a3644299c").with_condition("phone_number IS NOT NULL AND phone_number::text <> ''::text") }
+    it { is_expected.to have_check_constraint("chk_3ca4399acc").with_condition("char_length(reference_code::text) <= 15") }
+    it { is_expected.to have_check_constraint("chk_f6b763f3b7").with_condition("reference_code IS NOT NULL AND reference_code::text <> ''::text") }
   end
 
   describe "associations" do
@@ -60,9 +64,17 @@ RSpec.describe Manufacturer, type: :model do
     it { is_expected.to delegate_method(:name).to(:country).with_prefix(true) }
   end
 
+  describe "callbacks" do
+    it { is_expected.to have_callback(:before, :create, :set_reference_code) }
+  end
+
   include_examples "apply default scope on name"
 
   describe "validations" do
+    describe "#reference_code" do
+      it { is_expected.to validate_length_of(:reference_code).is_at_most(15).with_message("is too long (maximum is 15 characters)") }
+    end
+
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_most(110).with_message("is too long (maximum is 110 characters)") }

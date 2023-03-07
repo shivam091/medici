@@ -12,6 +12,7 @@
           inactive: "Inactive"
         },
         store: {
+          reference_code: "Reference code",
           name: "Name",
           email: "Email address",
           phone_number: "Phone number",

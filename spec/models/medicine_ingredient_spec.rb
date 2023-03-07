@@ -45,7 +45,7 @@ RSpec.describe MedicineIngredient, type: :model do
 
   describe "validations" do
     describe "#medicine_id" do
-      it { is_expected.to validate_presence_of(:medicine_id).with_message("is required") }
+      it { is_expected.to validate_presence_of(:medicine_id).on(:update).with_message("is required") }
     end
 
     describe "#ingredient_id" do

@@ -22,6 +22,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to include_module(DowncaseAttribute) }
     it { is_expected.to include_module(Filterable) }
     it { is_expected.to include_module(Sortable) }
+    it { is_expected.to include_module(ReferenceCode) }
   end
 
   describe "model configuration" do
@@ -36,6 +37,7 @@ RSpec.describe User, type: :model do
 
   describe "attributes, indexes, and foreign keys" do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:reference_code).of_type(:string) }
     it { is_expected.to have_db_column(:email).of_type(:string) }
     it { is_expected.to have_db_column(:mobile_number).of_type(:string) }
     it { is_expected.to have_db_column(:encrypted_password).of_type(:string) }
@@ -91,6 +93,8 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_check_constraint("chk_a86d1f69fa").with_condition("last_name IS NOT NULL AND last_name::text <> ''::text") }
     it { is_expected.to have_check_constraint("chk_b6b6a77b49").with_condition("role_id IS NOT NULL") }
     it { is_expected.to have_check_constraint("chk_fc2e3b8e41").with_condition("sign_in_count IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_85a5cd5c77").with_condition("char_length(reference_code::text) <= 15") }
+    it { is_expected.to have_check_constraint("chk_9703a0fab3").with_condition("reference_code IS NOT NULL AND reference_code::text <> ''::text") }
   end
 
   describe "default values" do
@@ -121,6 +125,10 @@ RSpec.describe User, type: :model do
     it { is_expected.to delegate_method(:name).to(:country).with_prefix(true) }
   end
 
+  describe "callbacks" do
+    it { is_expected.to have_callback(:before, :create, :set_reference_code) }
+  end
+
   include_examples "apply default scope on created_at asc"
 
   describe "nested attributes" do
@@ -128,6 +136,10 @@ RSpec.describe User, type: :model do
   end
 
   describe "validations" do
+    describe "#reference_code" do
+      it { is_expected.to validate_length_of(:reference_code).is_at_most(15).with_message("is too long (maximum is 15 characters)") }
+    end
+
     describe "#login" do
       context "when login is required" do
         before { allow(subject).to receive(:login_required?).and_return(true) }

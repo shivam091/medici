@@ -3,11 +3,13 @@
 # -*- warn_indent: true -*-
 
 class Store < ApplicationRecord
-  include Filterable, Sortable
+  include Filterable, Sortable, ReferenceCode
 
   attribute :is_active, default: false
-  attribute :is_main_store, default: false
 
+  validates :reference_code,
+            length: {maximum: 15},
+            reduce: true
   validates :name,
             presence: true,
             length: {maximum: 110},
@@ -26,13 +28,19 @@ class Store < ApplicationRecord
   validates :registration_number,
             presence: true,
             reduce: true
+  validates :currency_id,
+            presence: true,
+            reduce: true
 
   has_one :address, as: :addressable, dependent: :destroy
 
   has_many :users, dependent: :destroy
 
+  belongs_to :currency
+
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true, allow_nil: true
+  delegate :name, :iso_code, to: :currency, prefix: true, allow_nil: true
 
   accepts_nested_attributes_for :address, update_only: true
 
@@ -43,14 +51,6 @@ class Store < ApplicationRecord
   end
 
   class << self
-    def main_store
-      where(is_main_store: true)
-    end
-
-    def mini_stores
-      where(is_main_store: false)
-    end
-
     def select_options
       active.pluck(:name, :id)
     end

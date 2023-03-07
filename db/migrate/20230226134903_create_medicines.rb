@@ -37,7 +37,7 @@ class CreateMedicines < Medici::Database::Migration[1.0]
                      on_delete: :restrict
                    },
                    index: {using: :btree}
-      t.string :code
+      t.string :reference_code
       t.string :name
       t.text :description
       t.string :batch_number
@@ -58,17 +58,17 @@ class CreateMedicines < Medici::Database::Migration[1.0]
       t.not_null_constraint :expiry_date
 
       t.not_null_and_empty_constraint :name
-      t.not_null_and_empty_constraint :code
+      t.not_null_and_empty_constraint :reference_code
       t.not_null_and_empty_constraint :batch_number
 
-      t.length_constraint :code, less_than_or_equal_to: 15
+      t.length_constraint :reference_code, less_than_or_equal_to: 15
       t.length_constraint :name, less_than_or_equal_to: 255
       t.length_constraint :description, less_than_or_equal_to: 1000
       t.length_constraint :batch_number, less_than_or_equal_to: 55
       t.length_constraint :proprietary_name, less_than_or_equal_to: 255
       t.length_constraint :therapeutic_areas, less_than_or_equal_to: 255
 
-      t.check_constraint "sell_price <= purchase_price", name: "sale_price_lteq_purchase_price"
+      t.check_constraint "sell_price <= purchase_price", name: "sell_price_lteq_purchase_price"
       t.check_constraint "manufacture_date <= CURRENT_DATE", name: "manufacture_date_lteq_today"
       t.check_constraint "expiry_date > CURRENT_DATE", name: "manufacture_date_gt_today"
       t.check_constraint "manufacture_date < expiry_date", name: "expiry_date_gt_manufacture_date"

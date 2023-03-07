@@ -19,7 +19,7 @@ class Medicines::UpdateService < ApplicationService
   def update_medicine
     if medicine.update(medicine_attributes)
       ::ServiceResponse.success(
-        message: t("medicines.update.success", medicine_name: medicine.name, medicine_code: medicine.code),
+        message: t("medicines.update.success", medicine_name: medicine.name, medicine_code: medicine.reference_code),
         payload: {medicine: medicine}
       )
     else

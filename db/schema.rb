@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_26_155635) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -106,16 +106,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
   end
 
   create_table "ingredients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "reference_code"
     t.string "name"
     t.boolean "is_active", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["name"], name: "index_ingredients_on_name", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_62cbc59142"
+    t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_a65696bd28"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_44ab271035"
+    t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_ac4d3197c0"
   end
 
   create_table "manufacturers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "reference_code"
     t.string "name"
     t.string "email"
     t.string "phone_number"
@@ -128,9 +132,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
     t.check_constraint "char_length(email::text) <= 55", name: "chk_a17491f35f"
     t.check_constraint "char_length(name::text) <= 110", name: "chk_d3a128b5e4"
     t.check_constraint "char_length(phone_number::text) <= 32", name: "chk_1ca5089b5d"
+    t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_3ca4399acc"
     t.check_constraint "email IS NOT NULL AND email::text <> ''::text", name: "chk_7601216330"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_64d76cfbb0"
     t.check_constraint "phone_number IS NOT NULL AND phone_number::text <> ''::text", name: "chk_8a3644299c"
+    t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_f6b763f3b7"
   end
 
   create_table "medicine_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -174,7 +180,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
     t.uuid "dosage_form_id"
     t.uuid "packing_type_id"
     t.uuid "manufacturer_id"
-    t.string "code"
+    t.string "reference_code"
     t.string "name"
     t.text "description"
     t.string "batch_number"
@@ -196,12 +202,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
     t.index ["packing_type_id"], name: "index_medicines_on_packing_type_id"
     t.check_constraint "batch_number IS NOT NULL AND batch_number::text <> ''::text", name: "chk_977b947e5e"
     t.check_constraint "char_length(batch_number::text) <= 55", name: "chk_b952d93e37"
-    t.check_constraint "char_length(code::text) <= 15", name: "chk_f2d0605361"
     t.check_constraint "char_length(description) <= 1000", name: "chk_ce3da558a4"
     t.check_constraint "char_length(name::text) <= 255", name: "chk_0e33ee0ead"
     t.check_constraint "char_length(proprietary_name::text) <= 255", name: "chk_5e9dfe5c73"
+    t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_4cf8eb74a5"
     t.check_constraint "char_length(therapeutic_areas::text) <= 255", name: "chk_46218b7add"
-    t.check_constraint "code IS NOT NULL AND code::text <> ''::text", name: "chk_77ace052f1"
     t.check_constraint "expiry_date > CURRENT_DATE", name: "manufacture_date_gt_today"
     t.check_constraint "expiry_date IS NOT NULL", name: "chk_95781602a5"
     t.check_constraint "manufacture_date < expiry_date", name: "expiry_date_gt_manufacture_date"
@@ -209,6 +214,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
     t.check_constraint "manufacture_date IS NOT NULL", name: "chk_a3d10b57f2"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_7db414700d"
     t.check_constraint "purchase_price IS NOT NULL", name: "chk_f7b18baf4f"
+    t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_a358f560f5"
     t.check_constraint "sell_price <= purchase_price", name: "sell_price_lteq_purchase_price"
     t.check_constraint "sell_price IS NOT NULL", name: "chk_b79c9e345f"
   end
@@ -278,27 +284,32 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
   end
 
   create_table "stores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "reference_code"
     t.string "name"
     t.string "email"
     t.string "phone_number"
     t.string "fax_number"
     t.boolean "is_active", default: false
     t.string "registration_number"
+    t.uuid "currency_id"
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
-    t.boolean "is_main_store", default: false
+    t.index ["currency_id"], name: "index_stores_on_currency_id"
     t.index ["email"], name: "index_stores_on_email", unique: true
     t.index ["phone_number"], name: "index_stores_on_phone_number", unique: true
     t.check_constraint "char_length(email::text) <= 55", name: "chk_0966276692"
     t.check_constraint "char_length(fax_number::text) <= 32", name: "chk_55cbeaf1bf"
     t.check_constraint "char_length(phone_number::text) <= 32", name: "chk_304d33223a"
+    t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_42f8a2c319"
     t.check_constraint "email IS NOT NULL AND email::text <> ''::text", name: "chk_fc84f48d5e"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_8f1459e838"
     t.check_constraint "phone_number IS NOT NULL AND phone_number::text <> ''::text", name: "chk_2d9bb89816"
+    t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_83a023b8df"
     t.check_constraint "registration_number IS NOT NULL AND registration_number::text <> ''::text", name: "chk_48a4cf1224"
   end
 
   create_table "suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "reference_code"
     t.string "name"
     t.string "email"
     t.string "phone_number"
@@ -310,9 +321,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
     t.check_constraint "char_length(email::text) <= 55", name: "chk_b1c47b4cbe"
     t.check_constraint "char_length(name::text) <= 110", name: "chk_427b1088f0"
     t.check_constraint "char_length(phone_number::text) <= 32", name: "chk_826f24ed62"
+    t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_0996151ba1"
     t.check_constraint "email IS NOT NULL AND email::text <> ''::text", name: "chk_98cae18516"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_9b9db7504e"
     t.check_constraint "phone_number IS NOT NULL AND phone_number::text <> ''::text", name: "chk_e5ebd50398"
+    t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_bda7229b58"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -334,6 +347,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.timestamptz "locked_at"
+    t.string "reference_code"
     t.string "first_name"
     t.string "last_name"
     t.timestamptz "last_password_updated_at"
@@ -355,11 +369,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
     t.check_constraint "char_length(first_name::text) <= 55", name: "chk_c231bcb127"
     t.check_constraint "char_length(last_name::text) <= 55", name: "chk_2123b67efb"
     t.check_constraint "char_length(mobile_number::text) <= 32", name: "chk_9a467af0b9"
+    t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_85a5cd5c77"
     t.check_constraint "email IS NOT NULL AND email::text <> ''::text", name: "chk_004c265d57"
     t.check_constraint "encrypted_password IS NOT NULL AND encrypted_password::text <> ''::text", name: "chk_e1cfcf7283"
     t.check_constraint "failed_attempts IS NOT NULL", name: "chk_973db23f5c"
     t.check_constraint "first_name IS NOT NULL AND first_name::text <> ''::text", name: "chk_1e55406a3e"
     t.check_constraint "last_name IS NOT NULL AND last_name::text <> ''::text", name: "chk_a86d1f69fa"
+    t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_9703a0fab3"
     t.check_constraint "role_id IS NOT NULL", name: "chk_b6b6a77b49"
     t.check_constraint "sign_in_count IS NOT NULL", name: "chk_fc2e3b8e41"
   end
@@ -377,6 +393,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_101214) do
   add_foreign_key "replenishments", "medicines", name: "fk_replenishments_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "stocks", "medicines", name: "fk_stocks_medicine_id_on_medicines", on_delete: :cascade
+  add_foreign_key "stores", "currencies", name: "fk_stores_currency_id_on_currencies", on_delete: :restrict
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
   add_foreign_key "users", "stores", name: "fk_users_store_id_on_stores", on_delete: :cascade
 end

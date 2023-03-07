@@ -9,6 +9,7 @@ FactoryBot.define do
     phone_number { generate(:phone_number) }
     fax_number { generate(:phone_number) }
     registration_number { "1234567890" }
+    currency { ::Currency.first || create(:currency, :active) }
 
     trait :with_admin do
       after(:create) do |store|
@@ -27,9 +28,5 @@ FactoryBot.define do
         store.users << create(:cashier, :confirmed, :active, :with_address)
       end
     end
-  end
-
-  trait :main_store do
-    is_main_store { true }
   end
 end

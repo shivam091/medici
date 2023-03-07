@@ -21,6 +21,7 @@ RSpec.describe Medicine, type: :model do
   describe "included modules" do
     it { is_expected.to include_module(Filterable) }
     it { is_expected.to include_module(Sortable) }
+    it { is_expected.to include_module(ReferenceCode) }
   end
 
   describe "enum" do
@@ -29,8 +30,8 @@ RSpec.describe Medicine, type: :model do
 
   describe "attributes, indexes, and foreign keys" do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:reference_code).of_type(:string) }
     it { is_expected.to have_db_column(:name).of_type(:string) }
-    it { is_expected.to have_db_column(:code).of_type(:string) }
     it { is_expected.to have_db_column(:description).of_type(:text) }
     it { is_expected.to have_db_column(:medicine_category_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:dosage_form_id).of_type(:uuid) }
@@ -62,12 +63,10 @@ RSpec.describe Medicine, type: :model do
 
     it { is_expected.to have_check_constraint("chk_977b947e5e").with_condition("batch_number IS NOT NULL AND batch_number::text <> ''::text") }
     it { is_expected.to have_check_constraint("chk_b952d93e37").with_condition("char_length(batch_number::text) <= 55") }
-    it { is_expected.to have_check_constraint("chk_f2d0605361").with_condition("char_length(code::text) <= 15") }
     it { is_expected.to have_check_constraint("chk_ce3da558a4").with_condition("char_length(description) <= 1000") }
     it { is_expected.to have_check_constraint("chk_0e33ee0ead").with_condition("char_length(name::text) <= 255") }
     it { is_expected.to have_check_constraint("chk_5e9dfe5c73").with_condition("char_length(proprietary_name::text) <= 255") }
     it { is_expected.to have_check_constraint("chk_46218b7add").with_condition("char_length(therapeutic_areas::text) <= 255") }
-    it { is_expected.to have_check_constraint("chk_77ace052f1").with_condition("code IS NOT NULL AND code::text <> ''::text") }
     it { is_expected.to have_check_constraint("manufacture_date_gt_today").with_condition("expiry_date > CURRENT_DATE") }
     it { is_expected.to have_check_constraint("chk_95781602a5").with_condition("expiry_date IS NOT NULL") }
     it { is_expected.to have_check_constraint("expiry_date_gt_manufacture_date").with_condition("manufacture_date < expiry_date") }
@@ -77,6 +76,8 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_check_constraint("chk_f7b18baf4f").with_condition("purchase_price IS NOT NULL") }
     it { is_expected.to have_check_constraint("sell_price_lteq_purchase_price").with_condition("sell_price <= purchase_price") }
     it { is_expected.to have_check_constraint("chk_b79c9e345f").with_condition("sell_price IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_4cf8eb74a5").with_condition("char_length(reference_code::text) <= 15") }
+    it { is_expected.to have_check_constraint("chk_a358f560f5").with_condition("reference_code IS NOT NULL AND reference_code::text <> ''::text") }
   end
 
   describe "default values" do
@@ -87,6 +88,10 @@ RSpec.describe Medicine, type: :model do
   end
 
   describe "validations" do
+    describe "#reference_code" do
+      it { is_expected.to validate_length_of(:reference_code).is_at_most(15).with_message("is too long (maximum is 15 characters)") }
+    end
+
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_most(255).with_message("is too long (maximum is 255 characters)") }
@@ -103,10 +108,6 @@ RSpec.describe Medicine, type: :model do
     describe "#batch_number" do
       it { is_expected.to validate_presence_of(:batch_number).with_message("is required") }
       it { is_expected.to validate_length_of(:batch_number).is_at_most(55).with_message("is too long (maximum is 55 characters)") }
-    end
-
-    describe "#code" do
-      it { is_expected.to validate_length_of(:code).is_at_most(15).with_message("is too long (maximum is 15 characters)") }
     end
 
     describe "#therapeutic_areas" do
@@ -177,7 +178,7 @@ RSpec.describe Medicine, type: :model do
   end
 
   describe "callbacks" do
-    it { is_expected.to have_callback(:before, :create, :set_code) }
+    it { is_expected.to have_callback(:before, :create, :set_reference_code) }
     it { is_expected.to have_callback(:after, :create, :create_stock) }
     it { is_expected.to have_callback(:after, :create, :create_replenishment) }
   end
@@ -198,8 +199,8 @@ RSpec.describe Medicine, type: :model do
   end
 
   describe "default scope" do
-    it "should apply default scope on #code" do
-      expect(described_class.all.to_sql).to eq described_class.all.order(code: :asc).to_sql
+    it "should apply default scope on #reference_code" do
+      expect(described_class.all.to_sql).to eq described_class.all.order(reference_code: :asc).to_sql
     end
   end
 

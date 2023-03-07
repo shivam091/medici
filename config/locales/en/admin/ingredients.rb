@@ -12,6 +12,7 @@
           inactive: "Inactive",
         },
         ingredient: {
+          reference_code: "Reference code",
           name: "Name",
           actions: "Actions",
           delete_ingredient_confirmation_text: "Are you sure you want to delete the ingredient '%{ingredient_name}'?",
