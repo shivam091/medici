@@ -8,6 +8,8 @@
   .row.row-cols-1.row-cols-lg-3
     = form.text_field :fax_number
     = form.text_field :registration_number
+    = form.select :currency_id, options_for_select(::Currency.select_options, form.object.currency_id),
+      {include_blank: t(".select_currency")}
   .row.row-cols-1
     = form.check_box :is_active, switch: true
   .subheader

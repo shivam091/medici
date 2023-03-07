@@ -18,12 +18,12 @@ class Medicines::DestroyService < ApplicationService
   def destroy_medicine
     if medicine.destroy
       ::ServiceResponse.success(
-        message: t("medicines.destroy.success", medicine_name: medicine.name, medicine_code: medicine.code),
+        message: t("medicines.destroy.success", medicine_name: medicine.name, medicine_code: medicine.reference_code),
         payload: {medicine: medicine}
       )
     else
       ::ServiceResponse.error(
-        message: t("medicines.destroy.success", medicine_name: medicine.name, medicine_code: medicine.code),
+        message: t("medicines.destroy.success", medicine_name: medicine.name, medicine_code: medicine.reference_code),
         payload: {medicine: medicine}
       )
     end

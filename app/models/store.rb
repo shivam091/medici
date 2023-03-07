@@ -28,6 +28,9 @@ class Store < ApplicationRecord
   validates :registration_number,
             presence: true,
             reduce: true
+  validates :currency_id,
+            presence: true,
+            reduce: true
 
   has_one :address, as: :addressable, dependent: :destroy
 
