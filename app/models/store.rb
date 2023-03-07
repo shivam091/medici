@@ -3,7 +3,7 @@
 # -*- warn_indent: true -*-
 
 class Store < ApplicationRecord
-  include Filterable, Sortable
+  include Filterable, Sortable, ReferenceCode
 
   attribute :is_active, default: false
 
@@ -30,8 +30,11 @@ class Store < ApplicationRecord
 
   has_many :users, dependent: :destroy
 
+  belongs_to :currency
+
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true, allow_nil: true
+  delegate :name, :iso_code, to: :currency, prefix: true, allow_nil: true
 
   accepts_nested_attributes_for :address, update_only: true
 

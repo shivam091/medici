@@ -9,6 +9,7 @@ FactoryBot.define do
     phone_number { generate(:phone_number) }
     fax_number { generate(:phone_number) }
     registration_number { "1234567890" }
+    currency { ::Currency.first || create(:currency, :active) }
 
     trait :with_admin do
       after(:create) do |store|

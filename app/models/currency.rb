@@ -33,6 +33,7 @@ class Currency < ApplicationRecord
             reduce: true
 
   has_many :countries, dependent: :nullify
+  has_many :stores, dependent: :restrict_with_exception
 
   default_scope -> { order(arel_table[:iso_code].asc) }
 
