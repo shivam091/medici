@@ -57,6 +57,7 @@ RSpec.describe Currency, type: :model do
 
   describe "associations" do
     it { is_expected.to have_many(:countries).dependent(:nullify) }
+    it { is_expected.to have_many(:stores).dependent(:restrict_with_exception) }
   end
 
   describe "default scope" do

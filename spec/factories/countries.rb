@@ -8,12 +8,6 @@ FactoryBot.define do
     iso2 { "IN" }
     iso3 { "IND" }
     calling_code { "+91" }
-    currency { ::Currency.first || association(:currency, :active) }
-
-    trait :with_currency do
-      after(:build) do |country|
-        country.currency = create(:currency, :active)
-      end
-    end
+    currency { ::Currency.first || create(:currency, :active) }
   end
 end

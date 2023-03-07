@@ -8,11 +8,11 @@ require "spec_helper"
 
 RSpec.describe Country, type: :model do
   describe "valid factory" do
-    it { is_expected.to have_a_valid_factory.with_traits(:with_currency) }
+    it { is_expected.to have_a_valid_factory }
   end
 
   it_behaves_like "subclass of ApplicationRecord"
-  
+
   describe "included modules" do
     it { is_expected.to include_module(Filterable) }
   end
@@ -77,7 +77,7 @@ RSpec.describe Country, type: :model do
   end
 
   describe "validations" do
-    subject { build(:country, :with_currency) }
+    subject { build(:country) }
 
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
