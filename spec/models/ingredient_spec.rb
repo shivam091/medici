@@ -53,7 +53,7 @@ RSpec.describe Ingredient, type: :model do
     it { is_expected.to have_many(:medicines).through(:medicine_ingredients).source(:medicine).inverse_of(:medicine_ingredients) }
   end
 
-  include_examples "apply default scope on name"
+  include_examples "apply default scope on name asc"
 
   describe "validations" do
     describe "#reference_code" do

@@ -68,7 +68,7 @@ RSpec.describe Manufacturer, type: :model do
     it { is_expected.to have_callback(:before, :create, :set_reference_code) }
   end
 
-  include_examples "apply default scope on name"
+  include_examples "apply default scope on name asc"
 
   describe "validations" do
     describe "#reference_code" do
