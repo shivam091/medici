@@ -129,7 +129,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_callback(:before, :create, :set_reference_code) }
   end
 
-  include_examples "apply default scope on created_at asc"
+  include_examples "apply default scope on reference code asc"
 
   describe "nested attributes" do
     it { is_expected.to accept_nested_attributes_for(:address).update_only(true) }

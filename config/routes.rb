@@ -19,8 +19,6 @@ Rails.application.routes.draw do
   get "favicon.png", to: favicon_redirect
   get "favicon.ico", to: favicon_redirect
 
-  root to: "cashier/dashboards#show"
-
   devise_for :users,
              path: "auth",
              path_names: {
@@ -46,19 +44,13 @@ Rails.application.routes.draw do
       resource :dashboard
       resource :profile, only: [:show, :edit, :update]
 
-      resources :currencies, except: :show, param: :uuid
-      resources :countries, except: :show, param: :uuid
-      resources :ingredients, except: :show, param: :uuid
+      resources :currencies, :countries, :ingredients, :users, except: :show, param: :uuid
+
       resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms"
       resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories"
       resources :packing_types, except: :show, param: :uuid, path: "packing-types"
-      resources :users, param: :uuid
 
-      resources :suppliers, param: :uuid
-      resources :manufacturers, param: :uuid
-      resources :medicines, param: :uuid
-
-      resources :stores, param: :uuid
+      resources :suppliers, :manufacturers, :medicines, :stores, param: :uuid
     end
 
     namespace :cashier do
@@ -73,11 +65,12 @@ Rails.application.routes.draw do
 
       resource :dashboard
       resource :profile, only: [:show, :edit, :update]
-      resources :suppliers, param: :uuid
-      resources :manufacturers, param: :uuid
-      resources :medicines, param: :uuid
+
+      resources :suppliers, :manufacturers, :medicines, param: :uuid
     end
   end
+
+  root to: "cashier/dashboards#show"
 
   get "*unmatched_route", to: "application#not_found", format: false
 end

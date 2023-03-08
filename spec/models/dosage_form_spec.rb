@@ -45,7 +45,7 @@ RSpec.describe DosageForm, type: :model do
     it { is_expected.to have_many(:medicines).dependent(:restrict_with_exception) }
   end
 
-  include_examples "apply default scope on name"
+  include_examples "apply default scope on name asc"
 
   describe "validations" do
     describe "#name" do

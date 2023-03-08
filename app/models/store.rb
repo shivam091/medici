@@ -44,7 +44,7 @@ class Store < ApplicationRecord
 
   accepts_nested_attributes_for :address, update_only: true
 
-  default_scope -> { order_name_asc }
+  default_scope -> { order_reference_code_asc }
 
   def address
     super.presence || build_address
