@@ -1,4 +1,9 @@
 %header.border-bottom
+  .container-fluid.py-1.bg-light.border-bottom
+    .row.align-items-center
+      .col-lg-6.col-12.d-flex.justify-content-center.justify-content-lg-start
+        = render_if_exists("shared/live_clock")
+      .col-lg-6.col-12.d-none.d-lg-flex.justify-content-center.justify-content-lg-end
   %nav.navbar.navbar-light.bg-light.navbar-expand-lg.divider{aria: {label: t(".main_navigation")}}
     .container-fluid
       = link_to "", manager_dashboard_path, class: "medici-logo"

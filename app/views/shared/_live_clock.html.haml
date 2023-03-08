@@ -1,0 +1,7 @@
+#current-date-time{data: {controller: "live-clock"}}
+  .date.me-2
+    = external_svg_tag("svgs/calendar.svg")
+    %span{data: {live_clock_target: "date"}}
+  .time
+    = external_svg_tag("svgs/clock.svg")
+    %span{data: {live_clock_target: "time"}}

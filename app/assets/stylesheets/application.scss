@@ -116,11 +116,9 @@ body {
   background-repeat: no-repeat;
   height: 48px;
   width: 48px;
-  margin-right: 0.5rem;
 }
 
 // Form elements
-
 .form-control, .form-select {
   font-size: 0.875rem !important;
   border-radius: 0.25rem;
@@ -378,4 +376,13 @@ fieldset {
 }
 .page-link {
   --bs-pagination-border-radius: 0.25rem;
+}
+#current-date-time {
+  display: flex;
+  align-items: center;
+  .date, .time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
 }
