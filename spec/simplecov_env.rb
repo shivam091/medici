@@ -15,6 +15,11 @@ module SimpleCovEnv
 
   def configure_profile
     SimpleCov.configure do
+      # load_profile "test_frameworks"
+      # track_files "{app,config/initializers,db/migrate,lib}/**/*.rb"
+
+      # add_filter "/spec"
+
       add_group "Channels", "app/channels"
       add_group "Controllers", "app/controllers"
       add_group "Helpers", "app/helpers"
