@@ -35,7 +35,7 @@ body {
 :root, [data-theme=light]  {
   color-scheme: light;
 }
-* > svg {
+* > svg:not(#logo) {
   fill: currentColor;
 }
 .navbar-toggler:focus {
