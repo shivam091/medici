@@ -12,12 +12,12 @@ export default class extends Controller {
   connect() {
     setInterval(() => {
       this.updateClock();
-    }, 500);
+    }, 1000);
   }
 
   updateClock() {
     var $momentObject = new moment();
-    this.dateTarget.innerHTML = $momentObject.format("ddd MM/DD/y")
+    this.dateTarget.innerHTML = $momentObject.format("ddd, MMMM D, YYYY")
     this.timeTarget.innerHTML = $momentObject.format("H:mm:ss")
   }
 }

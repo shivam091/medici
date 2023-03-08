@@ -2,6 +2,8 @@
   .date.me-2
     = external_svg_tag("svgs/calendar.svg")
     %span{data: {live_clock_target: "date"}}
+      = Date.current.strftime("%a, %B %-d, %Y")
   .time
     = external_svg_tag("svgs/clock.svg")
     %span{data: {live_clock_target: "time"}}
+      = Time.zone.now.strftime("%T")
