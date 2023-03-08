@@ -164,7 +164,21 @@
           success: "Your profile was successfully updated.",
           error: "Your profile could not be updated."
         }
-      }
+      },
+      customers: {
+        create: {
+          success: "Customer '%{customer_name}' was successfully created.",
+          error: "Customer could not be created.",
+        },
+        update: {
+          success: "Customer '%{customer_name}' was successfully updated.",
+          error: "Customer could not be updated.",
+        },
+        destroy: {
+          success: "Customer '%{customer_name}' was successfully destroyed.",
+          error: "Customer '%{customer_name}' could not be destroyed.",
+        }
+      },
     }
   }
 }
