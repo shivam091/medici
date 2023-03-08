@@ -323,6 +323,24 @@ thead input[type="checkbox"], tbody input[type="checkbox"] {
 .modal-actions .btn + .btn {
   margin-right: 0.25rem;
 }
+.modal.fade .modal-dialog {
+  transform: translate(0,0) scale(0);
+  -webkit-transform: translate(0,0) scale(0);
+  -moz-transform: translate(0,0) scale(0);
+  -ms-transform: translate(0,0) scale(0);
+}
+.modal.show .modal-dialog {
+  transform: translate(0,0) scale(1);
+  -webkit-transform: translate(0,0) scale(1);
+  -moz-transform: translate(0,0) scale(1);
+  -ms-transform: translate(0,0) scale(1);
+}
+.modal.modal-static .modal-dialog {
+  transform: scale(1.02) !important;
+  -webkit-transform: scale(1.02) !important;
+  -moz-transform: scale(1.02) !important;
+  -ms-transform: scale(1.02) !important;
+}
 #main-container {
   display: flex;
   min-height: 100vh;
