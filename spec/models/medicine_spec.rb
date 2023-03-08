@@ -198,11 +198,7 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to accept_nested_attributes_for(:medicine_ingredients).allow_destroy(true) }
   end
 
-  describe "default scope" do
-    it "should apply default scope on #reference_code" do
-      expect(described_class.all.to_sql).to eq described_class.all.order(reference_code: :asc).to_sql
-    end
-  end
+  include_examples "apply default scope on reference code asc"
 
   describe "instance methods" do
     describe "#stock" do
