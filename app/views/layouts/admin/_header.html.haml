@@ -57,32 +57,10 @@
                 = link_to admin_packing_types_path, class: "dropdown-item" do
                   = t(".packing_types")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
-          %li.nav-item.dropdown
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1 dropdown-toggle",
-              aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
-              = t(".hello_username", username: current_user.full_name)
-            %ul.dropdown-menu.dropdown-menu-end
-              %li
-                %h6.dropdown-header.fw-bold= t(".your_account")
-              %li
-                = link_to t(".your_profile"), admin_profile_path, class: "dropdown-item"
-              %li.dropdown-divider
-              %li
-                = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
+          = render_if_exists("layouts/admin/menu")
         %ul.navbar-nav.d-lg-none
           %li.nav-item-divider
-          %li.nav-item.dropdown
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1 dropdown-toggle",
-              aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
-              = t(".hello_username", username: current_user.full_name)
-            %ul.dropdown-menu.dropdown-menu-end
-              %li
-                %h6.dropdown-header.fw-bold= t(".your_account")
-              %li
-                = link_to t(".your_profile"), admin_profile_path, class: "dropdown-item"
-              %li.dropdown-divider
-              %li
-                = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
+          = render_if_exists("layouts/admin/menu")
 .nav-scroller.shadow-sm.border-bottom.bg-light
   %nav.nav.nav-underline{aria: {label: t(".secondary_navigation")}}
     = link_to admin_customers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("customers"))}" do
