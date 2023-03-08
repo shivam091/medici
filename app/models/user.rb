@@ -66,7 +66,7 @@ class User < ApplicationRecord
   scope :managers, -> { with_role("manager") }
   scope :cashiers, -> { with_role("cashier") }
 
-  default_scope { order_created_asc }
+  default_scope -> { order_reference_code_asc }
 
   accepts_nested_attributes_for :address, update_only: true
 
