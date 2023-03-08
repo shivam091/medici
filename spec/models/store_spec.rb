@@ -73,7 +73,7 @@ RSpec.describe Store, type: :model do
     it { is_expected.to delegate_method(:iso_code).to(:currency).with_prefix(true) }
   end
 
-  include_examples "apply default scope on name"
+  include_examples "apply default scope on reference code asc"
 
   describe "validations" do
     describe "#name" do

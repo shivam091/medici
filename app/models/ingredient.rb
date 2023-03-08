@@ -22,7 +22,7 @@ class Ingredient < ApplicationRecord
            source: :medicine,
            inverse_of: :medicine_ingredients
 
-  default_scope -> { order_name_asc }
+  default_scope -> { order_reference_code_asc }
 
   class << self
     def select_options

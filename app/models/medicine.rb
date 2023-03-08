@@ -129,7 +129,7 @@ class Medicine < ApplicationRecord
                                 allow_destroy: true,
                                 reject_if: :reject_medicine_ingredient?
 
-  default_scope -> { order(arel_table[:reference_code].asc) }
+  default_scope -> { order_reference_code_asc }
 
   def stock
     super.presence || build_stock

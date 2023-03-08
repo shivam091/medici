@@ -22,6 +22,8 @@ module Sortable
       scope :order_updated_asc, -> { reorder(arel_table[:updated_at].asc) }
       scope :order_name_asc, -> { reorder(Arel::Nodes::Ascending.new(arel_table[:name].lower)) }
       scope :order_name_desc, -> { reorder(Arel::Nodes::Descending.new(arel_table[:name].lower)) }
+      scope :order_reference_code_desc, -> { reorder(arel_table[:reference_code].desc) }
+      scope :order_reference_code_asc, -> { reorder(arel_table[:reference_code].asc) }
     end
   end
 
@@ -47,7 +49,9 @@ module Sortable
         updated_at_asc: -> { order_updated_asc },
         updated_date: -> { order_updated_desc },
         updated_desc: -> { order_updated_desc },
-        updated_at_desc: -> { order_updated_desc }
+        updated_at_desc: -> { order_updated_desc },
+        reference_code_desc: -> { order_reference_code_desc },
+        reference_code_asc: -> { order_reference_code_asc }
       }
     end
   end
