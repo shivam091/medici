@@ -235,6 +235,17 @@ RSpec.describe Medicine, type: :model do
           expect(medicine.quantity_pending_from_supplier).to eq(0)
         end
       end
+
+      describe "#set_reference_code" do
+        context "when medicine is created" do
+          subject { create(:medicine) }
+
+          it "sets reference_code for medicine" do
+            expect(subject.reference_code).to be_present
+            expect(subject.reference_code).to eq("MED-FL000000001")
+          end
+        end
+      end
     end
 
     describe "accepts_nested_attributes_for #medicine_ingredients" do

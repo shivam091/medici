@@ -245,5 +245,34 @@ RSpec.describe User, type: :model do
     end
 
     include_examples "has address"
+
+    describe "#set_reference_code" do
+      context "when admin is created" do
+        subject { create(:admin, :confirmed) }
+
+        it "sets reference_code for user" do
+          expect(subject.reference_code).to be_present
+          expect(subject.reference_code).to eq("ADM-00000000001")
+        end
+      end
+
+      context "when manager is created" do
+        subject { create(:manager, :confirmed) }
+
+        it "sets reference_code for user" do
+          expect(subject.reference_code).to be_present
+          expect(subject.reference_code).to eq("MGR-00000000001")
+        end
+      end
+
+      context "when cashier is created" do
+        subject { create(:cashier, :confirmed) }
+
+        it "sets reference_code for user" do
+          expect(subject.reference_code).to be_present
+          expect(subject.reference_code).to eq("CAS-00000000001")
+        end
+      end
+    end
   end
 end

@@ -67,6 +67,19 @@ RSpec.describe Ingredient, type: :model do
     end
   end
 
+  describe "instance methods" do
+    describe "#set_reference_code" do
+      context "when ingredient is created" do
+        subject { create(:ingredient) }
+
+        it "sets reference_code for ingredient" do
+          expect(subject.reference_code).to be_present
+          expect(subject.reference_code).to eq("ING-FL000000001")
+        end
+      end
+    end
+  end
+
   describe "class methods" do
     describe ".select_options" do
       it "should return array of ingredients for select list" do

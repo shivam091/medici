@@ -95,6 +95,17 @@ RSpec.describe Manufacturer, type: :model do
 
   describe "instance methods" do
     include_examples "has address"
+
+    describe "#set_reference_code" do
+      context "when manufacturer is created" do
+        subject { create(:manufacturer) }
+
+        it "sets reference_code for manufacturer" do
+          expect(subject.reference_code).to be_present
+          expect(subject.reference_code).to eq("MFGR-0000000001")
+        end
+      end
+    end
   end
 
   describe "class methods" do
