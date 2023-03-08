@@ -64,6 +64,18 @@ module CustomersShared
           end
         end
       end
+
+      # DELETE /(admin|manager|cashier)/customers/:uuid
+      def destroy
+        response = ::Customers::DestroyService.(@customer)
+        @customer = response.payload[:customer]
+        if response.success?
+          flash[:info] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.customers_path
+      end
     end
   end
 
