@@ -1,0 +1,5 @@
+= title(t(".title"))
+.card.card-primary.border.border-primary
+  .card-body
+    = turbo_frame_tag :customer_form do
+      = render_if_exists "customers/form"

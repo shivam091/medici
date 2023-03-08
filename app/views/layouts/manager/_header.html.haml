@@ -47,6 +47,9 @@
                 = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
 .nav-scroller.shadow-sm.border-bottom.bg-light
   %nav.nav.nav-underline{aria: {label: t(".secondary_navigation")}}
+    = link_to manager_customers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("customers"))}" do
+      = external_svg_tag("svgs/handshake.svg")
+      = t(".customers")
     = link_to manager_suppliers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("suppliers"))}" do
       = external_svg_tag("svgs/truck.svg")
       = t(".suppliers")

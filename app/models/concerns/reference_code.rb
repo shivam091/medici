@@ -40,7 +40,7 @@ module ReferenceCode
       chars = self.name.first(2)
       new_reference_code = REFERENCE_CODE_MAPPINGS[model.to_s] + "-" + chars.upcase
       last_code = relation.where(model.arel_table[:name].matches("#{chars}%")).maximum(:reference_code)
-    when "Manufacturer", "Supplier", "Store"
+    when "Manufacturer", "Supplier", "Store", "Customer"
       new_reference_code = REFERENCE_CODE_MAPPINGS[model.to_s] + "-"
       last_code = relation.maximum(:reference_code)
     when "User"

@@ -136,6 +136,12 @@
           medicine_id: "Medicine",
           quantity_pending_from_supplier: "Quantity pending from supplier",
         },
+        customer: {
+          reference_code: "Reference code",
+          name: "Name",
+          mobile_number: "Mobile number",
+          email: "Email",
+        },
       },
       help_texts: {
 

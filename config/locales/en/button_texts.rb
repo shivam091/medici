@@ -52,6 +52,9 @@
       update_profile: "Update profile",
       go_to_home: "Go to home",
       previous_page: "Previous page",
+      new_customer: "New customer",
+      create_customer: "Create customer",
+      update_customer: "Update customer",
     }
   }
 }

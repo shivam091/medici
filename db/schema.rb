@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_26_155635) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_064016) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -93,6 +93,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_155635) do
     t.check_constraint "symbol IS NOT NULL AND symbol::text <> ''::text", name: "chk_9051c710f3"
     t.check_constraint "thousands_separator IS NOT NULL AND thousands_separator::text <> ''::text", name: "chk_879dba1f31"
     t.check_constraint "upper(iso_code::text) = iso_code::text", name: "chk_63e9b93f93"
+  end
+
+  create_table "customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "reference_code"
+    t.string "name"
+    t.string "email"
+    t.string "mobile_number"
+    t.boolean "is_active", default: false
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["email"], name: "index_customers_on_email", unique: true
+    t.index ["mobile_number"], name: "index_customers_on_mobile_number", unique: true
+    t.check_constraint "char_length(email::text) <= 55", name: "chk_9b044dc5bd"
+    t.check_constraint "char_length(mobile_number::text) <= 32", name: "chk_3ae00196cf"
+    t.check_constraint "char_length(name::text) <= 110", name: "chk_8c988d796e"
+    t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_92e8724169"
+    t.check_constraint "mobile_number IS NOT NULL AND mobile_number::text <> ''::text", name: "chk_ee6ddadabe"
+    t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_7344bc8336"
+    t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_cc9fd06e9d"
   end
 
   create_table "dosage_forms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
