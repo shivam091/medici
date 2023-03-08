@@ -10,10 +10,6 @@
           main_navigation: "Main navigation",
           toggle_navigation: "Toggle navigation",
           home: "Home",
-          hello_username: "Hello %{username}",
-          sign_out: "Sign out",
-          your_account: "Your account",
-          your_profile: "Your profile",
           cashiers: "Cashiers",
           medicines: "Medicines",
           suppliers: "Suppliers",
@@ -23,6 +19,12 @@
           reports: "Reports",
           customers: "Customers",
           secondary_navigation: "Secondary navigation",
+        },
+        menu: {
+          hello_username: "Hello %{username}",
+          sign_out: "Sign out",
+          your_account: "Your account",
+          your_profile: "Your profile",
         },
         footer: {
           medicines: "Medicines",

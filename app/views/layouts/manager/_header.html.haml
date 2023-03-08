@@ -1,4 +1,9 @@
 %header.border-bottom
+  .container-fluid.py-1.bg-light.border-bottom
+    .row.align-items-center
+      .col-lg-6.col-12.d-flex.justify-content-center.justify-content-lg-start
+        = render_if_exists("shared/live_clock")
+      .col-lg-6.col-12.d-none.d-lg-flex.justify-content-center.justify-content-lg-end
   %nav.navbar.navbar-light.bg-light.navbar-expand-lg.divider{aria: {label: t(".main_navigation")}}
     .container-fluid
       = link_to "", manager_dashboard_path, class: "medici-logo"
@@ -19,32 +24,10 @@
               = external_svg_tag("svgs/medicine.svg")
               = t(".medicines")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
-          %li.nav-item.dropdown
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center dropdown-toggle",
-              aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
-              = t(".hello_username", username: current_user.full_name)
-            %ul.dropdown-menu.dropdown-menu-end
-              %li
-                %h6.dropdown-header.fw-bold= t(".your_account")
-              %li
-                = link_to t(".your_profile"), manager_profile_path, class: "dropdown-item"
-              %li.dropdown-divider
-              %li
-                = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
+          = render_if_exists("layouts/admin/menu")
         %ul.navbar-nav.d-lg-none
           %li.nav-item-divider
-          %li.nav-item.dropdown
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center dropdown-toggle",
-              aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
-              = t(".hello_username", username: current_user.full_name)
-            %ul.dropdown-menu.dropdown-menu-end
-              %li
-                %h6.dropdown-header.fw-bold= t(".your_account")
-              %li
-                = link_to t(".your_profile"), manager_profile_path, class: "dropdown-item"
-              %li.dropdown-divider
-              %li
-                = link_to t(".sign_out"), destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete}
+          = render_if_exists("layouts/admin/menu")
 .nav-scroller.shadow-sm.border-bottom.bg-light
   %nav.nav.nav-underline{aria: {label: t(".secondary_navigation")}}
     = link_to manager_customers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("customers"))}" do

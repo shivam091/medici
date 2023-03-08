@@ -12,10 +12,6 @@
           home: "Home",
           users: "Users",
           cashiers: "Cashiers",
-          hello_username: "Hello %{username}",
-          sign_out: "Sign out",
-          your_account: "Your account",
-          your_profile: "Your profile",
           metadata: "Metadata",
           medicine_categories: "Medicine categories",
           dosage_forms: "Dosage forms",
@@ -40,6 +36,12 @@
           stores: "Stores",
           suppliers: "Suppliers",
           copyright_notice: "&copy; %{copyright_years}, Medici LLP or its affiliates, all rights reserved."
+        },
+        menu: {
+          hello_username: "Hello %{username}",
+          sign_out: "Sign out",
+          your_account: "Your account",
+          your_profile: "Your profile",
         },
       }
     }
