@@ -36,9 +36,7 @@ Rails.application.routes.draw do
              }
 
   concern :shareable do
-    resources :suppliers, param: :uuid
-    resources :manufacturers, param: :uuid
-    resources :medicines, param: :uuid
+    resources :customers, param: :uuid
   end
 
   devise_scope :user do
@@ -56,10 +54,16 @@ Rails.application.routes.draw do
       resources :packing_types, except: :show, param: :uuid, path: "packing-types"
       resources :users, param: :uuid
 
+      resources :suppliers, param: :uuid
+      resources :manufacturers, param: :uuid
+      resources :medicines, param: :uuid
+
       resources :stores, param: :uuid
     end
 
     namespace :cashier do
+      concerns :shareable
+
       resource :dashboard
       resource :profile, only: [:show, :edit, :update]
     end
@@ -69,6 +73,9 @@ Rails.application.routes.draw do
 
       resource :dashboard
       resource :profile, only: [:show, :edit, :update]
+      resources :suppliers, param: :uuid
+      resources :manufacturers, param: :uuid
+      resources :medicines, param: :uuid
     end
   end
 

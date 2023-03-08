@@ -21,6 +21,7 @@
           sales: "Sales",
           daily_sales: "Daily sales",
           reports: "Reports",
+          customers: "Customers",
         },
         footer: {
           medicines: "Medicines",
