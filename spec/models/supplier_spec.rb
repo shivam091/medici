@@ -98,6 +98,17 @@ RSpec.describe Supplier, type: :model do
 
   describe "instance methods" do
     include_examples "has address"
+
+    describe "#set_reference_code" do
+      context "when supplier is created" do
+        subject { create(:supplier) }
+
+        it "sets reference_code for supplier" do
+          expect(subject.reference_code).to be_present
+          expect(subject.reference_code).to eq("SPLR-0000000001")
+        end
+      end
+    end
   end
 
   describe "class methods" do

@@ -2,14 +2,14 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-# spec/lib/activerecord/connection_adapters/postgresql_adapter.rb
+# spec/config/initializers/activerecord/postgresql_adapter_spec.rb
 
 require "spec_helper"
 
 RSpec.describe ActiveRecord::ConnectionAdapters::PostgreSQLAdapter do
   with_migration :AddStatuses, 1, <<-EOF
     def change
-      create_enum "status_type", ['active', 'archived', 'on hold']
+      create_enum "status_type", ["active", "archived", "on hold"]
     end
   EOF
 
@@ -30,7 +30,7 @@ RSpec.describe ActiveRecord::ConnectionAdapters::PostgreSQLAdapter do
       expect(subject.current_version).to eq 0
       expect { subject.up(1) }.to_not raise_error
       expect(subject.current_version).to eq 1
-      expect(connection.enum_types).to include("status_type" => ['active', 'archived', 'on hold'])
+      expect(connection.enum_types).to include("status_type" => ["active", "archived", "on hold"])
     end
   end
 

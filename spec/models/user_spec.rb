@@ -187,6 +187,36 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "scopes" do
+    let(:admin) { create(:admin, :confirmed, :active) }
+    let(:manager) { create(:manager, :confirmed, :active) }
+    let(:cashier) { create(:cashier, :confirmed, :active) }
+
+    describe ".with_role" do
+      it "returns array of users having given role" do
+        expect(cashier).to be_one_of(described_class.with_role("cashier"))
+      end
+    end
+
+    describe ".admins" do
+      it "returns array of admins" do
+        expect(admin).to be_one_of(described_class.admins)
+      end
+    end
+
+    describe ".managers" do
+      it "returns array of managers" do
+        expect(manager).to be_one_of(described_class.managers)
+      end
+    end
+
+    describe ".cashiers" do
+      it "returns array of cashiers" do
+        expect(cashier).to be_one_of(described_class.cashiers)
+      end
+    end
+  end
+
   describe "instance methods" do
     describe "#admin?" do
       it "returns true" do
@@ -215,5 +245,34 @@ RSpec.describe User, type: :model do
     end
 
     include_examples "has address"
+
+    describe "#set_reference_code" do
+      context "when admin is created" do
+        subject { create(:admin, :confirmed) }
+
+        it "sets reference_code for user" do
+          expect(subject.reference_code).to be_present
+          expect(subject.reference_code).to eq("ADM-00000000001")
+        end
+      end
+
+      context "when manager is created" do
+        subject { create(:manager, :confirmed) }
+
+        it "sets reference_code for user" do
+          expect(subject.reference_code).to be_present
+          expect(subject.reference_code).to eq("MGR-00000000001")
+        end
+      end
+
+      context "when cashier is created" do
+        subject { create(:cashier, :confirmed) }
+
+        it "sets reference_code for user" do
+          expect(subject.reference_code).to be_present
+          expect(subject.reference_code).to eq("CAS-00000000001")
+        end
+      end
+    end
   end
 end

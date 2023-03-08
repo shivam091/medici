@@ -100,6 +100,17 @@ RSpec.describe Store, type: :model do
 
   describe "instance methods" do
     include_examples "has address"
+
+    describe "#set_reference_code" do
+      context "when store is created" do
+        subject { create(:store) }
+
+        it "sets reference_code for store" do
+          expect(subject.reference_code).to be_present
+          expect(subject.reference_code).to eq("STR-00000000001")
+        end
+      end
+    end
   end
 
   describe "class methods" do

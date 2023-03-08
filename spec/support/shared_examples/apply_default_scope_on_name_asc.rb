@@ -2,7 +2,7 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-RSpec.shared_examples "apply default scope on name asc" do |object_name, klass|
+RSpec.shared_examples "apply default scope on name asc" do
   describe "default scope" do
     it "should apply default scope on #name" do
       expect(described_class.all.to_sql).to eq(described_class.order(described_class.arel_table[:name].lower.asc).to_sql)

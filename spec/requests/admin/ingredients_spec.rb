@@ -198,9 +198,9 @@ RSpec.describe "Admin::Ingredients", type: :request do
     end
 
     describe "DELETE /admin/ingredients/:uuid" do
-      context "with valid 'uuid'" do
-        subject { delete admin_ingredient_path(ingredient) }
+      subject { delete admin_ingredient_path(ingredient) }
 
+      context "with valid 'uuid'" do
         it "locates the requested @ingredient" do
           delete admin_ingredient_path(ingredient)
           expect(ivar(:ingredient)).to eq(ingredient)
@@ -225,7 +225,6 @@ RSpec.describe "Admin::Ingredients", type: :request do
             ServiceResponse.error(message: "Ingredient 'Fluticasone furoate' could not be destroyed.")
           )
         end
-        subject { delete admin_ingredient_path(ingredient) }
 
         include_examples "does not change count of objects", ::Ingredient
       end
