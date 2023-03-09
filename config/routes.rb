@@ -34,14 +34,14 @@ Rails.application.routes.draw do
              }
 
   concern :shareable do
+    resource :dashboard, only: :show
     resources :customers, param: :uuid
   end
 
-  devise_scope :user do
+  authenticate :user, -> (user) { user.admin? } do
     namespace :admin do
       concerns :shareable
 
-      resource :dashboard
       resource :profile, only: [:show, :edit, :update]
 
       resources :currencies, :countries, :ingredients, :users, except: :show, param: :uuid
@@ -52,21 +52,23 @@ Rails.application.routes.draw do
 
       resources :suppliers, :manufacturers, :medicines, :stores, param: :uuid
     end
+  end
 
-    namespace :cashier do
-      concerns :shareable
-
-      resource :dashboard
-      resource :profile, only: [:show, :edit, :update]
-    end
-
+  authenticate :user, -> (user) { user.manager? } do
     namespace :manager do
       concerns :shareable
 
-      resource :dashboard
       resource :profile, only: [:show, :edit, :update]
 
       resources :suppliers, :manufacturers, :medicines, param: :uuid
+    end
+  end
+
+  authenticate :user, -> (user) { user.cashier? } do
+    namespace :cashier do
+      concerns :shareable
+
+      resource :profile, only: [:show, :edit, :update]
     end
   end
 
