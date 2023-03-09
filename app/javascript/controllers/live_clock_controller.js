@@ -18,6 +18,6 @@ export default class extends Controller {
   updateClock() {
     var $momentObject = new moment();
     this.dateTarget.innerHTML = $momentObject.format("ddd, MMMM D, YYYY")
-    this.timeTarget.innerHTML = $momentObject.format("H:mm:ss")
+    this.timeTarget.innerHTML = $momentObject.format("HH:mm:ss")
   }
 }
