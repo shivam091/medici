@@ -6,4 +6,4 @@
   .time
     = external_svg_tag("svgs/clock.svg")
     %span{data: {live_clock_target: "time"}}
-      = Time.zone.now.strftime("%T")
+      = Time.zone.now.strftime("%l:%M:%S")
