@@ -1,6 +1,6 @@
 = title(t(".title"))
 .text-center
-  = link_to "", new_user_session_path, class: "medici-logo mb-2"
+  = link_to "", root_path, class: "medici-logo mb-2"
   %h4.fw-bold.mb-4.fw-normal= t(".welcome_sign_in_to_your_account")
 = form_for resource, as: resource_name, url: session_path(resource_name),
   data: {turbo: false}, html: {class: "login-form"} do |form|

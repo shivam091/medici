@@ -6,7 +6,7 @@
       .col-lg-6.col-12.d-none.d-lg-flex.justify-content-center.justify-content-lg-end
   %nav.navbar.navbar-light.bg-light.navbar-expand-lg.divider{aria: {label: t(".main_navigation")}}
     .container-fluid
-      = link_to "", manager_dashboard_path, class: "medici-logo"
+      = link_to "", root_path, class: "medici-logo"
       .d-flex.ms-auto
         = button_tag type: :button, class: "navbar-toggler collapsed", data: {bs_toggle: "collapse", bs_target: "#navbar"},
           aria: {controls: "navbar-default", expanded: false, label: t(".toggle_navigation")} do
