@@ -70,7 +70,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: "cashier/dashboards#show"
+  root to: "root#index"
 
   get "*unmatched_route", to: "application#not_found", format: false
 end
