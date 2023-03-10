@@ -23,7 +23,7 @@ class Customers::DestroyService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("customers.destroy.success", customer_name: customer.name),
+        message: t("customers.destroy.error", customer_name: customer.name),
         payload: {customer: customer}
       )
     end
