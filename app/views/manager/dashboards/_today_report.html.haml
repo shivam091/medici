@@ -1,0 +1,13 @@
+.card
+  .card-header
+    .card-title= t(".today_report")
+  .card-body
+    .table-responsive
+      %table.table.table-striped.table-bordered
+        %tbody
+          %tr
+            %th{width: "25px", scope: "col"}= t(".total_sales")
+            %td 0
+          %tr
+            %th{width: "25px", scope: "col"}= t(".total_purchases")
+            %td 0
