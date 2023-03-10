@@ -23,7 +23,7 @@ class MedicineCategories::DestroyService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("medicine_categories.destroy.success", medicine_category_name: medicine_category.name),
+        message: t("medicine_categories.destroy.error", medicine_category_name: medicine_category.name),
         payload: {medicine_category: medicine_category}
       )
     end
