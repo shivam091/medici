@@ -24,10 +24,10 @@
               = external_svg_tag("svgs/medicine.svg")
               = t(".medicines")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
-          = render_if_exists("layouts/admin/menu")
+          = render_if_exists("layouts/manager/menu")
         %ul.navbar-nav.d-lg-none
           %li.nav-item-divider
-          = render_if_exists("layouts/admin/menu")
+          = render_if_exists("layouts/manager/menu")
 .nav-scroller.shadow-sm.border-bottom.bg-light
   %nav.nav.nav-underline{aria: {label: t(".secondary_navigation")}}
     = link_to manager_customers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("customers"))}" do
