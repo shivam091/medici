@@ -16,10 +16,10 @@ FactoryBot.define do
     uom { "mcg" }
     therapeutic_areas { "used to treat allergic symptoms" }
     pack_size { 1 }
-    association(:medicine_category, :active)
-    association(:dosage_form, :active)
-    association(:packing_type, :active)
-    association(:manufacturer, :with_address, :active)
+    medicine_category { ::MedicineCategory.first || create(:medicine_category, :active) }
+    dosage_form { ::DosageForm.first || create(:dosage_form, :active) }
+    packing_type { ::PackingType.first || create(:packing_type, :active) }
+    manufacturer { ::Manufacturer.first || create(:manufacturer, :with_address, :active) }
 
     trait :with_suppliers do
       after(:create) do |medicine, evaluator|
