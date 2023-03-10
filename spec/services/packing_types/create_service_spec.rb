@@ -7,4 +7,5 @@
 require "spec_helper"
 
 RSpec.describe PackingTypes::CreateService, type: :service do
+  
 end
