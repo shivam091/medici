@@ -6,5 +6,6 @@ class Admin::DashboardsController < Admin::BaseController
 
   # GET /admin/dashboard
   def show
+    @top_selling_medicines = []
   end
 end
