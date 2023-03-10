@@ -23,7 +23,7 @@ class Suppliers::DestroyService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("suppliers.destroy.success", supplier_name: supplier.name),
+        message: t("suppliers.destroy.error", supplier_name: supplier.name),
         payload: {supplier: supplier}
       )
     end
