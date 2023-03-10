@@ -35,9 +35,6 @@ body {
 :root, [data-theme=light]  {
   color-scheme: light;
 }
-* > svg:not(#logo) {
-  fill: currentColor;
-}
 .navbar-toggler:focus {
   box-shadow: none;
 }
@@ -50,6 +47,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   speak: none;
+}
+a {
+  -webkit-transition: 250ms;
+  transition: 250ms;
 }
 .middle-dot-divider {
   @include middle-dot-divider;
@@ -235,6 +236,11 @@ body {
   --bs-card-spacer-x: 0.5rem;
   --bs-card-cap-padding-y: 0.5rem;
   --bs-card-cap-padding-x: 0.5rem;
+}
+.card-title {
+  margin-bottom: 0rem;
+  font-weight: 600;
+  font-size: 1.25rem;
 }
 .btn-secret-reveal {
   position: absolute;

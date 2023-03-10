@@ -7,7 +7,7 @@
 #
 module ImagesHelper
   def external_svg_tag(file_name, options = {})
-    options.reverse_merge!(height: "20px", width: "20px")
+    options.reverse_merge!(height: "20px", width: "20px", fill: "currentColor")
 
     file = File.read(Rails.root.join("app", "assets", "images", file_name))
     doc = Nokogiri::HTML::DocumentFragment.parse(file)
