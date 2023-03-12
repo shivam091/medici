@@ -8,7 +8,7 @@
           %th{width: "25px", scope: "col"}
             = check_box_tag "checkbox", nil, false, class: "form-check-input", data: {select_all_checkbox_target: "selectAllCheckbox"}
         %th{scope: "col"}= t(".name")
-        %th{scope: "col"}= t(".iso_code") 
+        %th{scope: "col"}= t(".iso_code")
         %th{scope: "col"}= t(".countries")
         %th{scope: "col"}= t(".symbol")
         %th{scope: "col"}= t(".subunit")
@@ -28,10 +28,12 @@
           %td= currency.subunit
           %td= currency.subunit_to_unit
           %td.actions
-            = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_currency_path(currency), class: "btn btn-sm btn-secondary",
-              data: {turbo_frame: :remote_modal}
-            = link_to external_svg_tag("svgs/trash.svg"), admin_currency_path(currency), class: "btn btn-sm btn-danger",
-              data: {turbo_confirm: t(".delete_currency_confirmation_text", currency_name: currency.name), turbo_method: :delete}
+            - if policy(currency).edit?
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_currency_path(currency), class: "btn btn-sm btn-secondary",
+                data: {turbo_frame: :remote_modal}
+            - if policy(currency).destroy?
+              = link_to external_svg_tag("svgs/trash.svg"), admin_currency_path(currency), class: "btn btn-sm btn-danger",
+                data: {turbo_confirm: t(".delete_currency_confirmation_text", currency_name: currency.name), turbo_method: :delete}
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Currency.columns.count}

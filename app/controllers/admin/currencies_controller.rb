@@ -5,10 +5,17 @@
 class Admin::CurrenciesController < Admin::BaseController
 
   before_action :find_currency, except: [:index, :new, :create]
+  before_action do
+    if action_name.in?(["index", "new", "create"])
+      authorize ::Currency
+    else
+      authorize @currency
+    end
+  end
 
   # GET /admin/currencies
   def index
-    @currencies = ::Currency.active.includes(:countries)
+    @currencies = policy_scope(::Currency).active.includes(:countries)
     @pagy, @currencies = pagy(@currencies)
   end
 
@@ -76,7 +83,7 @@ class Admin::CurrenciesController < Admin::BaseController
   private
 
   def find_currency
-    @currency = ::Currency.find(params.fetch(:uuid))
+    @currency = policy_scope(::Currency).find(params.fetch(:uuid))
   end
 
   def currency_params

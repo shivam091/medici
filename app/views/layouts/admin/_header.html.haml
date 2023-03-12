@@ -37,12 +37,14 @@
               = external_svg_tag("svgs/database.svg")
               = t(".metadata")
             %ul.dropdown-menu
-              %li
-                = link_to admin_currencies_path, class: "dropdown-item" do
-                  = t(".currencies")
-              %li
-                = link_to admin_countries_path, class: "dropdown-item" do
-                  = t(".countries")
+              - if policy(::Currency).index?
+                %li
+                  = link_to admin_currencies_path, class: "dropdown-item" do
+                    = t(".currencies")
+              - if policy(::Country).index?
+                %li
+                  = link_to admin_countries_path, class: "dropdown-item" do
+                    = t(".countries")
               - if policy(::DosageForm).index?
                 %li
                   = link_to admin_dosage_forms_path, class: "dropdown-item" do
