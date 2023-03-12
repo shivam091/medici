@@ -43,9 +43,10 @@
               %li
                 = link_to admin_countries_path, class: "dropdown-item" do
                   = t(".countries")
-              %li
-                = link_to admin_dosage_forms_path, class: "dropdown-item" do
-                  = t(".dosage_forms")
+              - if policy(::DosageForm).index?
+                %li
+                  = link_to admin_dosage_forms_path, class: "dropdown-item" do
+                    = t(".dosage_forms")
               %li
                 = link_to admin_medicine_categories_path, class: "dropdown-item" do
                   = t(".medicine_categories")

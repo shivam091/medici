@@ -5,10 +5,17 @@
 class Admin::DosageFormsController < Admin::BaseController
 
   before_action :find_dosage_form, except: [:index, :new, :create]
+  before_action do
+    if action_name.in?(["index", "new", "create"])
+      authorize ::DosageForm
+    else
+      authorize @dosage_form
+    end
+  end
 
   # GET /admin/dosage-forms
   def index
-    @dosage_forms = ::DosageForm.active
+    @dosage_forms = policy_scope(::DosageForm).active
     @pagy, @dosage_forms = pagy(@dosage_forms)
   end
 
@@ -83,6 +90,6 @@ class Admin::DosageFormsController < Admin::BaseController
   end
 
   def find_dosage_form
-    @dosage_form = ::DosageForm.find(params.fetch(:uuid))
+    @dosage_form = policy_scope(::DosageForm).find(params.fetch(:uuid))
   end
 end
