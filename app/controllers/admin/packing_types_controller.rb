@@ -5,10 +5,17 @@
 class Admin::PackingTypesController < Admin::BaseController
 
   before_action :find_packing_type, except: [:index, :new, :create]
+  before_action do
+    if action_name.in?(["index", "new", "create"])
+      authorize ::PackingType
+    else
+      authorize @packing_type
+    end
+  end
 
   # GET /admin/packing-types
   def index
-    @packing_types = ::PackingType.active
+    @packing_types = policy_scope(::PackingType).active
     @pagy, @packing_types = pagy(@packing_types)
   end
 
@@ -80,6 +87,6 @@ class Admin::PackingTypesController < Admin::BaseController
   end
 
   def find_packing_type
-    @packing_type = ::PackingType.find(params.fetch(:uuid))
+    @packing_type = policy_scope(::PackingType).find(params.fetch(:uuid))
   end
 end
