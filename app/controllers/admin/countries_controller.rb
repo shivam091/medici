@@ -5,10 +5,17 @@
 class Admin::CountriesController < Admin::BaseController
 
   before_action :find_country, except: [:index, :new, :create]
+  before_action do
+    if action_name.in?(["index", "new", "create"])
+      authorize ::Country
+    else
+      authorize @country
+    end
+  end
 
   # GET /admin/countries
   def index
-    @countries = ::Country.active.includes(:currency)
+    @countries = policy_scope(::Country).active.includes(:currency)
     @pagy, @countries = pagy(@countries)
   end
 
@@ -88,6 +95,6 @@ class Admin::CountriesController < Admin::BaseController
   end
 
   def find_country
-    @country = ::Country.find(params.fetch(:uuid))
+    @country = policy_scope(::Country).find(params.fetch(:uuid))
   end
 end
