@@ -5,10 +5,17 @@
 class Admin::MedicineCategoriesController < Admin::BaseController
 
   before_action :find_medicine_category, except: [:index, :new, :create]
+  before_action do
+    if action_name.in?(["index", "new", "create"])
+      authorize ::MedicineCategory
+    else
+      authorize @medicine_category
+    end
+  end
 
   # GET /admin/medicine-categories
   def index
-    @medicine_categories = ::MedicineCategory.active
+    @medicine_categories = policy_scope(::MedicineCategory).active
     @pagy, @medicine_categories = pagy(@medicine_categories)
   end
 
@@ -84,6 +91,6 @@ class Admin::MedicineCategoriesController < Admin::BaseController
   end
 
   def find_medicine_category
-    @medicine_category = ::MedicineCategory.find(params.fetch(:uuid))
+    @medicine_category = policy_scope(::MedicineCategory).find(params.fetch(:uuid))
   end
 end
