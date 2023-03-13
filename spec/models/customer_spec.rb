@@ -51,6 +51,7 @@ RSpec.describe Customer, type: :model do
 
   describe "callbacks" do
     it { is_expected.to have_callback(:before, :create, :set_reference_code) }
+    it { is_expected.to have_callback(:after, :commit, :send_active_customers_count) }
   end
 
   describe "nested attributes" do

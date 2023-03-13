@@ -32,11 +32,19 @@ class Customer < ApplicationRecord
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true
 
+  after_commit :send_active_customers_count
+
   accepts_nested_attributes_for :address, update_only: true
 
   default_scope -> { order_reference_code_asc }
 
   def address
     super.presence || build_address
+  end
+
+  private
+
+  def send_active_customers_count
+    broadcast_update_to(:customers, target: :active_customers_count, html: ::Customer.active.count)
   end
 end

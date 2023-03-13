@@ -1,0 +1,19 @@
+.card.mb-2.mb-lg-0
+  .card-header
+    .card-title= t(".today_report")
+  .card-body
+    .table-responsive
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th{width: "25px", scope: "col"}#
+            %th{scope: "col"}= t(".store")
+            %th{scope: "col"}= t(".total_sales")
+            %th{scope: "col"}= t(".total_purchases")
+        %tbody
+          - ::Store.all.each.with_index(1) do |store, index|
+            %tr
+              %td.fw-bold= index
+              %td.fw-bold= store.name
+              %td 0
+              %td 0

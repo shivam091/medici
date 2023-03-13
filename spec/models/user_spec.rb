@@ -127,6 +127,7 @@ RSpec.describe User, type: :model do
 
   describe "callbacks" do
     it { is_expected.to have_callback(:before, :create, :set_reference_code) }
+    it { is_expected.to have_callback(:after, :commit, :send_active_users_count) }
   end
 
   include_examples "apply default scope on reference code asc"

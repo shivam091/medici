@@ -73,6 +73,11 @@ RSpec.describe Store, type: :model do
     it { is_expected.to delegate_method(:iso_code).to(:currency).with_prefix(true) }
   end
 
+  describe "callbacks" do
+    it { is_expected.to have_callback(:before, :create, :set_reference_code) }
+    it { is_expected.to have_callback(:after, :commit, :send_active_stores_count) }
+  end
+
   include_examples "apply default scope on reference code asc"
 
   describe "validations" do

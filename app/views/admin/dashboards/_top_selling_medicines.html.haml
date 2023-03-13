@@ -1,0 +1,25 @@
+.card
+  .card-header
+    .card-title= t(".top_selling_medicines")
+  .card-body
+    .table-responsive
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th{width: "25px", scope: "col"}#
+            %th{scope: "col"}= t(".name")
+            %th{scope: "col"}= t(".sell_price")
+            %th{scope: "col"}= t(".quantity")
+            %th{scope: "col"}= t(".amount")
+        %tbody
+          - if @top_selling_medicines&.each&.with_index(1) do |medicine, index|
+            %tr
+              %td.fw-bold= index
+              %td.fw-bold= medicine.name
+              %td= medicine.sell_price
+              %td= medicine.quantity
+              %td= medicine.amount
+          - end.empty?
+            %tr
+              %td.fw-bold{colspan: 5}
+                = t(".no_medicines_to_display")
