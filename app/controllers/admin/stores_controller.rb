@@ -5,10 +5,17 @@
 class Admin::StoresController < Admin::BaseController
 
   before_action :find_store, except: [:index, :new, :create]
+  before_action do
+    if action_name.in?(["index", "new", "create"])
+      authorize ::Store
+    else
+      authorize @store
+    end
+  end
 
   # GET /admin/stores
   def index
-    @stores = ::Store.active.includes(:address)
+    @stores = policy_scope(::Store).active.includes(:address)
     @pagy, @stores = pagy(@stores)
   end
 
@@ -76,7 +83,7 @@ class Admin::StoresController < Admin::BaseController
   private
 
   def find_store
-    @store = ::Store.find(params.fetch(:uuid))
+    @store = policy_scope(::Store).find(params.fetch(:uuid))
   end
 
   def store_params

@@ -26,9 +26,11 @@
           %td= manufacturer.phone_number
           %td= manufacturer.country_name
           %td.actions
-            = link_to external_svg_tag("svgs/pencil.svg"), edit_manufacturer_path(manufacturer), class: "btn btn-sm btn-secondary"
-            = link_to external_svg_tag("svgs/trash.svg"), manufacturer_path(manufacturer), class: "btn btn-sm btn-danger",
-              data: {turbo_confirm: t(".delete_manufacturer_confirmation_text", manufacturer_name: manufacturer.name), turbo_method: :delete}
+            - if policy(manufacturer).edit?
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_manufacturer_path(manufacturer), class: "btn btn-sm btn-secondary"
+            - if policy(manufacturer).destroy?
+              = link_to external_svg_tag("svgs/trash.svg"), manufacturer_path(manufacturer), class: "btn btn-sm btn-danger",
+                data: {turbo_confirm: t(".delete_manufacturer_confirmation_text", manufacturer_name: manufacturer.name), turbo_method: :delete}
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Manufacturer.columns.count}

@@ -9,10 +9,17 @@ module ManufacturersShared
     base_class.class_eval do
 
       before_action :find_manufacturer, except: [:index, :new, :create]
+      before_action do
+        if action_name.in?(["index", "new", "create"])
+          authorize ::Manufacturer
+        else
+          authorize @manufacturer
+        end
+      end
 
       # GET /(admin|manager)/manufacturers
       def index
-        @manufacturers = ::Manufacturer.active.includes(:address)
+        @manufacturers = policy_scope(::Manufacturer).active.includes(:address)
         @pagy, @manufacturers = pagy(@manufacturers)
       end
 
@@ -82,7 +89,7 @@ module ManufacturersShared
   private
 
   def find_manufacturer
-    @manufacturer = ::Manufacturer.find(params.fetch(:uuid))
+    @manufacturer = policy_scope(::Manufacturer).find(params.fetch(:uuid))
   end
 
   def manufacturer_params

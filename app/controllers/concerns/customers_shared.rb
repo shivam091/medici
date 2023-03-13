@@ -9,10 +9,17 @@ module CustomersShared
     base_class.class_eval do
 
       before_action :find_customer, except: [:index, :new, :create]
+      before_action do
+        if action_name.in?(["index", "new", "create"])
+          authorize ::Customer
+        else
+          authorize @customer
+        end
+      end
 
       # GET /(admin|manager|cashier)/customers
       def index
-        @customers = ::Customer.active.includes(:address)
+        @customers = policy_scope(::Customer).active.includes(:address)
         @pagy, @customers = pagy(@customers)
       end
 
@@ -82,7 +89,7 @@ module CustomersShared
   private
 
   def find_customer
-    @customer = ::Customer.find(params.fetch(:uuid))
+    @customer = policy_scope(::Customer).find(params.fetch(:uuid))
   end
 
   def customer_params

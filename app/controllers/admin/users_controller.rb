@@ -5,10 +5,17 @@
 class Admin::UsersController < Admin::BaseController
 
   before_action :find_user, except: [:index, :new, :create]
+  before_action do
+    if action_name.in?(["index", "new", "create"])
+      authorize ::User
+    else
+      authorize @user
+    end
+  end
 
   # GET /admin/users
   def index
-    @users = ::User.active.includes(:role, :store)
+    @users = policy_scope(::User).active.includes(:role, :store)
     @pagy, @users = pagy(@users)
   end
 
@@ -96,6 +103,6 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def find_user
-    @user = ::User.find(params.fetch(:uuid))
+    @user = policy_scope(::User).find(params.fetch(:uuid))
   end
 end

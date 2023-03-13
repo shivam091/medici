@@ -28,10 +28,12 @@
           %td= country.has_postal_code
           %td= country.currency_name
           %td.actions
-            = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_country_path(country), class: "btn btn-sm btn-secondary",
-              data: {turbo_frame: :remote_modal}
-            = link_to external_svg_tag("svgs/trash.svg"), admin_country_path(country), class: "btn btn-sm btn-danger",
-              data: {turbo_confirm: t(".delete_country_confirmation_text", country_name: country.name), turbo_method: :delete}
+            - if policy(country).edit?
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_country_path(country), class: "btn btn-sm btn-secondary",
+                data: {turbo_frame: :remote_modal}
+            - if policy(country).destroy?
+              = link_to external_svg_tag("svgs/trash.svg"), admin_country_path(country), class: "btn btn-sm btn-danger",
+                data: {turbo_confirm: t(".delete_country_confirmation_text", country_name: country.name), turbo_method: :delete}
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Country.columns.count}
