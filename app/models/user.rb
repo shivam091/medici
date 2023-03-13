@@ -54,6 +54,8 @@ class User < ApplicationRecord
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true
 
+  after_commit :send_active_users_counter
+
   scope :with_role, -> (role_name) do
     role_table = ::Role.arel_table
     user_table = ::User.arel_table
@@ -170,5 +172,9 @@ class User < ApplicationRecord
 
   def login_required?
     !!login_required
+  end
+
+  def send_active_users_counter
+    broadcast_update_to(:users, target: :active_users_count, html: ::User.active.count)
   end
 end

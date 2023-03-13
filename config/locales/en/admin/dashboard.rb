@@ -8,6 +8,7 @@
       dashboards: {
         show: {
           title: "Dashboard",
+          total_users: "Total users",
           total_customers: "Total customers",
           total_suppliers: "Total suppliers",
           total_manufacturers: "Total manufacturers",
