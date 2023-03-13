@@ -26,9 +26,11 @@
           %td= customer.mobile_number
           %td= customer.country_name
           %td.actions
-            = link_to external_svg_tag("svgs/pencil.svg"), edit_customer_path(customer), class: "btn btn-sm btn-secondary"
-            = link_to external_svg_tag("svgs/trash.svg"), customer_path(customer), class: "btn btn-sm btn-danger",
-              data: {turbo_confirm: t(".delete_customer_confirmation_text", customer_name: customer.name), turbo_method: :delete}
+            - if policy(customer).edit?
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_customer_path(customer), class: "btn btn-sm btn-secondary"
+            - if policy(customer).destroy?
+              = link_to external_svg_tag("svgs/trash.svg"), customer_path(customer), class: "btn btn-sm btn-danger",
+                data: {turbo_confirm: t(".delete_customer_confirmation_text", customer_name: customer.name), turbo_method: :delete}
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Customer.columns.count}

@@ -40,9 +40,11 @@
           %td= medicine.expiry_date.to_fs(:long)
           %td= humanized_strength(medicine)
           %td.actions
-            = link_to external_svg_tag("svgs/pencil.svg"), edit_medicine_path(medicine), class: "btn btn-sm btn-secondary"
-            = link_to external_svg_tag("svgs/trash.svg"), medicine_path(medicine), class: "btn btn-sm btn-danger",
-              data: {turbo_confirm: t(".delete_medicine_confirmation_text", medicine_name: medicine.name), turbo_method: :delete}
+            - if policy(medicine).edit?
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_medicine_path(medicine), class: "btn btn-sm btn-secondary"
+            - if policy(medicine).destroy?
+              = link_to external_svg_tag("svgs/trash.svg"), medicine_path(medicine), class: "btn btn-sm btn-danger",
+                data: {turbo_confirm: t(".delete_medicine_confirmation_text", medicine_name: medicine.name), turbo_method: :delete}
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Medicine.columns.count}
