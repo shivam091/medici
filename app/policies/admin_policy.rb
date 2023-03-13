@@ -36,4 +36,8 @@ class AdminPolicy < ApplicationPolicy
   def destroy?
     user.admin?
   end
+
+  def show?
+    user.admin?
+  end
 end
