@@ -19,10 +19,11 @@
             = link_to manager_dashboard_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("manager/dashboards"))}" do
               = external_svg_tag("svgs/home.svg")
               = t(".home")
-          %li.nav-item
-            = link_to manager_medicines_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("manager/medicines"))}" do
-              = external_svg_tag("svgs/medicine-bag.svg")
-              = t(".medicines")
+          - if policy(::Medicine).index?
+            %li.nav-item
+              = link_to manager_medicines_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("manager/medicines"))}" do
+                = external_svg_tag("svgs/medicine-bag.svg")
+                = t(".medicines")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
           = render_if_exists("layouts/manager/menu")
         %ul.navbar-nav.d-lg-none
@@ -30,15 +31,18 @@
           = render_if_exists("layouts/manager/menu")
 .nav-scroller.shadow-sm.border-bottom.bg-light
   %nav.nav.nav-underline{aria: {label: t(".secondary_navigation")}}
-    = link_to manager_customers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("customers"))}" do
-      = external_svg_tag("svgs/handshake.svg")
-      = t(".customers")
-    = link_to manager_suppliers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("suppliers"))}" do
-      = external_svg_tag("svgs/truck.svg")
-      = t(".suppliers")
-    = link_to manager_manufacturers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("manufacturers"))}" do
-      = external_svg_tag("svgs/company.svg")
-      = t(".manufacturers")
+    - if policy(::Customer).index?
+      = link_to manager_customers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("customers"))}" do
+        = external_svg_tag("svgs/handshake.svg")
+        = t(".customers")
+    - if policy(::Supplier).index?
+      = link_to manager_suppliers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("suppliers"))}" do
+        = external_svg_tag("svgs/truck.svg")
+        = t(".suppliers")
+    - if policy(::Manufacturer).index?
+      = link_to manager_manufacturers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("manufacturers"))}" do
+        = external_svg_tag("svgs/company.svg")
+        = t(".manufacturers")
     = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("sales"))}" do
       = external_svg_tag("svgs/monitoring-dashboard.svg")
       = t(".sales")
