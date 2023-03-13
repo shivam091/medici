@@ -60,7 +60,7 @@ RSpec.describe Supplier, type: :model do
 
   describe "callbacks" do
     it { is_expected.to have_callback(:before, :create, :set_reference_code) }
-    it { is_expected.to have_callback(:after, :commit, :send_active_counter) }
+    it { is_expected.to have_callback(:after, :commit, :send_active_suppliers_count) }
   end
 
   describe "nested attributes" do

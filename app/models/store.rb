@@ -42,7 +42,7 @@ class Store < ApplicationRecord
   delegate :name, to: :country, prefix: true, allow_nil: true
   delegate :name, :iso_code, to: :currency, prefix: true, allow_nil: true
 
-  after_commit :send_active_counter
+  after_commit :send_active_stores_count
 
   accepts_nested_attributes_for :address, update_only: true
 
@@ -60,7 +60,7 @@ class Store < ApplicationRecord
 
   private
 
-  def send_active_counter
+  def send_active_stores_count
     broadcast_update_to(:stores, target: :active_stores_count, html: ::Store.active.count)
   end
 end
