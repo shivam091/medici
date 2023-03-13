@@ -3,6 +3,7 @@
 = turbo_stream_from :suppliers
 = turbo_stream_from :manufacturers
 = turbo_stream_from :stores
+= turbo_stream_from :medicines
 .card.card-primary.border.border-primary
   .card-body
     .row
@@ -41,6 +42,7 @@
                     %p.mb-2= t(".total_manufacturers")
                   .d-inline-block
                     = external_svg_tag("svgs/company.svg", height: "48px", width: "48px")
+        .row
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body
@@ -52,13 +54,14 @@
                     %p.mb-2= t(".total_stores")
                   .d-inline-block
                     = external_svg_tag("svgs/store.svg", height: "48px", width: "48px")
-        .row
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body
                 .d-flex.align-items-start
                   .flex-grow-1
-                    %h3.mb-2 13
+                    %h3.mb-2
+                      = turbo_frame_tag :active_medicines_count do
+                        = ::Medicine.active.count
                     %p.mb-2= t(".total_medicines")
                   .d-inline-block
                     = external_svg_tag("svgs/medicine-bag.svg", height: "48px", width: "48px")
@@ -80,6 +83,7 @@
                     %p.mb-2= t(".out_of_stock_medicines")
                   .d-inline-block
                     = external_svg_tag("svgs/exclamation-triangle.svg", height: "48px", width: "48px")
+        .row
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body
@@ -89,7 +93,6 @@
                     %p.mb-2= t(".nearby_expiry")
                   .d-inline-block
                     = external_svg_tag("svgs/lightening.svg", height: "48px", width: "48px")
-        .row
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body

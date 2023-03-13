@@ -117,6 +117,7 @@ class Medicine < ApplicationRecord
   belongs_to :dosage_form, inverse_of: :medicines
 
   after_create :create_stock, :create_replenishment
+  after_commit :send_active_counter
 
   delegate :quantity_in_hand, to: :stock
   delegate :quantity_pending_from_supplier, to: :replenishment
@@ -140,6 +141,10 @@ class Medicine < ApplicationRecord
   end
 
   private
+
+  def send_active_counter
+    broadcast_update_to(:medicines, target: :active_medicines_count, html: ::Medicine.active.count)
+  end
 
   def create_stock
     stock.save
