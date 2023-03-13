@@ -1,6 +1,7 @@
 = title(t(".title"))
 = turbo_stream_from :customers
 = turbo_stream_from :suppliers
+= turbo_stream_from :manufacturers
 .card.card-primary.border.border-primary
   .card-body
     .row
@@ -33,7 +34,9 @@
               .card-body
                 .d-flex.align-items-start
                   .flex-grow-1
-                    %h3.mb-2 10
+                    %h3.mb-2
+                      = turbo_frame_tag :active_manufacturers_count do
+                        = ::Manufacturer.active.count
                     %p.mb-2= t(".total_manufacturers")
                   .d-inline-block
                     = external_svg_tag("svgs/company.svg", height: "48px", width: "48px")

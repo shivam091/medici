@@ -33,6 +33,8 @@ class Manufacturer < ApplicationRecord
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true
 
+  after_commit :send_active_counter
+
   accepts_nested_attributes_for :address, update_only: true
 
   default_scope -> { order_reference_code_asc }
@@ -45,5 +47,11 @@ class Manufacturer < ApplicationRecord
     def select_options
       active.pluck(:name, :id)
     end
+  end
+
+  private
+
+  def send_active_counter
+    broadcast_update_to(:manufacturers, target: :active_manufacturers_count, html: ::Manufacturer.active.count)
   end
 end
