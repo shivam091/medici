@@ -18,10 +18,12 @@
             = check_box_tag "dosage_form_ids[]", dosage_form.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
           %td.fw-bold= dosage_form.name
           %td.actions
-            = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_dosage_form_path(dosage_form), class: "btn btn-sm btn-secondary",
-              data: {turbo_frame: :remote_modal}
-            = link_to external_svg_tag("svgs/trash.svg"), admin_dosage_form_path(dosage_form), class: "btn btn-sm btn-danger",
-              data: {turbo_confirm: t(".delete_dosage_form_confirmation_text", dosage_form_name: dosage_form.name), turbo_method: :delete}
+            - if policy(dosage_form).edit?
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_dosage_form_path(dosage_form), class: "btn btn-sm btn-secondary",
+                data: {turbo_frame: :remote_modal}
+            - if policy(dosage_form).destroy?
+              = link_to external_svg_tag("svgs/trash.svg"), admin_dosage_form_path(dosage_form), class: "btn btn-sm btn-danger",
+                data: {turbo_confirm: t(".delete_dosage_form_confirmation_text", dosage_form_name: dosage_form.name), turbo_method: :delete}
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::DosageForm.columns.count}

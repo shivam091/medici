@@ -28,9 +28,11 @@
           %td= store.phone_number
           %td= store.country_name
           %td.actions
-            = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_store_path(store), class: "btn btn-sm btn-secondary"
-            = link_to external_svg_tag("svgs/trash.svg"), admin_store_path(store), class: "btn btn-sm btn-danger",
-              data: {turbo_confirm: t(".delete_store_confirmation_text", store_name: store.name), turbo_method: :delete}
+            - if policy(store).edit?
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_store_path(store), class: "btn btn-sm btn-secondary"
+            - if policy(store).destroy?
+              = link_to external_svg_tag("svgs/trash.svg"), admin_store_path(store), class: "btn btn-sm btn-danger",
+                data: {turbo_confirm: t(".delete_store_confirmation_text", store_name: store.name), turbo_method: :delete}
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Store.columns.count}
