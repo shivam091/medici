@@ -3,11 +3,23 @@
 = turbo_stream_from :suppliers
 = turbo_stream_from :manufacturers
 = turbo_stream_from :medicines
+= turbo_stream_from :users
 .card.card-primary.border.border-primary
   .card-body
     .row
       .col-12.col-lg-6.col-xl-8
         .row
+          .col-12.col-sm-6.col-xxl-3.d-flex
+            .card.flex-fill.mb-2
+              .card-body
+                .d-flex.align-items-start
+                  .flex-grow-1
+                    %h3.mb-2
+                      = turbo_frame_tag :active_cashiers_count do
+                        = current_user.store.users.cashiers.active.count
+                    %p.mb-2= t(".total_cashiers")
+                  .d-inline-block
+                    = external_svg_tag("svgs/users.svg", height: "48px", width: "48px")
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body
