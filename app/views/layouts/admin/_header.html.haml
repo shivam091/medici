@@ -23,10 +23,11 @@
             = link_to admin_users_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/users"))}" do
               = external_svg_tag("svgs/users.svg")
               = t(".users")
-          %li.nav-item
-            = link_to admin_stores_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/stores"))}" do
-              = external_svg_tag("svgs/store.svg")
-              = t(".stores")
+          - if policy(::Store).index?
+            %li.nav-item
+              = link_to admin_stores_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/stores"))}" do
+                = external_svg_tag("svgs/store.svg")
+                = t(".stores")
           %li.nav-item
             = link_to admin_medicines_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/medicines"))}" do
               = external_svg_tag("svgs/medicine-bag.svg")
