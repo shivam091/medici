@@ -23,7 +23,7 @@ class Currencies::DestroyService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("currencies.destroy.success", currency_name: currency.name),
+        message: t("currencies.destroy.error", currency_name: currency.name),
         payload: {currency: currency}
       )
     end

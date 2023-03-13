@@ -23,7 +23,7 @@ class Users::DestroyService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("users.destroy.success", user_name: user.full_name),
+        message: t("users.destroy.error", user_name: user.full_name),
         payload: {user: user}
       )
     end

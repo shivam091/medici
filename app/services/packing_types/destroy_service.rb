@@ -23,7 +23,7 @@ class PackingTypes::DestroyService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("packing_types.destroy.success", packing_type_name: packing_type.name),
+        message: t("packing_types.destroy.error", packing_type_name: packing_type.name),
         payload: {packing_type: packing_type}
       )
     end

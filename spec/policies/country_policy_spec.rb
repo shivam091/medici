@@ -7,7 +7,7 @@
 require "spec_helper"
 
 RSpec.describe CountryPolicy, type: :policy do
-  let(:country) { create(:country) }
+  let!(:country) { create(:country) }
 
   context "when admin is logged in" do
     let(:admin) { build(:admin, :confirmed) }

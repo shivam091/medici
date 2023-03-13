@@ -23,7 +23,7 @@ class DosageForms::DestroyService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("dosage_forms.destroy.success", dosage_form_name: dosage_form.name),
+        message: t("dosage_forms.destroy.error", dosage_form_name: dosage_form.name),
         payload: {dosage_form: dosage_form}
       )
     end

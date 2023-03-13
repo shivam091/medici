@@ -23,7 +23,7 @@ class Countries::DestroyService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("countries.destroy.success", country_name: country.name),
+        message: t("countries.destroy.error", country_name: country.name),
         payload: {country: country}
       )
     end
