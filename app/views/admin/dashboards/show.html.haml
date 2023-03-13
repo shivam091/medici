@@ -21,6 +21,9 @@
                     %p.mb-2= t(".total_users")
                   .d-inline-block
                     = external_svg_tag("svgs/users.svg", height: "48px", width: "48px")
+              .card-footer
+                .float-end
+                  = link_to t(".view_all"), admin_users_path, class: "text-decoration-none"
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body
@@ -32,6 +35,9 @@
                     %p.mb-2= t(".total_customers")
                   .d-inline-block
                     = external_svg_tag("svgs/handshake.svg", height: "48px", width: "48px")
+              .card-footer
+                .float-end
+                  = link_to t(".view_all"), admin_customers_path, class: "text-decoration-none"
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body
@@ -43,6 +49,9 @@
                     %p.mb-2= t(".total_suppliers")
                   .d-inline-block
                     = external_svg_tag("svgs/truck.svg", height: "48px", width: "48px")
+              .card-footer
+                .float-end
+                  = link_to t(".view_all"), admin_suppliers_path, class: "text-decoration-none"
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body
@@ -54,6 +63,9 @@
                     %p.mb-2= t(".total_manufacturers")
                   .d-inline-block
                     = external_svg_tag("svgs/company.svg", height: "48px", width: "48px")
+              .card-footer
+                .float-end
+                  = link_to t(".view_all"), admin_manufacturers_path, class: "text-decoration-none"
         .row
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
@@ -66,6 +78,9 @@
                     %p.mb-2= t(".total_stores")
                   .d-inline-block
                     = external_svg_tag("svgs/store.svg", height: "48px", width: "48px")
+              .card-footer
+                .float-end
+                  = link_to t(".view_all"), admin_stores_path, class: "text-decoration-none"
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body
@@ -77,6 +92,9 @@
                     %p.mb-2= t(".total_medicines")
                   .d-inline-block
                     = external_svg_tag("svgs/medicine-bag.svg", height: "48px", width: "48px")
+              .card-footer
+                .float-end
+                  = link_to t(".view_all"), admin_medicines_path, class: "text-decoration-none"
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body
@@ -86,6 +104,9 @@
                     %p.mb-2= t(".low_stock_medicines")
                   .d-inline-block
                     = external_svg_tag("svgs/bell-ringing.svg", height: "48px", width: "48px")
+              .card-footer
+                .float-end
+                  = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body
@@ -95,6 +116,9 @@
                     %p.mb-2= t(".out_of_stock_medicines")
                   .d-inline-block
                     = external_svg_tag("svgs/exclamation-triangle.svg", height: "48px", width: "48px")
+              .card-footer
+                .float-end
+                  = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
         .row
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
@@ -105,6 +129,9 @@
                     %p.mb-2= t(".nearby_expiry")
                   .d-inline-block
                     = external_svg_tag("svgs/lightening.svg", height: "48px", width: "48px")
+              .card-footer
+                .float-end
+                  = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
           .col-12.col-sm-6.col-xxl-3.d-flex
             .card.flex-fill.mb-2
               .card-body
@@ -114,6 +141,9 @@
                     %p.mb-2= t(".expired_medicines")
                   .d-inline-block
                     = external_svg_tag("svgs/ban.svg", height: "48px", width: "48px")
+              .card-footer
+                .float-end
+                  = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
       .col-12.col-md-12.col-lg-6.col-xl-4
         = render_if_exists("admin/dashboards/today_report")
     .row

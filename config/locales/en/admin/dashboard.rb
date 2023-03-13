@@ -18,6 +18,7 @@
           out_of_stock_medicines: "Out of stock medicines",
           nearby_expiry: "Nearby expiry",
           expired_medicines: "Expired medicines",
+          view_all: "View all",
         },
         today_report: {
           today_report: "Today's report",
