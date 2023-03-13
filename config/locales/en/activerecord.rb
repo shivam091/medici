@@ -140,7 +140,7 @@
           reference_code: "Reference code",
           name: "Name",
           mobile_number: "Mobile number",
-          email: "Email",
+          email: "Email address",
         },
       },
       help_texts: {
