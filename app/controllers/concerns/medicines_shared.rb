@@ -9,10 +9,17 @@ module MedicinesShared
     base_class.class_eval do
 
       before_action :find_medicine, except: [:index, :new, :create]
+      before_action do
+        if action_name.in?(["index", "new", "create"])
+          authorize ::Medicine
+        else
+          authorize @medicine
+        end
+      end
 
       # GET /(admin|manager)/medicines
       def index
-        @medicines = ::Medicine.active.includes(:stock, :replenishment)
+        @medicines = policy_scope(::Medicine).active.includes(:stock, :replenishment)
         @pagy, @medicines = pagy(@medicines)
       end
 
@@ -82,7 +89,7 @@ module MedicinesShared
   private
 
   def find_medicine
-    @medicine = ::Medicine.find(params.fetch(:uuid))
+    @medicine = policy_scope(::Medicine).find(params.fetch(:uuid))
   end
 
   def medicine_params
