@@ -1,4 +1,5 @@
 = title(t(".title"))
+= turbo_stream_from :customers
 .card.card-primary.border.border-primary
   .card-body
     .row
@@ -9,7 +10,9 @@
               .card-body
                 .d-flex.align-items-start
                   .flex-grow-1
-                    %h3.mb-2 24
+                    %h3.mb-2
+                      = turbo_frame_tag :active_customers_count do
+                        = ::Customer.active.count
                     %p.mb-2= t(".total_customers")
                   .d-inline-block
                     = external_svg_tag("svgs/handshake.svg", height: "48px", width: "48px")
