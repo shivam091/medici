@@ -21,7 +21,7 @@
         },
         today_report: {
           today_report: "Today's report",
-          total_sales: "Total sales",
+          total_sells: "Total sells",
           total_purchases: "Total purchases",
         },
       }

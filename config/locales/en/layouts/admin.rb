@@ -21,7 +21,7 @@
           ingredients: "Ingredients",
           suppliers: "Suppliers",
           manufacturers: "Manufacturers",
-          sales: "Sales",
+          sells: "Sells",
           reports: "Reports",
           stores: "Stores",
           managers: "Managers",
@@ -29,19 +29,14 @@
           secondary_navigation: "Secondary navigation",
           customers: "Customers",
         },
-        footer: {
-          medicines: "Medicines",
-          sales: "Sales",
-          revenue: "Revenue",
-          stores: "Stores",
-          suppliers: "Suppliers",
-          copyright_notice: "&copy; %{copyright_years}, Medici LLP or its affiliates, all rights reserved."
-        },
         menu: {
           hello_username: "Hello %{username}",
           sign_out: "Sign out",
           your_account: "Your account",
           your_profile: "Your profile",
+        },
+        footer: {
+          copyright_notice: "&copy; %{copyright_years}, Medici LLP or its affiliates, all rights reserved."
         },
       }
     }
