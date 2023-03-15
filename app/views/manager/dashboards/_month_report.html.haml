@@ -1,0 +1,13 @@
+.card.mb-2.mb-lg-0.d-flex
+  .card-header
+    .card-title= t(".month_report", month_and_year: Date.current.to_fs(:month_and_year))
+  .card-body
+    .table-responsive
+      %table.table.table-striped.table-bordered
+        %tbody
+          %tr
+            %th{width: "25px", scope: "col"}= t(".total_sells")
+            %td 0
+          %tr
+            %th{width: "25px", scope: "col"}= t(".total_purchases")
+            %td 0

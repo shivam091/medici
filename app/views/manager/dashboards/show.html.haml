@@ -7,127 +7,124 @@
 .card.card-primary.border.border-primary
   .card-body
     .row
-      .col-12.col-lg-6.col-xl-8
-        .row
-          .col-12.col-sm-6.col-xxl-3.d-flex
-            .card.flex-fill.mb-2
-              .card-body
-                .d-flex.align-items-start
-                  .flex-grow-1
-                    %h3.mb-2
-                      = turbo_frame_tag :active_cashiers_count do
-                        = current_user.store.users.cashiers.active.count
-                    %p.mb-2= t(".total_cashiers")
-                  .d-inline-block
-                    = external_svg_tag("svgs/users.svg", height: "48px", width: "48px")
-              .card-footer
-                .float-end
-                  = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
-          .col-12.col-sm-6.col-xxl-3.d-flex
-            .card.flex-fill.mb-2
-              .card-body
-                .d-flex.align-items-start
-                  .flex-grow-1
-                    %h3.mb-2
-                      = turbo_frame_tag :active_customers_count do
-                        = ::Customer.active.count
-                    %p.mb-2= t(".total_customers")
-                  .d-inline-block
-                    = external_svg_tag("svgs/handshake.svg", height: "48px", width: "48px")
-              .card-footer
-                .float-end
-                  = link_to t(".view_all"), manager_customers_path, class: "text-decoration-none"
-          .col-12.col-sm-6.col-xxl-3.d-flex
-            .card.flex-fill.mb-2
-              .card-body
-                .d-flex.align-items-start
-                  .flex-grow-1
-                    %h3.mb-2
-                      = turbo_frame_tag :active_suppliers_count do
-                        = ::Supplier.active.count
-                    %p.mb-2= t(".total_suppliers")
-                  .d-inline-block
-                    = external_svg_tag("svgs/truck.svg", height: "48px", width: "48px")
-              .card-footer
-                .float-end
-                  = link_to t(".view_all"), manager_suppliers_path, class: "text-decoration-none"
-          .col-12.col-sm-6.col-xxl-3.d-flex
-            .card.flex-fill.mb-2
-              .card-body
-                .d-flex.align-items-start
-                  .flex-grow-1
-                    %h3.mb-2
-                      = turbo_frame_tag :active_manufacturers_count do
-                        = ::Manufacturer.active.count
-                    %p.mb-2= t(".total_manufacturers")
-                  .d-inline-block
-                    = external_svg_tag("svgs/company.svg", height: "48px", width: "48px")
-              .card-footer
-                .float-end
-                  = link_to t(".view_all"), manager_manufacturers_path, class: "text-decoration-none"
-        .row
-          .col-12.col-sm-6.col-xxl-3.d-flex
-            .card.flex-fill.mb-2
-              .card-body
-                .d-flex.align-items-start
-                  .flex-grow-1
-                    %h3.mb-2
-                      = turbo_frame_tag :active_medicines_count do
-                        = ::Medicine.active.count
-                    %p.mb-2= t(".total_medicines")
-                  .d-inline-block
-                    = external_svg_tag("svgs/medicine-bag.svg", height: "48px", width: "48px")
-              .card-footer
-                .float-end
-                  = link_to t(".view_all"), manager_medicines_path, class: "text-decoration-none"
-          .col-12.col-sm-6.col-xxl-3.d-flex
-            .card.flex-fill.mb-2
-              .card-body
-                .d-flex.align-items-start
-                  .flex-grow-1
-                    %h3.mb-2 1
-                    %p.mb-2= t(".low_stock_medicines")
-                  .d-inline-block
-                    = external_svg_tag("svgs/bell-ringing.svg", height: "48px", width: "48px")
-              .card-footer
-                .float-end
-                  = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
-          .col-12.col-sm-6.col-xxl-3.d-flex
-            .card.flex-fill.mb-2
-              .card-body
-                .d-flex.align-items-start
-                  .flex-grow-1
-                    %h3.mb-2 0
-                    %p.mb-2= t(".out_of_stock_medicines")
-                  .d-inline-block
-                    = external_svg_tag("svgs/exclamation-triangle.svg", height: "48px", width: "48px")
-              .card-footer
-                .float-end
-                  = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
-          .col-12.col-sm-6.col-xxl-3.d-flex
-            .card.flex-fill.mb-2
-              .card-body
-                .d-flex.align-items-start
-                  .flex-grow-1
-                    %h3.mb-2 0
-                    %p.mb-2= t(".nearby_expiry")
-                  .d-inline-block
-                    = external_svg_tag("svgs/lightening.svg", height: "48px", width: "48px")
-              .card-footer
-                .float-end
-                  = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
-        .row
-          .col-12.col-sm-6.col-xxl-3.d-flex
-            .card.flex-fill.mb-2
-              .card-body
-                .d-flex.align-items-start
-                  .flex-grow-1
-                    %h3.mb-2 0
-                    %p.mb-2= t(".expired_medicines")
-                  .d-inline-block
-                    = external_svg_tag("svgs/ban.svg", height: "48px", width: "48px")
-              .card-footer
-                .float-end
-                  = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
-      .col-12.col-md-6.col-xl-4
-        = render_if_exists("manager/dashboards/today_report")
+      .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
+        .card.flex-fill.mb-2
+          .card-body
+            .d-flex.align-items-start
+              .flex-grow-1
+                %h3.mb-2
+                  = turbo_frame_tag :active_cashiers_count do
+                    = current_user.store.users.cashiers.active.count
+                %p.mb-2= t(".total_cashiers")
+              .d-inline-block
+                = external_svg_tag("svgs/users.svg", height: "48px", width: "48px")
+          .card-footer
+            .float-end
+              = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
+      .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
+        .card.flex-fill.mb-2
+          .card-body
+            .d-flex.align-items-start
+              .flex-grow-1
+                %h3.mb-2
+                  = turbo_frame_tag :active_customers_count do
+                    = ::Customer.active.count
+                %p.mb-2= t(".total_customers")
+              .d-inline-block
+                = external_svg_tag("svgs/handshake.svg", height: "48px", width: "48px")
+          .card-footer
+            .float-end
+              = link_to t(".view_all"), manager_customers_path, class: "text-decoration-none"
+      .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
+        .card.flex-fill.mb-2
+          .card-body
+            .d-flex.align-items-start
+              .flex-grow-1
+                %h3.mb-2
+                  = turbo_frame_tag :active_suppliers_count do
+                    = ::Supplier.active.count
+                %p.mb-2= t(".total_suppliers")
+              .d-inline-block
+                = external_svg_tag("svgs/truck.svg", height: "48px", width: "48px")
+          .card-footer
+            .float-end
+              = link_to t(".view_all"), manager_suppliers_path, class: "text-decoration-none"
+      .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
+        .card.flex-fill.mb-2
+          .card-body
+            .d-flex.align-items-start
+              .flex-grow-1
+                %h3.mb-2
+                  = turbo_frame_tag :active_manufacturers_count do
+                    = ::Manufacturer.active.count
+                %p.mb-2= t(".total_manufacturers")
+              .d-inline-block
+                = external_svg_tag("svgs/company.svg", height: "48px", width: "48px")
+          .card-footer
+            .float-end
+              = link_to t(".view_all"), manager_manufacturers_path, class: "text-decoration-none"
+      .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
+        .card.flex-fill.mb-2
+          .card-body
+            .d-flex.align-items-start
+              .flex-grow-1
+                %h3.mb-2
+                  = turbo_frame_tag :active_medicines_count do
+                    = ::Medicine.active.count
+                %p.mb-2= t(".total_medicines")
+              .d-inline-block
+                = external_svg_tag("svgs/medicine-bag.svg", height: "48px", width: "48px")
+          .card-footer
+            .float-end
+              = link_to t(".view_all"), manager_medicines_path, class: "text-decoration-none"
+      .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
+        .card.flex-fill.mb-2
+          .card-body
+            .d-flex.align-items-start
+              .flex-grow-1
+                %h3.mb-2 1
+                %p.mb-2= t(".low_stock_medicines")
+              .d-inline-block
+                = external_svg_tag("svgs/bell-ringing.svg", height: "48px", width: "48px")
+          .card-footer
+            .float-end
+              = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
+      .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
+        .card.flex-fill.mb-2
+          .card-body
+            .d-flex.align-items-start
+              .flex-grow-1
+                %h3.mb-2 0
+                %p.mb-2= t(".out_of_stock_medicines")
+              .d-inline-block
+                = external_svg_tag("svgs/exclamation-triangle.svg", height: "48px", width: "48px")
+          .card-footer
+            .float-end
+              = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
+      .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
+        .card.flex-fill.mb-2
+          .card-body
+            .d-flex.align-items-start
+              .flex-grow-1
+                %h3.mb-2 0
+                %p.mb-2= t(".nearby_expiry")
+              .d-inline-block
+                = external_svg_tag("svgs/lightening.svg", height: "48px", width: "48px")
+          .card-footer
+            .float-end
+              = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
+      .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
+        .card.flex-fill.mb-2
+          .card-body
+            .d-flex.align-items-start
+              .flex-grow-1
+                %h3.mb-2 0
+                %p.mb-2= t(".expired_medicines")
+              .d-inline-block
+                = external_svg_tag("svgs/ban.svg", height: "48px", width: "48px")
+          .card-footer
+            .float-end
+              = link_to t(".view_all"), "javascript:void(0)", class: "text-decoration-none"
+    .row
+      .col-12.col-xxl-6.mb-2= render_if_exists("manager/dashboards/today_report")
+      .col-12.col-xxl-6.mb-2= render_if_exists("manager/dashboards/month_report")
