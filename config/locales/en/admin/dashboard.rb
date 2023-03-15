@@ -26,6 +26,12 @@
           total_sells: "Total sells",
           total_purchases: "Total purchases",
         },
+        month_report: {
+          month_report: "Sells & purchases of %{month_and_year}",
+          store: "Store",
+          total_sells: "Total sells",
+          total_purchases: "Total purchases",
+        },
         top_selling_medicines: {
           top_selling_medicines: "Top 10 selling medicines",
           name: "Name",
