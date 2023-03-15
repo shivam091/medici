@@ -14,8 +14,8 @@
           medicines: "Medicines",
           suppliers: "Suppliers",
           manufacturers: "Manufacturers",
-          sales: "Sales",
-          daily_sales: "Daily sales",
+          sells: "Sells",
+          daily_sells: "Daily sells",
           reports: "Reports",
           customers: "Customers",
           secondary_navigation: "Secondary navigation",
@@ -27,10 +27,6 @@
           your_profile: "Your profile",
         },
         footer: {
-          medicines: "Medicines",
-          sales: "Sales",
-          revenue: "Revenue",
-          suppliers: "Suppliers",
           copyright_notice: "&copy; %{copyright_years}, Medici LLP or its affiliates, all rights reserved."
         },
       }

@@ -10,8 +10,8 @@
           main_navigation: "Main navigation",
           toggle_navigation: "Toggle navigation",
           home: "Home",
-          sales: "Sales",
-          daily_sales: "Daily sales",
+          sells: "Sells",
+          daily_sells: "Daily sells",
           pos: "PoS",
         },
         menu: {
