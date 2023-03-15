@@ -23,7 +23,7 @@ class Medicines::DestroyService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("medicines.destroy.success", medicine_name: medicine.name, medicine_code: medicine.reference_code),
+        message: t("medicines.destroy.error", medicine_name: medicine.name, medicine_code: medicine.reference_code),
         payload: {medicine: medicine}
       )
     end

@@ -14,13 +14,13 @@ RSpec::Matchers.define :have_a_valid_factory do |factory_name|
   match do
     factory = (factory_name || described_class.table_name.singularize.to_sym)
     if @associations
-      FactoryBot.build(factory, **@associations).should be_valid
+      expect(FactoryBot.build(factory, **@associations)).to be_valid
     elsif @traits
-      FactoryBot.build(factory, *@traits).should be_valid
+      expect(FactoryBot.build(factory, *@traits)).to be_valid
     elsif @traits && @associations
-      FactoryBot.build(factory, *@traits, **@associations).should be_valid
+      expect(FactoryBot.build(factory, *@traits, **@associations)).to be_valid
     else
-      FactoryBot.build(factory).should be_valid
+      expect(FactoryBot.build(factory)).to be_valid
     end
   end
 

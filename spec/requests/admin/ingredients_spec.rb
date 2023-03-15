@@ -9,7 +9,7 @@ require "spec_helper"
 RSpec.describe "Admin::Ingredients", type: :request do
   let!(:ingredient) { create(:ingredient, :active) }
 
-  context "when admin is not logged in" do
+  context "when user is not logged in" do
     describe "GET /admin/ingredients" do
       subject { get admin_ingredients_path }
 
@@ -155,7 +155,7 @@ RSpec.describe "Admin::Ingredients", type: :request do
         end
 
         it "locates the requested @ingredient" do
-          ivar(:ingredient).should eq(ingredient)
+          expect(ivar(:ingredient)).to eq(ingredient)
         end
 
         it "updates the ingredient" do

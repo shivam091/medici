@@ -7,8 +7,6 @@ class CustomerPolicy < ApplicationPolicy
     def resolve
       if (user.admin? || user.manager? || user.cashier?)
         scope.all
-      else
-        scope.none
       end
     end
   end

@@ -23,7 +23,7 @@ class Stores::DestroyService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("stores.destroy.success", store_name: store.name),
+        message: t("stores.destroy.error", store_name: store.name),
         payload: {store: store}
       )
     end
