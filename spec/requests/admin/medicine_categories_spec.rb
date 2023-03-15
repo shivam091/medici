@@ -155,7 +155,7 @@ RSpec.describe "Admin::MedicineCategories", type: :request do
         end
 
         it "locates the requested @medicine_category" do
-          ivar(:medicine_category).should eq(medicine_category)
+          expect(ivar(:medicine_category)).to eq(medicine_category)
         end
 
         it "updates the medicine_category" do

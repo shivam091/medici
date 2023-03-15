@@ -155,7 +155,7 @@ RSpec.describe "Admin::Ingredients", type: :request do
         end
 
         it "locates the requested @ingredient" do
-          ivar(:ingredient).should eq(ingredient)
+          expect(ivar(:ingredient)).to eq(ingredient)
         end
 
         it "updates the ingredient" do

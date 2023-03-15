@@ -155,7 +155,7 @@ RSpec.describe "Admin::PackingTypes", type: :request do
         end
 
         it "locates the requested @packing_type" do
-          ivar(:packing_type).should eq(packing_type)
+          expect(ivar(:packing_type)).to eq(packing_type)
         end
 
         it "updates the packing_type" do

@@ -155,7 +155,7 @@ RSpec.describe "Admin::DosageForms", type: :request do
         end
 
         it "locates the requested @dosage_form" do
-          ivar(:dosage_form).should eq(dosage_form)
+          expect(ivar(:dosage_form)).to eq(dosage_form)
         end
 
         it "updates the dosage_form" do
