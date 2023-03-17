@@ -12,13 +12,14 @@
           home: "Home",
           cashiers: "Cashiers",
           medicines: "Medicines",
+        },
+        navbar: {
+          secondary_navigation: "Secondary navigation",
+          customers: "Customers",
           suppliers: "Suppliers",
           manufacturers: "Manufacturers",
           sells: "Sells",
-          daily_sells: "Daily sells",
           reports: "Reports",
-          customers: "Customers",
-          secondary_navigation: "Secondary navigation",
         },
         menu: {
           hello_username: "Hello %{username}",
