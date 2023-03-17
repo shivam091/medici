@@ -140,6 +140,18 @@ class Medicine < ApplicationRecord
     super.presence || build_replenishment
   end
 
+  def ingredients_count
+    Rails.cache.fetch([cache_key, __method__], expires_in: 30.minutes) do
+      ingredients.count
+    end
+  end
+
+  def suppliers_count
+    Rails.cache.fetch([cache_key, __method__], expires_in: 30.minutes) do
+      suppliers.count
+    end
+  end
+
   private
 
   def send_active_medicines_count
