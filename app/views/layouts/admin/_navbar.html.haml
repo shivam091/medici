@@ -1,0 +1,20 @@
+.nav-scroller.shadow-sm.border-bottom.bg-light
+  %nav.nav.nav-underline{aria: {label: t(".secondary_navigation")}}
+    - if policy(::Customer).index?
+      = link_to admin_customers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("customers"))}" do
+        = external_svg_tag("svgs/handshake.svg")
+        = t(".customers")
+    - if policy(::Supplier).index?
+      = link_to admin_suppliers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("suppliers"))}" do
+        = external_svg_tag("svgs/truck.svg")
+        = t(".suppliers")
+    - if policy(::Manufacturer).index?
+      = link_to admin_manufacturers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("manufacturers"))}" do
+        = external_svg_tag("svgs/company.svg")
+        = t(".manufacturers")
+    = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("sells"))}" do
+      = external_svg_tag("svgs/monitoring-dashboard.svg")
+      = t(".sells")
+    = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("reports"))}" do
+      = external_svg_tag("svgs/report.svg")
+      = t(".reports")
