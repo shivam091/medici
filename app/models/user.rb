@@ -64,6 +64,7 @@ class User < ApplicationRecord
      .join_sources
    joins(join).where(role_table[:name].eq(role_name))
   end
+  scope :super_admins, -> { with_role("super_admin") }
   scope :admins, -> { with_role("admin") }
   scope :managers, -> { with_role("manager") }
   scope :cashiers, -> { with_role("cashier") }
@@ -130,6 +131,10 @@ class User < ApplicationRecord
 
   def admin?
     self.has_role?("admin")
+  end
+
+  def super_admin?
+    self.has_role?("super_admin")
   end
 
   def cashier?
