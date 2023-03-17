@@ -61,6 +61,18 @@ class Admin::ShiftsController < Admin::BaseController
     end
   end
 
+  # DELETE /admin/shifts/:uuid
+  def destroy
+    response = ::Shifts::DestroyService.(@shift)
+    @shift = response.payload[:shift]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_shifts_path
+  end
+
   private
 
   def shift_params
