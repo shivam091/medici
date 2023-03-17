@@ -243,6 +243,40 @@ RSpec.describe Medicine, type: :model do
           end
         end
       end
+
+      describe "caching methods" do
+        include_context "with cache"
+
+        describe "#ingredients_count" do
+          it "fetches count of ingredients from cache" do
+            medicine = create(:medicine, :with_ingredients, :active)
+            cache_key = "medicines/#{medicine.id}/ingredients_count"
+
+            expect(Rails.cache.exist?(cache_key)).to be_falsy
+            medicine_ingredients_count = medicine.ingredients_count
+
+            expect(Rails.cache.exist?(cache_key)).to be_truthy
+
+            expect(medicine.ingredients_count).to eq(medicine_ingredients_count)
+            expect(Rails.cache.read(cache_key)).to eq(medicine_ingredients_count)
+          end
+        end
+
+        describe "#suppliers_count" do
+          it "fetches count of suppliers from cache" do
+            medicine = create(:medicine, :with_suppliers, :active)
+            cache_key = "medicines/#{medicine.id}/suppliers_count"
+
+            expect(Rails.cache.exist?(cache_key)).to be_falsy
+            medicine_suppliers_count = medicine.suppliers_count
+
+            expect(Rails.cache.exist?(cache_key)).to be_truthy
+
+            expect(medicine.suppliers_count).to eq(medicine_suppliers_count)
+            expect(Rails.cache.read(cache_key)).to eq(medicine_suppliers_count)
+          end
+        end
+      end
     end
 
     describe "accepts_nested_attributes_for #medicine_ingredients" do
