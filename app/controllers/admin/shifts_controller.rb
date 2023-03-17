@@ -2,5 +2,11 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class Admin::ShiftsController < ApplicationController
+class Admin::ShiftsController < Admin::BaseController
+
+  # GET /admin/shifts
+  def index
+    @shifts = ::Shift.active
+    @pagy, @shifts = pagy(@shifts)
+  end
 end
