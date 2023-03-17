@@ -1,0 +1,34 @@
+= label_tag :selections, "", class: "form-label", data: {select_all_checkbox_target: "count"}
+.table-responsive
+  %table.table.table-striped.table-bordered
+    %thead
+      %tr
+        %th{width: "25px", scope: "col"}#
+        - if @shifts&.count > 0
+          %th{width: "25px", scope: "col"}
+            = check_box_tag "checkbox", nil, false, class: "form-check-input", data: {select_all_checkbox_target: "selectAllCheckbox"}
+        %th{scope: "col"}= t(".name")
+        %th{scope: "col"}= t(".starts_at")
+        %th{scope: "col"}= t(".ends_at")
+        %th{width: "25px", scope: "col"}= t(".actions")
+    %tbody
+      - if @shifts&.each.with_index(1) do |shift, index|
+        %tr
+          %td.fw-bold
+            = (@pagy.offset + index)
+          %td
+            = check_box_tag "shift_ids[]", shift.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
+          %td.fw-bold= shift.name
+          %td= shift.starts_at.strftime("%H:%M")
+          %td= shift.ends_at.strftime("%H:%M")
+          %td.actions
+            - if policy(shift).edit?
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_shift_path(shift), class: "btn btn-sm btn-secondary",
+                data: {turbo_frame: :remote_modal}
+            - if policy(shift).destroy?
+              = link_to external_svg_tag("svgs/trash.svg"), admin_shift_path(shift), class: "btn btn-sm btn-danger",
+                data: {turbo_confirm: t(".delete_shift_confirmation_text", shift_name: shift.name), turbo_method: :delete}
+      - end.empty?
+        %tr
+          %td.fw-bold{colspan: ::Shift.columns.count}
+            = t(".no_shifts_to_display")

@@ -179,6 +179,20 @@
           error: "Customer '%{customer_name}' could not be destroyed.",
         }
       },
+      shifts: {
+        create: {
+          success: "Shift '%{shift_name}' was successfully created.",
+          error: "Shift could not be created.",
+        },
+        update: {
+          success: "Shift '%{shift_name}' was successfully updated.",
+          error: "Shift could not be updated.",
+        },
+        destroy: {
+          success: "Shift '%{shift_name}' was successfully destroyed.",
+          error: "Shift '%{shift_name}' could not be destroyed.",
+        }
+      },
     }
   }
 }

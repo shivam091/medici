@@ -44,7 +44,7 @@ Rails.application.routes.draw do
 
       resource :profile, only: [:show, :edit, :update]
 
-      resources :currencies, :countries, :ingredients, :users, except: :show, param: :uuid
+      resources :currencies, :countries, :ingredients, :users, :shifts, except: :show, param: :uuid
 
       resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms"
       resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories"
