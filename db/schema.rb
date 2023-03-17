@@ -300,6 +300,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_17_052739) do
     t.boolean "is_active", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.index ["name"], name: "index_shifts_on_name", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_c38ecfad43"
     t.check_constraint "ends_at IS NOT NULL", name: "chk_add794a2d1"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_00e6dffac3"

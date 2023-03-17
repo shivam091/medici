@@ -9,6 +9,7 @@ class Shift < ApplicationRecord
 
   validates :name,
             presence: true,
+            uniqueness: true,
             length: {maximum: 55},
             reduce: true
   validates :starts_at, :ends_at,

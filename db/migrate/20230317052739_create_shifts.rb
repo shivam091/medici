@@ -5,7 +5,7 @@
 class CreateShifts < Medici::Database::Migration[1.0]
   def change
     create_table_with_constraints :shifts, id: :uuid do |t|
-      t.string :name
+      t.string :name, index: {using: :btree, unique: true}
       t.time :starts_at
       t.time :ends_at
       t.boolean :is_active, default: false
