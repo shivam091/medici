@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_064016) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_17_052739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -291,6 +291,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_064016) do
     t.index ["name"], name: "index_roles_on_name", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_859b734ae2"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_ac03779a47"
+  end
+
+  create_table "shifts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.time "starts_at"
+    t.time "ends_at"
+    t.boolean "is_active", default: false
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.check_constraint "char_length(name::text) <= 55", name: "chk_c38ecfad43"
+    t.check_constraint "ends_at IS NOT NULL", name: "chk_add794a2d1"
+    t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_00e6dffac3"
+    t.check_constraint "starts_at IS NOT NULL", name: "chk_d5f2a6867c"
   end
 
   create_table "stocks", primary_key: "medicine_id", id: :uuid, default: nil, force: :cascade do |t|
