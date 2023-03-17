@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_17_052739) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_17_162612) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -42,6 +42,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_17_052739) do
     t.check_constraint "char_length(region::text) <= 100", name: "chk_26dd3e9819"
     t.check_constraint "city IS NOT NULL AND city::text <> ''::text", name: "chk_6c705ebe2e"
     t.check_constraint "country_id IS NOT NULL", name: "chk_f7e0314437"
+  end
+
+  create_table "cash_counters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "identifier"
+    t.boolean "is_active", default: false
+    t.uuid "store_id"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["identifier", "store_id"], name: "index_cash_counters_on_identifier_and_store_id", unique: true
+    t.index ["store_id"], name: "index_cash_counters_on_store_id", unique: true
+    t.check_constraint "char_length(identifier::text) <= 55", name: "chk_536102d810"
+    t.check_constraint "identifier IS NOT NULL AND identifier::text <> ''::text", name: "chk_aebf4b581d"
   end
 
   create_table "countries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -414,6 +426,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_17_052739) do
   end
 
   add_foreign_key "addresses", "countries", name: "fk_addresses_country_id_on_countries", on_delete: :restrict
+  add_foreign_key "cash_counters", "stores", name: "fk_cash_counters_store_id_on_stores", on_delete: :cascade
   add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
   add_foreign_key "medicine_ingredients", "ingredients", name: "fk_medicine_ingredients_ingredient_id_on_ingredients", on_delete: :restrict
   add_foreign_key "medicine_ingredients", "medicines", name: "fk_medicine_ingredients_medicine_id_on_medicines", on_delete: :cascade

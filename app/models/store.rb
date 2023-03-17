@@ -35,6 +35,7 @@ class Store < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
 
   has_many :users, dependent: :destroy
+  has_many :cash_counters, dependent: :destroy
 
   belongs_to :currency
 
