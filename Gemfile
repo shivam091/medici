@@ -40,12 +40,15 @@ gem "jbuilder"
 # HTML Abstraction Markup Language. Use Haml as Templating Language
 gem "haml"
 
-# Job scheduler
-gem "sidekiq", "~> 6.4.1"
-gem "sidekiq-scheduler", "5.0.2"
+# Job and worker scheduler
+gem "sidekiq", "~> 6"
+gem "sidekiq-scheduler", "~> 5"
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.7.1"
+
+# Use Redis for session storage
+gem "redis-actionpack"
 
 # Ultimate pagination.
 gem "pagy", "~> 5.1"
