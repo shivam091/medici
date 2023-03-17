@@ -40,8 +40,6 @@ RSpec.configure do |config|
   config.order = "default"
 
   config.before(:suite) do
-    DatabaseCleaner.clean_with :truncation, except: %w(ar_internal_metadata)
-
     FileUtils.mkdir_p spec_root / "test_migrations"
   end
 
@@ -76,28 +74,11 @@ RSpec.configure do |config|
   config.include MigrationHelpers
   config.include ViewAssigns, type: :request
 
-  config.before do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.start
-  end
-
-  config.before(:context) do
-    DatabaseCleaner.start
-  end
-
   config.around do |example|
     ActiveRecord::Base.transaction do
       example.run
       raise ActiveRecord::Rollback
     end
-  end
-
-  config.after do
-    DatabaseCleaner.clean
-  end
-
-  config.after(:context) do
-    DatabaseCleaner.clean
   end
 
   config.after(:suite) do
