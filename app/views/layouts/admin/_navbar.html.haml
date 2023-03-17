@@ -12,9 +12,10 @@
       = link_to admin_manufacturers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/manufacturers"))}" do
         = external_svg_tag("svgs/company.svg")
         = t(".manufacturers")
-    = link_to admin_shifts_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/shifts"))}" do
-      = external_svg_tag("svgs/clock.svg")
-      = t(".shifts")
+    - if policy(::Shift).index?
+      = link_to admin_shifts_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/shifts"))}" do
+        = external_svg_tag("svgs/clock.svg")
+        = t(".shifts")
     = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/sells"))}" do
       = external_svg_tag("svgs/monitoring-dashboard.svg")
       = t(".sells")

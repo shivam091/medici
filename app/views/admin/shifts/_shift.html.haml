@@ -22,10 +22,12 @@
           %td= shift.starts_at.strftime("%H:%M")
           %td= shift.ends_at.strftime("%H:%M")
           %td.actions
-            = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_shift_path(shift), class: "btn btn-sm btn-secondary",
-              data: {turbo_frame: :remote_modal}
-            = link_to external_svg_tag("svgs/trash.svg"), admin_shift_path(shift), class: "btn btn-sm btn-danger",
-              data: {turbo_confirm: t(".delete_shift_confirmation_text", shift_name: shift.name), turbo_method: :delete}
+            - if policy(shift).edit?
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_shift_path(shift), class: "btn btn-sm btn-secondary",
+                data: {turbo_frame: :remote_modal}
+            - if policy(shift).destroy?
+              = link_to external_svg_tag("svgs/trash.svg"), admin_shift_path(shift), class: "btn btn-sm btn-danger",
+                data: {turbo_confirm: t(".delete_shift_confirmation_text", shift_name: shift.name), turbo_method: :delete}
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Shift.columns.count}

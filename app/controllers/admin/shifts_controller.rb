@@ -5,10 +5,17 @@
 class Admin::ShiftsController < Admin::BaseController
 
   before_action :find_shift, except: [:index, :new, :create]
+  before_action do
+    if action_name.in?(["index", "new", "create"])
+      authorize ::Shift
+    else
+      authorize @shift
+    end
+  end
 
   # GET /admin/shifts
   def index
-    @shifts = ::Shift.active
+    @shifts = policy_scope(::Shift).active
     @pagy, @shifts = pagy(@shifts)
   end
 
@@ -80,6 +87,6 @@ class Admin::ShiftsController < Admin::BaseController
   end
 
   def find_shift
-    @shift = ::Shift.find(params.fetch(:uuid))
+    @shift = policy_scope(::Shift).find(params.fetch(:uuid))
   end
 end
