@@ -72,6 +72,7 @@ RSpec.describe Store, type: :model do
     it { is_expected.to delegate_method(:name).to(:country).with_prefix(true).allow_nil }
     it { is_expected.to delegate_method(:name).to(:currency).with_prefix(true) }
     it { is_expected.to delegate_method(:iso_code).to(:currency).with_prefix(true) }
+    it { is_expected.to delegate_method(:symbol).to(:currency).with_prefix(true) }
   end
 
   describe "callbacks" do

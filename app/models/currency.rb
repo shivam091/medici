@@ -39,7 +39,9 @@ class Currency < ApplicationRecord
 
   class << self
     def select_options
-      active.pluck(:name, :id)
+      active.collect do |currency|
+        ["#{currency.name} (#{currency.symbol})", currency.id]
+      end
     end
   end
 end

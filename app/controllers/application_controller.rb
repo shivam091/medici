@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :not_found
 
   before_action :authenticate_user!
+  before_action :set_store, if: :user_signed_in?
 
   helper_method def root_path
     case
@@ -50,6 +51,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_store
+    @store = current_user.store
+  end
 
   def forbidden
     render "errors/forbidden", status: :forbidden, layout: "error"
