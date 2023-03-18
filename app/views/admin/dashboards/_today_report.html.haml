@@ -15,5 +15,5 @@
             %tr
               %td.fw-bold= index
               %td.fw-bold= store.name
-              %td 0
-              %td 0
+              %td= number_to_currency(0, unit: store.currency_symbol)
+              %td= number_to_currency(0, unit: store.currency_symbol)
