@@ -7,8 +7,8 @@ module Medici
     module Constraints
       module LowercaseConstraint
         # Returns the name for a lowercase constraint
-        def lowercase_constraint_name(table, column, name: nil)
-          name.presence || check_constraint_name(table, column, "lowercase")
+        def lowercase_constraint_name(table, column_name, name: nil)
+          name.presence || check_constraint_name(table, column_name, "lowercase")
         end
 
         # Returns definitions for a lowercase constraint

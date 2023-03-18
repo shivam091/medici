@@ -7,8 +7,8 @@ module Medici
     module Constraints
       module InclusionConstraint
         # Returns the name for a inclusion constraint
-        def inclusion_constraint_name(table, column, name: nil)
-          name.presence || check_constraint_name(table, column, "inclusion")
+        def inclusion_constraint_name(table, column_name, name: nil)
+          name.presence || check_constraint_name(table, column_name, "inclusion")
         end
 
         # Returns definitions for a inclusion constraint

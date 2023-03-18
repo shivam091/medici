@@ -7,8 +7,8 @@ module Medici
     module Constraints
       module NotEmptyConstraint
         # Returns the name for a not empty constraint
-        def not_empty_constraint_name(table, column, name: nil)
-          name.presence || check_constraint_name(table, column, "not_empty")
+        def not_empty_constraint_name(table, column_name, name: nil)
+          name.presence || check_constraint_name(table, column_name, "not_empty")
         end
 
         # Returns definitions for a not empty constraint

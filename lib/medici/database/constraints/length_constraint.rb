@@ -16,8 +16,8 @@ module Medici
         }.freeze
 
         # Returns the name for a length constraint
-        def length_constraint_name(table, column, name: nil)
-          name.presence || check_constraint_name(table, column, "length")
+        def length_constraint_name(table, column_name, name: nil)
+          name.presence || check_constraint_name(table, column_name, "length")
         end
 
         # Returns definitions for a length constraint

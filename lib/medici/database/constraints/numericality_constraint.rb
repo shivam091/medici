@@ -16,8 +16,8 @@ module Medici
         }.freeze
 
         # Returns the name for a numericality constraint
-        def numericality_constraint_name(table, column, name: nil)
-          name.presence || check_constraint_name(table, column, "numericality")
+        def numericality_constraint_name(table, column_name, name: nil)
+          name.presence || check_constraint_name(table, column_name, "numericality")
         end
 
         # Returns definitions for a numericality constraint

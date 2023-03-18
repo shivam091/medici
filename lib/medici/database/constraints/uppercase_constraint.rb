@@ -7,8 +7,8 @@ module Medici
     module Constraints
       module UppercaseConstraint
         # Returns the name for a uppercase constraint
-        def uppercase_constraint_name(table, column, name: nil)
-          name.presence || check_constraint_name(table, column, "uppercase")
+        def uppercase_constraint_name(table, column_name, name: nil)
+          name.presence || check_constraint_name(table, column_name, "uppercase")
         end
 
         # Returns definitions for a uppercase constraint

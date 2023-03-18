@@ -14,8 +14,8 @@ module Medici
         }.freeze
 
         # Returns the name for a match constraint
-        def match_constraint_name(table, column, name: nil)
-          name.presence || check_constraint_name(table, column, "match")
+        def match_constraint_name(table, column_name, name: nil)
+          name.presence || check_constraint_name(table, column_name, "match")
         end
 
         # Returns definitions for a match constraint
