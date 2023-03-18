@@ -114,6 +114,9 @@ RSpec.describe User, type: :model do
   describe "associations" do
     it { is_expected.to have_one(:address).dependent(:destroy) }
     it { is_expected.to have_many(:request_logs).dependent(:nullify) }
+    it { is_expected.to have_many(:cash_counter_operators).dependent(:destroy) }
+    it { is_expected.to have_many(:cash_counters).through(:cash_counter_operators) }
+    it { is_expected.to have_many(:working_stores).through(:cash_counters).source(:store) }
     it { is_expected.to belong_to(:role) }
     it { is_expected.to belong_to(:store).optional }
   end
@@ -214,6 +217,15 @@ RSpec.describe User, type: :model do
     describe ".cashiers" do
       it "returns array of cashiers" do
         expect(cashier).to be_one_of(described_class.cashiers)
+      end
+    end
+  end
+
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of users for select list" do
+        user = create(:manager, :confirmed, :active)
+        expect(described_class.select_options).to eq([[user.full_name, user.id]])
       end
     end
   end
