@@ -14,6 +14,7 @@ class CashCounter < ApplicationRecord
             reduce: true
 
   has_many :cash_counter_operators, dependent: :destroy
+  has_many :operators, through: :cash_counter_operators, source: :user
 
   belongs_to :store, touch: true
 
