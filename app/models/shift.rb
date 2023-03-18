@@ -19,4 +19,10 @@ class Shift < ApplicationRecord
   has_many :cash_counter_operators, dependent: :restrict_with_exception
 
   default_scope -> { order_name_asc }
+
+  class << self
+    def select_options
+      active.pluck(:name, :id)
+    end
+  end
 end

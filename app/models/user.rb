@@ -115,6 +115,10 @@ class User < ApplicationRecord
       record.login = login
       record
     end
+
+    def select_options
+      active.collect { |user| [user.full_name, user.id]}
+    end
   end
 
   def full_name
