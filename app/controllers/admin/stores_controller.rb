@@ -95,6 +95,12 @@ class Admin::StoresController < Admin::BaseController
       :fax_number,
       :is_active,
       :currency_id,
+      cash_counters_attributes: [
+        :id,
+        :_destroy,
+        :identifier,
+        :is_active
+      ],
       address_attributes: [
         :address1,
         :address2,
