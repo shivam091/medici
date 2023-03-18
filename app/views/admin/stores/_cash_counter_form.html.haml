@@ -1,0 +1,9 @@
+%fieldset.border-dashed.cash-counter-form-wrapper{data: {new_record: form.object.new_record?}}
+  = form.hidden_field :id, value: form.object.id
+  = form.hidden_field :_destroy
+  .row.row-cols-1.row-cols-lg-4.align-items-center
+    = form.text_field :identifier
+    = form.check_box :is_active
+  = button_tag :remove, class: "btn btn-sm btn-danger", data: {action: "click->nested-forms#removeAssociation"} do
+    = external_svg_tag("svgs/trash.svg")
+    = button_text("remove_cash_counter")
