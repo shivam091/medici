@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_17_162612) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_18_135826) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -42,6 +42,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_17_162612) do
     t.check_constraint "char_length(region::text) <= 100", name: "chk_26dd3e9819"
     t.check_constraint "city IS NOT NULL AND city::text <> ''::text", name: "chk_6c705ebe2e"
     t.check_constraint "country_id IS NOT NULL", name: "chk_f7e0314437"
+  end
+
+  create_table "cash_counter_operators", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "cash_counter_id"
+    t.uuid "shift_id"
+    t.uuid "user_id"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["cash_counter_id"], name: "index_cash_counter_operators_on_cash_counter_id"
+    t.index ["shift_id"], name: "index_cash_counter_operators_on_shift_id"
+    t.index ["user_id"], name: "index_cash_counter_operators_on_user_id"
   end
 
   create_table "cash_counters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -426,6 +437,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_17_162612) do
   end
 
   add_foreign_key "addresses", "countries", name: "fk_addresses_country_id_on_countries", on_delete: :restrict
+  add_foreign_key "cash_counter_operators", "cash_counters", name: "fk_cash_counter_operators_cash_counter_id_on_cash_counters", on_delete: :cascade
+  add_foreign_key "cash_counter_operators", "shifts", name: "fk_cash_counter_operators_shift_id_on_shifts", on_delete: :restrict
+  add_foreign_key "cash_counter_operators", "users", name: "fk_cash_counter_operators_user_id_on_users", on_delete: :restrict
   add_foreign_key "cash_counters", "stores", name: "fk_cash_counters_store_id_on_stores", on_delete: :cascade
   add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
   add_foreign_key "medicine_ingredients", "ingredients", name: "fk_medicine_ingredients_ingredient_id_on_ingredients", on_delete: :restrict

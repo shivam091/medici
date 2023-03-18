@@ -45,6 +45,7 @@ class User < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
 
   has_many :request_logs, dependent: :nullify
+  has_many :cash_counter_operators, dependent: :destroy
 
   belongs_to :role
   belongs_to :store, optional: true

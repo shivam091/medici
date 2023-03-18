@@ -16,5 +16,7 @@ class Shift < ApplicationRecord
             presence: true,
             reduce: true
 
+  has_many :cash_counter_operators, dependent: :restrict_with_exception
+
   default_scope -> { order_name_asc }
 end

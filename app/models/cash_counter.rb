@@ -14,6 +14,8 @@ class CashCounter < ApplicationRecord
             reduce: true
   validates :store_id, presence: true, reduce: true
 
+  has_many :cash_counter_operators, dependent: :destroy
+
   belongs_to :store
 
   delegate :name, :phone_number, :email, to: :store
