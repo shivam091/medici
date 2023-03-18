@@ -148,6 +148,16 @@
           ends_at: "Ends at",
           is_active: "Is active",
         },
+        cash_counter: {
+          identifier: "Indentifier",
+          store_id: "Store",
+          is_active: "Is active",
+        },
+        cash_counter_operator: {
+          cash_counter_id: "Cash counter",
+          user_id: "Operator",
+          shift_id: "Shift",
+        },
       },
       help_texts: {
 
