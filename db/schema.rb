@@ -51,7 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_17_162612) do
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["identifier", "store_id"], name: "index_cash_counters_on_identifier_and_store_id", unique: true
-    t.index ["store_id"], name: "index_cash_counters_on_store_id", unique: true
+    t.index ["store_id"], name: "index_cash_counters_on_store_id"
     t.check_constraint "char_length(identifier::text) <= 55", name: "chk_536102d810"
     t.check_constraint "identifier IS NOT NULL AND identifier::text <> ''::text", name: "chk_aebf4b581d"
   end

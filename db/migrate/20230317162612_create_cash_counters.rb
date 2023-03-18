@@ -14,7 +14,7 @@ class CreateCashCounters < Medici::Database::Migration[1.0]
                      name: :fk_cash_counters_store_id_on_stores,
                      on_delete: :cascade
                    },
-                   index: {using: :btree, unique: true}
+                   index: {using: :btree}
 
       t.index [:identifier, :store_id], using: :btree, unique: true
 
