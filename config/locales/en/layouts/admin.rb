@@ -30,6 +30,7 @@
           manufacturers: "Manufacturers",
           sells: "Sells",
           reports: "Reports",
+          shifts: "Shifts",
         },
         menu: {
           hello_username: "Hello %{username}",

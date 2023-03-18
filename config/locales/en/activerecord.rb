@@ -142,6 +142,12 @@
           mobile_number: "Mobile number",
           email: "Email address",
         },
+        shift: {
+          name: "Name",
+          starts_at: "Starts at",
+          ends_at: "Ends at",
+          is_active: "Is active",
+        },
       },
       help_texts: {
 

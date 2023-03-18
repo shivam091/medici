@@ -55,6 +55,9 @@
       new_customer: "New customer",
       create_customer: "Create customer",
       update_customer: "Update customer",
+      new_shift: "New shift",
+      create_shift: "Create shift",
+      update_shift: "Update shift",
     }
   }
 }
