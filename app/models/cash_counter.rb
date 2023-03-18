@@ -28,6 +28,6 @@ class CashCounter < ApplicationRecord
   private
 
   def reject_cash_counter_operator?(attributes)
-    attributes[:user_id].blank? || attributes[:shift_id].blank?
+    attributes[:user_id].blank? && attributes[:shift_id].blank?
   end
 end

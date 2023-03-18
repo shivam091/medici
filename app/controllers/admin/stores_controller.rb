@@ -99,7 +99,13 @@ class Admin::StoresController < Admin::BaseController
         :id,
         :_destroy,
         :identifier,
-        :is_active
+        :is_active,
+        cash_counter_operators_attributes: [
+          :id,
+          :_destroy,
+          :shift_id,
+          :user_id
+        ]
       ],
       address_attributes: [
         :address1,
