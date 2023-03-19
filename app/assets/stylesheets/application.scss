@@ -415,3 +415,24 @@ fieldset {
 .border-dashed {
   border-style: dashed;
 }
+
+::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  display: block;
+  background-repeat: no-repeat;
+  filter: invert(40%) sepia(10%) saturate(3183%) hue-rotate(210deg) brightness(60%) contrast(5%);
+  height: 16px;
+  width: 16px;
+  border-width: thin;
+}
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  background-image: image-url("svgs/calendar.svg");
+}
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background-image: image-url("svgs/clock.svg");
+}
+div[class^="rails-bootstrap-forms"] select, div[class*="rails-bootstrap-forms"] select {
+  display: inline-block;
+  width: auto;
+}
