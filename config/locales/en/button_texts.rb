@@ -58,6 +58,10 @@
       new_shift: "New shift",
       create_shift: "Create shift",
       update_shift: "Update shift",
+      add_cash_counter: "Add cash counter",
+      remove_cash_counter: "Remove cash counter",
+      add_operator: "Add operator",
+      remove_operator: "Remove operator",
     }
   }
 }

@@ -16,6 +16,9 @@
     = t(".address")
   = form.fields_for :address, form.object.address, include_id: false do |address_form_fields|
     = render_if_exists("shared/address_form_fields", locals: {form: address_form_fields})
+  .subheader
+    = t(".cash_counters")
+  = render_if_exists("admin/stores/cash_counters", locals: {form:})
   .actions
     - if policy(@store).create? && form.object.new_record?
       = button_tag type: :submit, class: "btn btn-primary" do
