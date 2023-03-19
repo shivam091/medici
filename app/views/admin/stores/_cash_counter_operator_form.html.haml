@@ -1,0 +1,11 @@
+%fieldset.border-dotted.cash-counter-form-wrapper{data: {new_record: form.object.new_record?}}
+  = form.hidden_field :id, value: form.object.id
+  = form.hidden_field :_destroy
+  .row.row-cols-1.row-cols-md-2.row-cols-lg-3.align-items-center
+    = form.select :user_id, options_for_select(::User.select_options, form.object.user_id),
+      {include_blank: t(".select_operator")}
+    = form.select :shift_id, options_for_select(::Shift.select_options, form.object.shift_id),
+      {include_blank: t(".select_shift")}
+  = button_tag :remove, class: "btn btn-sm btn-danger", data: {action: "click->nested-forms#removeAssociation"} do
+    = external_svg_tag("svgs/trash.svg")
+    = button_text("remove_operator")

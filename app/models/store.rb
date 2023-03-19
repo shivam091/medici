@@ -35,6 +35,7 @@ class Store < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
 
   has_many :users, dependent: :destroy
+  has_many :cash_counters, dependent: :destroy
 
   belongs_to :currency
 
@@ -45,6 +46,9 @@ class Store < ApplicationRecord
   after_commit :send_active_stores_count
 
   accepts_nested_attributes_for :address, update_only: true
+  accepts_nested_attributes_for :cash_counters,
+                                allow_destroy: true,
+                                reject_if: :reject_cash_counter?
 
   default_scope -> { order_reference_code_asc }
 
@@ -62,5 +66,9 @@ class Store < ApplicationRecord
 
   def send_active_stores_count
     broadcast_update_to(:stores, target: :active_stores_count, html: ::Store.active.count)
+  end
+
+  def reject_cash_counter?(attributes)
+    attributes["identifier"].blank?
   end
 end

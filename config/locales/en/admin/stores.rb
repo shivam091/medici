@@ -31,6 +31,15 @@
         form: {
           basic_details: "Basic details",
           address: "Address",
+          cash_counters: "Cash counters",
+          select_currency: "Select currency",
+        },
+        cash_counter_form: {
+          operators: "Operators",
+        },
+        cash_counter_operator_form: {
+          select_operator: "Select operator",
+          select_shift: "Select shift",
         },
       }
     }
