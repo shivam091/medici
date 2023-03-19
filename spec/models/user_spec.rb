@@ -260,6 +260,15 @@ RSpec.describe User, type: :model do
     include_examples "has address"
 
     describe "#set_reference_code" do
+      context "when super admin is created" do
+        subject { create(:super_admin, :confirmed) }
+
+        it "sets reference_code for user" do
+          expect(subject.reference_code).to be_present
+          expect(subject.reference_code).to eq("ADM-00000000001")
+        end
+      end
+
       context "when admin is created" do
         subject { create(:admin, :confirmed) }
 
