@@ -16,7 +16,7 @@ FactoryBot.define do
       email { "super_admin@medici.com" }
       mobile_number { generate(:mobile_number) }
 
-      role { ::Role.find_by(name: "super_admin") || create(:admin_role, :active) }
+      role { ::Role.find_by(name: "super_admin") || create(:super_admin_role, :active) }
     end
 
     factory :admin, parent: :user do
