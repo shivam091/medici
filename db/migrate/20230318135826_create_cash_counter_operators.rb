@@ -13,14 +13,14 @@ class CreateCashCounterOperators < Medici::Database::Migration[1.0]
                      on_delete: :cascade
                    },
                    index: {using: :btree}
-       t.references :shift,
-                    type: :uuid,
-                    foreign_key: {
-                      to_table: :shifts,
-                      name: :fk_cash_counter_operators_shift_id_on_shifts,
-                      on_delete: :restrict
-                    },
-                    index: {using: :btree}
+      t.references :shift,
+                   type: :uuid,
+                   foreign_key: {
+                     to_table: :shifts,
+                     name: :fk_cash_counter_operators_shift_id_on_shifts,
+                     on_delete: :restrict
+                   },
+                   index: {using: :btree}
       t.references :user,
                    type: :uuid,
                    foreign_key: {
