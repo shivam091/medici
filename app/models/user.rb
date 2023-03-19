@@ -45,6 +45,9 @@ class User < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
 
   has_many :request_logs, dependent: :nullify
+  has_many :cash_counter_operators, dependent: :destroy
+  has_many :cash_counters, through: :cash_counter_operators
+  has_many :working_stores, through: :cash_counters, source: :store
 
   belongs_to :role
   belongs_to :store, optional: true
@@ -113,6 +116,10 @@ class User < ApplicationRecord
 
       record.login = login
       record
+    end
+
+    def select_options
+      active.collect { |user| [user.full_name, user.id]}
     end
   end
 
