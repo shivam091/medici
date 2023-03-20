@@ -6,4 +6,6 @@ FactoryBot.define do
   sequence :phone_number, aliases: [:mobile_number] do |n|
     n.to_s.rjust(10, "0")
   end
+
+  sequence(:email) { |n| "email#{n}@medici.com" }
 end
