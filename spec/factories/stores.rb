@@ -5,7 +5,7 @@
 FactoryBot.define do
   factory :store do
     name { "Pharmacy store" }
-    email { "store@medici.com" }
+    email { generate(:email) }
     phone_number { generate(:phone_number) }
     fax_number { generate(:phone_number) }
     registration_number { "1234567890" }
