@@ -23,7 +23,6 @@ FactoryBot.define do
       email { "admin@medici.com" }
       mobile_number { generate(:mobile_number) }
 
-      store { ::Store.first || create(:store, :with_address, :active) }
       role { ::Role.find_by(name: "admin") || create(:admin_role, :active) }
     end
 
@@ -31,7 +30,6 @@ FactoryBot.define do
       email { "manager@medici.com" }
       mobile_number { generate(:mobile_number) }
 
-      store { ::Store.first || create(:store, :with_address, :active) }
       role { ::Role.find_by(name: "manager") || create(:manager_role, :active) }
     end
 
@@ -39,8 +37,13 @@ FactoryBot.define do
       email { "cashier@medici.com" }
       mobile_number { generate(:mobile_number) }
 
-      store { ::Store.first || create(:store, :with_address, :active) }
       role { ::Role.find_by(name: "cashier") || create(:cashier_role, :active) }
+    end
+
+    trait :with_store do
+      after(:build) do |user, evaluator|
+        user.store = (::Store.first || create(:store, :with_address, :active))
+      end
     end
 
     trait :confirmed do
