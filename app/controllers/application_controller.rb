@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
     case
     when user_signed_in?
       case
+      when current_user.super_admin? then admin_dashboard_path
       when current_user.admin? then admin_dashboard_path
       when current_user.manager? then manager_dashboard_path
       else cashier_dashboard_path

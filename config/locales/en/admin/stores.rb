@@ -29,6 +29,7 @@
           title: "Edit store",
         },
         form: {
+          store_form_user_note: "This information will be used in invoices. Please make sure all information is correct.",
           basic_details: "Basic details",
           address: "Address",
           cash_counters: "Cash counters",

@@ -45,7 +45,7 @@ module ReferenceCode
       last_code = relation.maximum(:reference_code)
     when "User"
       case
-      when self.admin?
+      when self.admin?, self.super_admin?
         new_reference_code = REFERENCE_CODE_MAPPINGS["Admin"] + "-"
         last_code = relation.admins.maximum(:reference_code)
       when self.manager?
