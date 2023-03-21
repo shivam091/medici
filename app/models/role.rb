@@ -17,7 +17,9 @@ class Role < ApplicationRecord
 
   class << self
     def select_options
-      active.collect { |role| [role.name.humanize, role.id] }
+      active.where.not(name: "super_admin").collect do |role|
+        [role.name.humanize, role.id]
+      end
     end
   end
 end
