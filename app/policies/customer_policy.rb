@@ -5,33 +5,33 @@
 class CustomerPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if (user.admin? || user.manager? || user.cashier?)
+      if (user.super_admin? || user.admin? || user.manager? || user.cashier?)
         scope.all
       end
     end
   end
 
   def index?
-    (user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
   def new?
-    (user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
   def create?
-    (user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
   def edit?
-    (user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
   def update?
-    (user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
   def destroy?
-    user.admin?
+    user.super_admin?
   end
 end

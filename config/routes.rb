@@ -6,7 +6,7 @@ require "sidekiq/web"
 require "sidekiq-scheduler/web"
 
 Rails.application.routes.draw do
-  authenticate :user, -> (user) { user.admin? } do
+  authenticate :user, -> (user) { user.super_admin? } do
     mount Sidekiq::Web => "/sidekiq"
   end
 
@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     end
   end
 
-  authenticate :user, -> (user) { user.admin? } do
+  authenticate :user, -> (user) { (user.admin? || user.super_admin?) } do
     namespace :admin do
       concerns :shareable
 

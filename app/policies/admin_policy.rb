@@ -5,7 +5,7 @@
 class AdminPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.admin?
+      if (user.super_admin? || user.admin?)
         scope.all
       else
         scope.none
@@ -14,26 +14,26 @@ class AdminPolicy < ApplicationPolicy
   end
 
   def index?
-    user.admin?
+    (user.super_admin? || user.admin?)
   end
 
   def new?
-    user.admin?
+    (user.super_admin? || user.admin?)
   end
 
   def create?
-    user.admin?
+    (user.super_admin? || user.admin?)
   end
 
   def edit?
-    user.admin?
+    (user.super_admin? || user.admin?)
   end
 
   def update?
-    user.admin?
+    (user.super_admin? || user.admin?)
   end
 
   def destroy?
-    user.admin?
+    user.super_admin?
   end
 end
