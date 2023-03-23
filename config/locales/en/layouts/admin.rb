@@ -31,6 +31,10 @@
           sells: "Sells",
           reports: "Reports",
           shifts: "Shifts",
+          purchase_orders: "Purchase orders",
+          tax_rates: "Tax rates",
+          discounts: "Discounts",
+          expenses: "Expenses",
         },
         menu: {
           hello_username: "Hello %{username}",
