@@ -13,6 +13,7 @@
           sells: "Sells",
           daily_sells: "Daily sells",
           pos: "PoS",
+          expenses: "Expenses",
         },
         menu: {
           hello_username: "Hello %{username}",
