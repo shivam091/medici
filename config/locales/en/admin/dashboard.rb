@@ -23,9 +23,10 @@
         today_report: {
           today_report: "Today's report",
           store: "Store",
-          total_sells: "Total sells",
-          total_purchases: "Total purchases",
-          total_expenses: "Total expenses",
+          sells: "Sells",
+          purchases: "Purchases",
+          expenses: "Expenses",
+          amount: "Amount",
         },
         month_report: {
           month_report: "Sells, purchases, & expenses of %{month_and_year}",
