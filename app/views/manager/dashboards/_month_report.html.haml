@@ -11,3 +11,6 @@
           %tr
             %th{width: "25px", scope: "col"}= t(".total_purchases")
             %td= number_to_currency(0, unit: @store.currency_symbol)
+          %tr
+            %th{width: "25px", scope: "col"}= t(".total_expenses")
+            %td= number_to_currency(0, unit: @store.currency_symbol)
