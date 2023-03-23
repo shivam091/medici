@@ -33,7 +33,7 @@ module Medici
           conditions_with_if(definitions, options)
         end
 
-        # Helper for adding not null and empty constraint to the column.
+        # Helper for adding length constraint to the column.
         def add_length_constraint(table, column_name, options = {})
           add_check_constraint(
             table,
