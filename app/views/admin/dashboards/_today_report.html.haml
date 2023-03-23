@@ -10,10 +10,12 @@
             %th{scope: "col"}= t(".store")
             %th{scope: "col"}= t(".total_sells")
             %th{scope: "col"}= t(".total_purchases")
+            %th{scope: "col"}= t(".total_expenses")
         %tbody
           - ::Store.all.each.with_index(1) do |store, index|
             %tr
               %td.fw-bold= index
               %td.fw-bold= store.name
+              %td= number_to_currency(0, unit: store.currency_symbol)
               %td= number_to_currency(0, unit: store.currency_symbol)
               %td= number_to_currency(0, unit: store.currency_symbol)

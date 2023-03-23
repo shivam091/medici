@@ -25,12 +25,14 @@
           store: "Store",
           total_sells: "Total sells",
           total_purchases: "Total purchases",
+          total_expenses: "Total expenses",
         },
         month_report: {
           month_report: "Sells & purchases of %{month_and_year}",
           store: "Store",
           total_sells: "Total sells",
           total_purchases: "Total purchases",
+          total_expenses: "Total expenses",
         },
         top_selling_medicines: {
           top_selling_medicines: "Top 10 selling medicines",
