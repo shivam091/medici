@@ -16,7 +16,7 @@
               %th{scope: "col"} #
               %th{scope: "col"}= t(".amount")
         %tbody
-          - ::Store.all.each.with_index(1) do |store, index|
+          - ::Store.includes(:currency).each.with_index(1) do |store, index|
             %tr
               %td.fw-bold{rowspan: 2}= index
               %td.fw-bold{rowspan: 2}= store.name
