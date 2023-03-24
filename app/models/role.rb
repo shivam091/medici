@@ -3,9 +3,7 @@
 # -*- warn_indent: true -*-
 
 class Role < ApplicationRecord
-  include Filterable
-
-  attribute :is_active, default: false
+  include Filterable, Toggleable
 
   validates :name,
             presence: true,
