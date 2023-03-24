@@ -15,6 +15,7 @@ RSpec.describe Country, type: :model do
 
   describe "included modules" do
     it { is_expected.to include_module(Filterable) }
+    it { is_expected.to include_module(Toggleable) }
   end
 
   describe "attributes, indexes, and foreign keys" do

@@ -22,6 +22,7 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to include_module(Filterable) }
     it { is_expected.to include_module(Sortable) }
     it { is_expected.to include_module(ReferenceCode) }
+    it { is_expected.to include_module(Toggleable) }
   end
 
   describe "enum" do

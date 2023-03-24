@@ -3,9 +3,7 @@
 # -*- warn_indent: true -*-
 
 class CashCounter < ApplicationRecord
-  include Filterable, Sortable
-
-  attribute :is_active, default: false
+  include Filterable, Sortable, Toggleable
 
   validates :identifier,
             presence: true,

@@ -13,8 +13,6 @@ module Filterable
 
   def self.included(base_class)
     base_class.instance_eval do
-      scope :inactive, -> { where(arel_table[:is_active].eq(false)) }
-      scope :active, -> { where(arel_table[:is_active].eq(true)) }
       scope :created_before, -> (date) { where(arel_table[:created_at].lteq(date)) }
       scope :created_after, -> (date) { where(arel_table[:created_at].gteq(date)) }
       scope :created_between, -> (start_date, end_date) do
@@ -59,8 +57,6 @@ module Filterable
 
     def simple_filters
       {
-        inactive: -> { inactive },
-        active: -> { active },
         created_before: -> { created_before },
         created_after: -> { created_after },
         created_between: -> { created_between },

@@ -3,9 +3,7 @@
 # -*- warn_indent: true -*-
 
 class Customer < ApplicationRecord
-  include Filterable, Sortable, ReferenceCode
-
-  attribute :is_active, default: false
+  include Filterable, Sortable, ReferenceCode, Toggleable
 
   validates :reference_code,
             length: {maximum: 15},
