@@ -16,28 +16,28 @@ FactoryBot.define do
       email { "super_admin@medici.com" }
       mobile_number { generate(:mobile_number) }
 
-      role { ::Role.find_by(name: "super_admin") || create(:super_admin_role, :active) }
+      role { association(:super_admin_role, :active) }
     end
 
     factory :admin, parent: :user do
       email { "admin@medici.com" }
       mobile_number { generate(:mobile_number) }
 
-      role { ::Role.find_by(name: "admin") || create(:admin_role, :active) }
+      role { association(:admin_role, :active) }
     end
 
     factory :manager, parent: :user do
       email { "manager@medici.com" }
       mobile_number { generate(:mobile_number) }
 
-      role { ::Role.find_by(name: "manager") || create(:manager_role, :active) }
+      role { association(:manager_role, :active) }
     end
 
     factory :cashier, parent: :user do
       email { "cashier@medici.com" }
       mobile_number { generate(:mobile_number) }
 
-      role { ::Role.find_by(name: "cashier") || create(:cashier_role, :active) }
+      role { association(:cashier_role, :active) }
     end
 
     trait :with_store do
