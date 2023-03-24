@@ -8,12 +8,23 @@
           %tr
             %th{width: "25px", scope: "col"}#
             %th{scope: "col"}= t(".store")
-            %th{scope: "col"}= t(".total_sells")
-            %th{scope: "col"}= t(".total_purchases")
+            %th{scope: "col"}= t(".category")
+            %th{scope: "col"}#
+            %th{scope: "col"}= t(".amount")
         %tbody
           - ::Store.all.each.with_index(1) do |store, index|
             %tr
-              %td.fw-bold= index
-              %td.fw-bold= store.name
-              %td= number_to_currency(0, unit: store.currency_symbol)
-              %td= number_to_currency(0, unit: store.currency_symbol)
+              %td.fw-bold{rowspan: 4}= index
+              %td.fw-bold{rowspan: 4}= store.name
+              %tr
+                %th= t(".sells")
+                %td 0
+                %td= number_to_currency(0, unit: store.currency_symbol)
+              %tr
+                %th= t(".purchases")
+                %td 0
+                %td= number_to_currency(0, unit: store.currency_symbol)
+              %tr
+                %th= t(".expenses")
+                %td 0
+                %td= number_to_currency(0, unit: store.currency_symbol)

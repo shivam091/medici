@@ -6,14 +6,24 @@
       %table.table.table-striped.table-bordered
         %thead
           %tr
-            %th{width: "25px", scope: "col"}#
-            %th{scope: "col"}= t(".store")
-            %th{scope: "col"}= t(".total_sells")
-            %th{scope: "col"}= t(".total_purchases")
+            %th{width: "25px", scope: "col", rowspan: 2}#
+            %th{scope: "col", rowspan: 2}= t(".store")
+            %th{scope: "col", colspan: 2}= t(".sells")
+            %th{scope: "col", colspan: 2}= t(".purchases")
+            %th{scope: "col", colspan: 2}= t(".expenses")
+          %tr
+            - 3.times do
+              %th{scope: "col"} #
+              %th{scope: "col"}= t(".amount")
         %tbody
           - ::Store.all.each.with_index(1) do |store, index|
             %tr
-              %td.fw-bold= index
-              %td.fw-bold= store.name
-              %td= number_to_currency(0, unit: store.currency_symbol)
-              %td= number_to_currency(0, unit: store.currency_symbol)
+              %td.fw-bold{rowspan: 2}= index
+              %td.fw-bold{rowspan: 2}= store.name
+              %tr
+                %td 0
+                %td= number_to_currency(0, unit: store.currency_symbol)
+                %td 0
+                %td= number_to_currency(0, unit: store.currency_symbol)
+                %td 0
+                %td= number_to_currency(0, unit: store.currency_symbol)
