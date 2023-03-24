@@ -3,7 +3,7 @@
 # -*- warn_indent: true -*-
 
 class Medicine < ApplicationRecord
-  include Filterable, Sortable, ReferenceCode
+  include Filterable, Sortable, ReferenceCode, Toggleable
 
   enum unit_of_measurement: {
     kg: "kg",
@@ -35,8 +35,6 @@ class Medicine < ApplicationRecord
     dr: "dr",
     vv: "vv"
   }
-
-  attribute :is_active, default: false
 
   validates :reference_code,
             length: {maximum: 15},

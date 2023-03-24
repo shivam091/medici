@@ -3,9 +3,8 @@
 # -*- warn_indent: true -*-
 
 class Country < ApplicationRecord
-  include Filterable
+  include Filterable, Toggleable
 
-  attribute :is_active, default: false
   attribute :has_postal_code, default: false
 
   validates :name,
