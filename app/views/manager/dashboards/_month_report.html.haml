@@ -6,8 +6,20 @@
       %table.table.table-striped.table-bordered
         %tbody
           %tr
-            %th{width: "25px", scope: "col"}= t(".total_sells")
+            %th{width: "25px", scope: "col"}= t(".number_of_sells")
+            %td 0
+          %tr
+            %th{width: "25px", scope: "col"}= t(".total_sales_amount")
             %td= number_to_currency(0, unit: @store.currency_symbol)
           %tr
-            %th{width: "25px", scope: "col"}= t(".total_purchases")
+            %th{width: "25px", scope: "col"}= t(".number_of_purchases")
+            %td 0
+          %tr
+            %th{width: "25px", scope: "col"}= t(".total_purchases_amount")
+            %td= number_to_currency(0, unit: @store.currency_symbol)
+          %tr
+            %th{width: "25px", scope: "col"}= t(".number_of_expenses")
+            %td 0
+          %tr
+            %th{width: "25px", scope: "col"}= t(".total_expenses_amount")
             %td= number_to_currency(0, unit: @store.currency_symbol)

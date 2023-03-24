@@ -23,7 +23,7 @@
         strength: "Strength",
         inventory: "Inventory",
         quantity_in_hand: "Quantity in hand",
-        quantity_pending_from_supplier: "Quantity pending from supplier",
+        quantity_pending_from_supplier: "Quantity pending from suppliers",
         actions: "Actions",
         no_medicines_to_display: "No medicines to display",
         delete_medicine_confirmation_text: "Are you sure you want to delete the medicine '%{medicine_name}'?",
