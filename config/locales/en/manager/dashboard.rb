@@ -21,14 +21,21 @@
         },
         today_report: {
           today_report: "Today's report",
-          total_sells: "Total sells",
-          total_purchases: "Total purchases",
+          number_of_sells: "Number of sales",
+          total_sales_amount: "Total sales amount",
+          number_of_purchases: "Number of purchases",
+          total_purchases_amount: "Total purchases amount",
+          number_of_expenses: "Number of expenses",
+          total_expenses_amount: "Total expenses amount",
         },
         month_report: {
-          month_report: "Sells & purchases of %{month_and_year}",
-          store: "Store",
-          total_sells: "Total sells",
-          total_purchases: "Total purchases",
+          month_report: "Sells, purchases, & expenses of %{month_and_year}",
+          number_of_sells: "Number of sales",
+          total_sales_amount: "Total sales amount",
+          number_of_purchases: "Number of purchases",
+          total_purchases_amount: "Total purchases amount",
+          number_of_expenses: "Number of expenses",
+          total_expenses_amount: "Total expenses amount",
         },
       }
     }

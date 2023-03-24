@@ -20,6 +20,8 @@
           manufacturers: "Manufacturers",
           sells: "Sells",
           reports: "Reports",
+          purchase_orders: "Purchase orders",
+          expenses: "Expenses",
         },
         menu: {
           hello_username: "Hello %{username}",
