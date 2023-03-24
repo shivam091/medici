@@ -3,9 +3,7 @@
 # -*- warn_indent: true -*-
 
 class PackingType < ApplicationRecord
-  include Filterable, Sortable
-
-  attribute :is_active, default: false
+  include Filterable, Sortable, Toggleable
 
   validates :name,
             presence: true,

@@ -8,7 +8,8 @@ class User < ApplicationRecord
           DowncaseAttribute,
           Filterable,
           Sortable,
-          ReferenceCode
+          ReferenceCode,
+          Toggleable
 
   devise :database_authenticatable, :registerable, :confirmable, :lockable,
          :recoverable, :rememberable, :validatable, :timeoutable, :trackable,
@@ -23,7 +24,6 @@ class User < ApplicationRecord
   DEFAULT_PASSWORD_EXPIRY_PERIOD = 1.months.from_now
 
   attribute :is_banned, default: false
-  attribute :is_active, default: false
   attribute :password_automatically_set, default: false
 
   validates :reference_code,
