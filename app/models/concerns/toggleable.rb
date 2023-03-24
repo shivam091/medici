@@ -23,13 +23,13 @@ module Toggleable
     base_class.class_eval do
       def activate!
         run_callbacks :activate do
-          self.public_send(:activate)
+          self.update_column(:is_active, true)
         end
       end
 
       def deactivate!
         run_callbacks :deactivate do
-          self.public_send(:deactivate)
+          self.update_column(:is_active, false)
         end
       end
     end
