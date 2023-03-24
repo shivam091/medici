@@ -3,9 +3,7 @@
 # -*- warn_indent: true -*-
 
 class DosageForm < ApplicationRecord
-  include Filterable, Sortable
-
-  attribute :is_active, default: false
+  include Filterable, Sortable, Toggleable
 
   validates :name,
             presence: true,
