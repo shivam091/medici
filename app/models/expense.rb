@@ -10,5 +10,13 @@ class Expense < ApplicationRecord
   belongs_to :store, inverse_of: :expenses
   belongs_to :user, inverse_of: :expenses
 
+  after_initialize :set_store
+
   default_scope -> { order_created_desc }
+
+  private
+
+  def set_store
+    self.store = self.user.store
+  end
 end
