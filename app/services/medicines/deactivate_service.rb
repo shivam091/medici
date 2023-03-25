@@ -23,7 +23,7 @@ class Medicines::DeactivateService < ApplicationService
       )
     else
       ::ServiceResponse.error(
-        message: t("medicines.deactivate.error"),
+        message: t("medicines.deactivate.error", medicine_name: medicine.name, medicine_code: medicine.reference_code),
         payload: {medicine: medicine}
       )
     end

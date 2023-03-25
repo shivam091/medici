@@ -42,6 +42,11 @@ Rails.application.routes.draw do
     collection do
       get :inactive
     end
+
+    member do
+      patch :activate
+      patch :deactivate
+    end
   end
 
   authenticate :user, -> (user) { (user.admin? || user.super_admin?) } do
@@ -50,9 +55,13 @@ Rails.application.routes.draw do
 
       resource :profile, only: [:show, :edit, :update]
 
-      METADATA_ROUTES = [:currencies, :countries, :ingredients, :users, :shifts]
-
-      resources *METADATA_ROUTES, except: :show, param: :uuid, concerns: :toggleable
+      resources *[
+        :currencies,
+        :countries,
+        :ingredients,
+        :users,
+        :shifts
+      ], except: :show, param: :uuid, concerns: :toggleable
 
       resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms", concerns: :toggleable
       resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories", concerns: :toggleable
