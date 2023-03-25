@@ -98,6 +98,18 @@ class Admin::IngredientsController < Admin::BaseController
     redirect_to inactive_admin_ingredients_path
   end
 
+  # PATCH /admin/ingredients/:uuid/deactivate
+  def deactivate
+    response = ::Ingredients::DeactivateService.(@ingredient)
+    @ingredient = response.payload[:ingredient]
+    if response.success?
+      flash[:warning] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_ingredients_path
+  end
+
   private
 
   def ingredient_params
