@@ -86,6 +86,18 @@ class Admin::PackingTypesController < Admin::BaseController
     redirect_to admin_packing_types_path
   end
 
+  # PATCH /admin/packing-types/:uuid/activate
+  def activate
+    response = ::PackingTypes::ActivateService.(@packing_type)
+    @packing_type = response.payload[:packing_type]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_packing_types_path
+  end
+
   private
 
   def packing_type_params
