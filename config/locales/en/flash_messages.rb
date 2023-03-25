@@ -221,6 +221,14 @@
         destroy: {
           success: "User '%{user_name}' was successfully destroyed.",
           error: "User '%{user_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "User '%{user_name}' was successfully activated.",
+          error: "User '%{user_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "User '%{user_name}' was successfully deactivated.",
+          error: "User '%{user_name}' could not be deactivated.",
         }
       },
       profiles: {
