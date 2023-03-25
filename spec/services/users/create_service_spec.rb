@@ -7,7 +7,7 @@
 require "spec_helper"
 
 RSpec.describe Users::CreateService, type: :service do
-  let(:user_attributes) { attributes_for(:cashier) }
+  let(:user_attributes) { attributes_for(:cashier, :with_address) }
   subject { described_class.(user_attributes) }
 
   describe "#call" do

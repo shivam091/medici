@@ -25,6 +25,7 @@ class Store < ApplicationRecord
             reduce: true
   validates :registration_number,
             presence: true,
+            uniqueness: true,
             reduce: true
   validates :currency_id,
             presence: true,

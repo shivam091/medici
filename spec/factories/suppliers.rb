@@ -5,7 +5,7 @@
 FactoryBot.define do
   factory :supplier do
     name { "Supplier" }
-    sequence(:email) { |n| "supplier#{n}@medici.com" }
+    email { generate(:email) }
     phone_number { generate(:phone_number) }
   end
 end
