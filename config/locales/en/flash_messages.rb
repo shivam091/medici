@@ -297,6 +297,20 @@
           error: "Shift '%{shift_name}' could not be deactivated.",
         }
       },
+      expenses: {
+        create: {
+          success: "Expense was successfully added.",
+          error: "Expense could not be added.",
+        },
+        update: {
+          success: "Expense was successfully updated.",
+          error: "Expense could not be updated.",
+        },
+        destroy: {
+          success: "Expense was successfully destroyed.",
+          error: "Expense could not be destroyed.",
+        },
+      },
     }
   }
 }
