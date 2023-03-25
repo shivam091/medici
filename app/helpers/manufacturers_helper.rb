@@ -11,6 +11,14 @@ module ManufacturersHelper
     end
   end
 
+  def inactive_manufacturers_path
+    case
+    when current_user.super_admin? then inactive_admin_manufacturers_path
+    when current_user.admin? then inactive_admin_manufacturers_path
+    when current_user.manager? then inactive_manager_manufacturers_path
+    end
+  end
+
   def new_manufacturer_path
     case
     when current_user.super_admin? then new_admin_manufacturer_path
@@ -24,6 +32,22 @@ module ManufacturersHelper
     when current_user.super_admin? then edit_admin_manufacturer_path(manufacturer)
     when current_user.admin? then edit_admin_manufacturer_path(manufacturer)
     when current_user.manager? then edit_manager_manufacturer_path(manufacturer)
+    end
+  end
+
+  def activate_manufacturer_path(manufacturer)
+    case
+    when current_user.super_admin? then activate_admin_manufacturer_path(manufacturer)
+    when current_user.admin? then activate_admin_manufacturer_path(manufacturer)
+    when current_user.manager? then activate_manager_manufacturer_path(manufacturer)
+    end
+  end
+
+  def deactivate_manufacturer_path(manufacturer)
+    case
+    when current_user.super_admin? then deactivate_admin_manufacturer_path(manufacturer)
+    when current_user.admin? then deactivate_admin_manufacturer_path(manufacturer)
+    when current_user.manager? then deactivate_manager_manufacturer_path(manufacturer)
     end
   end
 
