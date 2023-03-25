@@ -31,8 +31,9 @@ class Country < ApplicationRecord
             reduce: true
   validates :currency_id, presence: true, reduce: true
 
+  has_one :tax_rate, dependent: :restrict_with_exception
+
   has_many :addresses, dependent: :restrict_with_exception
-  has_many :tax_rates, dependent: :restrict_with_exception
 
   belongs_to :currency, inverse_of: :countries
 

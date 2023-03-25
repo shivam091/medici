@@ -23,7 +23,7 @@ class TaxRate < ApplicationRecord
             reduce: true
   validates :type, presence: true, inclusion: {in: types.values}, reduce: true
 
-  belongs_to :country
+  belongs_to :country, inverse_of: :tax_rate
 
   default_scope do
     tax_rates_arel = ::TaxRate.arel_table
