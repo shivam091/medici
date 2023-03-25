@@ -15,6 +15,10 @@ class CustomerPolicy < ApplicationPolicy
     (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
+  def inactive?
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+  end
+
   def new?
     (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
@@ -29,6 +33,14 @@ class CustomerPolicy < ApplicationPolicy
 
   def update?
     (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+  end
+
+  def activate?
+    (user.super_admin? || user.admin?)
+  end
+
+  def deactivate?
+    (user.super_admin? || user.admin?)
   end
 
   def destroy?
