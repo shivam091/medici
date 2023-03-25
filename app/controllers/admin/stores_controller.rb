@@ -98,6 +98,18 @@ class Admin::StoresController < Admin::BaseController
     redirect_to inactive_admin_stores_path
   end
 
+  # PATCH /admin/stores/:uuid/deactivate
+  def deactivate
+    response = ::Stores::DeactivateService.(@store)
+    @store = response.payload[:store]
+    if response.success?
+      flash[:warning] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_stores_path
+  end
+
   private
 
   def find_store
