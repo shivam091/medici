@@ -25,6 +25,7 @@
       },
       form: {
         select_store: "Select store",
+        select_user: "Select user", 
       },
     }
   }

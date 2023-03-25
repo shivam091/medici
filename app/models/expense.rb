@@ -46,6 +46,12 @@ class Expense < ApplicationRecord
   private
 
   def set_store
-    self.store = self.user.store
+    if user.present?
+      if user.manager? || user.cashier?
+        self.store = self.user.store
+      end
+    else
+      self.store = nil
+    end
   end
 end

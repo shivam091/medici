@@ -94,6 +94,8 @@ module ExpensesShared
 
   def expense_params
     params.require(:expense).permit(
+      :user_id,
+      :store_id,
       :criteria,
       :amount,
     )
