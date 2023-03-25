@@ -95,7 +95,19 @@ class Admin::CountriesController < Admin::BaseController
     else
       flash[:alert] = response.message
     end
-    redirect_to inactive_admin_currencies_path
+    redirect_to inactive_admin_countries_path
+  end
+
+  # PATCH /admin/countries/:uuid/deactivate
+  def deactivate
+    response = ::Countries::DeactivateService.(@country)
+    @country = response.payload[:country]
+    if response.success?
+      flash[:warning] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_countries_path
   end
 
   private
