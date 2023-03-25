@@ -21,16 +21,20 @@ class CreateExpenses < Medici::Database::Migration[1.0]
                      on_delete: :nullify
                    },
                    index: {using: :btree}
+      t.string :reference_code
       t.string :criteria
       t.decimal :amount, precision: 8, scale: 2, default: 0.0
 
       t.not_null_and_empty_constraint :criteria
+      t.not_null_and_empty_constraint :reference_code
 
       t.not_null_constraint :amount
       t.not_null_constraint :store_id
       t.not_null_constraint :user_id
 
       t.numericality_constraint :amount, greater_than: 0.0
+
+      t.length_constraint :reference_code, less_than_or_equal_to: 15
 
       t.timestamps_with_timezone null: false
     end
