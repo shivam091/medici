@@ -90,6 +90,18 @@ module ManufacturersShared
         redirect_to helpers.manufacturers_path
       end
 
+      # PATCH /admin/manufacturers/:uuid/activate
+      def activate
+        response = ::Manufacturers::ActivateService.(@manufacturer)
+        @manufacturer = response.payload[:manufacturer]
+        if response.success?
+          flash[:notice] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.inactive_manufacturers_path
+      end
+
       # PATCH /admin/manufacturer/:uuid/deactivate
       def deactivate
         response = ::Manufacturers::DeactivateService.(@manufacturer)
