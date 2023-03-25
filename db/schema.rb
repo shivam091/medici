@@ -165,6 +165,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_115750) do
     t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_40124d91ea"
     t.check_constraint "criteria IS NOT NULL AND criteria::text <> ''::text", name: "chk_997b885100"
     t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_031025e841"
+    t.check_constraint "status = ANY (ARRAY['pending'::expense_statuses, 'approved'::expense_statuses, 'rejected'::expense_statuses])", name: "chk_bc1a734dee"
     t.check_constraint "store_id IS NOT NULL", name: "chk_8f7c4e83a7"
     t.check_constraint "user_id IS NOT NULL", name: "chk_e30387f221"
   end
