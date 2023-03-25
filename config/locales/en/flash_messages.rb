@@ -17,6 +17,14 @@
         destroy: {
           success: "Currency '%{currency_name}' was successfully destroyed.",
           error: "Currency '%{currency_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Currency '%{currency_name}' was successfully activated.",
+          error: "Currency '%{currency_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Currency '%{currency_name}' was successfully deactivated.",
+          error: "Currency '%{currency_name}' could not be deactivated.",
         }
       },
       countries: {
@@ -143,7 +151,7 @@
         destroy: {
           success: "Medicine '%{medicine_code} (%{medicine_name})' was successfully destroyed.",
           error: "Medicine '%{medicine_code} (%{medicine_name})' could not be destroyed.",
-        }
+        },
       },
       users: {
         create: {
