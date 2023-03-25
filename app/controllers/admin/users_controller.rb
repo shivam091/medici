@@ -98,6 +98,18 @@ class Admin::UsersController < Admin::BaseController
     redirect_to inactive_admin_users_path
   end
 
+  # PATCH /admin/users/:uuid/deactivate
+  def deactivate
+    response = ::Users::DeactivateService.(@user)
+    @user = response.payload[:user]
+    if response.success?
+      flash[:warning] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_users_path
+  end
+
   private
 
   def user_params
