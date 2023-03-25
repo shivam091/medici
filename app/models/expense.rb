@@ -3,7 +3,7 @@
 # -*- warn_indent: true -*-
 
 class Expense < ApplicationRecord
-  include Sortable, ReferenceCode
+  include Sortable, ReferenceCode, AASM
 
   enum status: {
     pending: "pending",
@@ -13,6 +13,20 @@ class Expense < ApplicationRecord
 
   attribute :amount, default: 0.0
   attribute :status, :enum, default: statuses[:pending]
+
+  aasm :expense_status, column: "status", enum: true do
+    state :pending, initial: true
+    state :approved, :rejected
+
+    event :approve do
+      transitions from: :pending, to: :approved
+    end
+
+    event :reject do
+      transitions from: :pending, to: :rejected
+    end
+  end
+
 
   validates :criteria, presence: true, length: {maximum: 55}, reduce: true
   validates :amount,
