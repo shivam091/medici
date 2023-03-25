@@ -86,12 +86,24 @@ class Admin::CurrenciesController < Admin::BaseController
     redirect_to admin_currencies_path
   end
 
+  # PATCH /admin/currencies/:uuid/activate
+  def activate
+    response = ::Currencies::ActivateService.(@currency)
+    @currency = response.payload[:currency]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_currencies_path
+  end
+
   # PATCH /admin/currencies/:uuid/deactivate
   def deactivate
     response = ::Currencies::DeactivateService.(@currency)
     @currency = response.payload[:currency]
     if response.success?
-      flash[:info] = response.message
+      flash[:warning] = response.message
     else
       flash[:alert] = response.message
     end
