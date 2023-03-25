@@ -39,6 +39,14 @@
         destroy: {
           success: "Country '%{country_name}' was successfully destroyed.",
           error: "Country '%{country_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Country '%{country_name}' was successfully activated.",
+          error: "Country '%{country_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Country '%{country_name}' was successfully deactivated.",
+          error: "Country '%{country_name}' could not be deactivated.",
         }
       },
       ingredients: {
