@@ -14,6 +14,7 @@ FactoryBot.define do
     trait :with_users do
       after(:create) do |store|
         store.users << [
+          create(:super_admin, :confirmed, :active, :with_address),
           create(:admin, :confirmed, :active, :with_address),
           create(:manager, :confirmed, :active, :with_address),
           create(:cashier, :confirmed, :active, :with_address)
