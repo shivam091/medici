@@ -89,6 +89,18 @@ module ManufacturersShared
         end
         redirect_to helpers.manufacturers_path
       end
+
+      # PATCH /admin/manufacturer/:uuid/deactivate
+      def deactivate
+        response = ::Manufacturers::DeactivateService.(@manufacturer)
+        @manufacturer = response.payload[:manufacturer]
+        if response.success?
+          flash[:warning] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.manufacturers_path
+      end
     end
   end
 
@@ -103,7 +115,7 @@ module ManufacturersShared
       :name,
       :email,
       :phone_number,
-      :customer_care_number,
+      :manufacturer_care_number,
       :is_active,
       address_attributes: [
         :address1,
