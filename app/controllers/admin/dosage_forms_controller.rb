@@ -4,9 +4,9 @@
 
 class Admin::DosageFormsController < Admin::BaseController
 
-  before_action :find_dosage_form, except: [:index, :new, :create]
+  before_action :find_dosage_form, except: [:index, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "new", "create"])
+    if action_name.in?(["index", "inactive", "new", "create"])
       authorize ::DosageForm
     else
       authorize @dosage_form
@@ -16,6 +16,12 @@ class Admin::DosageFormsController < Admin::BaseController
   # GET /admin/dosage-forms
   def index
     @dosage_forms = policy_scope(::DosageForm).active
+    @pagy, @dosage_forms = pagy(@dosage_forms)
+  end
+
+  # GET /admin/dosage-forms/inactive
+  def inactive
+    @dosage_forms = policy_scope(::DosageForm).inactive
     @pagy, @dosage_forms = pagy(@dosage_forms)
   end
 
@@ -74,6 +80,30 @@ class Admin::DosageFormsController < Admin::BaseController
     @dosage_form = response.payload[:dosage_form]
     if response.success?
       flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_dosage_forms_path
+  end
+
+  # PATCH /admin/dosage-forms/:uuid/activate
+  def activate
+    response = ::DosageForms::ActivateService.(@dosage_form)
+    @dosage_form = response.payload[:dosage_form]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_dosage_forms_path
+  end
+
+  # PATCH /admin/dosage-forms/:uuid/deactivate
+  def deactivate
+    response = ::DosageForms::DeactivateService.(@dosage_form)
+    @dosage_form = response.payload[:dosage_form]
+    if response.success?
+      flash[:warning] = response.message
     else
       flash[:alert] = response.message
     end

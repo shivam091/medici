@@ -11,6 +11,14 @@ module MedicinesHelper
     end
   end
 
+  def inactive_medicines_path
+    case
+    when current_user.super_admin? then inactive_admin_medicines_path
+    when current_user.admin? then inactive_admin_medicines_path
+    when current_user.manager? then inactive_manager_medicines_path
+    end
+  end
+
   def new_medicine_path
     case
     when current_user.super_admin? then new_admin_medicine_path
@@ -32,6 +40,22 @@ module MedicinesHelper
     when current_user.super_admin? then admin_medicine_path(medicine)
     when current_user.admin? then admin_medicine_path(medicine)
     when current_user.manager? then manager_medicine_path(medicine)
+    end
+  end
+
+  def deactivate_medicine_path(medicine)
+    case
+    when current_user.super_admin? then deactivate_admin_medicine_path(medicine)
+    when current_user.admin? then deactivate_admin_medicine_path(medicine)
+    when current_user.manager? then deactivate_manager_medicine_path(medicine)
+    end
+  end
+
+  def activate_medicine_path(medicine)
+    case
+    when current_user.super_admin? then activate_admin_medicine_path(medicine)
+    when current_user.admin? then activate_admin_medicine_path(medicine)
+    when current_user.manager? then activate_manager_medicine_path(medicine)
     end
   end
 

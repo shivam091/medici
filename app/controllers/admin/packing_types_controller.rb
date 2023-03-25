@@ -4,9 +4,9 @@
 
 class Admin::PackingTypesController < Admin::BaseController
 
-  before_action :find_packing_type, except: [:index, :new, :create]
+  before_action :find_packing_type, except: [:index, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "new", "create"])
+    if action_name.in?(["index", "inactive", "new", "create"])
       authorize ::PackingType
     else
       authorize @packing_type
@@ -16,6 +16,12 @@ class Admin::PackingTypesController < Admin::BaseController
   # GET /admin/packing-types
   def index
     @packing_types = policy_scope(::PackingType).active
+    @pagy, @packing_types = pagy(@packing_types)
+  end
+
+  # GET /admin/packing-types/inactive
+  def inactive
+    @packing_types = policy_scope(::PackingType).inactive
     @pagy, @packing_types = pagy(@packing_types)
   end
 
@@ -74,6 +80,30 @@ class Admin::PackingTypesController < Admin::BaseController
     @packing_type = response.payload[:packing_type]
     if response.success?
       flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_packing_types_path
+  end
+
+  # PATCH /admin/packing-types/:uuid/activate
+  def activate
+    response = ::PackingTypes::ActivateService.(@packing_type)
+    @packing_type = response.payload[:packing_type]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_packing_types_path
+  end
+
+  # PATCH /admin/packing-types/:uuid/deactivate
+  def deactivate
+    response = ::PackingTypes::DeactivateService.(@packing_type)
+    @packing_type = response.payload[:packing_type]
+    if response.success?
+      flash[:warning] = response.message
     else
       flash[:alert] = response.message
     end

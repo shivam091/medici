@@ -17,6 +17,10 @@ class SupplierPolicy < ApplicationPolicy
     (user.super_admin? || user.admin? || user.manager?)
   end
 
+  def inactive?
+    (user.super_admin? || user.admin? || user.manager?)
+  end
+
   def new?
     (user.super_admin? || user.admin? || user.manager?)
   end
@@ -35,5 +39,13 @@ class SupplierPolicy < ApplicationPolicy
 
   def destroy?
     user.super_admin?
+  end
+
+  def activate?
+    (user.super_admin? || user.admin?)
+  end
+
+  def deactivate?
+    (user.super_admin? || user.admin?)
   end
 end

@@ -4,9 +4,9 @@
 
 class Admin::StoresController < Admin::BaseController
 
-  before_action :find_store, except: [:index, :new, :create]
+  before_action :find_store, except: [:index, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "new", "create"])
+    if action_name.in?(["index", "inactive", "new", "create"])
       authorize ::Store
     else
       authorize @store
@@ -16,6 +16,12 @@ class Admin::StoresController < Admin::BaseController
   # GET /admin/stores
   def index
     @stores = policy_scope(::Store).active.includes(:address)
+    @pagy, @stores = pagy(@stores)
+  end
+
+  # GET /admin/stores/inactive
+  def inactive
+    @stores = policy_scope(::Store).inactive.includes(:address)
     @pagy, @stores = pagy(@stores)
   end
 
@@ -74,6 +80,30 @@ class Admin::StoresController < Admin::BaseController
     @store = response.payload[:store]
     if response.success?
       flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_stores_path
+  end
+
+  # PATCH /admin/stores/:uuid/activate
+  def activate
+    response = ::Stores::ActivateService.(@store)
+    @store = response.payload[:store]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_stores_path
+  end
+
+  # PATCH /admin/stores/:uuid/deactivate
+  def deactivate
+    response = ::Stores::DeactivateService.(@store)
+    @store = response.payload[:store]
+    if response.success?
+      flash[:warning] = response.message
     else
       flash[:alert] = response.message
     end

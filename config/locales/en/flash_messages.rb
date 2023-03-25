@@ -17,6 +17,14 @@
         destroy: {
           success: "Currency '%{currency_name}' was successfully destroyed.",
           error: "Currency '%{currency_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Currency '%{currency_name}' was successfully activated.",
+          error: "Currency '%{currency_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Currency '%{currency_name}' was successfully deactivated.",
+          error: "Currency '%{currency_name}' could not be deactivated.",
         }
       },
       countries: {
@@ -31,6 +39,14 @@
         destroy: {
           success: "Country '%{country_name}' was successfully destroyed.",
           error: "Country '%{country_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Country '%{country_name}' was successfully activated.",
+          error: "Country '%{country_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Country '%{country_name}' was successfully deactivated.",
+          error: "Country '%{country_name}' could not be deactivated.",
         }
       },
       ingredients: {
@@ -45,6 +61,14 @@
         destroy: {
           success: "Ingredient '%{ingredient_name}' was successfully destroyed.",
           error: "Ingredient '%{ingredient_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Ingredient '%{ingredient_name}' was successfully activated.",
+          error: "Ingredient '%{ingredient_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Ingredient '%{ingredient_name}' was successfully deactivated.",
+          error: "Ingredient '%{ingredient_name}' could not be deactivated.",
         }
       },
       dosage_forms: {
@@ -59,6 +83,14 @@
         destroy: {
           success: "Dosage form '%{dosage_form_name}' was successfully destroyed.",
           error: "Dosage form '%{dosage_form_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Dosage form '%{dosage_form_name}' was successfully activated.",
+          error: "Dosage form '%{dosage_form_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Dosage form '%{dosage_form_name}' was successfully deactivated.",
+          error: "Dosage form '%{dosage_form_name}' could not be deactivated.",
         }
       },
       medicine_categories: {
@@ -73,6 +105,14 @@
         destroy: {
           success: "Medicine category '%{medicine_category_name}' was successfully destroyed.",
           error: "Medicine category '%{medicine_category_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Medicine category '%{medicine_category_name}' was successfully activated.",
+          error: "Medicine category '%{medicine_category_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Medicine category '%{medicine_category_name}' was successfully deactivated.",
+          error: "Medicine category '%{medicine_category_name}' could not be deactivated.",
         }
       },
       suppliers: {
@@ -87,6 +127,14 @@
         destroy: {
           success: "Supplier '%{supplier_name}' was successfully destroyed.",
           error: "Supplier '%{supplier_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Supplier '%{supplier_name}' was successfully activated.",
+          error: "Supplier '%{supplier_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Supplier '%{supplier_name}' was successfully deactivated.",
+          error: "Supplier '%{supplier_name}' could not be deactivated.",
         }
       },
       stores: {
@@ -101,6 +149,14 @@
         destroy: {
           success: "Store '%{store_name}' was successfully destroyed.",
           error: "Store '%{store_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Store '%{store_name}' was successfully activated.",
+          error: "Store '%{store_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Store '%{store_name}' was successfully deactivated.",
+          error: "Store '%{store_name}' could not be deactivated.",
         }
       },
       packing_types: {
@@ -115,6 +171,14 @@
         destroy: {
           success: "Packing type '%{packing_type_name}' was successfully destroyed.",
           error: "Packing type '%{packing_type_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Packing type '%{packing_type_name}' was successfully activated.",
+          error: "Packing type '%{packing_type_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Packing type '%{packing_type_name}' was successfully deactivated.",
+          error: "Packing type '%{packing_type_name}' could not be deactivated.",
         }
       },
       manufacturers: {
@@ -129,6 +193,14 @@
         destroy: {
           success: "Manufacturer '%{manufacturer_name}' was successfully destroyed.",
           error: "Manufacturer '%{manufacturer_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Manufacturer '%{manufacturer_name}' was successfully activated.",
+          error: "Manufacturer '%{manufacturer_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Manufacturer '%{manufacturer_name}' was successfully deactivated.",
+          error: "Manufacturer '%{manufacturer_name}' could not be deactivated.",
         }
       },
       medicines: {
@@ -143,7 +215,15 @@
         destroy: {
           success: "Medicine '%{medicine_code} (%{medicine_name})' was successfully destroyed.",
           error: "Medicine '%{medicine_code} (%{medicine_name})' could not be destroyed.",
-        }
+        },
+        activate: {
+          success: "Medicine '%{medicine_code} (%{medicine_name})' was successfully activated.",
+          error: "Medicine '%{medicine_code} (%{medicine_name})' could not be activated.",
+        },
+        deactivate: {
+          success: "Medicine '%{medicine_code} (%{medicine_name})' was successfully deactivated.",
+          error: "Medicine '%{medicine_code} (%{medicine_name})' could not be deactivated.",
+        },
       },
       users: {
         create: {
@@ -157,6 +237,14 @@
         destroy: {
           success: "User '%{user_name}' was successfully destroyed.",
           error: "User '%{user_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "User '%{user_name}' was successfully activated.",
+          error: "User '%{user_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "User '%{user_name}' was successfully deactivated.",
+          error: "User '%{user_name}' could not be deactivated.",
         }
       },
       profiles: {
@@ -177,6 +265,14 @@
         destroy: {
           success: "Customer '%{customer_name}' was successfully destroyed.",
           error: "Customer '%{customer_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Customer '%{customer_name}' was successfully activated.",
+          error: "Customer '%{customer_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Customer '%{customer_name}' was successfully deactivated.",
+          error: "Customer '%{customer_name}' could not be deactivated.",
         }
       },
       shifts: {
@@ -191,6 +287,14 @@
         destroy: {
           success: "Shift '%{shift_name}' was successfully destroyed.",
           error: "Shift '%{shift_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Shift '%{shift_name}' was successfully activated.",
+          error: "Shift '%{shift_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Shift '%{shift_name}' was successfully deactivated.",
+          error: "Shift '%{shift_name}' could not be deactivated.",
         }
       },
     }

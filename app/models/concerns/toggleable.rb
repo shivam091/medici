@@ -22,15 +22,52 @@ module Toggleable
 
     base_class.class_eval do
       def activate!
-        self.update_column(:is_active, true)
+        run_callbacks :activate do
+          self.update_column(:is_active, true)
+        end
       end
 
       def deactivate!
-        self.update_column(:is_active, false)
+        run_callbacks :deactivate do
+          self.update_column(:is_active, false)
+        end
+      end
+    end
+
+    base_class.extend Callbacks
+  end
+
+  class_methods do
+    def activate_all!
+      all.each do |record|
+        record.public_send(:activate!)
+      end
+    end
+
+    def deactivate_all!
+      all.each do |record|
+        record.public_send(:deactivate!)
       end
     end
   end
 
-  class_methods do
+  module Callbacks
+    TOGGLEABLE_CALLBACK_EVENTS = [:before, :around, :after].freeze unless const_defined?(:CALLBACK_EVENTS)
+
+    def self.extended(base_class)
+      TOGGLEABLE_CALLBACK_EVENTS.each do |event|
+        base_class.define_singleton_method("#{event}_activate") do |*args, &block|
+          set_callback(:activate, event, *args, &block)
+        end
+      end
+      base_class.define_callbacks :activate
+
+      TOGGLEABLE_CALLBACK_EVENTS.each do |event|
+        base_class.define_singleton_method("#{event}_deactivate") do |*args, &block|
+          set_callback(:deactivate, event, *args, &block)
+        end
+      end
+      base_class.define_callbacks :deactivate
+    end
   end
 end

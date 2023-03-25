@@ -8,9 +8,9 @@ module CustomersShared
   def self.included(base_class)
     base_class.class_eval do
 
-      before_action :find_customer, except: [:index, :new, :create]
+      before_action :find_customer, except: [:index, :inactive, :new, :create]
       before_action do
-        if action_name.in?(["index", "new", "create"])
+        if action_name.in?(["index", "inactive","new", "create"])
           authorize ::Customer
         else
           authorize @customer
@@ -20,6 +20,12 @@ module CustomersShared
       # GET /(admin|manager|cashier)/customers
       def index
         @customers = policy_scope(::Customer).active.includes(:address)
+        @pagy, @customers = pagy(@customers)
+      end
+
+      # GET /(admin|manager|cashier)/customers/inactive
+      def inactive
+        @customers = policy_scope(::Customer).inactive.includes(:address)
         @pagy, @customers = pagy(@customers)
       end
 
@@ -78,6 +84,30 @@ module CustomersShared
         @customer = response.payload[:customer]
         if response.success?
           flash[:info] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.customers_path
+      end
+
+      # PATCH /admin/customers/:uuid/activate
+      def activate
+        response = ::Customers::ActivateService.(@customer)
+        @customer = response.payload[:customer]
+        if response.success?
+          flash[:notice] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.inactive_customers_path
+      end
+
+      # PATCH /admin/customer/:uuid/deactivate
+      def deactivate
+        response = ::Customers::DeactivateService.(@customer)
+        @customer = response.payload[:customer]
+        if response.success?
+          flash[:warning] = response.message
         else
           flash[:alert] = response.message
         end

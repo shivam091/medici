@@ -11,6 +11,9 @@
           active: "Active",
           inactive: "Inactive",
         },
+        inactive: {
+          title: "Countries",
+        },
         country: {
           name: "Name",
           iso2: "Alpha-2 code",
@@ -20,6 +23,8 @@
           currency: "Currency",
           actions: "Actions",
           delete_country_confirmation_text: "Are you sure you want to delete the country '%{country_name}'?",
+          activate_country_confirmation_text: "Are you sure you want to activate the country '%{country_name}'?",
+          deactivate_country_confirmation_text: "Are you sure you want to deactivate the country '%{country_name}'?",
           no_countries_to_display: "No countries to display."
         },
         new: {

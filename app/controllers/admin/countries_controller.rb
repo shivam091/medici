@@ -4,9 +4,9 @@
 
 class Admin::CountriesController < Admin::BaseController
 
-  before_action :find_country, except: [:index, :new, :create]
+  before_action :find_country, except: [:index, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "new", "create"])
+    if action_name.in?(["index", "inactive", "new", "create"])
       authorize ::Country
     else
       authorize @country
@@ -16,6 +16,12 @@ class Admin::CountriesController < Admin::BaseController
   # GET /admin/countries
   def index
     @countries = policy_scope(::Country).active.includes(:currency)
+    @pagy, @countries = pagy(@countries)
+  end
+
+  # GET /admin/countries/inactive
+  def inactive
+    @countries = policy_scope(::Country).inactive.includes(:currency)
     @pagy, @countries = pagy(@countries)
   end
 
@@ -74,6 +80,30 @@ class Admin::CountriesController < Admin::BaseController
     @country = response.payload[:country]
     if response.success?
       flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_countries_path
+  end
+
+  # PATCH /admin/countries/:uuid/activate
+  def activate
+    response = ::Countries::ActivateService.(@country)
+    @country = response.payload[:country]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_countries_path
+  end
+
+  # PATCH /admin/countries/:uuid/deactivate
+  def deactivate
+    response = ::Countries::DeactivateService.(@country)
+    @country = response.payload[:country]
+    if response.success?
+      flash[:warning] = response.message
     else
       flash[:alert] = response.message
     end

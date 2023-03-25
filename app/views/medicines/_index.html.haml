@@ -5,8 +5,9 @@
         - if policy(::Medicine).index?
           %li.nav-item
             = link_to t(".active"), medicines_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
-        %li.nav-item
-          = link_to t(".inactive"), "javascript:void(0)", class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
+        - if policy(::Medicine).inactive?
+          %li.nav-item
+            = link_to t(".inactive"), inactive_medicines_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
       - if policy(::Medicine).new?
         = link_to new_medicine_path, class: "btn btn-primary" do
           = external_svg_tag("svgs/plus.svg")

@@ -11,6 +11,9 @@
           active: "Active",
           inactive: "Inactive",
         },
+        inactive: {
+          title: "Currencies",
+        },
         currency: {
           name: "Name",
           iso_code: "ISO code",
@@ -20,6 +23,8 @@
           subunit_to_unit: "Subunit to unit",
           actions: "Actions",
           delete_currency_confirmation_text: "Are you sure you want to delete the currency '%{currency_name}'?",
+          deactivate_currency_confirmation_text: "Are you sure you want to deactivate the currency '%{currency_name}'?",
+          activate_currency_confirmation_text: "Are you sure you want to activate the currency '%{currency_name}'?",
           no_currencies_to_display: "No currencies to display."
         },
         new: {

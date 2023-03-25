@@ -11,10 +11,15 @@
           active: "Active",
           inactive: "Inactive",
         },
+        inactive: {
+          title: "Dosage forms",
+        },
         dosage_form: {
           name: "Name",
           actions: "Actions",
           delete_dosage_form_confirmation_text: "Are you sure you want to delete the dosage form '%{dosage_form_name}'?",
+          activate_dosage_form_confirmation_text: "Are you sure you want to activate the dosage form '%{dosage_form_name}'?",
+          deactivate_dosage_form_confirmation_text: "Are you sure you want to deactivate the dosage form '%{dosage_form_name}'?",
           no_dosage_forms_to_display: "No dosage forms to display."
         },
         new: {

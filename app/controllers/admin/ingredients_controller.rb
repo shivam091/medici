@@ -4,9 +4,9 @@
 
 class Admin::IngredientsController < Admin::BaseController
 
-  before_action :find_ingredient, except: [:index, :new, :create]
+  before_action :find_ingredient, except: [:index, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "new", "create"])
+    if action_name.in?(["index", "inactive", "new", "create"])
       authorize ::Ingredient
     else
       authorize @ingredient
@@ -16,6 +16,12 @@ class Admin::IngredientsController < Admin::BaseController
   # GET /admin/ingredients
   def index
     @ingredients = policy_scope(::Ingredient).active
+    @pagy, @ingredients = pagy(@ingredients)
+  end
+
+  # GET /admin/ingredients/inactive
+  def inactive
+    @ingredients = policy_scope(::Ingredient).inactive
     @pagy, @ingredients = pagy(@ingredients)
   end
 
@@ -74,6 +80,30 @@ class Admin::IngredientsController < Admin::BaseController
     @ingredient = response.payload[:ingredient]
     if response.success?
       flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_ingredients_path
+  end
+
+  # PATCH /admin/ingredients/:uuid/activate
+  def activate
+    response = ::Ingredients::ActivateService.(@ingredient)
+    @ingredient = response.payload[:ingredient]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_ingredients_path
+  end
+
+  # PATCH /admin/ingredients/:uuid/deactivate
+  def deactivate
+    response = ::Ingredients::DeactivateService.(@ingredient)
+    @ingredient = response.payload[:ingredient]
+    if response.success?
+      flash[:warning] = response.message
     else
       flash[:alert] = response.message
     end

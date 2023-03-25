@@ -8,9 +8,9 @@ module MedicinesShared
   def self.included(base_class)
     base_class.class_eval do
 
-      before_action :find_medicine, except: [:index, :new, :create]
+      before_action :find_medicine, except: [:index, :inactive, :new, :create]
       before_action do
-        if action_name.in?(["index", "new", "create"])
+        if action_name.in?(["index", "inactive", "new", "create"])
           authorize ::Medicine
         else
           authorize @medicine
@@ -20,6 +20,12 @@ module MedicinesShared
       # GET /(admin|manager)/medicines
       def index
         @medicines = policy_scope(::Medicine).active.includes(:stock, :replenishment)
+        @pagy, @medicines = pagy(@medicines)
+      end
+
+      # GET /(admin|manager)/medicines/inactive
+      def inactive
+        @medicines = policy_scope(::Medicine).inactive.includes(:stock, :replenishment)
         @pagy, @medicines = pagy(@medicines)
       end
 
@@ -78,6 +84,30 @@ module MedicinesShared
         @medicine = response.payload[:medicine]
         if response.success?
           flash[:info] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.medicines_path
+      end
+
+      # PATCH /admin/medicines/:uuid/activate
+      def activate
+        response = ::Medicines::ActivateService.(@medicine)
+        @medicine = response.payload[:medicine]
+        if response.success?
+          flash[:notice] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.inactive_medicines_path
+      end
+
+      # PATCH /admin/medicines/:uuid/deactivate
+      def deactivate
+        response = ::Medicines::DeactivateService.(@medicine)
+        @medicine = response.payload[:medicine]
+        if response.success?
+          flash[:warning] = response.message
         else
           flash[:alert] = response.message
         end

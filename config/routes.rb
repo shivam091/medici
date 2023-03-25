@@ -35,7 +35,18 @@ Rails.application.routes.draw do
 
   concern :shareable do
     resource :dashboard, only: :show
-    resources :customers, param: :uuid
+    resources :customers, param: :uuid, concerns: :toggleable
+  end
+
+  concern :toggleable do
+    collection do
+      get :inactive
+    end
+
+    member do
+      patch :activate
+      patch :deactivate
+    end
   end
 
   authenticate :user, -> (user) { (user.admin? || user.super_admin?) } do
@@ -44,13 +55,19 @@ Rails.application.routes.draw do
 
       resource :profile, only: [:show, :edit, :update]
 
-      resources :currencies, :countries, :ingredients, :users, :shifts, except: :show, param: :uuid
+      resources *[
+        :currencies,
+        :countries,
+        :ingredients,
+        :users,
+        :shifts
+      ], except: :show, param: :uuid, concerns: :toggleable
 
-      resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms"
-      resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories"
-      resources :packing_types, except: :show, param: :uuid, path: "packing-types"
+      resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms", concerns: :toggleable
+      resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories", concerns: :toggleable
+      resources :packing_types, except: :show, param: :uuid, path: "packing-types", concerns: :toggleable
 
-      resources :suppliers, :manufacturers, :medicines, :stores, param: :uuid
+      resources :suppliers, :manufacturers, :medicines, :stores, param: :uuid, concerns: :toggleable
     end
   end
 
@@ -60,7 +77,7 @@ Rails.application.routes.draw do
 
       resource :profile, only: [:show, :edit, :update]
 
-      resources :suppliers, :manufacturers, :medicines, param: :uuid
+      resources :suppliers, :manufacturers, :medicines, param: :uuid, concerns: :toggleable
     end
   end
 

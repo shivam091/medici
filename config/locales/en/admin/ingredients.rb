@@ -11,11 +11,16 @@
           active: "Active",
           inactive: "Inactive",
         },
+        inactive: {
+          title: "Ingredients",
+        },
         ingredient: {
           reference_code: "Reference code",
           name: "Name",
           actions: "Actions",
           delete_ingredient_confirmation_text: "Are you sure you want to delete the ingredient '%{ingredient_name}'?",
+          activate_ingredient_confirmation_text: "Are you sure you want to activate the ingredient '%{ingredient_name}'?",
+          deactivate_ingredient_confirmation_text: "Are you sure you want to deactivate the ingredient '%{ingredient_name}'?",
           no_ingredients_to_display: "No ingredients to display."
         },
         new: {

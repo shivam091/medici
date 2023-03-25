@@ -17,6 +17,10 @@ class AdminPolicy < ApplicationPolicy
     (user.super_admin? || user.admin?)
   end
 
+  def inactive?
+    (user.super_admin? || user.admin?)
+  end
+
   def new?
     (user.super_admin? || user.admin?)
   end
@@ -30,6 +34,14 @@ class AdminPolicy < ApplicationPolicy
   end
 
   def update?
+    (user.super_admin? || user.admin?)
+  end
+
+  def activate?
+    (user.super_admin? || user.admin?)
+  end
+
+  def deactivate?
     (user.super_admin? || user.admin?)
   end
 

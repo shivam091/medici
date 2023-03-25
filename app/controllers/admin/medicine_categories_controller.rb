@@ -4,9 +4,9 @@
 
 class Admin::MedicineCategoriesController < Admin::BaseController
 
-  before_action :find_medicine_category, except: [:index, :new, :create]
+  before_action :find_medicine_category, except: [:index, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "new", "create"])
+    if action_name.in?(["index", "inactive", "new", "create"])
       authorize ::MedicineCategory
     else
       authorize @medicine_category
@@ -16,6 +16,12 @@ class Admin::MedicineCategoriesController < Admin::BaseController
   # GET /admin/medicine-categories
   def index
     @medicine_categories = policy_scope(::MedicineCategory).active
+    @pagy, @medicine_categories = pagy(@medicine_categories)
+  end
+
+  # GET /admin/medicine-categories/inactive
+  def inactive
+    @medicine_categories = policy_scope(::MedicineCategory).inactive
     @pagy, @medicine_categories = pagy(@medicine_categories)
   end
 
@@ -74,6 +80,30 @@ class Admin::MedicineCategoriesController < Admin::BaseController
     @medicine_category = response.payload[:medicine_category]
     if response.success?
       flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_medicine_categories_path
+  end
+
+  # PATCH /admin/medicine-categories/:uuid/activate
+  def activate
+    response = ::MedicineCategories::ActivateService.(@medicine_category)
+    @medicine_category = response.payload[:medicine_category]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_medicine_categories_path
+  end
+
+  # PATCH /admin/medicine-categories/:uuid/deactivate
+  def deactivate
+    response = ::MedicineCategories::DeactivateService.(@medicine_category)
+    @medicine_category = response.payload[:medicine_category]
+    if response.success?
+      flash[:warning] = response.message
     else
       flash[:alert] = response.message
     end

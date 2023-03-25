@@ -4,9 +4,9 @@
 
 class Admin::CurrenciesController < Admin::BaseController
 
-  before_action :find_currency, except: [:index, :new, :create]
+  before_action :find_currency, except: [:index, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "new", "create"])
+    if action_name.in?(["index", "inactive", "new", "create"])
       authorize ::Currency
     else
       authorize @currency
@@ -16,6 +16,12 @@ class Admin::CurrenciesController < Admin::BaseController
   # GET /admin/currencies
   def index
     @currencies = policy_scope(::Currency).active.includes(:countries)
+    @pagy, @currencies = pagy(@currencies)
+  end
+
+  # GET /admin/currencies/inactive
+  def inactive
+    @currencies = policy_scope(::Currency).inactive.includes(:countries)
     @pagy, @currencies = pagy(@currencies)
   end
 
@@ -74,6 +80,30 @@ class Admin::CurrenciesController < Admin::BaseController
     @currency = response.payload[:currency]
     if response.success?
       flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_currencies_path
+  end
+
+  # PATCH /admin/currencies/:uuid/activate
+  def activate
+    response = ::Currencies::ActivateService.(@currency)
+    @currency = response.payload[:currency]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_currencies_path
+  end
+
+  # PATCH /admin/currencies/:uuid/deactivate
+  def deactivate
+    response = ::Currencies::DeactivateService.(@currency)
+    @currency = response.payload[:currency]
+    if response.success?
+      flash[:warning] = response.message
     else
       flash[:alert] = response.message
     end

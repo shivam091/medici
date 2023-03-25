@@ -10,6 +10,9 @@
         active: "Active",
         inactive: "Inactive",
       },
+      inactive: {
+        title: "Medicines",
+      },
       medicine: {
         reference_code: "Reference code",
         name: "Name",
@@ -27,6 +30,8 @@
         actions: "Actions",
         no_medicines_to_display: "No medicines to display",
         delete_medicine_confirmation_text: "Are you sure you want to delete the medicine '%{medicine_name}'?",
+        activate_medicine_confirmation_text: "Are you sure you want to activate the medicine '%{medicine_name}'?",
+        deactivate_medicine_confirmation_text: "Are you sure you want to deactivate the medicine '%{medicine_name}'?",
       },
       new: {
         title: "New medicine",

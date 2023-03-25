@@ -21,6 +21,12 @@
             - if policy(dosage_form).edit?
               = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_dosage_form_path(dosage_form), class: "btn btn-sm btn-secondary",
                 data: {turbo_frame: :remote_modal}
+            - if policy(dosage_form).deactivate? && dosage_form.is_active?
+              = link_to external_svg_tag("svgs/cancel.svg"), deactivate_admin_dosage_form_path(dosage_form), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".deactivate_dosage_form_confirmation_text", dosage_form_name: dosage_form.name), turbo_method: :patch}
+            - if policy(dosage_form).activate? && !dosage_form.is_active?
+              = link_to external_svg_tag("svgs/check-mark.svg"), activate_admin_dosage_form_path(dosage_form), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".activate_dosage_form_confirmation_text", dosage_form_name: dosage_form.name), turbo_method: :patch}
             - if policy(dosage_form).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), admin_dosage_form_path(dosage_form), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_dosage_form_confirmation_text", dosage_form_name: dosage_form.name), turbo_method: :delete}

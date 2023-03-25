@@ -4,9 +4,9 @@
 
 class Admin::UsersController < Admin::BaseController
 
-  before_action :find_user, except: [:index, :new, :create]
+  before_action :find_user, except: [:index, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "new", "create"])
+    if action_name.in?(["index", "inactive", "new", "create"])
       authorize ::User
     else
       authorize @user
@@ -16,6 +16,12 @@ class Admin::UsersController < Admin::BaseController
   # GET /admin/users
   def index
     @users = policy_scope(::User).active.includes(:role, :store)
+    @pagy, @users = pagy(@users)
+  end
+
+  # GET /admin/users/inactive
+  def inactive
+    @users = policy_scope(::User).inactive.includes(:role, :store)
     @pagy, @users = pagy(@users)
   end
 
@@ -74,6 +80,30 @@ class Admin::UsersController < Admin::BaseController
     @user = response.payload[:user]
     if response.success?
       flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_users_path
+  end
+
+  # PATCH /admin/users/:uuid/activate
+  def activate
+    response = ::Users::ActivateService.(@user)
+    @user = response.payload[:user]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_users_path
+  end
+
+  # PATCH /admin/users/:uuid/deactivate
+  def deactivate
+    response = ::Users::DeactivateService.(@user)
+    @user = response.payload[:user]
+    if response.success?
+      flash[:warning] = response.message
     else
       flash[:alert] = response.message
     end

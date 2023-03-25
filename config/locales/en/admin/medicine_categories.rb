@@ -11,11 +11,16 @@
           active: "Active",
           inactive: "Inactive",
         },
+        inactive: {
+          title: "Medicine categories",
+        },
         medicine_category: {
           name: "Name",
           description: "Description",
           actions: "Actions",
           delete_medicine_category_confirmation_text: "Are you sure you want to delete the medicine category '%{medicine_category_name}'?",
+          activate_medicine_category_confirmation_text: "Are you sure you want to activate the medicine category '%{medicine_category_name}'?",
+          deactivate_medicine_category_confirmation_text: "Are you sure you want to deactivate the medicine category '%{medicine_category_name}'?",
           no_medicine_categories_to_display: "No medicine categories to display."
         },
         new: {

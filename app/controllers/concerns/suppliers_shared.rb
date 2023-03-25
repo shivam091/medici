@@ -8,9 +8,9 @@ module SuppliersShared
   def self.included(base_class)
     base_class.class_eval do
 
-      before_action :find_supplier, except: [:index, :new, :create]
+      before_action :find_supplier, except: [:index, :inactive, :new, :create]
       before_action do
-        if action_name.in?(["index", "new", "create"])
+        if action_name.in?(["index", "inactive", "new", "create"])
           authorize ::Supplier
         else
           authorize @supplier
@@ -20,6 +20,12 @@ module SuppliersShared
       # GET /(admin|manager)/suppliers
       def index
         @suppliers = policy_scope(::Supplier).active.includes(:address)
+        @pagy, @suppliers = pagy(@suppliers)
+      end
+
+      # GET /(admin|manager)/suppliers/inactive
+      def inactive
+        @suppliers = policy_scope(::Supplier).inactive.includes(:address)
         @pagy, @suppliers = pagy(@suppliers)
       end
 
@@ -78,6 +84,30 @@ module SuppliersShared
         @supplier = response.payload[:supplier]
         if response.success?
           flash[:info] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.suppliers_path
+      end
+
+      # PATCH /admin/suppliers/:uuid/activate
+      def activate
+        response = ::Suppliers::ActivateService.(@supplier)
+        @supplier = response.payload[:supplier]
+        if response.success?
+          flash[:notice] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.inactive_suppliers_path
+      end
+
+      # PATCH /admin/supplier/:uuid/deactivate
+      def deactivate
+        response = ::Suppliers::DeactivateService.(@supplier)
+        @supplier = response.payload[:supplier]
+        if response.success?
+          flash[:warning] = response.message
         else
           flash[:alert] = response.message
         end

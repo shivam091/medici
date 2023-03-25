@@ -4,9 +4,9 @@
 
 class Admin::ShiftsController < Admin::BaseController
 
-  before_action :find_shift, except: [:index, :new, :create]
+  before_action :find_shift, except: [:index, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "new", "create"])
+    if action_name.in?(["index", "inactive", "new", "create"])
       authorize ::Shift
     else
       authorize @shift
@@ -16,6 +16,12 @@ class Admin::ShiftsController < Admin::BaseController
   # GET /admin/shifts
   def index
     @shifts = policy_scope(::Shift).active
+    @pagy, @shifts = pagy(@shifts)
+  end
+
+  # GET /admin/shifts/inactive
+  def inactive
+    @shifts = policy_scope(::Shift).inactive
     @pagy, @shifts = pagy(@shifts)
   end
 
@@ -74,6 +80,30 @@ class Admin::ShiftsController < Admin::BaseController
     @shift = response.payload[:shift]
     if response.success?
       flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_shifts_path
+  end
+
+  # PATCH /admin/shifts/:uuid/activate
+  def activate
+    response = ::Shifts::ActivateService.(@shift)
+    @shift = response.payload[:shift]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_shifts_path
+  end
+
+  # PATCH /admin/shifts/:uuid/deactivate
+  def deactivate
+    response = ::Shifts::DeactivateService.(@shift)
+    @shift = response.payload[:shift]
+    if response.success?
+      flash[:warning] = response.message
     else
       flash[:alert] = response.message
     end
