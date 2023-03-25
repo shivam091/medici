@@ -29,6 +29,12 @@
             - if policy(medicine_category).edit?
               = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_medicine_category_path(medicine_category), class: "btn btn-sm btn-secondary",
                 data: {turbo_frame: :remote_modal}
+            - if policy(medicine_category).deactivate? && medicine_category.is_active?
+              = link_to external_svg_tag("svgs/cancel.svg"), deactivate_admin_medicine_category_path(medicine_category), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".deactivate_medicine_category_confirmation_text", medicine_category_name: medicine_category.name), turbo_method: :patch}
+            - if policy(medicine_category).activate? && !medicine_category.is_active?
+              = link_to external_svg_tag("svgs/check-mark.svg"), activate_admin_medicine_category_path(medicine_category), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".activate_medicine_category_confirmation_text", medicine_category_name: medicine_category.name), turbo_method: :patch}
             - if policy(medicine_category).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), admin_medicine_category_path(medicine_category), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_medicine_category_confirmation_text", medicine_category_name: medicine_category.name), turbo_method: :delete}
