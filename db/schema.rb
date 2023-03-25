@@ -386,6 +386,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_164627) do
     t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_bda7229b58"
   end
 
+  create_table "tax_rates", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "country_id"
+    t.decimal "rate", precision: 8, scale: 2, default: "0.0"
+    t.enum "type", default: "gst", enum_type: "tax_rate_types"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["country_id"], name: "index_tax_rates_on_country_id", unique: true
+    t.check_constraint "country_id IS NOT NULL", name: "chk_dcb54ba6b7"
+    t.check_constraint "rate >= 0.0", name: "chk_321df07473"
+    t.check_constraint "rate IS NOT NULL", name: "chk_a7c583dbd4"
+    t.check_constraint "type IS NOT NULL", name: "chk_d92ff7e269"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "mobile_number"
@@ -456,6 +469,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_164627) do
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "stocks", "medicines", name: "fk_stocks_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "stores", "currencies", name: "fk_stores_currency_id_on_currencies", on_delete: :restrict
+  add_foreign_key "tax_rates", "countries", name: "fk_tax_rates_country_id_on_countries", on_delete: :restrict
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
   add_foreign_key "users", "stores", name: "fk_users_store_id_on_stores", on_delete: :cascade
 end
