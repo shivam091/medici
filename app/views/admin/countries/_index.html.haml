@@ -5,8 +5,9 @@
         - if policy(::Country).index?
           %li.nav-item
             = link_to t(".active"), admin_countries_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
-        %li.nav-item
-          = link_to t(".inactive"), "javascript:void(0)", class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
+        - if policy(::Country).inactive?
+          %li.nav-item
+            = link_to t(".inactive"), inactive_admin_countries_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
       - if policy(::Country).new?
         = link_to new_admin_country_path, class: "btn btn-primary", data: {turbo_frame: :remote_modal} do
           = external_svg_tag("svgs/plus.svg")
