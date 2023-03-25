@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_18_135826) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_21_020806) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -353,6 +353,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_135826) do
     t.index ["currency_id"], name: "index_stores_on_currency_id"
     t.index ["email"], name: "index_stores_on_email", unique: true
     t.index ["phone_number"], name: "index_stores_on_phone_number", unique: true
+    t.index ["registration_number"], name: "index_stores_on_registration_number", unique: true
     t.check_constraint "char_length(email::text) <= 55", name: "chk_0966276692"
     t.check_constraint "char_length(fax_number::text) <= 32", name: "chk_55cbeaf1bf"
     t.check_constraint "char_length(phone_number::text) <= 32", name: "chk_304d33223a"

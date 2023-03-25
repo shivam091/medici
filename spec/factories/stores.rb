@@ -5,11 +5,21 @@
 FactoryBot.define do
   factory :store do
     name { "Pharmacy store" }
-    email { "store@medici.com" }
+    email { generate(:email) }
     phone_number { generate(:phone_number) }
-    fax_number { generate(:phone_number) }
-    registration_number { "1234567890" }
+    fax_number { generate(:fax_number) }
+    registration_number { generate(:registration_number) }
     currency { ::Currency.first || create(:currency, :active) }
+
+    trait :with_users do
+      after(:create) do |store|
+        store.users << [
+          create(:admin, :confirmed, :active, :with_address),
+          create(:manager, :confirmed, :active, :with_address),
+          create(:cashier, :confirmed, :active, :with_address)
+        ]
+      end
+    end
 
     trait :with_admin do
       after(:create) do |store|
