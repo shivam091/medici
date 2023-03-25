@@ -36,6 +36,7 @@ RSpec.describe Store, type: :model do
 
     it { is_expected.to have_db_index(:email).unique(true) }
     it { is_expected.to have_db_index(:phone_number).unique(true) }
+    it { is_expected.to have_db_index(:registration_number).unique(true) }
 
     it { is_expected.to have_foreign_key(:currency_id).with_name(:fk_stores_currency_id_on_currencies).on_delete(:restrict) }
 
@@ -87,6 +88,11 @@ RSpec.describe Store, type: :model do
     describe "#name" do
       it { is_expected.to validate_presence_of(:name).with_message("is required") }
       it { is_expected.to validate_length_of(:name).is_at_most(110).with_message("is too long (maximum is 110 characters)") }
+    end
+
+    describe "#registration_number" do
+      it { is_expected.to validate_presence_of(:registration_number).with_message("is required") }
+      it { is_expected.to validate_uniqueness_of(:registration_number).with_message("is already in use").case_insensitive }
     end
 
     describe "#email" do
