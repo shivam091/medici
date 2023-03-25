@@ -107,7 +107,7 @@ module MedicinesShared
         response = ::Medicines::DeactivateService.(@medicine)
         @medicine = response.payload[:medicine]
         if response.success?
-          flash[:notice] = response.message
+          flash[:warning] = response.message
         else
           flash[:alert] = response.message
         end

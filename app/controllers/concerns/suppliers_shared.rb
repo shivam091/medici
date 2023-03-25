@@ -101,6 +101,18 @@ module SuppliersShared
         end
         redirect_to helpers.inactive_suppliers_path
       end
+
+      # PATCH /admin/supplier/:uuid/deactivate
+      def deactivate
+        response = ::Suppliers::DeactivateService.(@supplier)
+        @supplier = response.payload[:supplier]
+        if response.success?
+          flash[:warning] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.suppliers_path
+      end
     end
   end
 
