@@ -141,6 +141,14 @@
         destroy: {
           success: "Store '%{store_name}' was successfully destroyed.",
           error: "Store '%{store_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Store '%{store_name}' was successfully activated.",
+          error: "Store '%{store_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Store '%{store_name}' was successfully deactivated.",
+          error: "Store '%{store_name}' could not be deactivated.",
         }
       },
       packing_types: {

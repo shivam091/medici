@@ -11,6 +11,9 @@
           active: "Active",
           inactive: "Inactive"
         },
+        inactive: {
+          title: "Stores",
+        },
         store: {
           reference_code: "Reference code",
           name: "Name",
@@ -21,6 +24,8 @@
           actions: "Actions",
           no_stores_to_display: "No stores to display",
           delete_store_confirmation_text: "Are you sure you want to delete the store '%{store_name}'?",
+          activate_store_confirmation_text: "Are you sure you want to activate the store '%{store_name}'?",
+          deactivate_store_confirmation_text: "Are you sure you want to deactivate the store '%{store_name}'?",
         },
         new: {
           title: "New store",
