@@ -31,6 +31,12 @@
             - if policy(currency).edit?
               = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_currency_path(currency), class: "btn btn-sm btn-secondary",
                 data: {turbo_frame: :remote_modal}
+            - if policy(currency).deactivate? && currency.is_active?
+              = link_to external_svg_tag("svgs/cancel.svg"), deactivate_admin_currency_path(currency), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".deactivate_currency_confirmation_text", currency_name: currency.name), turbo_method: :patch}
+            - if policy(currency).activate? && !currency.is_active?
+              = link_to external_svg_tag("svgs/check-mark.svg"), activate_admin_currency_path(currency), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".activate_currency_confirmation_text", currency_name: currency.name), turbo_method: :patch}
             - if policy(currency).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), admin_currency_path(currency), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_currency_confirmation_text", currency_name: currency.name), turbo_method: :delete}
