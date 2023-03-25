@@ -44,10 +44,10 @@
               = link_to external_svg_tag("svgs/pencil.svg"), edit_medicine_path(medicine), class: "btn btn-sm btn-secondary"
             - if policy(medicine).deactivate? && medicine.is_active?
               = link_to external_svg_tag("svgs/cancel.svg"), deactivate_medicine_path(medicine), class: "btn btn-sm btn-secondary",
-                data: {turbo_confirm: t(".deactivate_medicine_confirmation_text", medicine_name: medicine), turbo_method: :patch}
+                data: {turbo_confirm: t(".deactivate_medicine_confirmation_text", medicine_name: medicine.name), turbo_method: :patch}
             - if policy(medicine).activate? && !medicine.is_active?
               = link_to external_svg_tag("svgs/check-mark.svg"), activate_medicine_path(medicine), class: "btn btn-sm btn-secondary",
-                data: {turbo_confirm: t(".activate_medicine_confirmation_text", medicine_name: medicine), turbo_method: :patch}
+                data: {turbo_confirm: t(".activate_medicine_confirmation_text", medicine_name: medicine.name), turbo_method: :patch}
             - if policy(medicine).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), medicine_path(medicine), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_medicine_confirmation_text", medicine_name: medicine.name), turbo_method: :delete}

@@ -152,6 +152,14 @@
           success: "Medicine '%{medicine_code} (%{medicine_name})' was successfully destroyed.",
           error: "Medicine '%{medicine_code} (%{medicine_name})' could not be destroyed.",
         },
+        activate: {
+          success: "Medicine '%{medicine_code} (%{medicine_name})' was successfully activated.",
+          error: "Medicine '%{medicine_code} (%{medicine_name})' could not be activated.",
+        },
+        deactivate: {
+          success: "Medicine '%{medicine_code} (%{medicine_name})' was successfully deactivated.",
+          error: "Medicine '%{medicine_code} (%{medicine_name})' could not be deactivated.",
+        },
       },
       users: {
         create: {
