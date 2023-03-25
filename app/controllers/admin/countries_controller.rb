@@ -86,6 +86,18 @@ class Admin::CountriesController < Admin::BaseController
     redirect_to admin_countries_path
   end
 
+  # PATCH /admin/countries/:uuid/activate
+  def activate
+    response = ::Countries::ActivateService.(@country)
+    @country = response.payload[:country]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_currencies_path
+  end
+
   private
 
   def country_params
