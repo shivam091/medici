@@ -75,6 +75,14 @@
         destroy: {
           success: "Dosage form '%{dosage_form_name}' was successfully destroyed.",
           error: "Dosage form '%{dosage_form_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Dosage form '%{dosage_form_name}' was successfully activated.",
+          error: "Dosage form '%{dosage_form_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Dosage form '%{dosage_form_name}' was successfully deactivated.",
+          error: "Dosage form '%{dosage_form_name}' could not be deactivated.",
         }
       },
       medicine_categories: {
