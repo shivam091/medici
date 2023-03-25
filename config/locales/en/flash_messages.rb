@@ -279,6 +279,14 @@
         destroy: {
           success: "Shift '%{shift_name}' was successfully destroyed.",
           error: "Shift '%{shift_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Shift '%{shift_name}' was successfully activated.",
+          error: "Shift '%{shift_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Shift '%{shift_name}' was successfully deactivated.",
+          error: "Shift '%{shift_name}' could not be deactivated.",
         }
       },
     }
