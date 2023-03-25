@@ -6,6 +6,23 @@ class TaxRate < ApplicationRecord
 
   self.inheritance_column = :_type_disabled
 
+  enum type: {
+    vat: "vat",
+    gst: "gst",
+    cgst: "cgst",
+    sgst: "sgst",
+    pst: "pst",
+    hst: "hst",
+    st: "st",
+  }
+
+  validates :country_id, presence: true, reduce: true
+  validates :rate,
+            presence: true,
+            numericality: {greater_than_or_equal_to: 0.0},
+            reduce: true
+  validates :type, presence: true, inclusion: {in: types.values}, reduce: true
+
   belongs_to :country
 
   default_scope do
