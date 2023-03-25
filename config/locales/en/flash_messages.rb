@@ -105,6 +105,14 @@
         destroy: {
           success: "Medicine category '%{medicine_category_name}' was successfully destroyed.",
           error: "Medicine category '%{medicine_category_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Medicine category '%{medicine_category_name}' was successfully activated.",
+          error: "Medicine category '%{medicine_category_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Medicine category '%{medicine_category_name}' was successfully deactivated.",
+          error: "Medicine category '%{medicine_category_name}' could not be deactivated.",
         }
       },
       suppliers: {
