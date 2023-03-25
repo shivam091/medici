@@ -101,6 +101,18 @@ module CustomersShared
         end
         redirect_to helpers.inactive_customers_path
       end
+
+      # PATCH /admin/customer/:uuid/deactivate
+      def deactivate
+        response = ::Customers::DeactivateService.(@customer)
+        @customer = response.payload[:customer]
+        if response.success?
+          flash[:warning] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.customers_path
+      end
     end
   end
 
