@@ -98,6 +98,18 @@ class Admin::PackingTypesController < Admin::BaseController
     redirect_to inactive_admin_packing_types_path
   end
 
+  # PATCH /admin/packing-types/:uuid/deactivate
+  def deactivate
+    response = ::PackingTypes::DeactivateService.(@packing_type)
+    @packing_type = response.payload[:packing_type]
+    if response.success?
+      flash[:warning] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_packing_types_path
+  end
+
   private
 
   def packing_type_params
