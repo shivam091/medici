@@ -61,6 +61,14 @@
         destroy: {
           success: "Ingredient '%{ingredient_name}' was successfully destroyed.",
           error: "Ingredient '%{ingredient_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Ingredient '%{ingredient_name}' was successfully activated.",
+          error: "Ingredient '%{ingredient_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Ingredient '%{ingredient_name}' was successfully deactivated.",
+          error: "Ingredient '%{ingredient_name}' could not be deactivated.",
         }
       },
       dosage_forms: {
