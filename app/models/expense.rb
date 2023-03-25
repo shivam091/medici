@@ -27,7 +27,6 @@ class Expense < ApplicationRecord
     end
   end
 
-
   validates :criteria, presence: true, length: {maximum: 55}, reduce: true
   validates :amount,
             presence: true,

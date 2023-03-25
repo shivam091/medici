@@ -26,7 +26,8 @@
           %td= number_to_currency(expense.amount, unit: (store.present? ? store.currency_symbol : external_svg_tag("svgs/dollar.svg")))
           %td.actions
             - if policy(expense).edit?
-              = link_to external_svg_tag("svgs/pencil.svg"), edit_expense_path(expense), class: "btn btn-sm btn-secondary"
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_expense_path(expense), class: "btn btn-sm btn-secondary",
+                data: {turbo_frame: :remote_modal}
             - if policy(expense).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), expense_path(expense), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_expense_confirmation_text"), turbo_method: :delete}
