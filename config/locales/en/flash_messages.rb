@@ -95,6 +95,14 @@
         destroy: {
           success: "Supplier '%{supplier_name}' was successfully destroyed.",
           error: "Supplier '%{supplier_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Supplier '%{supplier_name}' was successfully activated.",
+          error: "Supplier '%{supplier_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Supplier '%{supplier_name}' was successfully deactivated.",
+          error: "Supplier '%{supplier_name}' could not be deactivated.",
         }
       },
       stores: {

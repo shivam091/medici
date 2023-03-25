@@ -10,6 +10,9 @@
         active: "Active",
         inactive: "Inactive",
       },
+      inactive: {
+        title: "Suppliers",
+      },
       supplier: {
         reference_code: "Reference code",
         name: "Name",
@@ -19,6 +22,8 @@
         actions: "Actions",
         no_suppliers_to_display: "No suppliers to display",
         delete_supplier_confirmation_text: "Are you sure you want to delete the supplier '%{supplier_name}'?",
+        activate_supplier_confirmation_text: "Are you sure you want to activate the supplier '%{supplier_name}'?",
+        deactivate_supplier_confirmation_text: "Are you sure you want to deactivate the supplier '%{supplier_name}'?",
       },
       new: {
         title: "New supplier",
