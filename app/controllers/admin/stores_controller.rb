@@ -4,9 +4,9 @@
 
 class Admin::StoresController < Admin::BaseController
 
-  before_action :find_store, except: [:index, :new, :create]
+  before_action :find_store, except: [:index, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "new", "create"])
+    if action_name.in?(["index", "inactive", "new", "create"])
       authorize ::Store
     else
       authorize @store
@@ -16,6 +16,12 @@ class Admin::StoresController < Admin::BaseController
   # GET /admin/stores
   def index
     @stores = policy_scope(::Store).active.includes(:address)
+    @pagy, @stores = pagy(@stores)
+  end
+
+  # GET /admin/stores/inactive
+  def inactive
+    @stores = policy_scope(::Store).inactive.includes(:address)
     @pagy, @stores = pagy(@stores)
   end
 
