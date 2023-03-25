@@ -30,6 +30,12 @@
           %td.actions
             - if policy(user).edit?
               = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_user_path(user), class: "btn btn-sm btn-secondary"
+            - if policy(user).deactivate? && user.is_active?
+              = link_to external_svg_tag("svgs/cancel.svg"), deactivate_admin_user_path(user), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".deactivate_user_confirmation_text", user_name: user.full_name), turbo_method: :patch}
+            - if policy(user).activate? && !user.is_active?
+              = link_to external_svg_tag("svgs/check-mark.svg"), activate_admin_user_path(user), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".activate_user_confirmation_text", user_name: user.full_name), turbo_method: :patch}
             - if policy(user).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), admin_user_path(user), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_user_confirmation_text", user_name: user.full_name), turbo_method: :delete}
