@@ -94,7 +94,7 @@ group :development, :test do
   gem "shoulda-matchers", "~> 5.0"
 
   # Clean your ActiveRecord databases with database cleaner.
-  gem "database_cleaner-active_record"
+  gem "database_cleaner"
 
   # Fixtures replacement with a straightforward definition syntax.
   gem "factory_bot_rails"
