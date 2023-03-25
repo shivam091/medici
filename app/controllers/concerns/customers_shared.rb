@@ -89,6 +89,18 @@ module CustomersShared
         end
         redirect_to helpers.customers_path
       end
+
+      # PATCH /admin/customers/:uuid/activate
+      def activate
+        response = ::Customers::ActivateService.(@customer)
+        @customer = response.payload[:customer]
+        if response.success?
+          flash[:notice] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.inactive_customers_path
+      end
     end
   end
 
