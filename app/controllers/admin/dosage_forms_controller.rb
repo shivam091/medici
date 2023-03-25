@@ -4,9 +4,9 @@
 
 class Admin::DosageFormsController < Admin::BaseController
 
-  before_action :find_dosage_form, except: [:index, :new, :create]
+  before_action :find_dosage_form, except: [:index, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "new", "create"])
+    if action_name.in?(["index", "inactive", "new", "create"])
       authorize ::DosageForm
     else
       authorize @dosage_form
@@ -80,6 +80,18 @@ class Admin::DosageFormsController < Admin::BaseController
     @dosage_form = response.payload[:dosage_form]
     if response.success?
       flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_dosage_forms_path
+  end
+
+  # PATCH /admin/dosage-forms/:uuid/activate
+  def activate
+    response = ::DosageForms::ActivateService.(@dosage_form)
+    @dosage_form = response.payload[:dosage_form]
+    if response.success?
+      flash[:notice] = response.message
     else
       flash[:alert] = response.message
     end
