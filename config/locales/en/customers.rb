@@ -10,6 +10,9 @@
         active: "Active",
         inactive: "Inactive",
       },
+      inactive: {
+        title: "Customers",
+      },
       customer: {
         reference_code: "Reference code",
         name: "Name",
@@ -19,6 +22,8 @@
         actions: "Actions",
         no_customers_to_display: "No customers to display",
         delete_customer_confirmation_text: "Are you sure you want to delete the customer '%{customer_name}'?",
+        activate_customer_confirmation_text: "Are you sure you want to activate the customer '%{customer_name}'?",
+        deactivate_customer_confirmation_text: "Are you sure you want to deactivate the customer '%{customer_name}'?",
       },
       new: {
         title: "New customer",

@@ -201,6 +201,14 @@
         destroy: {
           success: "Customer '%{customer_name}' was successfully destroyed.",
           error: "Customer '%{customer_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Customer '%{customer_name}' was successfully activated.",
+          error: "Customer '%{customer_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Customer '%{customer_name}' was successfully deactivated.",
+          error: "Customer '%{customer_name}' could not be deactivated.",
         }
       },
       shifts: {
