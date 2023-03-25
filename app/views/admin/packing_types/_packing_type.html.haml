@@ -21,6 +21,12 @@
             - if policy(packing_type).edit?
               = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_packing_type_path(packing_type), class: "btn btn-sm btn-secondary",
                 data: {turbo_frame: :remote_modal}
+            - if policy(packing_type).deactivate? && packing_type.is_active?
+              = link_to external_svg_tag("svgs/cancel.svg"), deactivate_admin_packing_type_path(packing_type), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".deactivate_packing_type_confirmation_text", packing_type_name: packing_type.name), turbo_method: :patch}
+            - if policy(packing_type).activate? && !packing_type.is_active?
+              = link_to external_svg_tag("svgs/check-mark.svg"), activate_admin_packing_type_path(packing_type), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".activate_packing_type_confirmation_text", packing_type_name: packing_type.name), turbo_method: :patch}
             - if policy(packing_type).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), admin_packing_type_path(packing_type), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_packing_type_confirmation_text", packing_type_name: packing_type.name), turbo_method: :delete}
