@@ -86,6 +86,18 @@ class Admin::IngredientsController < Admin::BaseController
     redirect_to admin_ingredients_path
   end
 
+  # PATCH /admin/ingredients/:uuid/activate
+  def activate
+    response = ::Ingredients::ActivateService.(@ingredient)
+    @ingredient = response.payload[:ingredient]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_ingredients_path
+  end
+
   private
 
   def ingredient_params
