@@ -95,6 +95,18 @@ class Admin::DosageFormsController < Admin::BaseController
     else
       flash[:alert] = response.message
     end
+    redirect_to inactive_admin_dosage_forms_path
+  end
+
+  # PATCH /admin/dosage-forms/:uuid/deactivate
+  def deactivate
+    response = ::DosageForms::DeactivateService.(@dosage_form)
+    @dosage_form = response.payload[:dosage_form]
+    if response.success?
+      flash[:warning] = response.message
+    else
+      flash[:alert] = response.message
+    end
     redirect_to admin_dosage_forms_path
   end
 
