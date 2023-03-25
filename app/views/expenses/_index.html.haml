@@ -2,7 +2,7 @@
   .card-header
     .d-flex.justify-content-end.align-items-center
       - if policy(::Expense).new?
-        = link_to new_expense_path, class: "btn btn-primary" do
+        = link_to new_expense_path, class: "btn btn-primary", data: {turbo_frame: :remote_modal} do
           = external_svg_tag("svgs/plus.svg")
           %span.d-block.d-lg-none= button_text("new")
           %span.d-none.d-lg-block= button_text("new_expense")
