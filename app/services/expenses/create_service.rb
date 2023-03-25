@@ -18,7 +18,6 @@ class Expenses::CreateService < ApplicationService
 
   def create_expense
     expense = user.expenses.build(expense_attributes)
-    debugger
     if expense.save
       ::ServiceResponse.success(
         message: t("expenses.create.success"),
