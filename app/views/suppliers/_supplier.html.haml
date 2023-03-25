@@ -28,6 +28,12 @@
           %td.actions
             - if policy(supplier).edit?
               = link_to external_svg_tag("svgs/pencil.svg"), edit_supplier_path(supplier), class: "btn btn-sm btn-secondary"
+            - if policy(supplier).deactivate? && supplier.is_active?
+              = link_to external_svg_tag("svgs/cancel.svg"), deactivate_supplier_path(supplier), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".deactivate_supplier_confirmation_text", supplier_name: supplier.name), turbo_method: :patch}
+            - if policy(supplier).activate? && !supplier.is_active?
+              = link_to external_svg_tag("svgs/check-mark.svg"), activate_supplier_path(supplier), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".activate_supplier_confirmation_text", supplier_name: supplier.name), turbo_method: :patch}
             - if policy(supplier).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), supplier_path(supplier), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_supplier_confirmation_text", supplier_name: supplier.name), turbo_method: :delete}

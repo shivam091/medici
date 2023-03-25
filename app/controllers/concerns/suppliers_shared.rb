@@ -89,6 +89,18 @@ module SuppliersShared
         end
         redirect_to helpers.suppliers_path
       end
+
+      # PATCH /admin/suppliers/:uuid/activate
+      def activate
+        response = ::Suppliers::ActivateService.(@supplier)
+        @supplier = response.payload[:supplier]
+        if response.success?
+          flash[:notice] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.inactive_suppliers_path
+      end
     end
   end
 
