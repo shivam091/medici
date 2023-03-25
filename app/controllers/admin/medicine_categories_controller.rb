@@ -86,6 +86,18 @@ class Admin::MedicineCategoriesController < Admin::BaseController
     redirect_to admin_medicine_categories_path
   end
 
+  # PATCH /admin/medicine-categories/:uuid/activate
+  def activate
+    response = ::MedicineCategories::ActivateService.(@medicine_category)
+    @medicine_category = response.payload[:medicine_category]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_medicine_categories_path
+  end
+
   # PATCH /admin/medicine-categories/:uuid/deactivate
   def deactivate
     response = ::MedicineCategories::DeactivateService.(@medicine_category)
