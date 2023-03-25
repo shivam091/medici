@@ -101,6 +101,18 @@ module MedicinesShared
         end
         redirect_to helpers.inactive_medicines_path
       end
+
+      # PATCH /admin/medicines/:uuid/deactivate
+      def deactivate
+        response = ::Medicines::DeactivateService.(@medicine)
+        @medicine = response.payload[:medicine]
+        if response.success?
+          flash[:notice] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.medicines_path
+      end
     end
   end
 
