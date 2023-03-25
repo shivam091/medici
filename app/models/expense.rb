@@ -27,6 +27,7 @@ class Expense < ApplicationRecord
     end
   end
 
+  validates :store_id, :user_id, presence: true, reduce: true
   validates :criteria, presence: true, length: {maximum: 55}, reduce: true
   validates :amount,
             presence: true,
@@ -36,7 +37,7 @@ class Expense < ApplicationRecord
   belongs_to :store, inverse_of: :expenses, optional: true
   belongs_to :user, inverse_of: :expenses
 
-  before_create :set_store
+  before_validation :set_store, on: :create
 
   delegate :name, :phone_number, :email, to: :store, prefix: true
 
