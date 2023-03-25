@@ -86,6 +86,18 @@ class Admin::StoresController < Admin::BaseController
     redirect_to admin_stores_path
   end
 
+  # PATCH /admin/stores/:uuid/activate
+  def activate
+    response = ::Stores::ActivateService.(@store)
+    @store = response.payload[:store]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_stores_path
+  end
+
   private
 
   def find_store
