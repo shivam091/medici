@@ -19,6 +19,12 @@ class Admin::DosageFormsController < Admin::BaseController
     @pagy, @dosage_forms = pagy(@dosage_forms)
   end
 
+  # GET /admin/dosage-forms/inactive
+  def inactive
+    @dosage_forms = policy_scope(::DosageForm).inactive
+    @pagy, @dosage_forms = pagy(@dosage_forms)
+  end
+
   # GET /admin/dosage-forms/new
   def new
     @dosage_form = ::DosageForm.new

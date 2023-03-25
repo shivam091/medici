@@ -5,8 +5,9 @@
         - if policy(::DosageForm).index?
           %li.nav-item
             = link_to t(".active"), admin_dosage_forms_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
-        %li.nav-item
-          = link_to t(".inactive"), "javascript:void(0)", class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
+        - if policy(::DosageForm).inactive?
+          %li.nav-item
+            = link_to t(".inactive"), inactive_admin_dosage_forms_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
       - if policy(::DosageForm).new?
         = link_to new_admin_dosage_form_path, class: "btn btn-primary", data: {turbo_frame: :remote_modal} do
           = external_svg_tag("svgs/plus.svg")
