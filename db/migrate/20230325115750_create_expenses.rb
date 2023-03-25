@@ -36,6 +36,7 @@ class CreateExpenses < Medici::Database::Migration[1.0]
       t.numericality_constraint :amount, greater_than: 0.0
 
       t.length_constraint :reference_code, less_than_or_equal_to: 15
+      t.length_constraint :criteria, less_than_or_equal_to: 55
 
       t.timestamps_with_timezone null: false
     end

@@ -161,6 +161,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_115750) do
     t.index ["user_id"], name: "index_expenses_on_user_id"
     t.check_constraint "amount > 0.0", name: "chk_943822d0f2"
     t.check_constraint "amount IS NOT NULL", name: "chk_bf9d9a5774"
+    t.check_constraint "char_length(criteria::text) <= 55", name: "chk_202a6bb4e8"
     t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_40124d91ea"
     t.check_constraint "criteria IS NOT NULL AND criteria::text <> ''::text", name: "chk_997b885100"
     t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_031025e841"
