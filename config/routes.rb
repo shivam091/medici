@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   concern :shareable do
     resource :dashboard, only: :show
     resources :customers, param: :uuid, concerns: :toggleable
+    resources :expenses, param: :uuid
   end
 
   concern :toggleable do
