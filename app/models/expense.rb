@@ -5,12 +5,25 @@
 class Expense < ApplicationRecord
   include Sortable, ReferenceCode
 
-  attribute :amount, default: 0.0
+  enum status: {
+    pending: "pending",
+    approved: "approved",
+    rejected: "rejected"
+  }
 
-  belongs_to :store, inverse_of: :expenses
+  attribute :amount, default: 0.0
+  attribute :status, :enum, default: statuses[:pending]
+
+  validates :criteria, presence: true, length: {maximum: 55}, reduce: true
+  validates :amount,
+            presence: true,
+            numericality: {greater_than: 0.0},
+            reduce: true
+
+  belongs_to :store, inverse_of: :expenses, optional: true
   belongs_to :user, inverse_of: :expenses
 
-  after_initialize :set_store
+  before_create :set_store
 
   delegate :name, :phone_number, :email, to: :store, prefix: true
 
