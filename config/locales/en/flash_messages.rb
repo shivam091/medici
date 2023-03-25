@@ -145,6 +145,14 @@
         destroy: {
           success: "Manufacturer '%{manufacturer_name}' was successfully destroyed.",
           error: "Manufacturer '%{manufacturer_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Manufacturer '%{manufacturer_name}' was successfully activated.",
+          error: "Manufacturer '%{manufacturer_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Manufacturer '%{manufacturer_name}' was successfully deactivated.",
+          error: "Manufacturer '%{manufacturer_name}' could not be deactivated.",
         }
       },
       medicines: {

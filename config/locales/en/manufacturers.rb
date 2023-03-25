@@ -10,6 +10,9 @@
         active: "Active",
         inactive: "Inactive",
       },
+      inactive: {
+        title: "Manufacturers",
+      },
       manufacturer: {
         reference_code: "Reference code",
         name: "Name",
@@ -19,6 +22,8 @@
         actions: "Actions",
         no_manufacturers_to_display: "No manufacturers to display",
         delete_manufacturer_confirmation_text: "Are you sure you want to delete the manufacturer '%{manufacturer_name}'?",
+        activate_manufacturer_confirmation_text: "Are you sure you want to activate the manufacturer '%{manufacturer_name}'?",
+        deactivate_manufacturer_confirmation_text: "Are you sure you want to deactivate the manufacturer '%{manufacturer_name}'?",
       },
       new: {
         title: "New manufacturer",
