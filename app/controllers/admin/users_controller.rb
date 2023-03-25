@@ -86,6 +86,18 @@ class Admin::UsersController < Admin::BaseController
     redirect_to admin_users_path
   end
 
+  # PATCH /admin/users/:uuid/activate
+  def activate
+    response = ::Users::ActivateService.(@user)
+    @user = response.payload[:user]
+    if response.success?
+      flash[:notice] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to inactive_admin_users_path
+  end
+
   private
 
   def user_params
