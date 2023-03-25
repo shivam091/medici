@@ -155,6 +155,14 @@
         destroy: {
           success: "Packing type '%{packing_type_name}' was successfully destroyed.",
           error: "Packing type '%{packing_type_name}' could not be destroyed.",
+        },
+        activate: {
+          success: "Packing type '%{packing_type_name}' was successfully activated.",
+          error: "Packing type '%{packing_type_name}' could not be activated.",
+        },
+        deactivate: {
+          success: "Packing type '%{packing_type_name}' was successfully deactivated.",
+          error: "Packing type '%{packing_type_name}' could not be deactivated.",
         }
       },
       manufacturers: {

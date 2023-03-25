@@ -11,10 +11,15 @@
           active: "Active",
           inactive: "Inactive",
         },
+        inactive: {
+          title: "Package types",
+        },
         packing_type: {
           name: "Name",
           actions: "Actions",
           delete_packing_type_confirmation_text: "Are you sure you want to delete the packing type '%{packing_type_name}'?",
+          activate_packing_type_confirmation_text: "Are you sure you want to activate the packing type '%{packing_type_name}'?",
+          deactivate_packing_type_confirmation_text: "Are you sure you want to deactivate the packing type '%{packing_type_name}'?",
           no_packing_types_to_display: "No packing types to display."
         },
         new: {
