@@ -154,6 +154,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_115750) do
     t.string "reference_code"
     t.string "criteria"
     t.decimal "amount", precision: 8, scale: 2, default: "0.0"
+    t.enum "status", default: "pending", enum_type: "expense_statuses"
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["store_id"], name: "index_expenses_on_store_id"

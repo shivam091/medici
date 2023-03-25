@@ -24,6 +24,7 @@ class CreateExpenses < Medici::Database::Migration[1.0]
       t.string :reference_code
       t.string :criteria
       t.decimal :amount, precision: 8, scale: 2, default: 0.0
+      t.enum :status, enum_type: :expense_statuses, default: "pending"
 
       t.not_null_and_empty_constraint :criteria
       t.not_null_and_empty_constraint :reference_code
