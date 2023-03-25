@@ -71,6 +71,18 @@ module ExpensesShared
           end
         end
       end
+
+      # DELETE /(admin|manager|cashier)/expenses/:uuid
+      def destroy
+        response = ::Expenses::DestroyService.(@expense)
+        @expense = response.payload[:expense]
+        if response.success?
+          flash[:info] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.expenses_path
+      end
     end
   end
 
