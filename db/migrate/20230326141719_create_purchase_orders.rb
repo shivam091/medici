@@ -5,8 +5,8 @@
 class CreatePurchaseOrders < Medici::Database::Migration[1.0]
   def change
     create_table_with_constraints :purchase_orders, id: :uuid do |t|
-      t.string :reference_code
-      t.string :invoice_number
+      t.string :reference_code, index: {using: :btree, unique: true}
+      t.string :invoice_number, index: {using: :btree, unique: true}
       t.string :tracking_number
       t.date :ordered_at
       t.date :expected_arrival_at
@@ -46,6 +46,11 @@ class CreatePurchaseOrders < Medici::Database::Migration[1.0]
       t.length_constraint :reference_code, less_than_or_equal_to: 15
       t.length_constraint :invoice_number, less_than_or_equal_to: 55
       t.length_constraint :tracking_number, less_than_or_equal_to: 55
+
+      t.inclusion_constraint :status, in: ["pending", "incomplete", "received"]
+
+      t.check_constraint "ordered_at <= CURRENT_DATE", name: "ordered_at_lteq_today"
+      t.check_constraint "expected_arrival_at >= CURRENT_DATE", name: "expected_arrival_at_gteq_today"
 
       t.timestamps_with_timezone null: false
     end

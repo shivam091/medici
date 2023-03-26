@@ -337,14 +337,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_144517) do
     t.uuid "store_id"
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.index ["invoice_number"], name: "index_purchase_orders_on_invoice_number", unique: true
+    t.index ["reference_code"], name: "index_purchase_orders_on_reference_code", unique: true
     t.index ["store_id"], name: "index_purchase_orders_on_store_id"
     t.index ["supplier_id"], name: "index_purchase_orders_on_supplier_id"
     t.index ["user_id"], name: "index_purchase_orders_on_user_id"
     t.check_constraint "char_length(invoice_number::text) <= 55", name: "chk_041828c53c"
     t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_c7443cb7a7"
     t.check_constraint "char_length(tracking_number::text) <= 55", name: "chk_aad822138e"
+    t.check_constraint "expected_arrival_at >= CURRENT_DATE", name: "expected_arrival_at_gteq_today"
     t.check_constraint "invoice_number IS NOT NULL AND invoice_number::text <> ''::text", name: "chk_5b2da2aebf"
+    t.check_constraint "ordered_at <= CURRENT_DATE", name: "ordered_at_lteq_today"
     t.check_constraint "ordered_at IS NOT NULL", name: "chk_318f1e46ee"
+    t.check_constraint "status = ANY (ARRAY['pending'::purchase_order_statuses, 'incomplete'::purchase_order_statuses, 'received'::purchase_order_statuses])", name: "chk_ecf43476d8"
     t.check_constraint "store_id IS NOT NULL", name: "chk_93de0a3636"
     t.check_constraint "supplier_id IS NOT NULL", name: "chk_a46ced21e2"
     t.check_constraint "user_id IS NOT NULL", name: "chk_e183262ac0"
