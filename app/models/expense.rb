@@ -33,6 +33,10 @@ class Expense < ApplicationRecord
             presence: true,
             numericality: {greater_than: 0.0},
             reduce: true
+  validates :status,
+            presence: true,
+            inclusion: {in: statuses.values},
+            reduce: true
 
   belongs_to :store, inverse_of: :expenses, optional: true
   belongs_to :user, inverse_of: :expenses
