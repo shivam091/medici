@@ -163,6 +163,10 @@
           rate: "Rate",
           type: "Type",
         },
+        discount: {
+          country_id: "Country",
+          percent_off: "Percent off",
+        },
       },
       help_texts: {
 
@@ -181,6 +185,13 @@
             attributes: {
               country_id: {
                 already_has_tax_rate: "already has tax rate",
+              },
+            },
+          },
+          discount: {
+            attributes: {
+              country_id: {
+                already_has_discount: "already has discount",
               },
             },
           },

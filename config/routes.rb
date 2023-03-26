@@ -60,7 +60,8 @@ Rails.application.routes.draw do
         :countries,
         :ingredients,
         :users,
-        :shifts
+        :shifts,
+        :discounts
       ], except: :show, param: :uuid, concerns: :toggleable
 
       resources :tax_rates, except: :show, param: :uuid, path: "tax-rates"

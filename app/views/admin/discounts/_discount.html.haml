@@ -1,0 +1,32 @@
+= label_tag :selections, "", class: "form-label", data: {select_all_checkbox_target: "count"}
+.table-responsive
+  %table.table.table-striped.table-bordered
+    %thead
+      %tr
+        %th{width: "25px", scope: "col"}#
+        - if @discounts&.count > 0
+          %th{width: "25px", scope: "col"}
+            = check_box_tag "checkbox", nil, false, class: "form-check-input", data: {select_all_checkbox_target: "selectAllCheckbox"}
+        %th{scope: "col"}= t(".country")
+        %th{scope: "col"}= t(".percent_off")
+        %th{width: "25px", scope: "col"}= t(".actions")
+    %tbody
+      - if @discounts&.each.with_index(1) do |discount, index|
+        %tr
+          %td.fw-bold
+            = (@pagy.offset + index)
+          %td
+            = check_box_tag "discount_ids[]", discount.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
+          %td.fw-bold= discount.country_name
+          %td= number_to_percentage(discount.percent_off, precision: 2)
+          %td.actions
+            - if policy(discount).edit?
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_discount_path(discount), class: "btn btn-sm btn-secondary",
+                data: {turbo_frame: :remote_modal}
+            - if policy(discount).destroy?
+              = link_to external_svg_tag("svgs/trash.svg"), admin_discount_path(discount), class: "btn btn-sm btn-danger",
+                data: {turbo_confirm: t(".delete_discount_confirmation_text", country_name: discount.country_name), turbo_method: :delete}
+      - end.empty?
+        %tr
+          %td.fw-bold{colspan: ::Discount.columns.count}
+            = t(".no_discounts_to_display")

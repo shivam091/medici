@@ -1,0 +1,13 @@
+.card.card-primary.border.border-primary
+  .card-header
+    .d-flex.justify-content-end.align-items-center
+      - if policy(::Discount).new?
+        = link_to new_admin_discount_path, class: "btn btn-primary", data: {turbo_frame: :remote_modal} do
+          = external_svg_tag("svgs/plus.svg")
+          %span.d-block.d-lg-none= button_text("new")
+          %span.d-none.d-lg-block= button_text("new_discount")
+  .card-body{data: {controller: "select-all-checkbox"}}
+    = render_if_exists("admin/discounts/discount")
+  - if @pagy.pages > 1
+    .card-footer
+      = render_if_exists("shared/pagination", locals: {pagy: @pagy})
