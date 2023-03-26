@@ -11,6 +11,14 @@ class CreatePurchaseOrders < Medici::Database::Migration[1.0]
       t.date :ordered_at
       t.date :expected_arrival_at
       t.enum :status, enum_type: :purchase_order_statuses, default: "pending"
+      t.references :user,
+                   type: :uuid,
+                   foreign_key: {
+                     to_table: :users,
+                     name: :fk_purchase_orders_user_id_on_users,
+                     on_delete: :nullify
+                   },
+                   index: {using: :btree}
       t.references :supplier,
                    type: :uuid,
                    foreign_key: {
@@ -30,6 +38,7 @@ class CreatePurchaseOrders < Medici::Database::Migration[1.0]
 
       t.not_null_constraint :supplier_id
       t.not_null_constraint :store_id
+      t.not_null_constraint :user_id
       t.not_null_constraint :ordered_at
 
       t.not_null_and_empty_constraint :invoice_number
