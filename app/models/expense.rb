@@ -44,6 +44,7 @@ class Expense < ApplicationRecord
   before_save :set_store
 
   delegate :name, :phone_number, :email, to: :store, prefix: true
+  delegate :full_name, to: :user, prefix: true
 
   default_scope -> { order_created_desc }
 

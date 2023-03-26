@@ -10,6 +10,7 @@
       },
       expense: {
         reference_code: "Reference code",
+        user: "User",
         criteria: "Criteria",
         amount: "Amount",
         store: "Store",
@@ -25,7 +26,7 @@
       },
       form: {
         select_store: "Select store",
-        select_user: "Select user", 
+        select_user: "Select user",
       },
     }
   }
