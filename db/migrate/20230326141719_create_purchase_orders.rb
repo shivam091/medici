@@ -5,7 +5,40 @@
 class CreatePurchaseOrders < Medici::Database::Migration[1.0]
   def change
     create_table_with_constraints :purchase_orders, id: :uuid do |t|
-      
+      t.string :reference_code
+      t.string :invoice_number
+      t.string :tracking_number
+      t.date :ordered_at
+      t.date :expected_arrival_at
+      t.enum :status, enum_type: :purchase_order_statuses, default: "pending"
+      t.references :supplier,
+                   type: :uuid,
+                   foreign_key: {
+                     to_table: :suppliers,
+                     name: :fk_purchase_orders_supplier_id_on_suppliers,
+                     on_delete: :restrict
+                   },
+                   index: {using: :btree}
+      t.references :store,
+                   type: :uuid,
+                   foreign_key: {
+                     to_table: :stores,
+                     name: :fk_purchase_orders_store_id_on_stores,
+                     on_delete: :restrict
+                   },
+                   index: {using: :btree}
+
+      t.not_null_constraint :supplier_id
+      t.not_null_constraint :store_id
+      t.not_null_constraint :ordered_at
+
+      t.not_null_and_empty_constraint :invoice_number
+
+      t.length_constraint :reference_code, less_than_or_equal_to: 15
+      t.length_constraint :invoice_number, less_than_or_equal_to: 55
+      t.length_constraint :tracking_number, less_than_or_equal_to: 55
+
+      t.timestamps_with_timezone null: false
     end
   end
 end

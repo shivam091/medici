@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_26_140931) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_26_141719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -307,6 +307,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_140931) do
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_c41aed63fb"
   end
 
+  create_table "purchase_orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "reference_code"
+    t.string "invoice_number"
+    t.string "tracking_number"
+    t.date "ordered_at"
+    t.date "expected_arrival_at"
+    t.enum "status", default: "pending", enum_type: "purchase_order_statuses"
+    t.uuid "supplier_id"
+    t.uuid "store_id"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["store_id"], name: "index_purchase_orders_on_store_id"
+    t.index ["supplier_id"], name: "index_purchase_orders_on_supplier_id"
+    t.check_constraint "char_length(invoice_number::text) <= 55", name: "chk_041828c53c"
+    t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_c7443cb7a7"
+    t.check_constraint "char_length(tracking_number::text) <= 55", name: "chk_aad822138e"
+    t.check_constraint "invoice_number IS NOT NULL AND invoice_number::text <> ''::text", name: "chk_5b2da2aebf"
+    t.check_constraint "ordered_at IS NOT NULL", name: "chk_318f1e46ee"
+    t.check_constraint "store_id IS NOT NULL", name: "chk_93de0a3636"
+    t.check_constraint "supplier_id IS NOT NULL", name: "chk_a46ced21e2"
+  end
+
   create_table "replenishments", primary_key: "medicine_id", id: :uuid, default: nil, force: :cascade do |t|
     t.integer "quantity_pending_from_supplier", default: 0
     t.timestamptz "created_at", null: false
@@ -503,6 +525,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_140931) do
   add_foreign_key "medicines", "manufacturers", name: "fk_medicines_manufacturer_id_on_manufacturers", on_delete: :restrict
   add_foreign_key "medicines", "medicine_categories", name: "fk_medicines_medicine_category_id_on_medicine_categories", on_delete: :restrict
   add_foreign_key "medicines", "packing_types", name: "fk_medicines_packing_type_id_on_packing_types", on_delete: :restrict
+  add_foreign_key "purchase_orders", "stores", name: "fk_purchase_orders_store_id_on_stores", on_delete: :restrict
+  add_foreign_key "purchase_orders", "suppliers", name: "fk_purchase_orders_supplier_id_on_suppliers", on_delete: :restrict
   add_foreign_key "replenishments", "medicines", name: "fk_replenishments_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "stocks", "medicines", name: "fk_stocks_medicine_id_on_medicines", on_delete: :cascade

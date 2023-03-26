@@ -3,4 +3,6 @@
 # -*- warn_indent: true -*-
 
 class PurchaseOrder < ApplicationRecord
+  belongs_to :store, inverse_of: :purchase_orders
+  belongs_to :supplier, inverse_of: :purchase_orders
 end
