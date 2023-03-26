@@ -61,6 +61,7 @@ RSpec.describe Store, type: :model do
   describe "associations" do
     it { is_expected.to have_one(:address).dependent(:destroy) }
     it { is_expected.to have_many(:users).dependent(:destroy) }
+    it { is_expected.to have_many(:purchase_orders).dependent(:restrict_with_exception) }
     it { is_expected.to belong_to(:currency) }
   end
 
