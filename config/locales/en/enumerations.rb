@@ -37,6 +37,17 @@
           vv: "volume per volume (v/v)",
         },
       },
+      tax_rate: {
+        types: {
+          vat: "Value Added Tax (VAT)",
+          gst: "Goods and Services Tax (GST)",
+          cgst: "Central Goods and Services Tax (CGST)",
+          sgst: "State Goods and Services Tax (SGST)",
+          pst: "Provincial Sales Tax (PST)",
+          hst: "Harmonized Sales Tax (HST)",
+          st: "Sales Tax (ST)",
+        }
+      },
       medicine_ingredient: {
         unit_of_measurements: {
           kg: "kilogram (kg)",

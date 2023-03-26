@@ -1,0 +1,20 @@
+= bootstrap_form_with model: [:admin, @tax_rate] do |form|
+  = form.select :country_id, options_for_select(::Country.select_options, form.object.country_id),
+    {include_blank: t(".select_country")}, data: {controller: "autofocus"}
+  = form.select :type, enum_options_for_select(::TaxRate, :type),
+    {include_blank: t(".select_type")}
+  = form.number_field :rate
+  .modal-actions
+    - if policy(@tax_rate).create? && form.object.new_record?
+      = button_tag type: :submit, class: "btn btn-primary" do
+        = external_svg_tag("svgs/plus.svg")
+        %span.d-block.d-lg-none= button_text("add")
+        %span.d-none.d-lg-block= button_text("add_tax_rate")
+    - if policy(@tax_rate).update? && form.object.persisted?
+      = button_tag type: :submit, class: "btn btn-primary" do
+        = external_svg_tag("svgs/floppy.svg")
+        %span.d-block.d-lg-none= button_text("update")
+        %span.d-none.d-lg-block= button_text("update_tax_rate")
+    = button_tag type: :button, class: "btn btn-secondary", data: {action: "click->remote-modal#hide"} do
+      = external_svg_tag("svgs/cancel.svg")
+      = button_text("cancel")

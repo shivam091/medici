@@ -164,6 +164,15 @@
           amount: "Amount",
           criteria: "Criteria",
         },
+        tax_rate: {
+          country_id: "Country",
+          rate: "Rate",
+          type: "Type",
+        },
+        discount: {
+          country_id: "Country",
+          percent_off: "Percent off",
+        },
       },
       help_texts: {
 
@@ -178,7 +187,20 @@
           }
         },
         models: {
-
+          tax_rate: {
+            attributes: {
+              country_id: {
+                already_has_tax_rate: "already has tax rate",
+              },
+            },
+          },
+          discount: {
+            attributes: {
+              country_id: {
+                already_has_discount: "already has discount",
+              },
+            },
+          },
         },
         messages: {
           label_already_exists_at_group_level: "already exists at group level for %{group}. Please choose another one.",

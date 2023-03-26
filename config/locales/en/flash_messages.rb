@@ -309,6 +309,34 @@
         destroy: {
           success: "Expense was successfully destroyed.",
           error: "Expense could not be destroyed.",
+        }
+      },
+      tax_rates: {
+        create: {
+          success: "Tax rate of the country '%{country_name}' was successfully created.",
+          error: "Tax rate could not be created.",
+        },
+        update: {
+          success: "Tax rate of the country '%{country_name}' was successfully updated.",
+          error: "Tax rate could not be updated.",
+        },
+        destroy: {
+          success: "Tax rate of the country '%{country_name}' was successfully destroyed.",
+          error: "Tax rate of the country '%{country_name}' could not be destroyed.",
+        },
+      },
+      discounts: {
+        create: {
+          success: "Discount of the country '%{country_name}' was successfully created.",
+          error: "Discount could not be created.",
+        },
+        update: {
+          success: "Discount of the country '%{country_name}' was successfully updated.",
+          error: "Discount could not be updated.",
+        },
+        destroy: {
+          success: "Discount of the country '%{country_name}' was successfully destroyed.",
+          error: "Discount of the country '%{country_name}' could not be destroyed.",
         },
       },
     }

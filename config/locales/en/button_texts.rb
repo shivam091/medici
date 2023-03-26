@@ -66,6 +66,12 @@
       new_expense: "New expense",
       add_expense: "Add expense",
       update_expense: "Update expense",
+      new_tax_rate: "New tax rate",
+      add_tax_rate: "Add tax rate",
+      update_tax_rate: "Update tax rate",
+      new_discount: "New discount",
+      add_discount: "Add discount",
+      update_discount: "Update discount"
     }
   }
 }

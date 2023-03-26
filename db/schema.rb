@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_25_115750) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_115750) do
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "expense_statuses", [["pending", "approved", "rejected"]]
+  create_enum "tax_rate_types", [["vat", "gst", "cgst", "sgst", "pst", "hst", "st"]]
   create_enum "unit_of_measures", [["kg", "g", "mg", "mcg", "l", "ml", "cc", "mol", "mmol", "ww", "qs", "wv", "lb", "f", "c", "oz", "tbsp", "tsp", "gtt", "gr", "gal", "pt", "m", "qt", "floz", "fldr", "dr", "vv"]]
 
   create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -136,6 +137,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_115750) do
     t.check_constraint "mobile_number IS NOT NULL AND mobile_number::text <> ''::text", name: "chk_ee6ddadabe"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_7344bc8336"
     t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_cc9fd06e9d"
+  end
+
+  create_table "discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "country_id"
+    t.decimal "percent_off", precision: 8, scale: 2, default: "0.0"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["country_id"], name: "index_discounts_on_country_id", unique: true
+    t.check_constraint "country_id IS NOT NULL", name: "chk_c97356fe73"
+    t.check_constraint "percent_off >= 0.0", name: "chk_31d40f8203"
+    t.check_constraint "percent_off IS NOT NULL", name: "chk_c85d23b2e0"
   end
 
   create_table "dosage_forms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -408,6 +420,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_115750) do
     t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_bda7229b58"
   end
 
+  create_table "tax_rates", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "country_id"
+    t.decimal "rate", precision: 8, scale: 2, default: "0.0"
+    t.enum "type", default: "gst", enum_type: "tax_rate_types"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["country_id"], name: "index_tax_rates_on_country_id", unique: true
+    t.check_constraint "country_id IS NOT NULL", name: "chk_dcb54ba6b7"
+    t.check_constraint "rate >= 0.0", name: "chk_321df07473"
+    t.check_constraint "rate IS NOT NULL", name: "chk_a7c583dbd4"
+    t.check_constraint "type IS NOT NULL", name: "chk_d92ff7e269"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "mobile_number"
@@ -466,6 +491,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_115750) do
   add_foreign_key "cash_counter_operators", "users", name: "fk_cash_counter_operators_user_id_on_users", on_delete: :restrict
   add_foreign_key "cash_counters", "stores", name: "fk_cash_counters_store_id_on_stores", on_delete: :cascade
   add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
+  add_foreign_key "discounts", "countries", name: "fk_discounts_country_id_on_countries", on_delete: :restrict
   add_foreign_key "expenses", "stores", name: "fk_expenses_store_id_on_stores", on_delete: :cascade
   add_foreign_key "expenses", "users", name: "fk_expenses_user_id_on_users", on_delete: :nullify
   add_foreign_key "medicine_ingredients", "ingredients", name: "fk_medicine_ingredients_ingredient_id_on_ingredients", on_delete: :restrict
@@ -480,6 +506,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_115750) do
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "stocks", "medicines", name: "fk_stocks_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "stores", "currencies", name: "fk_stores_currency_id_on_currencies", on_delete: :restrict
+  add_foreign_key "tax_rates", "countries", name: "fk_tax_rates_country_id_on_countries", on_delete: :restrict
   add_foreign_key "users", "roles", name: "fk_users_role_id_on_roles", on_delete: :restrict
   add_foreign_key "users", "stores", name: "fk_users_store_id_on_stores", on_delete: :cascade
 end

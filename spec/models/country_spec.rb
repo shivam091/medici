@@ -61,6 +61,8 @@ RSpec.describe Country, type: :model do
   end
 
   describe "associations" do
+    it { is_expected.to have_one(:tax_rate).dependent(:restrict_with_exception) }
+    it { is_expected.to have_one(:discount).dependent(:restrict_with_exception) }
     it { is_expected.to have_many(:addresses).dependent(:restrict_with_exception) }
     it { is_expected.to belong_to(:currency).inverse_of(:countries) }
   end
