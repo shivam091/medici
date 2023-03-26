@@ -7,7 +7,7 @@ class Admin::TaxRatesController < Admin::BaseController
   before_action :find_tax_rate, except: [:index, :new, :create]
   before_action do
     if action_name.in?(["index", "new", "create"])
-      authorize ::PackingType
+      authorize ::TaxRate
     else
       authorize @tax_rate
     end
