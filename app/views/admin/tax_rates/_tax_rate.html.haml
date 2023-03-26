@@ -20,7 +20,7 @@
             = check_box_tag "tax_rate_ids[]", tax_rate.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
           %td.fw-bold= tax_rate.country_name
           %td= enum_i18n(::TaxRate, :type, tax_rate.type)
-          %td= number_to_percentage(tax_rate.rate)
+          %td= number_to_percentage(tax_rate.rate, precision: 2)
           %td.actions
             - if policy(tax_rate).edit?
               = link_to external_svg_tag("svgs/pencil.svg"), edit_admin_tax_rate_path(tax_rate), class: "btn btn-sm btn-secondary",

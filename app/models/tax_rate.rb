@@ -16,7 +16,10 @@ class TaxRate < ApplicationRecord
     st: "st",
   }
 
-  validates :country_id, presence: true, reduce: true
+  validates :country_id,
+            presence: true,
+            uniqueness: {message: :already_has_tax_rate},
+            reduce: true
   validates :rate,
             presence: true,
             numericality: {greater_than_or_equal_to: 0.0},
