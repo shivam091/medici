@@ -1,0 +1,13 @@
+.card.card-primary.border.border-primary
+  .card-header
+    .d-flex.justify-content-end.align-items-center
+      - if policy(::TaxRate).new?
+        = link_to new_admin_tax_rate_path, class: "btn btn-primary", data: {turbo_frame: :remote_modal} do
+          = external_svg_tag("svgs/plus.svg")
+          %span.d-block.d-lg-none= button_text("new")
+          %span.d-none.d-lg-block= button_text("new_tax_rate")
+  .card-body{data: {controller: "select-all-checkbox"}}
+    = render_if_exists("admin/tax_rates/tax_rate")
+  - if @pagy.pages > 1
+    .card-footer
+      = render_if_exists("shared/pagination", locals: {pagy: @pagy})

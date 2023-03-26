@@ -25,6 +25,8 @@ class TaxRate < ApplicationRecord
 
   belongs_to :country, inverse_of: :tax_rate
 
+  delegate :name, :iso2, :iso3, to: :country, prefix: true
+
   default_scope do
     tax_rates_arel = ::TaxRate.arel_table
     countries_arel = ::Country.arel_table

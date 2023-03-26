@@ -3,4 +3,10 @@
 # -*- warn_indent: true -*-
 
 class Admin::TaxRatesController < Admin::BaseController
+
+  # GET /admin/tax-rates
+  def index
+    @tax_rates = policy_scope(::TaxRate)
+    @pagy, @tax_rates = pagy(@tax_rates)
+  end
 end
