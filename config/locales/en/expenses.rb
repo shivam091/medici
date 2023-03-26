@@ -18,6 +18,9 @@
       approved: {
         title: "Approved expenses",
       },
+      rejected: {
+        title: "Rejected expenses",
+      },
       expense: {
         reference_code: "Reference code",
         user: "User",

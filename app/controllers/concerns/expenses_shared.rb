@@ -35,6 +35,12 @@ module ExpensesShared
         @pagy, @expenses = pagy(@expenses)
       end
 
+      # GET /(admin|manager|cashier)/expenses/rejected
+      def rejected
+        @expenses = policy_scope(::Expense).rejected
+        @pagy, @expenses = pagy(@expenses)
+      end
+
       # GET /(admin|manager|cashier)/expenses/new
       def new
         @expense = ::Expense.new

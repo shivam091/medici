@@ -27,6 +27,10 @@ class ExpensePolicy < ApplicationPolicy
     (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
+  def rejected?
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+  end
+
   def new?
     (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
