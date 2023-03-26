@@ -158,6 +158,11 @@
           user_id: "Operator",
           shift_id: "Shift",
         },
+        tax_rate: {
+          country_id: "Country",
+          rate: "Rate",
+          type: "Type",
+        },
       },
       help_texts: {
 
@@ -172,7 +177,13 @@
           }
         },
         models: {
-
+          tax_rate: {
+            attributes: {
+              country_id: {
+                already_has_tax_rate: "already has tax rate",
+              },
+            },
+          },
         },
         messages: {
           label_already_exists_at_group_level: "already exists at group level for %{group}. Please choose another one.",
