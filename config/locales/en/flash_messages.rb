@@ -297,6 +297,20 @@
           error: "Shift '%{shift_name}' could not be deactivated.",
         }
       },
+      tax_rates: {
+        create: {
+          success: "Tax rate of the country '%{country_name}' was successfully created.",
+          error: "Tax rate could not be created.",
+        },
+        update: {
+          success: "Tax rate of the country '%{country_name}' was successfully updated.",
+          error: "Tax rate could not be updated.",
+        },
+        destroy: {
+          success: "Tax rate of the country '%{country_name}' was successfully destroyed.",
+          error: "Tax rate of the country '%{country_name}' could not be destroyed.",
+        },
+      },
     }
   }
 }

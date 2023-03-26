@@ -5,5 +5,5 @@
 .row.row-cols-1.row-cols-lg-3
   = form.text_field :region
   = form.text_field :postal_code
-  = form.select :country_id, options_for_select(::Country.active.pluck(:name, :id), form.object.country_id),
+  = form.select :country_id, options_for_select(::Country.select_options, form.object.country_id),
     {include_blank: t(".select_country")}

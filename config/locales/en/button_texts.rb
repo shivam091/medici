@@ -62,6 +62,9 @@
       remove_cash_counter: "Remove cash counter",
       add_operator: "Add operator",
       remove_operator: "Remove operator",
+      new_tax_rate: "New tax rate",
+      add_tax_rate: "Add tax rate",
+      update_tax_rate: "Update tax rate",
     }
   }
 }

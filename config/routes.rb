@@ -63,6 +63,7 @@ Rails.application.routes.draw do
         :shifts
       ], except: :show, param: :uuid, concerns: :toggleable
 
+      resources :tax_rates, except: :show, param: :uuid, path: "tax-rates"
       resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms", concerns: :toggleable
       resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories", concerns: :toggleable
       resources :packing_types, except: :show, param: :uuid, path: "packing-types", concerns: :toggleable
