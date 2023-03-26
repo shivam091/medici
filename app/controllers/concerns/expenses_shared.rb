@@ -114,9 +114,7 @@ module ExpensesShared
     if (current_user.manager? || current_user.cashier?)
       current_user
     else
-      if expense_params.fetch(:user_id).present?
-        ::User.find(expense_params.fetch(:user_id))
-      end
+      ::User.find_by(id: expense_params.fetch(:user_id))
     end
   end
 
