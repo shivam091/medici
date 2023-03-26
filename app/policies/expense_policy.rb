@@ -19,7 +19,7 @@ class ExpensePolicy < ApplicationPolicy
     (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
-  def inactive?
+  def pending?
     (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 

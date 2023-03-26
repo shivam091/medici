@@ -12,6 +12,9 @@
         approved: "Approved",
         rejected: "Rejected"
       },
+      pending: {
+        title: "Pending expenses",
+      },
       expense: {
         reference_code: "Reference code",
         user: "User",

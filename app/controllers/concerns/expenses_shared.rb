@@ -8,18 +8,24 @@ module ExpensesShared
   def self.included(base_class)
     base_class.class_eval do
 
-      before_action :find_expense, except: [:index, :new, :create]
+      before_action :find_expense, only: [:edit, :update, :destroy]
       before_action do
-        if action_name.in?(["index", "new", "create"])
-          authorize ::Expense
-        else
+        if action_name.in?(["edit", "update", "destroy"])
           authorize @expense
+        else
+          authorize ::Expense
         end
       end
 
       # GET /(admin|manager|cashier)/expenses
       def index
         @expenses = policy_scope(::Expense)
+        @pagy, @expenses = pagy(@expenses)
+      end
+
+      # GET /(admin|manager|cashier)/expenses/pending
+      def pending
+        @expenses = policy_scope(::Expense).pending
         @pagy, @expenses = pagy(@expenses)
       end
 
