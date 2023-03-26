@@ -92,6 +92,15 @@ module Medici
         end
       end
 
+      def date(value, column_alias = nil)
+        value = quoted(value)
+        if column_alias
+          aliased_sql_function("DATE", [value], column_alias)
+        else
+          sql_function("DATE", [value])
+        end
+      end
+
       def aliased_sql_function(name, args, column_alias)
         alias_as_column(sql_function(name, args), column_alias)
       end
