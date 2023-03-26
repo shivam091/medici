@@ -4,6 +4,15 @@
 
 class Admin::TaxRatesController < Admin::BaseController
 
+  before_action :find_tax_rate, except: [:index, :new, :create]
+  before_action do
+    if action_name.in?(["index", "new", "create"])
+      authorize ::PackingType
+    else
+      authorize @tax_rate
+    end
+  end
+
   # GET /admin/tax-rates
   def index
     @tax_rates = policy_scope(::TaxRate).includes(:country)
@@ -35,7 +44,35 @@ class Admin::TaxRatesController < Admin::BaseController
     end
   end
 
+  # GET /admin/tax-rates/:uuid/edit
+  def edit
+  end
+
+  # PUT/PATCH /admin/tax-rates/:uuid
+  def update
+    response = ::TaxRates::UpdateService.(@tax_rate, tax_rate_params)
+    @tax_rate = response.payload[:tax_rate]
+    if response.success?
+      flash[:notice] = response.message
+      redirect_to admin_tax_rates_path
+    else
+      flash.now[:alert] = response.message
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(:tax_rate_form, partial: "admin/tax_rates/form"),
+            render_flash
+          ], status: :unprocessable_entity
+        end
+      end
+    end
+  end
+
   private
+
+  def find_tax_rate
+    @tax_rate = policy_scope(::TaxRate).find(params.fetch(:uuid))
+  end
 
   def tax_rate_params
     params.require(:tax_rate).permit(:country_id, :type, :rate)
