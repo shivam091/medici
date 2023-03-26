@@ -1,0 +1,3 @@
+# medici
+Pharmacy Management System
+
