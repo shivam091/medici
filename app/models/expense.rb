@@ -48,6 +48,20 @@ class Expense < ApplicationRecord
 
   default_scope -> { order_created_desc }
 
+  class << self
+    def today
+      where(
+        ::Medici::SQL::Functions.date(::Expense[:created_at]).eq(Date.current)
+      )
+    end
+
+    def this_month
+      where(
+        ::Medici::SQL::Functions.date(::Expense[:created_at]).in(Date.current.all_month)
+      )
+    end
+  end
+
   private
 
   def set_store
