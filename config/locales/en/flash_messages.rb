@@ -311,6 +311,20 @@
           error: "Tax rate of the country '%{country_name}' could not be destroyed.",
         },
       },
+      discounts: {
+        create: {
+          success: "Discount of the country '%{country_name}' was successfully created.",
+          error: "Discount could not be created.",
+        },
+        update: {
+          success: "Discount of the country '%{country_name}' was successfully updated.",
+          error: "Discount could not be updated.",
+        },
+        destroy: {
+          success: "Discount of the country '%{country_name}' was successfully destroyed.",
+          error: "Discount of the country '%{country_name}' could not be destroyed.",
+        },
+      },
     }
   }
 }
