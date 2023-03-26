@@ -54,6 +54,8 @@ class Supplier < ApplicationRecord
   private
 
   def send_active_suppliers_count
-    broadcast_update_to(:suppliers, target: :active_suppliers_count, html: ::Supplier.active.count)
+    if is_active_previously_changed?
+      broadcast_update_to(:suppliers, target: :active_suppliers_count, html: ::Supplier.active.count)
+    end
   end
 end

@@ -50,6 +50,8 @@ class Manufacturer < ApplicationRecord
   private
 
   def send_active_manufacturers_count
-    broadcast_update_to(:manufacturers, target: :active_manufacturers_count, html: ::Manufacturer.active.count)
+    if is_active_previously_changed?
+      broadcast_update_to(:manufacturers, target: :active_manufacturers_count, html: ::Manufacturer.active.count)
+    end
   end
 end

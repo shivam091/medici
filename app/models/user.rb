@@ -187,6 +187,8 @@ class User < ApplicationRecord
   end
 
   def send_active_users_count
-    broadcast_update_to(:users, target: :active_users_count, html: ::User.active.count)
+    if is_active_previously_changed?
+      broadcast_update_to(:users, target: :active_users_count, html: ::User.active.count)
+    end
   end
 end
