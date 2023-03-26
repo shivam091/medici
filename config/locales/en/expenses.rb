@@ -7,6 +7,10 @@
     expenses: {
       index: {
         title: "Expenses",
+        all: "All",
+        pending: "Pending",
+        approved: "Approved",
+        rejected: "Rejected"
       },
       expense: {
         reference_code: "Reference code",
