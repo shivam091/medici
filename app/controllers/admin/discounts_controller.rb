@@ -68,6 +68,18 @@ class Admin::DiscountsController < Admin::BaseController
     end
   end
 
+  # DELETE /admin/discounts/:uuid
+  def destroy
+    response = ::Discounts::DestroyService.(@discount)
+    @discount = response.payload[:discount]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to admin_discounts_path
+  end
+
   private
 
   def find_discount
