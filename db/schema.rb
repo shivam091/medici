@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_25_164627) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "expense_statuses", [["pending", "approved", "rejected"]]
   create_enum "tax_rate_types", [["vat", "gst", "cgst", "sgst", "pst", "hst", "st"]]
   create_enum "unit_of_measures", [["kg", "g", "mg", "mcg", "l", "ml", "cc", "mol", "mmol", "ww", "qs", "wv", "lb", "f", "c", "oz", "tbsp", "tsp", "gtt", "gr", "gal", "pt", "m", "qt", "floz", "fldr", "dr", "vv"]]
 
@@ -138,6 +139,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_164627) do
     t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_cc9fd06e9d"
   end
 
+  create_table "discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "country_id"
+    t.decimal "percent_off", precision: 8, scale: 2, default: "0.0"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["country_id"], name: "index_discounts_on_country_id", unique: true
+    t.check_constraint "country_id IS NOT NULL", name: "chk_c97356fe73"
+    t.check_constraint "percent_off >= 0.0", name: "chk_31d40f8203"
+    t.check_constraint "percent_off IS NOT NULL", name: "chk_c85d23b2e0"
+  end
+
   create_table "dosage_forms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.boolean "is_active", default: false
@@ -146,6 +158,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_164627) do
     t.index ["name"], name: "index_dosage_forms_on_name", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_ca1407d42a"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_6fb39fa26d"
+  end
+
+  create_table "expenses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "store_id"
+    t.uuid "user_id"
+    t.string "reference_code"
+    t.string "criteria"
+    t.decimal "amount", precision: 8, scale: 2, default: "0.0"
+    t.enum "status", default: "pending", enum_type: "expense_statuses"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["store_id"], name: "index_expenses_on_store_id"
+    t.index ["user_id"], name: "index_expenses_on_user_id"
+    t.check_constraint "amount > 0.0", name: "chk_943822d0f2"
+    t.check_constraint "amount IS NOT NULL", name: "chk_bf9d9a5774"
+    t.check_constraint "char_length(criteria::text) <= 55", name: "chk_202a6bb4e8"
+    t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_40124d91ea"
+    t.check_constraint "criteria IS NOT NULL AND criteria::text <> ''::text", name: "chk_997b885100"
+    t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_031025e841"
+    t.check_constraint "status = ANY (ARRAY['pending'::expense_statuses, 'approved'::expense_statuses, 'rejected'::expense_statuses])", name: "chk_bc1a734dee"
+    t.check_constraint "store_id IS NOT NULL", name: "chk_8f7c4e83a7"
+    t.check_constraint "user_id IS NOT NULL", name: "chk_e30387f221"
   end
 
   create_table "ingredients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -457,6 +491,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_164627) do
   add_foreign_key "cash_counter_operators", "users", name: "fk_cash_counter_operators_user_id_on_users", on_delete: :restrict
   add_foreign_key "cash_counters", "stores", name: "fk_cash_counters_store_id_on_stores", on_delete: :cascade
   add_foreign_key "countries", "currencies", name: "fk_countries_currency_id_on_currencies", on_delete: :restrict
+  add_foreign_key "discounts", "countries", name: "fk_discounts_country_id_on_countries", on_delete: :restrict
+  add_foreign_key "expenses", "stores", name: "fk_expenses_store_id_on_stores", on_delete: :cascade
+  add_foreign_key "expenses", "users", name: "fk_expenses_user_id_on_users", on_delete: :nullify
   add_foreign_key "medicine_ingredients", "ingredients", name: "fk_medicine_ingredients_ingredient_id_on_ingredients", on_delete: :restrict
   add_foreign_key "medicine_ingredients", "medicines", name: "fk_medicine_ingredients_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "medicine_suppliers", "medicines", name: "fk_medicine_suppliers_medicine_id_on_medicines", on_delete: :cascade

@@ -32,6 +32,7 @@ class Country < ApplicationRecord
   validates :currency_id, presence: true, reduce: true
 
   has_one :tax_rate, dependent: :restrict_with_exception
+  has_one :discount, dependent: :restrict_with_exception
 
   has_many :addresses, dependent: :restrict_with_exception
 

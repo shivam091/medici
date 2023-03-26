@@ -3,4 +3,5 @@
 # -*- warn_indent: true -*-
 
 class Discount < ApplicationRecord
+  belongs_to :country, inverse_of: :discount
 end
