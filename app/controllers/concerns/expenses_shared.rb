@@ -30,7 +30,7 @@ module ExpensesShared
 
       # POST /(admin|manager|cashier)/expenses
       def create
-        response = ::Expenses::CreateService.(current_user, expense_params)
+        response = ::Expenses::CreateService.(user, expense_params)
         @expense = response.payload[:expense]
         if response.success?
           flash[:notice] = response.message
@@ -92,10 +92,19 @@ module ExpensesShared
     @expense = policy_scope(::Expense).find(params.fetch(:uuid))
   end
 
+  def user
+    if (current_user.manager? || current_user.cashier?)
+      current_user
+    else
+      if expense_params.fetch(:user_id).present?
+        ::User.find(expense_params.fetch(:user_id))
+      end
+    end
+  end
+
   def expense_params
     params.require(:expense).permit(
       :user_id,
-      :store_id,
       :criteria,
       :amount,
     )

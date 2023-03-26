@@ -17,7 +17,8 @@ class Expenses::CreateService < ApplicationService
   attr_reader :user, :expense_attributes
 
   def create_expense
-    expense = user.expenses.build(expense_attributes)
+    expense_attributes.merge!(user: user)
+    expense = ::Expense.new(expense_attributes)
     if expense.save
       ::ServiceResponse.success(
         message: t("expenses.create.success"),

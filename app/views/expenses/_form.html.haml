@@ -2,8 +2,6 @@
   - if (current_user.super_admin? || current_user.admin?)
     = form.select :user_id, options_for_select(::User.select_options, form.object.user_id),
       {include_blank: t(".select_user")}
-    = form.select :store_id, options_for_select(::Store.select_options, form.object.store_id),
-      {include_blank: t(".select_store")}
   = form.text_field :criteria, data: {controller: "autofocus"}
   = form.number_field :amount
   .actions

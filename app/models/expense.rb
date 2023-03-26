@@ -27,7 +27,7 @@ class Expense < ApplicationRecord
     end
   end
 
-  validates :store_id, :user_id, presence: true, reduce: true
+  validates :user_id, presence: true, reduce: true
   validates :criteria, presence: true, length: {maximum: 55}, reduce: true
   validates :amount,
             presence: true,
@@ -41,7 +41,7 @@ class Expense < ApplicationRecord
   belongs_to :store, inverse_of: :expenses, optional: true
   belongs_to :user, inverse_of: :expenses
 
-  before_validation :set_store, on: :create
+  before_save :set_store
 
   delegate :name, :phone_number, :email, to: :store, prefix: true
 
@@ -51,11 +51,7 @@ class Expense < ApplicationRecord
 
   def set_store
     if user.present?
-      if user.manager? || user.cashier?
-        self.store = self.user.store
-      end
-    else
-      self.store = nil
+      self.store = self.user.store
     end
   end
 end

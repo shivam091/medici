@@ -23,7 +23,7 @@
           %td.fw-bold= expense.reference_code
           %td= expense.store_name
           %td= expense.criteria
-          %td= number_to_currency(expense.amount, unit: (store.present? ? store.currency_symbol : external_svg_tag("svgs/dollar.svg")))
+          %td= number_to_currency(expense.amount, unit: store.currency_symbol)
           %td.actions
             - if policy(expense).edit?
               = link_to external_svg_tag("svgs/pencil.svg"), edit_expense_path(expense), class: "btn btn-sm btn-secondary",
