@@ -108,6 +108,11 @@ class Medicine < ApplicationRecord
            through: :medicine_ingredients,
            source: :ingredient,
            inverse_of: :medicine_ingredients
+  has_many :purchase_order_medicines, dependent: :destroy
+  has_many :purchase_orders,
+           through: :purchase_order_medicines,
+           source: :purchase_order,
+           inverse_of: :purchase_order_medicines
 
   belongs_to :manufacturer, inverse_of: :medicines
   belongs_to :medicine_category, inverse_of: :medicines
