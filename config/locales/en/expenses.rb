@@ -15,6 +15,9 @@
       pending: {
         title: "Pending expenses",
       },
+      approved: {
+        title: "Approved expenses",
+      },
       expense: {
         reference_code: "Reference code",
         user: "User",

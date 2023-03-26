@@ -23,6 +23,10 @@ class ExpensePolicy < ApplicationPolicy
     (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
+  def approved?
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+  end
+
   def new?
     (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
