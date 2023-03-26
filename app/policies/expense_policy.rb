@@ -32,11 +32,11 @@ class ExpensePolicy < ApplicationPolicy
   end
 
   def edit?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?) && record.pending?
   end
 
   def update?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?) && record.pending?
   end
 
   def activate?
