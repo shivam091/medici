@@ -12,6 +12,33 @@ module ExpensesHelper
     end
   end
 
+  def pending_expenses_path
+    case
+    when current_user.super_admin? then pending_admin_expenses_path
+    when current_user.admin? then pending_admin_expenses_path
+    when current_user.manager? then pending_manager_expenses_path
+    when current_user.cashier? then pending_cashier_expenses_path
+    end
+  end
+
+  def approved_expenses_path
+    case
+    when current_user.super_admin? then approved_admin_expenses_path
+    when current_user.admin? then approved_admin_expenses_path
+    when current_user.manager? then approved_manager_expenses_path
+    when current_user.cashier? then approved_cashier_expenses_path
+    end
+  end
+
+  def rejected_expenses_path
+    case
+    when current_user.super_admin? then rejected_admin_expenses_path
+    when current_user.admin? then rejected_admin_expenses_path
+    when current_user.manager? then rejected_manager_expenses_path
+    when current_user.cashier? then rejected_cashier_expenses_path
+    end
+  end
+
   def new_expense_path
     case
     when current_user.super_admin? then new_admin_expense_path

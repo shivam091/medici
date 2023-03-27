@@ -4,16 +4,16 @@
       %ul.nav.nav-pills.flex-column.flex-lg-row.nav-justified
         - if policy(::Expense).index?
           %li.nav-item
-            = link_to t(".all"), admin_expenses_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
+            = link_to t(".all"), expenses_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
         - if policy(::Expense).pending?
           %li.nav-item
-            = link_to t(".pending"), pending_admin_expenses_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("pending"))}"
+            = link_to t(".pending"), pending_expenses_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("pending"))}"
         - if policy(::Expense).approved?
           %li.nav-item
-            = link_to t(".approved"), approved_admin_expenses_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("approved"))}"
+            = link_to t(".approved"), approved_expenses_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("approved"))}"
         - if policy(::Expense).rejected?
           %li.nav-item
-            = link_to t(".rejected"), rejected_admin_expenses_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("rejected"))}"
+            = link_to t(".rejected"), rejected_expenses_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("rejected"))}"
       - if policy(::Expense).new?
         = link_to new_expense_path, class: "btn btn-primary", data: {turbo_frame: :remote_modal} do
           = external_svg_tag("svgs/plus.svg")
