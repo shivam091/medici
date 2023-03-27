@@ -66,6 +66,7 @@ class PurchaseOrder < ApplicationRecord
   belongs_to :user, inverse_of: :purchase_orders
 
   before_save :set_store
+  after_commit :send_purchase_orders_count, on: [:create, :destroy]
 
   delegate :name, to: :store, prefix: true
   delegate :full_name, to: :user, prefix: true
@@ -91,5 +92,9 @@ class PurchaseOrder < ApplicationRecord
     if user.present?
       self.store = self.user.store
     end
+  end
+
+  def send_purchase_orders_count
+    broadcast_update_to(:purchase_orders, target: :purchase_orders_count, html: ::PurchaseOrder.count)
   end
 end
