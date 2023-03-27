@@ -165,8 +165,10 @@ class Medicine < ApplicationRecord
   end
 
   def reject_medicine_ingredient?(attributes)
-    attributes[:ingredient_id].blank? &&
-      attributes[:strength].blank? &&
-      attributes[:uom].blank?
+    [
+      attributes[:ingredient_id],
+      attributes[:strength],
+      attributes[:uom]
+    ].any?(&:blank?)
   end
 end
