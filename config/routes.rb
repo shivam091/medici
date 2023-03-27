@@ -78,7 +78,7 @@ Rails.application.routes.draw do
 
       resources :suppliers, :manufacturers, :medicines, :stores, param: :uuid, concerns: :toggleable
 
-      resources :purchase_orders, path: "purchase-orders" do
+      resources :purchase_orders, path: "purchase-orders", param: :uuid do
         collection do
           get :pending
           get :incomplete
@@ -96,7 +96,7 @@ Rails.application.routes.draw do
 
       resources :suppliers, :manufacturers, :medicines, param: :uuid, concerns: :toggleable
 
-      resources :purchase_orders, path: "purchase-orders" do
+      resources :purchase_orders, path: "purchase-orders", param: :uuid do
         collection do
           get :pending
           get :incomplete

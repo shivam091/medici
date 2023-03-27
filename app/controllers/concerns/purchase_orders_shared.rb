@@ -71,6 +71,18 @@ module PurchaseOrdersShared
           end
         end
       end
+
+      # DELETE /(admin|manager)/purchase-orders/:uuid
+      def destroy
+        response = ::PurchaseOrders::DestroyService.(@purchase_order)
+        @purchase_order = response.payload[:purchase_order]
+        if response.success?
+          flash[:info] = response.message
+        else
+          flash[:alert] = response.message
+        end
+        redirect_to helpers.purchase_orders_path
+      end
     end
   end
 
