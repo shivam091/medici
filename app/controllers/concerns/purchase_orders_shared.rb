@@ -35,6 +35,12 @@ module PurchaseOrdersShared
         @pagy, @purchase_orders = pagy(@purchase_orders)
       end
 
+      # GET /(admin|manager)/purchase-orders/received
+      def received
+        @purchase_orders = policy_scope(::PurchaseOrder).received.includes(:purchase_order_medicines)
+        @pagy, @purchase_orders = pagy(@purchase_orders)
+      end
+
       # GET /(admin|manager)/purchase-orders/new
       def new
         @purchase_order = current_user.purchase_orders.build
