@@ -11,7 +11,7 @@ class PurchaseOrderMedicine < ApplicationRecord
             reduce: true
   validates :quantity,
             presence: true,
-            numericality: {greater_than: 0},
+            numericality: {only_integer: true, greater_than: 0},
             reduce: true
   validates :cost,
             presence: true,

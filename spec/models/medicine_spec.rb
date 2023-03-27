@@ -316,4 +316,13 @@ RSpec.describe Medicine, type: :model do
       end
     end
   end
+
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of medicines for select list" do
+        medicine = create(:medicine, :active)
+        expect(described_class.select_options).to eq([["#{medicine.name} (#{medicine.reference_code})", medicine.id]])
+      end
+    end
+  end
 end
