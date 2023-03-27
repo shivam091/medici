@@ -6,5 +6,6 @@ class Manager::DashboardsController < Manager::BaseController
 
   # GET /manager/dashboard
   def show
+    @stores = ::Store.includes(:currency)
   end
 end

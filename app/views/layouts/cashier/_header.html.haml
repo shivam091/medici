@@ -33,7 +33,7 @@
               = t(".daily_sells")
           %li.nav-item
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
-              = (@store.present? ? @store.currency_symbol : external_svg_tag("svgs/dollar.svg"))
+              = @store.currency_symbol
               = t(".expenses")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
           = render_if_exists("layouts/cashier/menu")

@@ -48,6 +48,7 @@ class User < ApplicationRecord
   has_many :cash_counter_operators, dependent: :destroy
   has_many :cash_counters, through: :cash_counter_operators
   has_many :working_stores, through: :cash_counters, source: :store
+  has_many :expenses, dependent: :nullify
 
   belongs_to :role
   belongs_to :store, optional: true

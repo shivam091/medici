@@ -4,6 +4,7 @@
   .card-body
     .table-responsive
       %table.table.table-striped.table-bordered
+        - month_expenses = @store.expenses.this_month
         %tbody
           %tr
             %th{width: "25px", scope: "col"}= t(".number_of_sells")
@@ -19,7 +20,7 @@
             %td= number_to_currency(0, unit: @store.currency_symbol)
           %tr
             %th{width: "25px", scope: "col"}= t(".number_of_expenses")
-            %td 0
+            %td= month_expenses.count
           %tr
             %th{width: "25px", scope: "col"}= t(".total_expenses_amount")
-            %td= number_to_currency(0, unit: @store.currency_symbol)
+            %td= number_to_currency(month_expenses.sum(&:amount), unit: @store.currency_symbol)
