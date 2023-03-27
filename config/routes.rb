@@ -36,6 +36,13 @@ Rails.application.routes.draw do
   concern :shareable do
     resource :dashboard, only: :show
     resources :customers, param: :uuid, concerns: :toggleable
+    resources :expenses, param: :uuid do
+      collection do
+        get :pending
+        get :approved
+        get :rejected
+      end
+    end
   end
 
   concern :toggleable do

@@ -119,6 +119,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:cash_counters).through(:cash_counter_operators) }
     it { is_expected.to have_many(:working_stores).through(:cash_counters).source(:store) }
     it { is_expected.to have_many(:purchase_orders).dependent(:nullify) }
+    it { is_expected.to have_many(:expenses).dependent(:nullify) }
     it { is_expected.to belong_to(:role) }
     it { is_expected.to belong_to(:store).optional }
   end

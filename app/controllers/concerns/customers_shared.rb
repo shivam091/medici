@@ -10,7 +10,7 @@ module CustomersShared
 
       before_action :find_customer, except: [:index, :inactive, :new, :create]
       before_action do
-        if action_name.in?(["index", "inactive","new", "create"])
+        if action_name.in?(["index", "inactive", "new", "create"])
           authorize ::Customer
         else
           authorize @customer

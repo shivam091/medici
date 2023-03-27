@@ -6,24 +6,27 @@
 
 Medici::Application.configure do
   config.to_prepare do
-    User::SessionsController.layout          "devise"
+    User::SessionsController.layout            "devise"
 
-    Cashier::BaseController.layout           "cashier"
-    Cashier::ProfilesController.layout       "cashier"
-    Cashier::CustomersController.layout      "cashier"
+    Cashier::BaseController.layout             "cashier"
+    Cashier::ProfilesController.layout         "cashier"
+    Cashier::CustomersController.layout        "cashier"
+    Cashier::ExpensesController.layout         "admin"
 
-    Admin::BaseController.layout             "admin"
-    Admin::SuppliersController.layout        "admin"
-    Admin::ManufacturersController.layout    "admin"
-    Admin::MedicinesController.layout        "admin"
-    Admin::ProfilesController.layout         "admin"
-    Admin::CustomersController.layout        "admin"
+    Admin::BaseController.layout               "admin"
+    Admin::SuppliersController.layout          "admin"
+    Admin::ManufacturersController.layout      "admin"
+    Admin::MedicinesController.layout          "admin"
+    Admin::ProfilesController.layout           "admin"
+    Admin::CustomersController.layout          "admin"
+    Admin::ExpensesController.layout           "admin"
 
-    Manager::BaseController.layout           "manager"
-    Manager::SuppliersController.layout      "manager"
-    Manager::ManufacturersController.layout  "manager"
-    Manager::MedicinesController.layout      "manager"
-    Manager::ProfilesController.layout       "manager"
-    Manager::CustomersController.layout      "manager"
+    Manager::BaseController.layout             "manager"
+    Manager::SuppliersController.layout        "manager"
+    Manager::ManufacturersController.layout    "manager"
+    Manager::MedicinesController.layout        "manager"
+    Manager::ProfilesController.layout         "manager"
+    Manager::CustomersController.layout        "manager"
+    Manager::ExpensesController.layout         "manager"
   end
 end

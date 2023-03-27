@@ -158,6 +158,12 @@
           user_id: "Operator",
           shift_id: "Shift",
         },
+        expense: {
+          store_id: "Store",
+          user_id: "User",
+          amount: "Amount",
+          criteria: "Criteria",
+        },
         tax_rate: {
           country_id: "Country",
           rate: "Rate",

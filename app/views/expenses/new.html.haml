@@ -1,0 +1,3 @@
+= render_modal(title: t(".title")) do
+  = turbo_frame_tag :expense_form do
+    = render_if_exists "expenses/form"

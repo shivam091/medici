@@ -27,7 +27,7 @@ class Expense < ApplicationRecord
     end
   end
 
-  validates :store_id, :user_id, presence: true, reduce: true
+  validates :user_id, presence: true, reduce: true
   validates :criteria, presence: true, length: {maximum: 55}, reduce: true
   validates :amount,
             presence: true,
@@ -41,21 +41,32 @@ class Expense < ApplicationRecord
   belongs_to :store, inverse_of: :expenses, optional: true
   belongs_to :user, inverse_of: :expenses
 
-  before_validation :set_store, on: :create
+  before_save :set_store
 
   delegate :name, :phone_number, :email, to: :store, prefix: true
+  delegate :full_name, to: :user, prefix: true
 
   default_scope -> { order_created_desc }
+
+  class << self
+    def today
+      where(
+        ::Medici::SQL::Functions.date(::Expense[:created_at]).eq(Date.current)
+      )
+    end
+
+    def this_month
+      where(
+        ::Medici::SQL::Functions.date(::Expense[:created_at]).in(Date.current.all_month)
+      )
+    end
+  end
 
   private
 
   def set_store
     if user.present?
-      if user.manager? || user.cashier?
-        self.store = self.user.store
-      end
-    else
-      self.store = nil
+      self.store = self.user.store
     end
   end
 end
