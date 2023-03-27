@@ -13,12 +13,13 @@
         = external_svg_tag("svgs/company.svg")
         = t(".manufacturers")
     - if policy(::PurchaseOrder).index?
-      = link_to manager_purchase_orders_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("manager/purchase_orders"))}" do
+      = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("manager/purchase_orders"))}" do
         = external_svg_tag("svgs/file.svg")
         = t(".purchase_orders")
-    = link_to manager_expenses_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("manager/expenses"))}" do
-      = @store.currency_symbol
-      = t(".expenses")
+    - if policy(::Expense).index?
+      = link_to manager_expenses_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("manager/expenses"))}" do
+        = @store.currency_symbol
+        = t(".expenses")
     = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("manager/sells"))}" do
       = external_svg_tag("svgs/monitoring-dashboard.svg")
       = t(".sells")
