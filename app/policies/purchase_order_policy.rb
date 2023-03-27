@@ -27,7 +27,7 @@ class PurchaseOrderPolicy < ApplicationPolicy
     (user.super_admin? || user.admin? || user.manager?)
   end
 
-  def completed?
+  def received?
     (user.super_admin? || user.admin? || user.manager?)
   end
 

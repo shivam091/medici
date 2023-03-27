@@ -11,9 +11,9 @@
         - if policy(::PurchaseOrder).incomplete?
           %li.nav-item
             = link_to t(".incomplete"), incomplete_purchase_orders_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("incomplete"))}"
-        - if policy(::PurchaseOrder).completed?
+        - if policy(::PurchaseOrder).received?
           %li.nav-item
-            = link_to t(".completed"), completed_purchase_orders_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("completed"))}"
+            = link_to t(".received"), received_purchase_orders_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("received"))}"
       - if policy(::PurchaseOrder).new?
         = link_to new_purchase_order_path, class: "btn btn-primary" do
           = external_svg_tag("svgs/plus.svg")

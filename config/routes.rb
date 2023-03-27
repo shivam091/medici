@@ -82,7 +82,7 @@ Rails.application.routes.draw do
         collection do
           get :pending
           get :incomplete
-          get :completed
+          get :received
         end
       end
     end
@@ -100,7 +100,7 @@ Rails.application.routes.draw do
         collection do
           get :pending
           get :incomplete
-          get :completed
+          get :received
         end
       end
     end

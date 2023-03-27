@@ -27,11 +27,11 @@ module PurchaseOrdersHelper
     end
   end
 
-  def completed_purchase_orders_path
+  def received_purchase_orders_path
     case
-    when current_user.super_admin? then completed_admin_purchase_orders_path
-    when current_user.admin? then completed_admin_purchase_orders_path
-    when current_user.manager? then completed_manager_purchase_orders_path
+    when current_user.super_admin? then received_admin_purchase_orders_path
+    when current_user.admin? then received_admin_purchase_orders_path
+    when current_user.manager? then received_manager_purchase_orders_path
     end
   end
 
