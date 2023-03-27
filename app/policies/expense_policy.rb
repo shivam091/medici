@@ -6,9 +6,9 @@ class ExpensePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if (user.super_admin? || user.admin?)
-        scope.all
+        scope.includes(user: [:role], store: [:currency])
       elsif (user.manager? || user.cashier?)
-        user.expenses
+        user.expenses.includes(user: [:role], store: [:currency])
       else
         scope.none
       end
