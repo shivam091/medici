@@ -65,6 +65,10 @@ class PurchaseOrder < ApplicationRecord
   belongs_to :supplier, inverse_of: :purchase_orders
   belongs_to :user, inverse_of: :purchase_orders
 
+  delegate :name, to: :store, prefix: true
+  delegate :full_name, to: :user, prefix: true
+  delegate :name, to: :supplier, prefix: true
+
   accepts_nested_attributes_for :purchase_order_medicines,
                                 allow_destroy: true,
                                 reject_if: :reject_purchase_order_medicine?
