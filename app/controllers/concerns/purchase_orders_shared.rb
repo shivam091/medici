@@ -29,6 +29,12 @@ module PurchaseOrdersShared
         @pagy, @purchase_orders = pagy(@purchase_orders)
       end
 
+      # GET /(admin|manager)/purchase-orders/incomplete
+      def incomplete
+        @purchase_orders = policy_scope(::PurchaseOrder).incomplete.includes(:purchase_order_medicines)
+        @pagy, @purchase_orders = pagy(@purchase_orders)
+      end
+
       # GET /(admin|manager)/purchase-orders/new
       def new
         @purchase_order = current_user.purchase_orders.build
