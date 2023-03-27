@@ -38,8 +38,7 @@
           %td{rowspan: (purchase_order_medicines.size + 1)}= purchase_order.supplier_name
           %td.actions{rowspan: (purchase_order_medicines.size + 1)}
             - if policy(purchase_order).edit?
-              = link_to external_svg_tag("svgs/pencil.svg"), edit_purchase_order_path(purchase_order), class: "btn btn-sm btn-secondary",
-                data: {turbo_frame: :remote_modal}
+              = link_to external_svg_tag("svgs/pencil.svg"), edit_purchase_order_path(purchase_order), class: "btn btn-sm btn-secondary"
             - if policy(purchase_order).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), purchase_order_path(purchase_order), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_purchase_order_confirmation_text"), turbo_method: :delete}

@@ -7,6 +7,8 @@ module PurchaseOrdersShared
 
   def self.included(base_class)
     base_class.class_eval do
+
+      before_action :find_purchase_order, only: [:edit, :update, :destroy]
       before_action do
         if action_name.in?(["edit", "update", "destroy"])
           authorize @purchase_order
@@ -45,10 +47,38 @@ module PurchaseOrdersShared
           end
         end
       end
+
+      # GET /(admin|manager)/purchase-orders/:uuid/edit
+      def edit
+      end
+
+      # PUT/PATCH /(admin|manager)/purchase-orders/:uuid
+      def update
+        response = ::PurchaseOrders::UpdateService.(@purchase_order, purchase_order_params)
+        @purchase_order = response.payload[:purchase_order]
+        if response.success?
+          flash[:notice] = response.message
+          redirect_to helpers.purchase_orders_path
+        else
+          flash.now[:alert] = response.message
+          respond_to do |format|
+            format.turbo_stream do
+              render turbo_stream: [
+                turbo_stream.update(:purchase_order_form, partial: "purchase_orders/form"),
+                render_flash
+              ], status: :unprocessable_entity
+            end
+          end
+        end
+      end
     end
   end
 
   private
+
+  def find_purchase_order
+    @purchase_order = policy_scope(::PurchaseOrder).find(params.fetch(:uuid))
+  end
 
   def purchase_order_params
     params.require(:purchase_order).permit(
