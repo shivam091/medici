@@ -47,14 +47,6 @@ class ExpensePolicy < ApplicationPolicy
     (user.super_admin? || user.admin? || user.manager? || user.cashier?) && record.pending?
   end
 
-  def activate?
-    (user.super_admin? || user.admin?)
-  end
-
-  def deactivate?
-    (user.super_admin? || user.admin?)
-  end
-
   def destroy?
     user.super_admin?
   end
