@@ -20,6 +20,7 @@ Medici::Application.configure do
     Admin::ProfilesController.layout           "admin"
     Admin::CustomersController.layout          "admin"
     Admin::ExpensesController.layout           "admin"
+    Admin::PurchaseOrdersController.layout     "admin"
 
     Manager::BaseController.layout             "manager"
     Manager::SuppliersController.layout        "manager"
@@ -28,5 +29,6 @@ Medici::Application.configure do
     Manager::ProfilesController.layout         "manager"
     Manager::CustomersController.layout        "manager"
     Manager::ExpensesController.layout         "manager"
+    Manager::PurchaseOrdersController.layout   "manager"
   end
 end
