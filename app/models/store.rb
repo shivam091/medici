@@ -65,7 +65,9 @@ class Store < ApplicationRecord
   private
 
   def send_active_stores_count
-    broadcast_update_to(:stores, target: :active_stores_count, html: ::Store.active.count)
+    if is_active_previously_changed?
+      broadcast_update_to(:stores, target: :active_stores_count, html: ::Store.active.count)
+    end
   end
 
   def reject_cash_counter?(attributes)

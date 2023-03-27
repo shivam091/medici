@@ -22,14 +22,18 @@ module Toggleable
 
     base_class.class_eval do
       def activate!
-        run_callbacks :activate do
-          self.update_column(:is_active, true)
+        self.class.transaction do
+          run_callbacks :activate do
+            self.update(is_active: true)
+          end
         end
       end
 
       def deactivate!
-        run_callbacks :deactivate do
-          self.update_column(:is_active, false)
+        self.class.transaction do
+          run_callbacks :deactivate do
+            self.update(is_active: false)
+          end
         end
       end
     end
