@@ -166,7 +166,9 @@ class Medicine < ApplicationRecord
   private
 
   def send_active_medicines_count
-    broadcast_update_to(:medicines, target: :active_medicines_count, html: ::Medicine.active.count)
+    if is_active_previously_changed?
+      broadcast_update_to(:medicines, target: :active_medicines_count, html: ::Medicine.active.count)
+    end
   end
 
   def create_stock

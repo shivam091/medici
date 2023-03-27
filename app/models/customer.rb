@@ -43,6 +43,8 @@ class Customer < ApplicationRecord
   private
 
   def send_active_customers_count
-    broadcast_update_to(:customers, target: :active_customers_count, html: ::Customer.active.count)
+    if is_active_previously_changed?
+      broadcast_update_to(:customers, target: :active_customers_count, html: ::Customer.active.count)
+    end
   end
 end
