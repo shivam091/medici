@@ -339,6 +339,20 @@
           error: "Discount of the country '%{country_name}' could not be destroyed.",
         },
       },
+      purchase_orders: {
+        create: {
+          success: "Purchase order was successfully added.",
+          error: "Purchase order could not be added.",
+        },
+        update: {
+          success: "Purchase order was successfully updated.",
+          error: "Purchase order could not be updated.",
+        },
+        destroy: {
+          success: "Purchase order was successfully destroyed.",
+          error: "Purchase order could not be destroyed.",
+        }
+      },
     }
   }
 }

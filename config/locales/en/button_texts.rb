@@ -71,7 +71,12 @@
       update_tax_rate: "Update tax rate",
       new_discount: "New discount",
       add_discount: "Add discount",
-      update_discount: "Update discount"
+      update_discount: "Update discount",
+      new_purchase_order: "New purchase order",
+      create_purchase_order: "Create purchase order",
+      update_purchase_order: "Update purchase order",
+      add_medicine: "Add medicine",
+      remove_medicine: "Remove medicine",
     }
   }
 }
