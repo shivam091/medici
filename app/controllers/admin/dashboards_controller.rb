@@ -7,5 +7,6 @@ class Admin::DashboardsController < Admin::BaseController
   # GET /admin/dashboard
   def show
     @top_selling_medicines = []
+    @stores = ::Store.includes(:currency)
   end
 end

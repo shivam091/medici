@@ -12,7 +12,8 @@
             %th{scope: "col"}#
             %th{scope: "col"}= t(".amount")
         %tbody
-          - ::Store.includes(:currency).each.with_index(1) do |store, index|
+          - @stores.each.with_index(1) do |store, index|
+            - month_expenses = store.expenses.this_month
             %tr
               %td.fw-bold{rowspan: 4}= index
               %td.fw-bold{rowspan: 4}= store.name
@@ -26,5 +27,5 @@
                 %td= number_to_currency(0, unit: store.currency_symbol)
               %tr
                 %th= t(".expenses")
-                %td 0
-                %td= number_to_currency(0, unit: store.currency_symbol)
+                %td= month_expenses.count
+                %td= number_to_currency(month_expenses.sum(&:amount), unit: store.currency_symbol)
