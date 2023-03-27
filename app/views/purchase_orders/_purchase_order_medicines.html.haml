@@ -1,0 +1,12 @@
+%div{data: {controller: "nested-forms", nested_forms_wrapper_selector_value: ".purchase-order-medicine-form-wrapper"}}
+  %template{data: {nested_forms_target: "template"}}
+    = form.fields_for :purchase_order_medicines, form.object.purchase_order_medicines.build, child_index: "NEW_RECORD",
+      layout: :floating do |purchase_order_medicine_fields|
+      = render_if_exists("purchase_orders/purchase_order_medicine_form", locals: {form: purchase_order_medicine_fields})
+  = form.fields_for :purchase_order_medicines, layout: :floating do |purchase_order_medicine_fields|
+    = render_if_exists("purchase_orders/purchase_order_medicine_form", locals: {form: purchase_order_medicine_fields})
+  %div{data: {nested_forms_target: "target"}}
+  %hr
+  = button_tag type: :button, class: "btn btn-sm btn-secondary mb-3", data: {action: "click->nested-forms#addAssociation"} do
+    = external_svg_tag("svgs/plus.svg")
+    = button_text("add_medicine")

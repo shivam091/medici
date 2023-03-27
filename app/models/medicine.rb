@@ -135,6 +135,14 @@ class Medicine < ApplicationRecord
 
   default_scope -> { order_reference_code_asc }
 
+  class << self
+    def select_options
+      active.collect do |medicine|
+        ["#{medicine.name} (#{medicine.reference_code})", medicine.id]
+      end
+    end
+  end
+
   def stock
     super.presence || build_stock
   end

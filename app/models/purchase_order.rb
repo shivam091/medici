@@ -61,9 +61,11 @@ class PurchaseOrder < ApplicationRecord
            source: :medicine,
            inverse_of: :purchase_order_medicines
 
-  belongs_to :store, inverse_of: :purchase_orders
+  belongs_to :store, inverse_of: :purchase_orders, optional: true
   belongs_to :supplier, inverse_of: :purchase_orders
   belongs_to :user, inverse_of: :purchase_orders
+
+  before_save :set_store
 
   delegate :name, to: :store, prefix: true
   delegate :full_name, to: :user, prefix: true
@@ -82,6 +84,12 @@ class PurchaseOrder < ApplicationRecord
       attributes[:medicine_id],
       attributes[:quantity],
       attributes[:cost]
-    ].all?(&:blank?)
+    ].any?(&:blank?)
+  end
+
+  def set_store
+    if user.present?
+      self.store = self.user.store
+    end
   end
 end
