@@ -13,6 +13,7 @@
           total_suppliers: "Total suppliers",
           total_manufacturers: "Total manufacturers",
           total_medicines: "Total medicines",
+          total_purchase_orders: "Total purchase orders",
           low_stock_medicines: "Low stock medicines",
           out_of_stock_medicines: "Out of stock medicines",
           nearby_expiry: "Nearby expiry",

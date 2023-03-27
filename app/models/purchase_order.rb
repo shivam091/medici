@@ -96,5 +96,6 @@ class PurchaseOrder < ApplicationRecord
 
   def send_purchase_orders_count
     broadcast_update_to(:purchase_orders, target: :purchase_orders_count, html: ::PurchaseOrder.count)
+    broadcast_update_to(:purchase_orders, target: :own_purchase_orders_count, html: self.user.purchase_orders.count)
   end
 end
