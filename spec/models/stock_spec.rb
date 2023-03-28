@@ -8,7 +8,7 @@ require "spec_helper"
 
 RSpec.describe Stock, type: :model do
   describe "valid factory" do
-    it { is_expected.to have_a_valid_factory }
+    it { is_expected.to have_a_valid_factory.with_traits(:with_medicine) }
   end
 
   it_behaves_like "subclass of ApplicationRecord"

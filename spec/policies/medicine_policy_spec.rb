@@ -7,7 +7,7 @@
 require "spec_helper"
 
 RSpec.describe MedicinePolicy, type: :policy do
-  let!(:medicine) { create(:medicine, :active) }
+  let!(:medicine) { create(:medicine, :with_user, :active) }
 
   context "when super admin is logged in" do
     let(:super_admin) { build(:super_admin, :confirmed) }

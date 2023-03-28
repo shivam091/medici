@@ -86,6 +86,8 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_check_constraint("chk_b79c9e345f").with_condition("sell_price IS NOT NULL") }
     it { is_expected.to have_check_constraint("chk_4cf8eb74a5").with_condition("char_length(reference_code::text) <= 15") }
     it { is_expected.to have_check_constraint("chk_a358f560f5").with_condition("reference_code IS NOT NULL AND reference_code::text <> ''::text") }
+    it { is_expected.to have_check_constraint("chk_e76980da7e").with_condition("store_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_b35fca260c").with_condition("user_id IS NOT NULL") }
   end
 
   describe "default values" do

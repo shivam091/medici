@@ -24,4 +24,10 @@ FactoryBot.define do
       object.store = (::Store.first || create(:store, :with_address, :active))
     end
   end
+
+  trait :with_medicine do
+    after(:build) do |object, evaluator|
+      object.medicine = (::Medicine.first || create(:medicine, :with_suppliers, :with_ingredients, :with_user, :active))
+    end
+  end
 end
