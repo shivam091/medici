@@ -268,7 +268,7 @@ RSpec.describe User, type: :model do
 
         it "sets reference_code for user" do
           expect(subject.reference_code).to be_present
-          expect(subject.reference_code).to eq("ADM-00000000001")
+          expect(subject.reference_code).to eq("SA-000000000001")
         end
       end
 
