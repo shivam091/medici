@@ -34,8 +34,8 @@
           %td= medicine.manufacturer_name
           %td= medicine.humanized_stock
           %td= medicine.humanized_replenishment
-          %td= medicine.purchase_price
-          %td= medicine.sell_price
+          %td= number_to_currency(medicine.purchase_price, unit: medicine.store_currency.symbol)
+          %td= number_to_currency(medicine.sell_price, unit: medicine.store_currency.symbol)
           %td= medicine.manufacture_date.to_fs(:long)
           %td= medicine.expiry_date.to_fs(:long)
           %td= humanized_strength(medicine)

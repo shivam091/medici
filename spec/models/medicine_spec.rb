@@ -212,6 +212,7 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to delegate_method(:name).to(:medicine_category).with_prefix(true) }
     it { is_expected.to delegate_method(:name).to(:packing_type).with_prefix(true) }
     it { is_expected.to delegate_method(:name).to(:dosage_form).with_prefix(true) }
+    it { is_expected.to delegate_method(:currency).to(:store).with_prefix(true) }
   end
 
   describe "nested attributes" do
