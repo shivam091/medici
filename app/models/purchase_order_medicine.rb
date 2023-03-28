@@ -21,42 +21,32 @@ class PurchaseOrderMedicine < ApplicationRecord
   belongs_to :purchase_order, inverse_of: :purchase_order_medicines, touch: true
   belongs_to :medicine, inverse_of: :purchase_order_medicines
 
-  before_create :add_quantity_to_replenishment
-  before_update :update_quantity_of_replenishment
-  before_destroy :subtract_quantity_from_replenishment
+  before_commit :update_replenishment
 
   delegate :name, to: :medicine, prefix: true
 
   private
 
-  def add_quantity_to_replenishment
+  def update_replenishment
     replenishment = self.medicine.replenishment
     replenishment.lock!
 
-    replenishment.update_column(
-      :quantity_pending_from_supplier,
-      (replenishment.quantity_pending_from_supplier + self.quantity)
-    )
-  end
-
-  def subtract_quantity_from_replenishment
-    replenishment = self.medicine.replenishment
-    replenishment.lock!
-
-    replenishment.update_column(
-      :quantity_pending_from_supplier,
-      (replenishment.quantity_pending_from_supplier - self.quantity)
-    )
-  end
-
-  def update_quantity_of_replenishment
-    replenishment = self.medicine.replenishment
-    replenishment.lock!
-
-    difference_in_quantity = quantity - quantity_was
-    replenishment.update_column(
-      :quantity_pending_from_supplier,
-      (replenishment.quantity_pending_from_supplier + difference_in_quantity)
-    )
+    if self.previously_new_record?
+      replenishment.update_column(
+        :quantity_pending_from_supplier,
+        (replenishment.quantity_pending_from_supplier + self.quantity)
+      )
+    elsif self.destroyed?
+      replenishment.update_column(
+        :quantity_pending_from_supplier,
+        (replenishment.quantity_pending_from_supplier - self.quantity)
+      )
+    else
+      difference_in_quantity = quantity - quantity_previously_was
+      replenishment.update_column(
+        :quantity_pending_from_supplier,
+        (replenishment.quantity_pending_from_supplier + difference_in_quantity)
+      )
+    end
   end
 end
