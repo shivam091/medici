@@ -35,6 +35,11 @@ RSpec.describe MedicineIngredient, type: :model do
 
     it { is_expected.to have_foreign_key(:ingredient_id).with_name(:fk_medicine_ingredients_ingredient_id_on_ingredients).on_delete(:restrict) }
     it { is_expected.to have_foreign_key(:medicine_id).with_name(:fk_medicine_ingredients_medicine_id_on_medicines).on_delete(:cascade) }
+
+    it { is_expected.to have_check_constraint("chk_03d29e3ce2").with_condition("ingredient_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_840385d95d").with_condition("medicine_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_852f5c42d3").with_condition("strength IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_d8241669d6").with_condition("uom IS NOT NULL") }
   end
 
   describe "default values" do

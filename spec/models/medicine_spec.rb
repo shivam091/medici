@@ -62,6 +62,8 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_db_index(:store_id) }
     it { is_expected.to have_db_index(:user_id) }
     it { is_expected.to have_db_index(:reference_code).unique(true) }
+    it { is_expected.to have_db_index(:batch_number) }
+    it { is_expected.to have_db_index(:is_active) }
 
     it { is_expected.to have_foreign_key(:dosage_form_id).with_name(:fk_medicines_dosage_form_id_on_dosage_forms).on_delete(:restrict) }
     it { is_expected.to have_foreign_key(:manufacturer_id).with_name(:fk_medicines_manufacturer_id_on_manufacturers).on_delete(:restrict) }
@@ -89,6 +91,10 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_check_constraint("chk_a358f560f5").with_condition("reference_code IS NOT NULL AND reference_code::text <> ''::text") }
     it { is_expected.to have_check_constraint("chk_e76980da7e").with_condition("store_id IS NOT NULL") }
     it { is_expected.to have_check_constraint("chk_b35fca260c").with_condition("user_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_8c1e8d17a6").with_condition("dosage_form_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_2b09acc801").with_condition("manufacturer_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_f67d25c357").with_condition("medicine_category_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_78d740ce31").with_condition("packing_type_id IS NOT NULL") }
   end
 
   describe "default values" do
@@ -101,6 +107,10 @@ RSpec.describe Medicine, type: :model do
   describe "validations" do
     describe "#reference_code" do
       it { is_expected.to validate_length_of(:reference_code).is_at_most(15).with_message("is too long (maximum is 15 characters)") }
+    end
+
+    describe "#store_id" do
+      it { is_expected.to validate_presence_of(:store_id).on(:update).with_message("is required") }
     end
 
     describe "#name" do

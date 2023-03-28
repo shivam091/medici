@@ -25,6 +25,7 @@ RSpec.describe Replenishment, type: :model do
 
     it { is_expected.to have_check_constraint("chk_13a13af222").with_condition("quantity_pending_from_supplier >= 0") }
     it { is_expected.to have_check_constraint("chk_037df1962d").with_condition("quantity_pending_from_supplier IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_eeaeac5535").with_condition("medicine_id IS NOT NULL") }
   end
 
   describe "default values" do

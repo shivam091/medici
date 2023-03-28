@@ -34,6 +34,7 @@ RSpec.describe Country, type: :model do
     it { is_expected.to have_db_index(:iso2).unique(true) }
     it { is_expected.to have_db_index(:iso3).unique(true) }
     it { is_expected.to have_db_index(:currency_id).unique(false) }
+    it { is_expected.to have_db_index(:is_active) }
 
     it { is_expected.to have_foreign_key(:currency_id).with_name(:fk_countries_currency_id_on_currencies).on_delete(:restrict) }
 

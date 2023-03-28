@@ -37,6 +37,7 @@ RSpec.describe Currency, type: :model do
 
     it { is_expected.to have_db_index(:name).unique(true) }
     it { is_expected.to have_db_index(:iso_code).unique(true) }
+    it { is_expected.to have_db_index(:is_active) }
 
     it { is_expected.to have_check_constraint("chk_67f7771463").with_condition("char_length(decimal_mark::text) = 1") }
     it { is_expected.to have_check_constraint("chk_61a2c44427").with_condition("char_length(iso_code::text) = 3") }

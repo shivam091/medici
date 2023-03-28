@@ -34,6 +34,7 @@ RSpec.describe Customer, type: :model do
 
     it { is_expected.to have_db_index(:email).unique(true) }
     it { is_expected.to have_db_index(:mobile_number).unique(true) }
+    it { is_expected.to have_db_index(:is_active) }
 
     it { is_expected.to have_check_constraint("chk_9b044dc5bd").with_condition("char_length(email::text) <= 55") }
     it { is_expected.to have_check_constraint("chk_8c988d796e").with_condition("char_length(name::text) <= 110") }
