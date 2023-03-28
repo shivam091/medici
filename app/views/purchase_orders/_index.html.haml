@@ -1,0 +1,26 @@
+.card.card-primary.border.border-primary
+  .card-header
+    .d-flex.justify-content-between.align-items-center
+      %ul.nav.nav-pills.flex-column.flex-lg-row.nav-justified
+        - if policy(::PurchaseOrder).index?
+          %li.nav-item
+            = link_to t(".all"), purchase_orders_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
+        - if policy(::PurchaseOrder).pending?
+          %li.nav-item
+            = link_to t(".pending"), pending_purchase_orders_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("pending"))}"
+        - if policy(::PurchaseOrder).incomplete?
+          %li.nav-item
+            = link_to t(".incomplete"), incomplete_purchase_orders_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("incomplete"))}"
+        - if policy(::PurchaseOrder).received?
+          %li.nav-item
+            = link_to t(".received"), received_purchase_orders_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("received"))}"
+      - if policy(::PurchaseOrder).new?
+        = link_to new_purchase_order_path, class: "btn btn-primary" do
+          = external_svg_tag("svgs/plus.svg")
+          %span.d-block.d-lg-none= button_text("new")
+          %span.d-none.d-lg-block= button_text("new_purchase_order")
+  .card-body{data: {controller: "select-all-checkbox"}}
+    = render_if_exists("purchase_orders/purchase_order")
+  - if @pagy.pages > 1
+    .card-footer
+      = render_if_exists("shared/pagination", locals: {pagy: @pagy})

@@ -4,6 +4,7 @@
 = turbo_stream_from :manufacturers
 = turbo_stream_from :medicines
 = turbo_stream_from :users
+= turbo_stream_from :purchase_orders
 .card.card-primary.border.border-primary
   .card-body
     .row
@@ -63,6 +64,20 @@
           .card-footer
             .float-end
               = link_to t(".view_all"), manager_manufacturers_path, class: "text-decoration-none"
+      .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
+        .card.flex-fill.mb-2
+          .card-body
+            .d-flex.align-items-start
+              .flex-grow-1
+                %h3.mb-2
+                  = turbo_frame_tag :own_purchase_orders_count do
+                    = current_user.purchase_orders.count
+                %p.mb-2= t(".total_purchase_orders")
+              .d-inline-block
+                = external_svg_tag("svgs/file.svg", height: "48px", width: "48px")
+          .card-footer
+            .float-end
+              = link_to t(".view_all"), manager_purchase_orders_path, class: "text-decoration-none"
       .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
         .card.flex-fill.mb-2
           .card-body

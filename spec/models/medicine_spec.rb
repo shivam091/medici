@@ -184,6 +184,8 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_many(:suppliers).through(:medicine_suppliers).source(:supplier).inverse_of(:medicine_suppliers) }
     it { is_expected.to have_many(:medicine_ingredients).dependent(:destroy) }
     it { is_expected.to have_many(:ingredients).through(:medicine_ingredients).source(:ingredient).inverse_of(:medicine_ingredients) }
+    it { is_expected.to have_many(:purchase_order_medicines).dependent(:destroy) }
+    it { is_expected.to have_many(:purchase_orders).through(:purchase_order_medicines).source(:purchase_order).inverse_of(:purchase_order_medicines) }
 
     it { is_expected.to belong_to(:manufacturer).inverse_of(:medicines) }
     it { is_expected.to belong_to(:medicine_category).inverse_of(:medicines) }
@@ -327,6 +329,15 @@ RSpec.describe Medicine, type: :model do
         expect {
           medicine.update(medicine_ingredients_attributes: {0 => {ingredient_id: "", strength: "", uom: ""}})
         }.to_not change { medicine.medicine_ingredients.count }
+      end
+    end
+  end
+
+  describe "class methods" do
+    describe ".select_options" do
+      it "should return array of medicines for select list" do
+        medicine = create(:medicine, :active)
+        expect(described_class.select_options).to eq([["#{medicine.name} (#{medicine.reference_code})", medicine.id]])
       end
     end
   end

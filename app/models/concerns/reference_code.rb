@@ -25,6 +25,7 @@ module ReferenceCode
     Cashier: "CAS",
     Customer: "CUST",
     Store: "STR",
+    PurchaseOrder: "PO",
     Expense: "EXP"
   }.with_indifferent_access.freeze
 
@@ -41,7 +42,7 @@ module ReferenceCode
       chars = self.name.first(2)
       new_reference_code = REFERENCE_CODE_MAPPINGS[model.to_s] + "-" + chars.upcase
       last_code = relation.where(model.arel_table[:name].matches("#{chars}%")).maximum(:reference_code)
-    when "Manufacturer", "Supplier", "Store", "Customer", "Expense"
+    when "Manufacturer", "Supplier", "Store", "Customer", "PurchaseOrder", "Expense"
       new_reference_code = REFERENCE_CODE_MAPPINGS[model.to_s] + "-"
       last_code = relation.maximum(:reference_code)
     when "User"

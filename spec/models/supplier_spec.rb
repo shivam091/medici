@@ -51,6 +51,7 @@ RSpec.describe Supplier, type: :model do
 
     it { is_expected.to have_many(:medicine_suppliers).dependent(:restrict_with_exception) }
     it { is_expected.to have_many(:medicines).through(:medicine_suppliers).source(:medicine).inverse_of(:medicine_suppliers) }
+    it { is_expected.to have_many(:purchase_orders).dependent(:restrict_with_exception) }
   end
 
   describe "default values" do

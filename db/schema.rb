@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_26_144517) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "expense_statuses", [["pending", "approved", "rejected"]]
+  create_enum "purchase_order_statuses", [["pending", "incomplete", "received"]]
   create_enum "tax_rate_types", [["vat", "gst", "cgst", "sgst", "pst", "hst", "st"]]
   create_enum "unit_of_measures", [["kg", "g", "mg", "mcg", "l", "ml", "cc", "mol", "mmol", "ww", "qs", "wv", "lb", "f", "c", "oz", "tbsp", "tsp", "gtt", "gr", "gal", "pt", "m", "qt", "floz", "fldr", "dr", "vv"]]
 
@@ -317,6 +318,54 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_c41aed63fb"
   end
 
+  create_table "purchase_order_medicines", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "purchase_order_id"
+    t.uuid "medicine_id"
+    t.integer "quantity", default: 1
+    t.decimal "cost", precision: 8, scale: 2, default: "0.0"
+    t.boolean "is_received", default: false
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["medicine_id"], name: "index_purchase_order_medicines_on_medicine_id"
+    t.index ["purchase_order_id"], name: "index_purchase_order_medicines_on_purchase_order_id"
+    t.check_constraint "cost > 0.0", name: "chk_04a87460f2"
+    t.check_constraint "cost IS NOT NULL", name: "chk_75817d4bd1"
+    t.check_constraint "medicine_id IS NOT NULL", name: "chk_8d0a23fa4d"
+    t.check_constraint "purchase_order_id IS NOT NULL", name: "chk_a9c889e0e6"
+    t.check_constraint "quantity > 0", name: "chk_c72d3c1b02"
+    t.check_constraint "quantity IS NOT NULL", name: "chk_a2773d58f0"
+  end
+
+  create_table "purchase_orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "reference_code"
+    t.string "invoice_number"
+    t.string "tracking_number"
+    t.date "ordered_at"
+    t.date "expected_arrival_at"
+    t.enum "status", default: "pending", enum_type: "purchase_order_statuses"
+    t.uuid "user_id"
+    t.uuid "supplier_id"
+    t.uuid "store_id"
+    t.timestamptz "created_at", null: false
+    t.timestamptz "updated_at", null: false
+    t.index ["invoice_number"], name: "index_purchase_orders_on_invoice_number", unique: true
+    t.index ["reference_code"], name: "index_purchase_orders_on_reference_code", unique: true
+    t.index ["store_id"], name: "index_purchase_orders_on_store_id"
+    t.index ["supplier_id"], name: "index_purchase_orders_on_supplier_id"
+    t.index ["user_id"], name: "index_purchase_orders_on_user_id"
+    t.check_constraint "char_length(invoice_number::text) <= 55", name: "chk_041828c53c"
+    t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_c7443cb7a7"
+    t.check_constraint "char_length(tracking_number::text) <= 55", name: "chk_aad822138e"
+    t.check_constraint "expected_arrival_at >= CURRENT_DATE", name: "expected_arrival_at_gteq_today"
+    t.check_constraint "invoice_number IS NOT NULL AND invoice_number::text <> ''::text", name: "chk_5b2da2aebf"
+    t.check_constraint "ordered_at <= CURRENT_DATE", name: "ordered_at_lteq_today"
+    t.check_constraint "ordered_at IS NOT NULL", name: "chk_318f1e46ee"
+    t.check_constraint "status = ANY (ARRAY['pending'::purchase_order_statuses, 'incomplete'::purchase_order_statuses, 'received'::purchase_order_statuses])", name: "chk_ecf43476d8"
+    t.check_constraint "store_id IS NOT NULL", name: "chk_93de0a3636"
+    t.check_constraint "supplier_id IS NOT NULL", name: "chk_a46ced21e2"
+    t.check_constraint "user_id IS NOT NULL", name: "chk_e183262ac0"
+  end
+
   create_table "replenishments", primary_key: "medicine_id", id: :uuid, default: nil, force: :cascade do |t|
     t.integer "quantity_pending_from_supplier", default: 0
     t.timestamptz "created_at", null: false
@@ -516,6 +565,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
   add_foreign_key "medicines", "packing_types", name: "fk_medicines_packing_type_id_on_packing_types", on_delete: :restrict
   add_foreign_key "medicines", "stores", name: "fk_medicines_store_id_on_stores", on_delete: :cascade
   add_foreign_key "medicines", "users", name: "fk_medicines_user_id_on_users", on_delete: :nullify
+  add_foreign_key "purchase_order_medicines", "medicines", name: "fk_purchase_order_medicines_medicine_id_on_medicines", on_delete: :cascade
+  add_foreign_key "purchase_order_medicines", "purchase_orders", name: "fk_purchase_order_medicines_purchase_order_id_on_purchase_order", on_delete: :cascade
+  add_foreign_key "purchase_orders", "stores", name: "fk_purchase_orders_store_id_on_stores", on_delete: :restrict
+  add_foreign_key "purchase_orders", "suppliers", name: "fk_purchase_orders_supplier_id_on_suppliers", on_delete: :restrict
+  add_foreign_key "purchase_orders", "users", name: "fk_purchase_orders_user_id_on_users", on_delete: :nullify
   add_foreign_key "replenishments", "medicines", name: "fk_replenishments_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "request_logs", "users", name: "fk_request_logs_user_id_on_users", on_delete: :nullify
   add_foreign_key "stocks", "medicines", name: "fk_stocks_medicine_id_on_medicines", on_delete: :cascade

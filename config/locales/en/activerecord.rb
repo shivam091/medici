@@ -176,6 +176,24 @@
           country_id: "Country",
           percent_off: "Percent off",
         },
+        purchase_order: {
+          user_id: "User",
+          store_id: "Store",
+          supplier_id: "Supplier",
+          reference_code: "Reference code",
+          invoice_number: "Invoice number",
+          tracking_number: "Tracking number",
+          ordered_at: "Ordered at",
+          expected_arrival_at: "Expected arrival at",
+          status: "Status",
+        },
+        purchase_order_medicine: {
+          purchase_order_id: "Purchase order",
+          medicine_id: "Medicine",
+          quantity: "Quantity",
+          cost: "Cost",
+          is_received: "Is received",
+        },
       },
       help_texts: {
 

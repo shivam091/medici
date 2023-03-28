@@ -77,6 +77,14 @@ Rails.application.routes.draw do
       resources :packing_types, except: :show, param: :uuid, path: "packing-types", concerns: :toggleable
 
       resources :suppliers, :manufacturers, :medicines, :stores, param: :uuid, concerns: :toggleable
+
+      resources :purchase_orders, path: "purchase-orders", param: :uuid do
+        collection do
+          get :pending
+          get :incomplete
+          get :received
+        end
+      end
     end
   end
 
@@ -87,6 +95,14 @@ Rails.application.routes.draw do
       resource :profile, only: [:show, :edit, :update]
 
       resources :suppliers, :manufacturers, :medicines, param: :uuid, concerns: :toggleable
+
+      resources :purchase_orders, path: "purchase-orders", param: :uuid do
+        collection do
+          get :pending
+          get :incomplete
+          get :received
+        end
+      end
     end
   end
 
