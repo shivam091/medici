@@ -5,7 +5,7 @@
 class CreateCustomers < Medici::Database::Migration[1.0]
   def change
     create_table_with_constraints :customers, id: :uuid do |t|
-      t.string :reference_code
+      t.string :reference_code, index: {using: :btree, unique: true}
       t.string :name
       t.string :email, index: {using: :btree, unique: true}
       t.string :mobile_number, index: {using: :btree, unique: true}

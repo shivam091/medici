@@ -36,7 +36,7 @@ class CreateUsers < Medici::Database::Migration[1.0]
       t.timestamptz :locked_at
 
       # Additional attributes
-      t.string :reference_code
+      t.string :reference_code, index: {using: :btree, unique: true}
       t.string :first_name
       t.string :last_name
       t.timestamptz :last_password_updated_at

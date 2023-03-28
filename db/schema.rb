@@ -130,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "updated_at", null: false
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["mobile_number"], name: "index_customers_on_mobile_number", unique: true
+    t.index ["reference_code"], name: "index_customers_on_reference_code", unique: true
     t.check_constraint "char_length(email::text) <= 55", name: "chk_9b044dc5bd"
     t.check_constraint "char_length(mobile_number::text) <= 32", name: "chk_3ae00196cf"
     t.check_constraint "char_length(name::text) <= 110", name: "chk_8c988d796e"
@@ -169,6 +170,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.enum "status", default: "pending", enum_type: "expense_statuses"
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.index ["reference_code"], name: "index_expenses_on_reference_code", unique: true
     t.index ["store_id"], name: "index_expenses_on_store_id"
     t.index ["user_id"], name: "index_expenses_on_user_id"
     t.check_constraint "amount > 0.0", name: "chk_943822d0f2"
@@ -189,6 +191,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["name"], name: "index_ingredients_on_name", unique: true
+    t.index ["reference_code"], name: "index_ingredients_on_reference_code", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_62cbc59142"
     t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_a65696bd28"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_44ab271035"
@@ -206,6 +209,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "updated_at", null: false
     t.index ["email"], name: "index_manufacturers_on_email", unique: true
     t.index ["phone_number"], name: "index_manufacturers_on_phone_number", unique: true
+    t.index ["reference_code"], name: "index_manufacturers_on_reference_code", unique: true
     t.check_constraint "char_length(email::text) <= 55", name: "chk_a17491f35f"
     t.check_constraint "char_length(name::text) <= 110", name: "chk_d3a128b5e4"
     t.check_constraint "char_length(phone_number::text) <= 32", name: "chk_1ca5089b5d"
@@ -284,6 +288,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.index ["manufacturer_id"], name: "index_medicines_on_manufacturer_id"
     t.index ["medicine_category_id"], name: "index_medicines_on_medicine_category_id"
     t.index ["packing_type_id"], name: "index_medicines_on_packing_type_id"
+    t.index ["reference_code"], name: "index_medicines_on_reference_code", unique: true
     t.index ["store_id"], name: "index_medicines_on_store_id"
     t.index ["user_id"], name: "index_medicines_on_user_id"
     t.check_constraint "batch_number IS NOT NULL AND batch_number::text <> ''::text", name: "chk_977b947e5e"
@@ -399,6 +404,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.index ["currency_id"], name: "index_stores_on_currency_id"
     t.index ["email"], name: "index_stores_on_email", unique: true
     t.index ["phone_number"], name: "index_stores_on_phone_number", unique: true
+    t.index ["reference_code"], name: "index_stores_on_reference_code", unique: true
     t.index ["registration_number"], name: "index_stores_on_registration_number", unique: true
     t.check_constraint "char_length(email::text) <= 55", name: "chk_0966276692"
     t.check_constraint "char_length(fax_number::text) <= 32", name: "chk_55cbeaf1bf"
@@ -421,6 +427,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "updated_at", null: false
     t.index ["email"], name: "index_suppliers_on_email", unique: true
     t.index ["phone_number"], name: "index_suppliers_on_phone_number", unique: true
+    t.index ["reference_code"], name: "index_suppliers_on_reference_code", unique: true
     t.check_constraint "char_length(email::text) <= 55", name: "chk_b1c47b4cbe"
     t.check_constraint "char_length(name::text) <= 110", name: "chk_427b1088f0"
     t.check_constraint "char_length(phone_number::text) <= 32", name: "chk_826f24ed62"
@@ -478,6 +485,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mobile_number"], name: "index_users_on_mobile_number", unique: true
+    t.index ["reference_code"], name: "index_users_on_reference_code", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["store_id"], name: "index_users_on_store_id"

@@ -53,7 +53,7 @@ class CreateMedicines < Medici::Database::Migration[1.0]
                      on_delete: :cascade
                    },
                    index: {using: :btree}
-      t.string :reference_code
+      t.string :reference_code, index: {using: :btree, unique: true}
       t.string :name
       t.text :description
       t.string :batch_number

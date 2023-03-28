@@ -5,7 +5,7 @@
 class CreateIngredients < Medici::Database::Migration[1.0]
   def change
     create_table_with_constraints :ingredients, id: :uuid do |t|
-      t.string :reference_code
+      t.string :reference_code, index: {using: :btree, unique: true}
       t.string :name, index: {using: :btree, unique: true}
       t.boolean :is_active, default: false
 
