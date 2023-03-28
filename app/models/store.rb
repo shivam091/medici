@@ -36,6 +36,7 @@ class Store < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :cash_counters, dependent: :destroy
   has_many :expenses, dependent: :destroy
+  has_many :medicines, dependent: :destroy
 
   belongs_to :currency
 

@@ -84,6 +84,7 @@ class Medicine < ApplicationRecord
             :dosage_form_id,
             :packing_type_id,
             :manufacturer_id,
+            :user_id,
             presence: true,
             reduce: true
   validates :strength,
@@ -113,7 +114,10 @@ class Medicine < ApplicationRecord
   belongs_to :medicine_category, inverse_of: :medicines
   belongs_to :packing_type, inverse_of: :medicines
   belongs_to :dosage_form, inverse_of: :medicines
+  belongs_to :store, inverse_of: :medicines, optional: true
+  belongs_to :user, inverse_of: :medicines
 
+  before_save :set_store
   after_create :create_stock, :create_replenishment
   after_commit :send_active_medicines_count
 
@@ -163,6 +167,12 @@ class Medicine < ApplicationRecord
   def send_active_medicines_count
     if is_active_previously_changed?
       broadcast_update_to(:medicines, target: :active_medicines_count, html: ::Medicine.active.count)
+    end
+  end
+
+  def set_store
+    if user.present?
+      self.store = self.user.store
     end
   end
 
