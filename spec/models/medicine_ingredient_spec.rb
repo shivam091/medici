@@ -11,7 +11,7 @@ RSpec.describe MedicineIngredient, type: :model do
   subject(:medicine_ingredient) { build(:medicine_ingredient) }
 
   describe "valid factory" do
-    let(:medicine) { create(:medicine) }
+    let(:medicine) { create(:medicine, :with_user) }
     let(:ingredient) { create(:ingredient) }
 
     it { is_expected.to have_a_valid_factory.with_associations({medicine:, ingredient:}) }

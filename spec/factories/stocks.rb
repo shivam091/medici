@@ -5,6 +5,5 @@
 FactoryBot.define do
   factory :stock do
     quantity_in_hand { 0 }
-    medicine { create(:medicine, :active) }
   end
 end

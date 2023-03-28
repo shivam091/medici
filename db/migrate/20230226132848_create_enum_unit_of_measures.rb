@@ -2,7 +2,7 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class AddEnumUnitOfMeasures < Medici::Database::Migration[1.0]
+class CreateEnumUnitOfMeasures < Medici::Database::Migration[1.0]
   def change
     create_enum :unit_of_measures,
                 [

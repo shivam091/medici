@@ -31,6 +31,10 @@ class Supplier < ApplicationRecord
            through: :medicine_suppliers,
            source: :medicine,
            inverse_of: :medicine_suppliers
+  has_many :stores,
+           through: :medicine_suppliers,
+           source: :store,
+           inverse_of: :medicine_suppliers
 
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true

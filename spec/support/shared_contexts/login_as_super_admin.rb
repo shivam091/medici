@@ -3,7 +3,7 @@
 # -*- warn_indent: true -*-
 
 RSpec.shared_context "login as super admin" do
-  let(:super_admin) { create(:super_admin, :active, :confirmed) }
+  let(:super_admin) { create(:super_admin, :active, :confirmed, :with_store) }
 
   before do
     sign_in(super_admin)

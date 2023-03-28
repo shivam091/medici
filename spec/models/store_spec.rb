@@ -62,6 +62,7 @@ RSpec.describe Store, type: :model do
     it { is_expected.to have_one(:address).dependent(:destroy) }
     it { is_expected.to have_many(:users).dependent(:destroy) }
     it { is_expected.to have_many(:expenses).dependent(:destroy) }
+    it { is_expected.to have_many(:medicines).dependent(:destroy) }
     it { is_expected.to belong_to(:currency) }
   end
 
