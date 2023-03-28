@@ -32,8 +32,8 @@
           %td.fw-bold= medicine.name
           %td= medicine.medicine_category_name
           %td= medicine.manufacturer_name
-          %td= medicine.quantity_in_hand
-          %td= medicine.quantity_pending_from_supplier
+          %td= medicine.humanized_stock
+          %td= medicine.humanized_replenishment
           %td= medicine.purchase_price
           %td= medicine.sell_price
           %td= medicine.manufacture_date.to_fs(:long)
