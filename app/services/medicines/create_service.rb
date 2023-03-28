@@ -3,7 +3,8 @@
 # -*- warn_indent: true -*-
 
 class Medicines::CreateService < ApplicationService
-  def initialize(medicine_attributes)
+  def initialize(user, medicine_attributes)
+    @user = user
     @medicine_attributes = medicine_attributes.dup
   end
 
@@ -13,10 +14,10 @@ class Medicines::CreateService < ApplicationService
 
   private
 
-  attr_reader :medicine_attributes
+  attr_reader :user, :medicine_attributes
 
   def create_medicine
-    medicine = ::Medicine.new(medicine_attributes)
+    medicine = user.medicines.build(medicine_attributes)
     if medicine.save
       ::ServiceResponse.success(
         message: t("medicines.create.success", medicine_name: medicine.name, medicine_code: medicine.reference_code),
