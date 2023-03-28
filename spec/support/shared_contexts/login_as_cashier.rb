@@ -3,7 +3,7 @@
 # -*- warn_indent: true -*-
 
 RSpec.shared_context "login as cashier" do
-  let(:cashier) { create(:cashier, :active, :confirmed) }
+  let(:cashier) { create(:cashier, :active, :confirmed, :with_store) }
 
   before do
     sign_in(cashier)
