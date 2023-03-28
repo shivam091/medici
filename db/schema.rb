@@ -243,11 +243,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
   create_table "medicine_suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "medicine_id"
     t.uuid "supplier_id"
+    t.uuid "store_id"
     t.integer "total_quantity_supplied", default: 0
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["medicine_id"], name: "index_medicine_suppliers_on_medicine_id"
+    t.index ["store_id"], name: "index_medicine_suppliers_on_store_id"
     t.index ["supplier_id"], name: "index_medicine_suppliers_on_supplier_id"
+    t.check_constraint "medicine_id IS NOT NULL", name: "chk_fe78cbf5f6"
+    t.check_constraint "store_id IS NOT NULL", name: "chk_c03bbc37c0"
+    t.check_constraint "supplier_id IS NOT NULL", name: "chk_a1e7c5a927"
     t.check_constraint "total_quantity_supplied >= 0", name: "chk_fde59c4d35"
     t.check_constraint "total_quantity_supplied IS NOT NULL", name: "chk_95cd4feefd"
   end
@@ -503,6 +508,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
   add_foreign_key "medicine_ingredients", "ingredients", name: "fk_medicine_ingredients_ingredient_id_on_ingredients", on_delete: :restrict
   add_foreign_key "medicine_ingredients", "medicines", name: "fk_medicine_ingredients_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "medicine_suppliers", "medicines", name: "fk_medicine_suppliers_medicine_id_on_medicines", on_delete: :cascade
+  add_foreign_key "medicine_suppliers", "stores", name: "fk_medicine_suppliers_store_id_on_stores", on_delete: :cascade
   add_foreign_key "medicine_suppliers", "suppliers", name: "fk_medicine_suppliers_supplier_id_on_suppliers", on_delete: :restrict
   add_foreign_key "medicines", "dosage_forms", name: "fk_medicines_dosage_form_id_on_dosage_forms", on_delete: :restrict
   add_foreign_key "medicines", "manufacturers", name: "fk_medicines_manufacturer_id_on_manufacturers", on_delete: :restrict
