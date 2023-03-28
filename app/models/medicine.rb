@@ -127,6 +127,7 @@ class Medicine < ApplicationRecord
   delegate :name, to: :medicine_category, prefix: true
   delegate :name, to: :packing_type, prefix: true
   delegate :name, to: :dosage_form, prefix: true
+  delegate :currency, to: :store, prefix: true
 
   accepts_nested_attributes_for :medicine_ingredients,
                                 allow_destroy: true,
