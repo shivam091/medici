@@ -9,7 +9,7 @@ class CreateCustomers < Medici::Database::Migration[1.0]
       t.string :name
       t.string :email, index: {using: :btree, unique: true}
       t.string :mobile_number, index: {using: :btree, unique: true}
-      t.boolean :is_active, default: false
+      t.boolean :is_active, default: false, index: {using: :btree}
 
       t.not_null_and_empty_constraint :reference_code
       t.not_null_and_empty_constraint :name

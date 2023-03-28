@@ -6,7 +6,7 @@ class CreateDosageForms < Medici::Database::Migration[1.0]
   def change
     create_table_with_constraints :dosage_forms, id: :uuid do |t|
       t.string :name, index: {using: :btree, unique: true}
-      t.boolean :is_active, default: false
+      t.boolean :is_active, default: false, index: {using: :btree}
 
       t.not_null_and_empty_constraint :name
 

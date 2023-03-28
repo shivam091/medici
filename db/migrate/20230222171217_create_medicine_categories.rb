@@ -7,7 +7,7 @@ class CreateMedicineCategories < Medici::Database::Migration[1.0]
     create_table_with_constraints :medicine_categories, id: :uuid do |t|
       t.string :name, index: {using: :btree, unique: true}
       t.string :description
-      t.boolean :is_active, default: false
+      t.boolean :is_active, default: false, index: {using: :btree}
 
       t.not_null_and_empty_constraint :name
 

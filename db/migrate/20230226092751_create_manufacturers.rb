@@ -10,7 +10,7 @@ class CreateManufacturers < Medici::Database::Migration[1.0]
       t.string :email, index: {using: :btree, unique: true}
       t.string :phone_number, index: {using: :btree, unique: true}
       t.string :customer_care_number
-      t.boolean :is_active, default: false
+      t.boolean :is_active, default: false, index: {using: :btree}
 
       t.not_null_and_empty_constraint :reference_code
       t.not_null_and_empty_constraint :name

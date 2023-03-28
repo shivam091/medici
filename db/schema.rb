@@ -55,6 +55,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.index ["cash_counter_id"], name: "index_cash_counter_operators_on_cash_counter_id"
     t.index ["shift_id"], name: "index_cash_counter_operators_on_shift_id"
     t.index ["user_id"], name: "index_cash_counter_operators_on_user_id"
+    t.check_constraint "cash_counter_id IS NOT NULL", name: "chk_af3c28905e"
+    t.check_constraint "shift_id IS NOT NULL", name: "chk_0de8100141"
+    t.check_constraint "user_id IS NOT NULL", name: "chk_d9ee748c29"
   end
 
   create_table "cash_counters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -64,9 +67,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["identifier", "store_id"], name: "index_cash_counters_on_identifier_and_store_id", unique: true
+    t.index ["is_active"], name: "index_cash_counters_on_is_active"
     t.index ["store_id"], name: "index_cash_counters_on_store_id"
     t.check_constraint "char_length(identifier::text) <= 55", name: "chk_536102d810"
     t.check_constraint "identifier IS NOT NULL AND identifier::text <> ''::text", name: "chk_aebf4b581d"
+    t.check_constraint "store_id IS NOT NULL", name: "chk_672e9b122c"
   end
 
   create_table "countries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -80,6 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["currency_id"], name: "index_countries_on_currency_id"
+    t.index ["is_active"], name: "index_countries_on_is_active"
     t.index ["iso2"], name: "index_countries_on_iso2", unique: true
     t.index ["iso3"], name: "index_countries_on_iso3", unique: true
     t.index ["name"], name: "index_countries_on_name", unique: true
@@ -106,6 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.boolean "is_active", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.index ["is_active"], name: "index_currencies_on_is_active"
     t.index ["iso_code"], name: "index_currencies_on_iso_code", unique: true
     t.index ["name"], name: "index_currencies_on_name", unique: true
     t.check_constraint "char_length(decimal_mark::text) = 1", name: "chk_67f7771463"
@@ -129,6 +136,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["email"], name: "index_customers_on_email", unique: true
+    t.index ["is_active"], name: "index_customers_on_is_active"
     t.index ["mobile_number"], name: "index_customers_on_mobile_number", unique: true
     t.index ["reference_code"], name: "index_customers_on_reference_code", unique: true
     t.check_constraint "char_length(email::text) <= 55", name: "chk_9b044dc5bd"
@@ -156,6 +164,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.boolean "is_active", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.index ["is_active"], name: "index_dosage_forms_on_is_active"
     t.index ["name"], name: "index_dosage_forms_on_name", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_ca1407d42a"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_6fb39fa26d"
@@ -190,6 +199,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.boolean "is_active", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.index ["is_active"], name: "index_ingredients_on_is_active"
     t.index ["name"], name: "index_ingredients_on_name", unique: true
     t.index ["reference_code"], name: "index_ingredients_on_reference_code", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_62cbc59142"
@@ -208,6 +218,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["email"], name: "index_manufacturers_on_email", unique: true
+    t.index ["is_active"], name: "index_manufacturers_on_is_active"
     t.index ["phone_number"], name: "index_manufacturers_on_phone_number", unique: true
     t.index ["reference_code"], name: "index_manufacturers_on_reference_code", unique: true
     t.check_constraint "char_length(email::text) <= 55", name: "chk_a17491f35f"
@@ -226,6 +237,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.boolean "is_active", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.index ["is_active"], name: "index_medicine_categories_on_is_active"
     t.index ["name"], name: "index_medicine_categories_on_name", unique: true
     t.check_constraint "char_length(description::text) <= 255", name: "chk_563b95552d"
     t.check_constraint "char_length(name::text) <= 55", name: "chk_03e39c141b"
@@ -242,6 +254,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "updated_at", null: false
     t.index ["ingredient_id"], name: "index_medicine_ingredients_on_ingredient_id"
     t.index ["medicine_id"], name: "index_medicine_ingredients_on_medicine_id"
+    t.check_constraint "ingredient_id IS NOT NULL", name: "chk_03d29e3ce2"
+    t.check_constraint "medicine_id IS NOT NULL", name: "chk_840385d95d"
+    t.check_constraint "strength IS NOT NULL", name: "chk_852f5c42d3"
+    t.check_constraint "uom IS NOT NULL", name: "chk_d8241669d6"
   end
 
   create_table "medicine_suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -284,7 +300,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.boolean "is_active", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.index ["batch_number"], name: "index_medicines_on_batch_number"
     t.index ["dosage_form_id"], name: "index_medicines_on_dosage_form_id"
+    t.index ["is_active"], name: "index_medicines_on_is_active"
     t.index ["manufacturer_id"], name: "index_medicines_on_manufacturer_id"
     t.index ["medicine_category_id"], name: "index_medicines_on_medicine_category_id"
     t.index ["packing_type_id"], name: "index_medicines_on_packing_type_id"
@@ -298,12 +316,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.check_constraint "char_length(proprietary_name::text) <= 255", name: "chk_5e9dfe5c73"
     t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_4cf8eb74a5"
     t.check_constraint "char_length(therapeutic_areas::text) <= 255", name: "chk_46218b7add"
+    t.check_constraint "dosage_form_id IS NOT NULL", name: "chk_8c1e8d17a6"
     t.check_constraint "expiry_date > CURRENT_DATE", name: "manufacture_date_gt_today"
     t.check_constraint "expiry_date IS NOT NULL", name: "chk_95781602a5"
     t.check_constraint "manufacture_date < expiry_date", name: "expiry_date_gt_manufacture_date"
     t.check_constraint "manufacture_date <= CURRENT_DATE", name: "manufacture_date_lteq_today"
     t.check_constraint "manufacture_date IS NOT NULL", name: "chk_a3d10b57f2"
+    t.check_constraint "manufacturer_id IS NOT NULL", name: "chk_2b09acc801"
+    t.check_constraint "medicine_category_id IS NOT NULL", name: "chk_f67d25c357"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_7db414700d"
+    t.check_constraint "packing_type_id IS NOT NULL", name: "chk_78d740ce31"
     t.check_constraint "purchase_price IS NOT NULL", name: "chk_f7b18baf4f"
     t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_a358f560f5"
     t.check_constraint "sell_price <= purchase_price", name: "sell_price_lteq_purchase_price"
@@ -317,6 +339,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.boolean "is_active", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.index ["is_active"], name: "index_packing_types_on_is_active"
     t.index ["name"], name: "index_packing_types_on_name", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_9ef2625dfe"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_c41aed63fb"
@@ -327,6 +350,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["medicine_id"], name: "index_replenishments_on_medicine_id", unique: true
+    t.check_constraint "medicine_id IS NOT NULL", name: "chk_eeaeac5535"
     t.check_constraint "quantity_pending_from_supplier >= 0", name: "chk_13a13af222"
     t.check_constraint "quantity_pending_from_supplier IS NOT NULL", name: "chk_037df1962d"
   end
@@ -374,6 +398,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.boolean "is_active", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
+    t.index ["is_active"], name: "index_shifts_on_is_active"
     t.index ["name"], name: "index_shifts_on_name", unique: true
     t.check_constraint "char_length(name::text) <= 55", name: "chk_c38ecfad43"
     t.check_constraint "ends_at IS NOT NULL", name: "chk_add794a2d1"
@@ -386,6 +411,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["medicine_id"], name: "index_stocks_on_medicine_id", unique: true
+    t.check_constraint "medicine_id IS NOT NULL", name: "chk_960d9a9b0b"
     t.check_constraint "quantity_in_hand >= 0", name: "chk_f5833a0a29"
     t.check_constraint "quantity_in_hand IS NOT NULL", name: "chk_07ed382b70"
   end
@@ -403,6 +429,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "updated_at", null: false
     t.index ["currency_id"], name: "index_stores_on_currency_id"
     t.index ["email"], name: "index_stores_on_email", unique: true
+    t.index ["is_active"], name: "index_stores_on_is_active"
     t.index ["phone_number"], name: "index_stores_on_phone_number", unique: true
     t.index ["reference_code"], name: "index_stores_on_reference_code", unique: true
     t.index ["registration_number"], name: "index_stores_on_registration_number", unique: true
@@ -410,6 +437,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.check_constraint "char_length(fax_number::text) <= 32", name: "chk_55cbeaf1bf"
     t.check_constraint "char_length(phone_number::text) <= 32", name: "chk_304d33223a"
     t.check_constraint "char_length(reference_code::text) <= 15", name: "chk_42f8a2c319"
+    t.check_constraint "currency_id IS NOT NULL", name: "chk_3186c58582"
     t.check_constraint "email IS NOT NULL AND email::text <> ''::text", name: "chk_fc84f48d5e"
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_8f1459e838"
     t.check_constraint "phone_number IS NOT NULL AND phone_number::text <> ''::text", name: "chk_2d9bb89816"
@@ -426,6 +454,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["email"], name: "index_suppliers_on_email", unique: true
+    t.index ["is_active"], name: "index_suppliers_on_is_active"
     t.index ["phone_number"], name: "index_suppliers_on_phone_number", unique: true
     t.index ["reference_code"], name: "index_suppliers_on_reference_code", unique: true
     t.check_constraint "char_length(email::text) <= 55", name: "chk_b1c47b4cbe"
@@ -484,6 +513,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_050100) do
     t.uuid "store_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["is_active"], name: "index_users_on_is_active"
+    t.index ["is_banned"], name: "index_users_on_is_banned"
     t.index ["mobile_number"], name: "index_users_on_mobile_number", unique: true
     t.index ["reference_code"], name: "index_users_on_reference_code", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

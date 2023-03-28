@@ -23,7 +23,12 @@ class CreateMedicineIngredients < Medici::Database::Migration[1.0]
                    index: {using: :btree}
       t.boolean :active, default: false
       t.decimal :strength, precision: 8, scale: 2
-      t.enum :uom, enum_type: :unit_of_measures 
+      t.enum :uom, enum_type: :unit_of_measures
+
+      t.not_null_constraint :strength
+      t.not_null_constraint :uom
+      t.not_null_constraint :medicine_id
+      t.not_null_constraint :ingredient_id
 
       t.timestamps_with_timezone null: false
     end

@@ -13,7 +13,7 @@ class CreateCurrencies < Medici::Database::Migration[1.0]
       t.boolean :symbol_first
       t.string :decimal_mark
       t.string :thousands_separator
-      t.boolean :is_active, default: false
+      t.boolean :is_active, default: false, index: {using: :btree}
 
       t.length_constraint :name, less_than_or_equal_to: 55
       t.length_constraint :iso_code, equal_to: 3

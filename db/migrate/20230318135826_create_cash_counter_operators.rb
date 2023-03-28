@@ -30,6 +30,10 @@ class CreateCashCounterOperators < Medici::Database::Migration[1.0]
                    },
                    index: {using: :btree}
 
+      t.not_null_constraint :cash_counter_id
+      t.not_null_constraint :shift_id
+      t.not_null_constraint :user_id
+
       t.timestamps_with_timezone null: false
     end
   end
