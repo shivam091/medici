@@ -11,7 +11,7 @@ class CreateStores < Medici::Database::Migration[1.0]
       t.string :phone_number, index: {using: :btree, unique: true}
       t.string :fax_number
       t.boolean :is_active, default: false
-      t.string :registration_number
+      t.string :registration_number, index: {using: :btree, unique: true}
       t.references :currency,
                    type: :uuid,
                    foreign_key: {
