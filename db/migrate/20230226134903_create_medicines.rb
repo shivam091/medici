@@ -53,10 +53,10 @@ class CreateMedicines < Medici::Database::Migration[1.0]
                      on_delete: :cascade
                    },
                    index: {using: :btree}
-      t.string :reference_code
+      t.string :reference_code, index: {using: :btree, unique: true}
       t.string :name
       t.text :description
-      t.string :batch_number
+      t.string :batch_number, index: {using: :btree}
       t.decimal :purchase_price, precision: 8, scale: 2
       t.decimal :sell_price, precision: 8, scale: 2
       t.date :manufacture_date
@@ -66,10 +66,15 @@ class CreateMedicines < Medici::Database::Migration[1.0]
       t.enum :uom, enum_type: :unit_of_measures
       t.integer :pack_size
       t.string :therapeutic_areas
-      t.boolean :is_active, default: false
+      t.boolean :is_active, default: false, index: {using: :btree}
 
       t.not_null_constraint :store_id
       t.not_null_constraint :user_id
+      t.not_null_constraint :packing_type_id
+      t.not_null_constraint :dosage_form_id
+      t.not_null_constraint :manufacturer_id
+      t.not_null_constraint :medicine_category_id
+
       t.not_null_constraint :purchase_price
       t.not_null_constraint :sell_price
       t.not_null_constraint :manufacture_date

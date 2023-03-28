@@ -6,7 +6,7 @@ class CreateCashCounters < Medici::Database::Migration[1.0]
   def change
     create_table_with_constraints :cash_counters, id: :uuid do |t|
       t.string :identifier
-      t.boolean :is_active, default: false
+      t.boolean :is_active, default: false, index: {using: :btree}
       t.references :store,
                    type: :uuid,
                    foreign_key: {
@@ -17,6 +17,8 @@ class CreateCashCounters < Medici::Database::Migration[1.0]
                    index: {using: :btree}
 
       t.index [:identifier, :store_id], using: :btree, unique: true
+
+      t.not_null_constraint :store_id
 
       t.not_null_and_empty_constraint :identifier
 

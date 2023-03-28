@@ -37,6 +37,8 @@ RSpec.describe Store, type: :model do
     it { is_expected.to have_db_index(:email).unique(true) }
     it { is_expected.to have_db_index(:phone_number).unique(true) }
     it { is_expected.to have_db_index(:registration_number).unique(true) }
+    it { is_expected.to have_db_index(:reference_code).unique(true) }
+    it { is_expected.to have_db_index(:is_active) }
 
     it { is_expected.to have_foreign_key(:currency_id).with_name(:fk_stores_currency_id_on_currencies).on_delete(:restrict) }
 
@@ -49,6 +51,7 @@ RSpec.describe Store, type: :model do
     it { is_expected.to have_check_constraint("chk_48a4cf1224").with_condition("registration_number IS NOT NULL AND registration_number::text <> ''::text") }
     it { is_expected.to have_check_constraint("chk_42f8a2c319").with_condition("char_length(reference_code::text) <= 15") }
     it { is_expected.to have_check_constraint("chk_83a023b8df").with_condition("reference_code IS NOT NULL AND reference_code::text <> ''::text") }
+    it { is_expected.to have_check_constraint("chk_3186c58582").with_condition("currency_id IS NOT NULL") }
   end
 
   describe "default values" do

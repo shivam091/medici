@@ -17,6 +17,7 @@ class CreateStocks < Medici::Database::Migration[1.0]
       t.integer :quantity_in_hand, default: 0
 
       t.not_null_constraint :quantity_in_hand
+      t.not_null_constraint :medicine_id
 
       t.numericality_constraint :quantity_in_hand, greater_than_or_equal_to: 0
 

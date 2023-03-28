@@ -80,6 +80,9 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_index(:role_id) }
     it { is_expected.to have_db_index(:store_id) }
     it { is_expected.to have_db_index(:unlock_token).unique(true) }
+    it { is_expected.to have_db_index(:reference_code).unique(true) }
+    it { is_expected.to have_db_index(:is_active) }
+    it { is_expected.to have_db_index(:is_banned) }
 
     it { is_expected.to have_foreign_key(:role_id).with_name(:fk_users_role_id_on_roles).on_delete(:restrict) }
     it { is_expected.to have_foreign_key(:store_id).with_name(:fk_users_store_id_on_stores).on_delete(:cascade) }
@@ -269,7 +272,7 @@ RSpec.describe User, type: :model do
 
         it "sets reference_code for user" do
           expect(subject.reference_code).to be_present
-          expect(subject.reference_code).to eq("ADM-00000000001")
+          expect(subject.reference_code).to eq("SA-000000000001")
         end
       end
 

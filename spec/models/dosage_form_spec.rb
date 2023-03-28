@@ -30,6 +30,7 @@ RSpec.describe DosageForm, type: :model do
     it { is_expected.to have_db_column(:updated_at).of_type(:timestamptz).with_options(null: false) }
 
     it { is_expected.to have_db_index(:name).unique(true) }
+    it { is_expected.to have_db_index(:is_active) }
 
     it { is_expected.to have_check_constraint("chk_ca1407d42a").with_condition("char_length(name::text) <= 55") }
     it { is_expected.to have_check_constraint("chk_6fb39fa26d").with_condition("name IS NOT NULL AND name::text <> ''::text") }

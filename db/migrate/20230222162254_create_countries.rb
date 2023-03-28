@@ -10,7 +10,7 @@ class CreateCountries < Medici::Database::Migration[1.0]
       t.string :iso3, index: {using: :btree, unique: true}
       t.string :calling_code
       t.boolean :has_postal_code, default: false
-      t.boolean :is_active, default: false
+      t.boolean :is_active, default: false, index: {using: :btree}
       t.references :currency,
                    type: :uuid,
                    foreign_key: {

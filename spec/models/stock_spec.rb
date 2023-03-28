@@ -25,6 +25,7 @@ RSpec.describe Stock, type: :model do
 
     it { is_expected.to have_check_constraint("chk_f5833a0a29").with_condition("quantity_in_hand >= 0") }
     it { is_expected.to have_check_constraint("chk_07ed382b70").with_condition("quantity_in_hand IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_960d9a9b0b").with_condition("medicine_id IS NOT NULL") }
   end
 
   describe "default values" do

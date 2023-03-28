@@ -8,7 +8,7 @@ class CreateShifts < Medici::Database::Migration[1.0]
       t.string :name, index: {using: :btree, unique: true}
       t.time :starts_at
       t.time :ends_at
-      t.boolean :is_active, default: false
+      t.boolean :is_active, default: false, index: {using: :btree}
 
       t.not_null_and_empty_constraint :name
 

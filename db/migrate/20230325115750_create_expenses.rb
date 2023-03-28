@@ -21,7 +21,7 @@ class CreateExpenses < Medici::Database::Migration[1.0]
                      on_delete: :nullify
                    },
                    index: {using: :btree}
-      t.string :reference_code
+      t.string :reference_code, index: {using: :btree, unique: true}
       t.string :criteria
       t.decimal :amount, precision: 8, scale: 2, default: 0.0
       t.enum :status, enum_type: :expense_statuses, default: "pending"

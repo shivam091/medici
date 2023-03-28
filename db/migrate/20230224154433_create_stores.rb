@@ -5,12 +5,12 @@
 class CreateStores < Medici::Database::Migration[1.0]
   def change
     create_table_with_constraints :stores, id: :uuid do |t|
-      t.string :reference_code
+      t.string :reference_code, index: {using: :btree, unique: true}
       t.string :name
       t.string :email, index: {using: :btree, unique: true}
       t.string :phone_number, index: {using: :btree, unique: true}
       t.string :fax_number
-      t.boolean :is_active, default: false
+      t.boolean :is_active, default: false, index: {using: :btree}
       t.string :registration_number, index: {using: :btree, unique: true}
       t.references :currency,
                    type: :uuid,
@@ -26,6 +26,8 @@ class CreateStores < Medici::Database::Migration[1.0]
       t.not_null_and_empty_constraint :phone_number
       t.not_null_and_empty_constraint :registration_number
       t.not_null_and_empty_constraint :reference_code
+
+      t.not_null_constraint :currency_id
 
       t.length_constraint :email, less_than_or_equal_to: 55
       t.length_constraint :phone_number, less_than_or_equal_to: 32

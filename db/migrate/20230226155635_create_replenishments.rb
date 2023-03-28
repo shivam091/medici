@@ -17,6 +17,7 @@ class CreateReplenishments < Medici::Database::Migration[1.0]
       t.integer :quantity_pending_from_supplier, default: 0
 
       t.not_null_constraint :quantity_pending_from_supplier
+      t.not_null_constraint :medicine_id
 
       t.numericality_constraint :quantity_pending_from_supplier, greater_than_or_equal_to: 0
 

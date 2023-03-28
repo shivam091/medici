@@ -36,7 +36,7 @@ class CreateUsers < Medici::Database::Migration[1.0]
       t.timestamptz :locked_at
 
       # Additional attributes
-      t.string :reference_code
+      t.string :reference_code, index: {using: :btree, unique: true}
       t.string :first_name
       t.string :last_name
       t.timestamptz :last_password_updated_at
@@ -50,8 +50,8 @@ class CreateUsers < Medici::Database::Migration[1.0]
                    index: {using: :btree}
       t.boolean :password_automatically_set, default: false
       t.timestamptz :password_expires_at
-      t.boolean :is_active, default: false
-      t.boolean :is_banned, default: false
+      t.boolean :is_active, default: false, index: {using: :btree}
+      t.boolean :is_banned, default: false, index: {using: :btree}
 
       t.timestamps_with_timezone null: false
 
