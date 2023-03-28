@@ -8,7 +8,7 @@ require "spec_helper"
 
 RSpec.describe Medicines::UpdateService, type: :service do
   describe "#call" do
-    let(:medicine) { create(:medicine) }
+    let(:medicine) { create(:medicine, :with_user) }
     let(:medicine_attributes) { attributes_for(:medicine, name: "New name") }
     subject { described_class.(medicine, medicine_attributes) }
 

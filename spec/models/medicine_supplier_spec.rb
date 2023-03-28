@@ -11,7 +11,7 @@ RSpec.describe MedicineSupplier, type: :model do
   subject(:medicine_supplier) { build(:medicine_supplier) }
 
   describe "valid factory" do
-    let(:medicine) { create(:medicine) }
+    let(:medicine) { create(:medicine, :with_user) }
     let(:supplier) { create(:supplier) }
 
     it { is_expected.to have_a_valid_factory.with_associations({medicine:, supplier:}) }
@@ -35,14 +35,26 @@ RSpec.describe MedicineSupplier, type: :model do
 
     it { is_expected.to have_db_index(:medicine_id) }
     it { is_expected.to have_db_index(:supplier_id) }
+    it { is_expected.to have_db_index(:store_id) }
 
     it { is_expected.to have_foreign_key(:medicine_id).with_name(:fk_medicine_suppliers_medicine_id_on_medicines).on_delete(:cascade) }
     it { is_expected.to have_foreign_key(:supplier_id).with_name(:fk_medicine_suppliers_supplier_id_on_suppliers).on_delete(:restrict) }
+    it { is_expected.to have_foreign_key(:store_id).with_name(:fk_medicine_suppliers_store_id_on_stores).on_delete(:cascade) }
+
+    it { is_expected.to have_check_constraint("chk_fe78cbf5f6").with_condition("medicine_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_c03bbc37c0").with_condition("store_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_a1e7c5a927").with_condition("supplier_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_fde59c4d35").with_condition("total_quantity_supplied >= 0") }
+    it { is_expected.to have_check_constraint("chk_95cd4feefd").with_condition("total_quantity_supplied IS NOT NULL") }
   end
 
   describe "validations" do
     describe "#medicine_id" do
       it { is_expected.to validate_presence_of(:medicine_id).on(:update).with_message("is required") }
+    end
+
+    describe "#store_id" do
+      it { is_expected.to validate_presence_of(:store_id).on(:update).with_message("is required") }
     end
 
     describe "#supplier_id" do
@@ -56,9 +68,14 @@ RSpec.describe MedicineSupplier, type: :model do
     end
   end
 
+  describe "callbacks" do
+    it { is_expected.to have_callback(:before, :save, :set_store) }
+  end
+
   describe "associations" do
     it { is_expected.to belong_to(:medicine).inverse_of(:medicine_suppliers).touch(true) }
     it { is_expected.to belong_to(:supplier).inverse_of(:medicine_suppliers) }
+    it { is_expected.to belong_to(:store).inverse_of(:medicine_suppliers).optional }
   end
 
   describe "delegates" do

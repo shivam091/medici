@@ -8,7 +8,7 @@ require "spec_helper"
 
 RSpec.describe Medicines::DestroyService, type: :service do
   describe "#call" do
-    let(:medicine) { create(:medicine) }
+    let(:medicine) { create(:medicine, :with_user) }
     subject { described_class.(medicine) }
 
     context "when destroy is successful" do

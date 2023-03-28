@@ -7,8 +7,9 @@
 require "spec_helper"
 
 RSpec.describe Medicines::CreateService, type: :service do
+  let(:manager) { create(:manager, :confirmed, :active, :with_store) }
   let(:medicine_attributes) { attributes_for(:medicine) }
-  subject { described_class.(medicine_attributes) }
+  subject { described_class.(manager, medicine_attributes) }
 
   describe "#call" do
     context "when medicine is valid" do

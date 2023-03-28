@@ -21,8 +21,19 @@ class CreateMedicineSuppliers < Medici::Database::Migration[1.0]
                      on_delete: :restrict
                    },
                    index: {using: :btree}
+      t.references :store,
+                   type: :uuid,
+                   foreign_key: {
+                     to_table: :stores,
+                     name: :fk_medicine_suppliers_store_id_on_stores,
+                     on_delete: :cascade
+                   },
+                   index: {using: :btree}
       t.integer :total_quantity_supplied, default: 0
 
+      t.not_null_constraint :medicine_id
+      t.not_null_constraint :store_id
+      t.not_null_constraint :supplier_id
       t.not_null_constraint :total_quantity_supplied
 
       t.numericality_constraint :total_quantity_supplied, greater_than_or_equal_to: 0

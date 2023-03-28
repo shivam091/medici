@@ -115,10 +115,13 @@
           is_active: "Is active",
           supplier_ids: "Suppliers",
           image: "Image",
+          store_id: "Store",
+          user_id: "User",
         },
         medicine_supplier: {
           medicine_id: "Medicine",
           supplier_id: "Supplier",
+          store_id: "Store",
           total_quantity_supplied: "Total quantity supplied",
         },
         medicine_ingredient: {

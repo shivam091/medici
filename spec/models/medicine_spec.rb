@@ -12,8 +12,9 @@ RSpec.describe Medicine, type: :model do
     let(:manufacturer) { create(:manufacturer) }
     let(:dosage_form) { create(:dosage_form) }
     let(:packing_type) { create(:packing_type) }
+    let(:user) { create(:manager) }
 
-    it { is_expected.to have_a_valid_factory.with_associations({medicine_category:, manufacturer:, dosage_form:, packing_type:}) }
+    it { is_expected.to have_a_valid_factory.with_associations({user:, medicine_category:, manufacturer:, dosage_form:, packing_type:}) }
   end
 
   it_behaves_like "subclass of ApplicationRecord"
@@ -37,6 +38,8 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_db_column(:medicine_category_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:dosage_form_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:packing_type_id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:store_id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:user_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:manufacturer_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:batch_number).of_type(:string) }
     it { is_expected.to have_db_column(:purchase_price).of_type(:decimal).with_options(precision: 8, scale: 2) }
@@ -56,11 +59,15 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_db_index(:dosage_form_id) }
     it { is_expected.to have_db_index(:packing_type_id) }
     it { is_expected.to have_db_index(:manufacturer_id) }
+    it { is_expected.to have_db_index(:store_id) }
+    it { is_expected.to have_db_index(:user_id) }
 
     it { is_expected.to have_foreign_key(:dosage_form_id).with_name(:fk_medicines_dosage_form_id_on_dosage_forms).on_delete(:restrict) }
     it { is_expected.to have_foreign_key(:manufacturer_id).with_name(:fk_medicines_manufacturer_id_on_manufacturers).on_delete(:restrict) }
     it { is_expected.to have_foreign_key(:medicine_category_id).with_name(:fk_medicines_medicine_category_id_on_medicine_categories).on_delete(:restrict) }
     it { is_expected.to have_foreign_key(:packing_type_id).with_name(:fk_medicines_packing_type_id_on_packing_types).on_delete(:restrict) }
+    it { is_expected.to have_foreign_key(:store_id).with_name(:fk_medicines_store_id_on_stores).on_delete(:cascade) }
+    it { is_expected.to have_foreign_key(:user_id).with_name(:fk_medicines_user_id_on_users).on_delete(:nullify) }
 
     it { is_expected.to have_check_constraint("chk_977b947e5e").with_condition("batch_number IS NOT NULL AND batch_number::text <> ''::text") }
     it { is_expected.to have_check_constraint("chk_b952d93e37").with_condition("char_length(batch_number::text) <= 55") }
@@ -79,6 +86,8 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_check_constraint("chk_b79c9e345f").with_condition("sell_price IS NOT NULL") }
     it { is_expected.to have_check_constraint("chk_4cf8eb74a5").with_condition("char_length(reference_code::text) <= 15") }
     it { is_expected.to have_check_constraint("chk_a358f560f5").with_condition("reference_code IS NOT NULL AND reference_code::text <> ''::text") }
+    it { is_expected.to have_check_constraint("chk_e76980da7e").with_condition("store_id IS NOT NULL") }
+    it { is_expected.to have_check_constraint("chk_b35fca260c").with_condition("user_id IS NOT NULL") }
   end
 
   describe "default values" do
@@ -144,6 +153,10 @@ RSpec.describe Medicine, type: :model do
       it { is_expected.to validate_presence_of(:dosage_form_id).with_message("is required") }
     end
 
+    describe "#user_id" do
+      it { is_expected.to validate_presence_of(:user_id).with_message("is required") }
+    end
+
     describe "#packing_type_id" do
       it { is_expected.to validate_presence_of(:packing_type_id).with_message("is required") }
     end
@@ -178,6 +191,8 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to belong_to(:medicine_category).inverse_of(:medicines) }
     it { is_expected.to belong_to(:packing_type).inverse_of(:medicines) }
     it { is_expected.to belong_to(:dosage_form).inverse_of(:medicines) }
+    it { is_expected.to belong_to(:user).inverse_of(:medicines) }
+    it { is_expected.to belong_to(:store).inverse_of(:medicines).optional }
   end
 
   describe "callbacks" do
@@ -185,6 +200,7 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_callback(:after, :create, :create_stock) }
     it { is_expected.to have_callback(:after, :create, :create_replenishment) }
     it { is_expected.to have_callback(:after, :commit, :send_active_medicines_count) }
+    it { is_expected.to have_callback(:before, :save, :set_store) }
   end
 
   describe "delegates" do
@@ -214,7 +230,7 @@ RSpec.describe Medicine, type: :model do
 
       context "when medicine has a stock" do
         it "returns stock of the medicine" do
-          medicine = create(:medicine)
+          medicine = create(:medicine, :with_user)
 
           expect(medicine.quantity_in_hand).to eq(0)
         end
@@ -230,7 +246,7 @@ RSpec.describe Medicine, type: :model do
 
       context "when medicine has a replenishment" do
         it "returns replenishment of the medicine" do
-          medicine = create(:medicine)
+          medicine = create(:medicine, :with_user)
 
           expect(medicine.quantity_pending_from_supplier).to eq(0)
         end
@@ -238,7 +254,7 @@ RSpec.describe Medicine, type: :model do
 
       describe "#set_reference_code" do
         context "when medicine is created" do
-          subject { create(:medicine) }
+          subject { create(:medicine, :with_user) }
 
           it "sets reference_code for medicine" do
             expect(subject.reference_code).to be_present
@@ -252,7 +268,7 @@ RSpec.describe Medicine, type: :model do
 
         describe "#ingredients_count" do
           it "fetches count of ingredients from cache" do
-            medicine = create(:medicine, :with_ingredients, :active)
+            medicine = create(:medicine, :with_user, :with_ingredients, :active)
             cache_key = "medicines/#{medicine.id}/ingredients_count"
 
             expect(Rails.cache.exist?(cache_key)).to be_falsy
@@ -267,7 +283,7 @@ RSpec.describe Medicine, type: :model do
 
         describe "#suppliers_count" do
           it "fetches count of suppliers from cache" do
-            medicine = create(:medicine, :with_suppliers, :active)
+            medicine = create(:medicine, :with_user, :with_suppliers, :active)
             cache_key = "medicines/#{medicine.id}/suppliers_count"
 
             expect(Rails.cache.exist?(cache_key)).to be_falsy
@@ -283,7 +299,7 @@ RSpec.describe Medicine, type: :model do
     end
 
     describe "accepts_nested_attributes_for #medicine_ingredients" do
-      let(:medicine) { create(:medicine) }
+      let(:medicine) { create(:medicine, :with_user) }
       let(:ingredient) { create(:ingredient) }
 
       it "allows medicine_ingredients to be created" do
@@ -302,11 +318,10 @@ RSpec.describe Medicine, type: :model do
 
       it "allows medicine_ingredients to be updated" do
         medicine_ingredient = create(:medicine_ingredient, medicine: medicine, ingredient: ingredient)
-
         expect {
-          medicine.update(medicine_ingredients_attributes: {id: medicine_ingredient.id, strength: "500", uom: "mcg"})
+          medicine.update(medicine_ingredients_attributes: {id: medicine_ingredient.id, ingredient_id: ingredient.id, strength: "500", uom: "g"})
         }.not_to change(::MedicineIngredient, :count)
-        expect(medicine_ingredient.strength).to eq(500)
+        expect(medicine_ingredient.uom).to eq("g")
       end
 
       it "rejects medicine_ingredient attributes if they are blank" do

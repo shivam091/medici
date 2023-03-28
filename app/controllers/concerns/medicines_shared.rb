@@ -36,7 +36,7 @@ module MedicinesShared
 
       # POST /(admin|manager)/medicines
       def create
-        response = ::Medicines::CreateService.(medicine_params)
+        response = ::Medicines::CreateService.(current_user, medicine_params)
         @medicine = response.payload[:medicine]
         if response.success?
           flash[:notice] = response.message

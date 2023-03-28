@@ -37,6 +37,12 @@ class Store < ApplicationRecord
   has_many :cash_counters, dependent: :destroy
   has_many :purchase_orders, dependent: :restrict_with_exception
   has_many :expenses, dependent: :destroy
+  has_many :medicines, dependent: :destroy
+  has_many :medicine_suppliers, dependent: :destroy
+  has_many :suppliers,
+           through: :medicine_suppliers,
+           source: :supplier,
+           inverse_of: :medicine_suppliers
 
   belongs_to :currency
 

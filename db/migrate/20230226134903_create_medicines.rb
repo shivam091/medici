@@ -37,6 +37,22 @@ class CreateMedicines < Medici::Database::Migration[1.0]
                      on_delete: :restrict
                    },
                    index: {using: :btree}
+      t.references :user,
+                   type: :uuid,
+                   foreign_key: {
+                     to_table: :users,
+                     name: :fk_medicines_user_id_on_users,
+                     on_delete: :nullify
+                   },
+                   index: {using: :btree}
+      t.references :store,
+                   type: :uuid,
+                   foreign_key: {
+                     to_table: :stores,
+                     name: :fk_medicines_store_id_on_stores,
+                     on_delete: :cascade
+                   },
+                   index: {using: :btree}
       t.string :reference_code
       t.string :name
       t.text :description
@@ -52,6 +68,8 @@ class CreateMedicines < Medici::Database::Migration[1.0]
       t.string :therapeutic_areas
       t.boolean :is_active, default: false
 
+      t.not_null_constraint :store_id
+      t.not_null_constraint :user_id
       t.not_null_constraint :purchase_price
       t.not_null_constraint :sell_price
       t.not_null_constraint :manufacture_date

@@ -40,12 +40,6 @@ FactoryBot.define do
       role { ::Role.find_by(name: "cashier") || create(:cashier_role, :active) }
     end
 
-    trait :with_store do
-      after(:build) do |user, evaluator|
-        user.store = (::Store.first || create(:store, :with_address, :active))
-      end
-    end
-
     trait :confirmed do
       unconfirmed_email { "" }
       confirmation_token { nil }

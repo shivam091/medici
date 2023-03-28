@@ -244,11 +244,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_144517) do
   create_table "medicine_suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "medicine_id"
     t.uuid "supplier_id"
+    t.uuid "store_id"
     t.integer "total_quantity_supplied", default: 0
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
     t.index ["medicine_id"], name: "index_medicine_suppliers_on_medicine_id"
+    t.index ["store_id"], name: "index_medicine_suppliers_on_store_id"
     t.index ["supplier_id"], name: "index_medicine_suppliers_on_supplier_id"
+    t.check_constraint "medicine_id IS NOT NULL", name: "chk_fe78cbf5f6"
+    t.check_constraint "store_id IS NOT NULL", name: "chk_c03bbc37c0"
+    t.check_constraint "supplier_id IS NOT NULL", name: "chk_a1e7c5a927"
     t.check_constraint "total_quantity_supplied >= 0", name: "chk_fde59c4d35"
     t.check_constraint "total_quantity_supplied IS NOT NULL", name: "chk_95cd4feefd"
   end
@@ -258,6 +263,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_144517) do
     t.uuid "dosage_form_id"
     t.uuid "packing_type_id"
     t.uuid "manufacturer_id"
+    t.uuid "user_id"
+    t.uuid "store_id"
     t.string "reference_code"
     t.string "name"
     t.text "description"
@@ -278,6 +285,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_144517) do
     t.index ["manufacturer_id"], name: "index_medicines_on_manufacturer_id"
     t.index ["medicine_category_id"], name: "index_medicines_on_medicine_category_id"
     t.index ["packing_type_id"], name: "index_medicines_on_packing_type_id"
+    t.index ["store_id"], name: "index_medicines_on_store_id"
+    t.index ["user_id"], name: "index_medicines_on_user_id"
     t.check_constraint "batch_number IS NOT NULL AND batch_number::text <> ''::text", name: "chk_977b947e5e"
     t.check_constraint "char_length(batch_number::text) <= 55", name: "chk_b952d93e37"
     t.check_constraint "char_length(description) <= 1000", name: "chk_ce3da558a4"
@@ -295,6 +304,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_144517) do
     t.check_constraint "reference_code IS NOT NULL AND reference_code::text <> ''::text", name: "chk_a358f560f5"
     t.check_constraint "sell_price <= purchase_price", name: "sell_price_lteq_purchase_price"
     t.check_constraint "sell_price IS NOT NULL", name: "chk_b79c9e345f"
+    t.check_constraint "store_id IS NOT NULL", name: "chk_e76980da7e"
+    t.check_constraint "user_id IS NOT NULL", name: "chk_b35fca260c"
   end
 
   create_table "packing_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -546,11 +557,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_144517) do
   add_foreign_key "medicine_ingredients", "ingredients", name: "fk_medicine_ingredients_ingredient_id_on_ingredients", on_delete: :restrict
   add_foreign_key "medicine_ingredients", "medicines", name: "fk_medicine_ingredients_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "medicine_suppliers", "medicines", name: "fk_medicine_suppliers_medicine_id_on_medicines", on_delete: :cascade
+  add_foreign_key "medicine_suppliers", "stores", name: "fk_medicine_suppliers_store_id_on_stores", on_delete: :cascade
   add_foreign_key "medicine_suppliers", "suppliers", name: "fk_medicine_suppliers_supplier_id_on_suppliers", on_delete: :restrict
   add_foreign_key "medicines", "dosage_forms", name: "fk_medicines_dosage_form_id_on_dosage_forms", on_delete: :restrict
   add_foreign_key "medicines", "manufacturers", name: "fk_medicines_manufacturer_id_on_manufacturers", on_delete: :restrict
   add_foreign_key "medicines", "medicine_categories", name: "fk_medicines_medicine_category_id_on_medicine_categories", on_delete: :restrict
   add_foreign_key "medicines", "packing_types", name: "fk_medicines_packing_type_id_on_packing_types", on_delete: :restrict
+  add_foreign_key "medicines", "stores", name: "fk_medicines_store_id_on_stores", on_delete: :cascade
+  add_foreign_key "medicines", "users", name: "fk_medicines_user_id_on_users", on_delete: :nullify
   add_foreign_key "purchase_order_medicines", "medicines", name: "fk_purchase_order_medicines_medicine_id_on_medicines", on_delete: :cascade
   add_foreign_key "purchase_order_medicines", "purchase_orders", name: "fk_purchase_order_medicines_purchase_order_id_on_purchase_order", on_delete: :cascade
   add_foreign_key "purchase_orders", "stores", name: "fk_purchase_orders_store_id_on_stores", on_delete: :restrict

@@ -50,6 +50,7 @@ class User < ApplicationRecord
   has_many :working_stores, through: :cash_counters, source: :store
   has_many :purchase_orders, dependent: :nullify
   has_many :expenses, dependent: :nullify
+  has_many :medicines, dependent: :nullify
 
   belongs_to :role
   belongs_to :store, optional: true
