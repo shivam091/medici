@@ -12,4 +12,16 @@ FactoryBot.define do
       create(:address, addressable: object)
     end
   end
+
+  trait :with_user do
+    after(:build) do |object, evaluator|
+      object.user = (::User.first || create(:manager, :confirmed, :active, :with_store))
+    end
+  end
+
+  trait :with_store do
+    after(:build) do |object, evaluator|
+      object.store = (::Store.first || create(:store, :with_address, :active))
+    end
+  end
 end
