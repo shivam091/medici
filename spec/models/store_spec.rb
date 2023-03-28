@@ -37,6 +37,7 @@ RSpec.describe Store, type: :model do
     it { is_expected.to have_db_index(:email).unique(true) }
     it { is_expected.to have_db_index(:phone_number).unique(true) }
     it { is_expected.to have_db_index(:registration_number).unique(true) }
+    it { is_expected.to have_db_index(:reference_code).unique(true) }
 
     it { is_expected.to have_foreign_key(:currency_id).with_name(:fk_stores_currency_id_on_currencies).on_delete(:restrict) }
 

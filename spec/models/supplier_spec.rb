@@ -35,6 +35,7 @@ RSpec.describe Supplier, type: :model do
 
     it { is_expected.to have_db_index(:email).unique(true) }
     it { is_expected.to have_db_index(:phone_number).unique(true) }
+    it { is_expected.to have_db_index(:reference_code).unique(true) }
 
     it { is_expected.to have_check_constraint("chk_b1c47b4cbe").with_condition("char_length(email::text) <= 55") }
     it { is_expected.to have_check_constraint("chk_427b1088f0").with_condition("char_length(name::text) <= 110") }

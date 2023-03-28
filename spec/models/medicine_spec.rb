@@ -61,6 +61,7 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_db_index(:manufacturer_id) }
     it { is_expected.to have_db_index(:store_id) }
     it { is_expected.to have_db_index(:user_id) }
+    it { is_expected.to have_db_index(:reference_code).unique(true) }
 
     it { is_expected.to have_foreign_key(:dosage_form_id).with_name(:fk_medicines_dosage_form_id_on_dosage_forms).on_delete(:restrict) }
     it { is_expected.to have_foreign_key(:manufacturer_id).with_name(:fk_medicines_manufacturer_id_on_manufacturers).on_delete(:restrict) }

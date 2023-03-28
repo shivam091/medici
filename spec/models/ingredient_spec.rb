@@ -32,6 +32,7 @@ RSpec.describe Ingredient, type: :model do
     it { is_expected.to have_db_column(:updated_at).of_type(:timestamptz).with_options(null: false) }
 
     it { is_expected.to have_db_index(:name).unique(true) }
+    it { is_expected.to have_db_index(:reference_code).unique(true) }
 
     it { is_expected.to have_check_constraint("chk_62cbc59142").with_condition("char_length(name::text) <= 55") }
     it { is_expected.to have_check_constraint("chk_44ab271035").with_condition("name IS NOT NULL AND name::text <> ''::text") }
