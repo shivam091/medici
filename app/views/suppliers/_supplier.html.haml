@@ -40,4 +40,9 @@
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Supplier.columns.count}
-            = t(".no_suppliers_to_display")
+            - if current_action?("active")
+              = t(".no_active_suppliers_to_display")
+            - elsif current_action?("inactive")
+              = t(".no_inactive_suppliers_to_display")
+            - else
+              = t(".no_suppliers_to_display")
