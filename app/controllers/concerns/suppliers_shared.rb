@@ -8,9 +8,9 @@ module SuppliersShared
   def self.included(base_class)
     base_class.class_eval do
 
-      before_action :find_supplier, except: [:index, :inactive, :new, :create]
+      before_action :find_supplier, except: [:index, :active, :inactive, :new, :create]
       before_action do
-        if action_name.in?(["index", "inactive", "new", "create"])
+        if action_name.in?(["index", "active", "inactive", "new", "create"])
           authorize ::Supplier
         else
           authorize @supplier
@@ -19,6 +19,12 @@ module SuppliersShared
 
       # GET /(admin|manager)/suppliers
       def index
+        @suppliers = policy_scope(::Supplier).active.includes(:address)
+        @pagy, @suppliers = pagy(@suppliers)
+      end
+
+      # GET /(admin|manager)/suppliers/active
+      def active
         @suppliers = policy_scope(::Supplier).active.includes(:address)
         @pagy, @suppliers = pagy(@suppliers)
       end
