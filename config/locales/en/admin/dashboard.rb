@@ -44,7 +44,7 @@
           sell_price: "Sell price",
           quantity: "Quantity",
           amount: "Amount",
-          no_medicines_to_display: "No top selling medicines to display."
+          no_medicines_to_display: "There are no top selling medicines to display."
         },
       }
     }

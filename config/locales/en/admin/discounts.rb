@@ -14,7 +14,7 @@
           percent_off: "Percent off",
           actions: "Actions",
           delete_discount_confirmation_text: "Are you sure you want to delete the discount for the country '%{country_name}'?",
-          no_discounts_to_display: "No discounts to display."
+          no_discounts_to_display: "There are no discounts to display."
         },
         new: {
           title: "New discount",

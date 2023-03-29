@@ -24,7 +24,7 @@
         mobile_number: "Mobile number",
         country: "Country",
         actions: "Actions",
-        no_customers_to_display: "No customers to display.",
+        no_customers_to_display: "There are no customers to display.",
         no_active_customers_to_display: "There are no active customers to display.",
         no_inactive_customers_to_display: "There are no inactive customers to display.",
         delete_customer_confirmation_text: "Are you sure you want to delete the customer '%{customer_name}'?",

@@ -24,7 +24,7 @@
         phone_number: "Phone number",
         country: "Country",
         actions: "Actions",
-        no_manufacturers_to_display: "No manufacturers to display.",
+        no_manufacturers_to_display: "There are no manufacturers to display.",
         no_active_manufacturers_to_display: "There are no active manufacturers to display.",
         no_inactive_manufacturers_to_display: "There are no inactive manufacturers to display.",
         delete_manufacturer_confirmation_text: "Are you sure you want to delete the manufacturer '%{manufacturer_name}'?",

@@ -24,7 +24,7 @@
         phone_number: "Phone number",
         country: "Country",
         actions: "Actions",
-        no_suppliers_to_display: "No suppliers to display.",
+        no_suppliers_to_display: "There are no suppliers to display.",
         no_active_suppliers_to_display: "There are no active suppliers to display.",
         no_inactive_suppliers_to_display: "There are no inactive suppliers to display.",
         delete_supplier_confirmation_text: "Are you sure you want to delete the supplier '%{supplier_name}'?",

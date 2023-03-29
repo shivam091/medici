@@ -26,7 +26,7 @@
           registration_number: "Registration number",
           country: "Country",
           actions: "Actions",
-          no_stores_to_display: "No stores to display.",
+          no_stores_to_display: "There are no stores to display.",
           no_active_stores_to_display: "There are no active stores to display.",
           no_inactive_stores_to_display: "There are no inactive stores to display.",
           delete_store_confirmation_text: "Are you sure you want to delete the store '%{store_name}'?",
