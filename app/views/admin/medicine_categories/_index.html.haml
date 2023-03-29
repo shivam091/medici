@@ -5,7 +5,7 @@
         - if policy(::MedicineCategory).index?
           %li.nav-item
             = link_to t(".all"), admin_medicine_categories_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
-        - if policy(::MedicineCategory).index?
+        - if policy(::MedicineCategory).active?
           %li.nav-item
             = link_to t(".active"), active_admin_medicine_categories_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("active"))}"
         - if policy(::MedicineCategory).inactive?
