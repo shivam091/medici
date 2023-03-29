@@ -60,7 +60,10 @@ class User < ApplicationRecord
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true
 
-  after_commit :send_active_users_count
+  after_commit :broadcast_active_users_count, on: [:create, :destroy]
+  after_commit on: :update do
+    broadcast_active_users_count if is_active_previously_changed?
+  end
 
   scope :with_role, -> (role_name) do
     role_table = ::Role.arel_table
@@ -189,9 +192,11 @@ class User < ApplicationRecord
     !!login_required
   end
 
-  def send_active_users_count
-    if is_active_previously_changed?
-      broadcast_update_to(:users, target: :active_users_count, html: ::User.active.count)
-    end
+  def broadcast_active_users_count
+    broadcast_update_to(
+      :users,
+      target: :active_users_count,
+      html: ::User.active.count
+    )
   end
 end

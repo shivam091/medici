@@ -210,7 +210,7 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_callback(:before, :create, :set_reference_code) }
     it { is_expected.to have_callback(:after, :create, :create_stock) }
     it { is_expected.to have_callback(:after, :create, :create_replenishment) }
-    it { is_expected.to have_callback(:after, :commit, :send_active_medicines_count) }
+    it { is_expected.to have_callback(:after, :commit, :broadcast_active_medicines_count) }
     it { is_expected.to have_callback(:before, :save, :set_store) }
   end
 
