@@ -29,7 +29,9 @@
           delete_currency_confirmation_text: "Are you sure you want to delete the currency '%{currency_name}'?",
           deactivate_currency_confirmation_text: "Are you sure you want to deactivate the currency '%{currency_name}'?",
           activate_currency_confirmation_text: "Are you sure you want to activate the currency '%{currency_name}'?",
-          no_currencies_to_display: "No currencies to display."
+          no_currencies_to_display: "There are no currencies to display.",
+          no_active_currencies_to_display: "There are no active currencies to display.",
+          no_inactive_currencies_to_display: "There are no inactive currencies to display.",
         },
         new: {
           title: "New currency",
