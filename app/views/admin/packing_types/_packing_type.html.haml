@@ -33,4 +33,9 @@
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::DosageForm.columns.count}
-            = t(".no_packing_types_to_display")
+            - if current_action?("active")
+              = t(".no_active_packing_types_to_display")
+            - elsif current_action?("inactive")
+              = t(".no_inactive_packing_types_to_display")
+            - else
+              = t(".no_packing_types_to_display")

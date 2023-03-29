@@ -42,4 +42,9 @@
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::User.columns.count}
-            = t(".no_users_to_display")
+            - if current_action?("active")
+              = t(".no_active_users_to_display")
+            - elsif current_action?("inactive")
+              = t(".no_inactive_users_to_display")
+            - else
+              = t(".no_users_to_display")

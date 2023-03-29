@@ -13,10 +13,10 @@
           inactive: "Inactive"
         },
         active: {
-          title: "Users",
+          title: "Active users",
         },
         inactive: {
-          title: "Users",
+          title: "Inactive users",
         },
         user: {
           reference_code: "Reference code",
@@ -26,7 +26,9 @@
           role: "Role",
           store: "Store",
           actions: "Actions",
-          no_users_to_display: "No users to display",
+          no_users_to_display: "There are no users to display.",
+          no_active_users_to_display: "There are no active users to display.",
+          no_inactive_users_to_display: "There are no inactive users to display.",
           delete_user_confirmation_text: "Are you sure you want to delete the user '%{user_name}'?",
           activate_user_confirmation_text: "Are you sure you want to activate the user '%{user_name}'?",
           deactivate_user_confirmation_text: "Are you sure you want to deactivate the user '%{user_name}'?",

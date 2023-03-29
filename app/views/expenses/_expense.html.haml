@@ -38,4 +38,11 @@
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Expense.columns.count}
-            = t(".no_expenses_to_display")
+            - if current_action?("pending")
+              = t(".no_pending_expenses_to_display")
+            - elsif current_action?("approved")
+              = t(".no_approved_expenses_to_display")
+            - elsif current_action?("rejected")
+              = t(".no_rejected_expenses_to_display")
+            - else
+              = t(".no_expenses_to_display")

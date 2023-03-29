@@ -35,4 +35,9 @@
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Ingredient.columns.count}
-            = t(".no_ingredients_to_display")
+            - if current_action?("active")
+              = t(".no_active_ingredients_to_display")
+            - elsif current_action?("inactive")
+              = t(".no_inactive_ingredients_to_display")
+            - else
+              = t(".no_ingredients_to_display")

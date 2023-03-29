@@ -12,10 +12,10 @@
         inactive: "Inactive",
       },
       active: {
-        title: "Suppliers",
+        title: "Active suppliers",
       },
       inactive: {
-        title: "Suppliers",
+        title: "Inactive suppliers",
       },
       supplier: {
         reference_code: "Reference code",
@@ -24,7 +24,9 @@
         phone_number: "Phone number",
         country: "Country",
         actions: "Actions",
-        no_suppliers_to_display: "No suppliers to display",
+        no_suppliers_to_display: "There are no suppliers to display.",
+        no_active_suppliers_to_display: "There are no active suppliers to display.",
+        no_inactive_suppliers_to_display: "There are no inactive suppliers to display.",
         delete_supplier_confirmation_text: "Are you sure you want to delete the supplier '%{supplier_name}'?",
         activate_supplier_confirmation_text: "Are you sure you want to activate the supplier '%{supplier_name}'?",
         deactivate_supplier_confirmation_text: "Are you sure you want to deactivate the supplier '%{supplier_name}'?",

@@ -13,10 +13,10 @@
           inactive: "Inactive"
         },
         active: {
-          title: "Stores",
+          title: "Active stores",
         },
         inactive: {
-          title: "Stores",
+          title: "Inactive stores",
         },
         store: {
           reference_code: "Reference code",
@@ -26,7 +26,9 @@
           registration_number: "Registration number",
           country: "Country",
           actions: "Actions",
-          no_stores_to_display: "No stores to display",
+          no_stores_to_display: "There are no stores to display.",
+          no_active_stores_to_display: "There are no active stores to display.",
+          no_inactive_stores_to_display: "There are no inactive stores to display.",
           delete_store_confirmation_text: "Are you sure you want to delete the store '%{store_name}'?",
           activate_store_confirmation_text: "Are you sure you want to activate the store '%{store_name}'?",
           deactivate_store_confirmation_text: "Are you sure you want to deactivate the store '%{store_name}'?",

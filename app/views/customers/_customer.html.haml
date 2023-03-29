@@ -40,4 +40,9 @@
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Customer.columns.count}
-            = t(".no_customers_to_display")
+            - if current_action?("active")
+              = t(".no_active_customers_to_display")
+            - elsif current_action?("inactive")
+              = t(".no_inactive_customers_to_display")
+            - else
+              = t(".no_customers_to_display")

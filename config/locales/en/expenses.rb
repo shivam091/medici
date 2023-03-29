@@ -28,7 +28,11 @@
         amount: "Amount",
         store: "Store",
         actions: "Actions",
-        no_expenses_to_display: "No expenses to display",
+        no_expenses_to_display: "There are no expenses to display",
+        no_pending_expenses_to_display: "There are no pending expenses to display.",
+        no_approved_expenses_to_display: "There are no approved expenses to display.",
+        no_rejected_expenses_to_display: "There are no rejected expenses to display.",
+        no_expenses_to_display: "There are no expenses to display.",
         delete_expense_confirmation_text: "Are you sure you want to delete the expense?",
       },
       new: {

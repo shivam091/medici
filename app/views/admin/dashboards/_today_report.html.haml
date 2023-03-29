@@ -8,9 +8,9 @@
           %tr
             %th{width: "25px", scope: "col", rowspan: 2}#
             %th{scope: "col", rowspan: 2}= t(".store")
-            %th{scope: "col", colspan: 2}= t(".sells")
-            %th{scope: "col", colspan: 2}= t(".purchases")
-            %th{scope: "col", colspan: 2}= t(".expenses")
+            %th{scope: "colgroup", colspan: 2}= t(".sells")
+            %th{scope: "colgroup", colspan: 2}= t(".purchases")
+            %th{scope: "colgroup", colspan: 2}= t(".expenses")
           %tr
             - 3.times do
               %th{scope: "col"} #

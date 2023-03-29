@@ -15,7 +15,7 @@
           rate: "Rate",
           actions: "Actions",
           delete_tax_rate_confirmation_text: "Are you sure you want to delete the tax rate for the country '%{country_name}'?",
-          no_tax_rates_to_display: "No tax rates to display."
+          no_tax_rates_to_display: "There are no tax rates to display."
         },
         new: {
           title: "New tax rate",

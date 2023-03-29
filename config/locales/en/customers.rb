@@ -12,10 +12,10 @@
         inactive: "Inactive",
       },
       active: {
-        title: "Customers",
+        title: "Active customers",
       },
       inactive: {
-        title: "Customers",
+        title: "Inactive customers",
       },
       customer: {
         reference_code: "Reference code",
@@ -24,7 +24,9 @@
         mobile_number: "Mobile number",
         country: "Country",
         actions: "Actions",
-        no_customers_to_display: "No customers to display",
+        no_customers_to_display: "There are no customers to display.",
+        no_active_customers_to_display: "There are no active customers to display.",
+        no_inactive_customers_to_display: "There are no inactive customers to display.",
         delete_customer_confirmation_text: "Are you sure you want to delete the customer '%{customer_name}'?",
         activate_customer_confirmation_text: "Are you sure you want to activate the customer '%{customer_name}'?",
         deactivate_customer_confirmation_text: "Are you sure you want to deactivate the customer '%{customer_name}'?",

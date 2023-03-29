@@ -42,4 +42,9 @@
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Store.columns.count}
-            = t(".no_stores_to_display")
+            - if current_action?("active")
+              = t(".no_active_stores_to_display")
+            - elsif current_action?("inactive")
+              = t(".no_inactive_stores_to_display")
+            - else
+              = t(".no_stores_to_display")

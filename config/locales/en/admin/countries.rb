@@ -13,10 +13,10 @@
           inactive: "Inactive",
         },
         active: {
-          title: "Countries",
+          title: "Active countries",
         },
         inactive: {
-          title: "Countries",
+          title: "Inactive countries",
         },
         country: {
           name: "Name",
@@ -29,7 +29,9 @@
           delete_country_confirmation_text: "Are you sure you want to delete the country '%{country_name}'?",
           activate_country_confirmation_text: "Are you sure you want to activate the country '%{country_name}'?",
           deactivate_country_confirmation_text: "Are you sure you want to deactivate the country '%{country_name}'?",
-          no_countries_to_display: "No countries to display."
+          no_countries_to_display: "There are no countries to display.",
+          no_active_countries_to_display: "There are no active countries to display.",
+          no_inactive_countries_to_display: "There are no inactive countries to display.",
         },
         new: {
           title: "New country",

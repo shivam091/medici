@@ -33,16 +33,18 @@ Rails.application.routes.draw do
                registrations: "user/registrations"
              }
 
+  concern :reviewable do
+    collection do
+      get :pending
+      get :approved
+      get :rejected
+    end
+  end
+
   concern :shareable do
     resource :dashboard, only: :show
     resources :customers, param: :uuid, concerns: :toggleable
-    resources :expenses, param: :uuid do
-      collection do
-        get :pending
-        get :approved
-        get :rejected
-      end
-    end
+    resources :expenses, param: :uuid, concerns: :reviewable
   end
 
   concern :toggleable do

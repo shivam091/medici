@@ -41,4 +41,9 @@
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::MedicineCategory.columns.count}
-            = t(".no_medicine_categories_to_display")
+            - if current_action?("active")
+              = t(".no_active_medicine_categories_to_display")
+            - elsif current_action?("inactive")
+              = t(".no_inactive_medicine_categories_to_display")
+            - else
+              = t(".no_medicine_categories_to_display")
