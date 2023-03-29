@@ -125,7 +125,10 @@ class Medicine < ApplicationRecord
 
   before_save :set_store
   after_create :create_stock, :create_replenishment
-  after_commit :send_active_medicines_count
+  after_commit :broadcast_active_medicines_count, on: [:create, :destroy]
+  after_commit on: :update do
+    broadcast_active_medicines_count if is_active_previously_changed?
+  end
 
   delegate :quantity_in_hand, to: :stock
   delegate :quantity_pending_from_supplier, to: :replenishment
@@ -179,12 +182,6 @@ class Medicine < ApplicationRecord
 
   private
 
-  def send_active_medicines_count
-    if is_active_previously_changed?
-      broadcast_update_to(:medicines, target: :active_medicines_count, html: ::Medicine.active.count)
-    end
-  end
-
   def set_store
     if user.present?
       self.store = self.user.store
@@ -205,5 +202,13 @@ class Medicine < ApplicationRecord
       attributes[:strength],
       attributes[:uom]
     ].any?(&:blank?)
+  end
+
+  def broadcast_active_medicines_count
+    broadcast_update_to(
+      :medicines,
+      target: :active_medicines_count,
+      html: ::Medicine.active.count
+    )
   end
 end

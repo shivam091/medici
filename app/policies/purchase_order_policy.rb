@@ -8,7 +8,7 @@ class PurchaseOrderPolicy < ApplicationPolicy
       if (user.super_admin? || user.admin?)
         scope.all
       elsif user.manager?
-        user.purchase_orders
+        scope.where(store: user.store)
       else
         scope.none
       end
