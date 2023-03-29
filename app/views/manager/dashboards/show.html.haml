@@ -2,7 +2,6 @@
 = turbo_stream_from :customers
 = turbo_stream_from :suppliers
 = turbo_stream_from :manufacturers
-= turbo_stream_from :medicines
 = turbo_stream_from :users
 = turbo_stream_from :purchase_orders
 .card.card-primary.border.border-primary
@@ -84,8 +83,7 @@
             .d-flex.align-items-start
               .flex-grow-1
                 %h3.mb-2
-                  = turbo_frame_tag :active_medicines_count do
-                    = ::Medicine.active.count
+                  = @store.medicines.active.count
                 %p.mb-2= t(".total_medicines")
               .d-inline-block
                 = external_svg_tag("svgs/medicine-bag.svg", height: "48px", width: "48px")
