@@ -8,8 +8,12 @@
       users: {
         index: {
           title: "Users",
+          all: "All",
           active: "Active",
           inactive: "Inactive"
+        },
+        active: {
+          title: "Users",
         },
         inactive: {
           title: "Users",
