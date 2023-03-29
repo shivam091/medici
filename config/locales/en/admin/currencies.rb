@@ -8,8 +8,12 @@
       currencies: {
         index: {
           title: "Currencies",
+          all: "All",
           active: "Active",
           inactive: "Inactive",
+        },
+        active: {
+          title: "Currencies",
         },
         inactive: {
           title: "Currencies",

@@ -4,9 +4,9 @@
 
 class Admin::CurrenciesController < Admin::BaseController
 
-  before_action :find_currency, except: [:index, :inactive, :new, :create]
+  before_action :find_currency, except: [:index, :active, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "inactive", "new", "create"])
+    if action_name.in?(["index", "active", "inactive", "new", "create"])
       authorize ::Currency
     else
       authorize @currency
@@ -15,6 +15,12 @@ class Admin::CurrenciesController < Admin::BaseController
 
   # GET /admin/currencies
   def index
+    @currencies = policy_scope(::Currency).includes(:countries)
+    @pagy, @currencies = pagy(@currencies)
+  end
+
+  # GET /admin/currencies/active
+  def active
     @currencies = policy_scope(::Currency).active.includes(:countries)
     @pagy, @currencies = pagy(@currencies)
   end
