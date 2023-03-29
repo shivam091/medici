@@ -11,6 +11,14 @@ module MedicinesHelper
     end
   end
 
+  def active_medicines_path
+    case
+    when current_user.super_admin? then active_admin_medicines_path
+    when current_user.admin? then active_admin_medicines_path
+    when current_user.manager? then active_manager_medicines_path
+    end
+  end
+
   def inactive_medicines_path
     case
     when current_user.super_admin? then inactive_admin_medicines_path

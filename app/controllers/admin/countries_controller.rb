@@ -4,9 +4,9 @@
 
 class Admin::CountriesController < Admin::BaseController
 
-  before_action :find_country, except: [:index, :inactive, :new, :create]
+  before_action :find_country, except: [:index, :active, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "inactive", "new", "create"])
+    if action_name.in?(["index", "active", "inactive", "new", "create"])
       authorize ::Country
     else
       authorize @country
@@ -15,6 +15,12 @@ class Admin::CountriesController < Admin::BaseController
 
   # GET /admin/countries
   def index
+    @countries = policy_scope(::Country).includes(:currency)
+    @pagy, @countries = pagy(@countries)
+  end
+
+  # GET /admin/countries/active
+  def active
     @countries = policy_scope(::Country).active.includes(:currency)
     @pagy, @countries = pagy(@countries)
   end

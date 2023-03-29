@@ -8,8 +8,12 @@
       packing_types: {
         index: {
           title: "Package types",
+          all: "All",
           active: "Active",
           inactive: "Inactive",
+        },
+        active: {
+          title: "Package types",
         },
         inactive: {
           title: "Package types",

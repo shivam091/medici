@@ -8,8 +8,12 @@
       medicine_categories: {
         index: {
           title: "Medicine categories",
+          all: "All",
           active: "Active",
           inactive: "Inactive",
+        },
+        active: {
+          title: "Medicine categories",
         },
         inactive: {
           title: "Medicine categories",

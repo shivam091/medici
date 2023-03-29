@@ -4,7 +4,10 @@
       %ul.nav.nav-pills.flex-column.flex-lg-row.nav-justified
         - if policy(::Store).index?
           %li.nav-item
-            = link_to t(".active"), admin_stores_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
+            = link_to t(".all"), admin_stores_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
+        - if policy(::Store).active?
+          %li.nav-item
+            = link_to t(".active"), active_admin_stores_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("active"))}"
         - if policy(::Store).inactive?
           %li.nav-item
             = link_to t(".inactive"), inactive_admin_stores_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"

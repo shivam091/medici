@@ -15,6 +15,10 @@ class CustomerPolicy < ApplicationPolicy
     (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
+  def active?
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+  end
+
   def inactive?
     (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end

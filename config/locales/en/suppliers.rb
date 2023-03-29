@@ -7,8 +7,12 @@
     suppliers: {
       index: {
         title: "Suppliers",
+        all: "All",
         active: "Active",
         inactive: "Inactive",
+      },
+      active: {
+        title: "Suppliers",
       },
       inactive: {
         title: "Suppliers",

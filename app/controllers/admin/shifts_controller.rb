@@ -4,9 +4,9 @@
 
 class Admin::ShiftsController < Admin::BaseController
 
-  before_action :find_shift, except: [:index, :inactive, :new, :create]
+  before_action :find_shift, except: [:index, :active, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "inactive", "new", "create"])
+    if action_name.in?(["index", "active", "inactive", "new", "create"])
       authorize ::Shift
     else
       authorize @shift
@@ -15,6 +15,12 @@ class Admin::ShiftsController < Admin::BaseController
 
   # GET /admin/shifts
   def index
+    @shifts = policy_scope(::Shift)
+    @pagy, @shifts = pagy(@shifts)
+  end
+
+  # GET /admin/shifts/active
+  def active
     @shifts = policy_scope(::Shift).active
     @pagy, @shifts = pagy(@shifts)
   end

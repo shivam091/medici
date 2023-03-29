@@ -7,8 +7,12 @@
     medicines: {
       index: {
         title: "Medicines",
+        all: "All",
         active: "Active",
         inactive: "Inactive",
+      },
+      active: {
+        title: "Medicines",
       },
       inactive: {
         title: "Medicines",

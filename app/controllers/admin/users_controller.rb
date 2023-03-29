@@ -4,9 +4,9 @@
 
 class Admin::UsersController < Admin::BaseController
 
-  before_action :find_user, except: [:index, :inactive, :new, :create]
+  before_action :find_user, except: [:index, :active, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "inactive", "new", "create"])
+    if action_name.in?(["index", "active", "inactive", "new", "create"])
       authorize ::User
     else
       authorize @user
@@ -15,6 +15,12 @@ class Admin::UsersController < Admin::BaseController
 
   # GET /admin/users
   def index
+    @users = policy_scope(::User).includes(:role, :store)
+    @pagy, @users = pagy(@users)
+  end
+
+  # GET /admin/users/active
+  def active
     @users = policy_scope(::User).active.includes(:role, :store)
     @pagy, @users = pagy(@users)
   end

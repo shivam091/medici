@@ -19,6 +19,10 @@ class MedicinePolicy < ApplicationPolicy
     (user.super_admin? || user.admin? || user.manager?)
   end
 
+  def active?
+    (user.super_admin? || user.admin? || user.manager?)
+  end
+
   def inactive?
     (user.super_admin? || user.admin? || user.manager?)
   end

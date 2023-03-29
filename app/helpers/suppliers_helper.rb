@@ -11,6 +11,14 @@ module SuppliersHelper
     end
   end
 
+  def active_suppliers_path
+    case
+    when current_user.super_admin? then active_admin_suppliers_path
+    when current_user.admin? then active_admin_suppliers_path
+    when current_user.manager? then active_manager_suppliers_path
+    end
+  end
+
   def inactive_suppliers_path
     case
     when current_user.super_admin? then inactive_admin_suppliers_path

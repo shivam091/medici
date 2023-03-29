@@ -8,9 +8,9 @@ module MedicinesShared
   def self.included(base_class)
     base_class.class_eval do
 
-      before_action :find_medicine, except: [:index, :inactive, :new, :create]
+      before_action :find_medicine, except: [:index, :active, :inactive, :new, :create]
       before_action do
-        if action_name.in?(["index", "inactive", "new", "create"])
+        if action_name.in?(["index", "active", "inactive", "new", "create"])
           authorize ::Medicine
         else
           authorize @medicine
@@ -19,6 +19,12 @@ module MedicinesShared
 
       # GET /(admin|manager)/medicines
       def index
+        @medicines = policy_scope(::Medicine).includes(:stock, :replenishment)
+        @pagy, @medicines = pagy(@medicines)
+      end
+
+      # GET /(admin|manager)/medicines/active
+      def active
         @medicines = policy_scope(::Medicine).active.includes(:stock, :replenishment)
         @pagy, @medicines = pagy(@medicines)
       end

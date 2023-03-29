@@ -8,9 +8,9 @@ module ManufacturersShared
   def self.included(base_class)
     base_class.class_eval do
 
-      before_action :find_manufacturer, except: [:index, :inactive, :new, :create]
+      before_action :find_manufacturer, except: [:index, :active, :inactive, :new, :create]
       before_action do
-        if action_name.in?(["index", "inactive", "new", "create"])
+        if action_name.in?(["index", "active", "inactive", "new", "create"])
           authorize ::Manufacturer
         else
           authorize @manufacturer
@@ -19,6 +19,12 @@ module ManufacturersShared
 
       # GET /(admin|manager)/manufacturers
       def index
+        @manufacturers = policy_scope(::Manufacturer).includes(:address)
+        @pagy, @manufacturers = pagy(@manufacturers)
+      end
+
+      # GET /(admin|manager)/manufacturers/active
+      def active
         @manufacturers = policy_scope(::Manufacturer).active.includes(:address)
         @pagy, @manufacturers = pagy(@manufacturers)
       end

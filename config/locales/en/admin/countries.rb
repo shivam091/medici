@@ -8,8 +8,12 @@
       countries: {
         index: {
           title: "Countries",
+          all: "All",
           active: "Active",
           inactive: "Inactive",
+        },
+        active: {
+          title: "Countries",
         },
         inactive: {
           title: "Countries",

@@ -8,8 +8,12 @@
       shifts: {
         index: {
           title: "Shifts",
+          all: "All",
           active: "Active",
           inactive: "Inactive",
+        },
+        active: {
+          title: "Shifts",
         },
         inactive: {
           title: "Shifts",

@@ -12,6 +12,15 @@ module CustomersHelper
     end
   end
 
+  def active_customers_path
+    case
+    when current_user.super_admin? then active_admin_customers_path
+    when current_user.admin? then active_admin_customers_path
+    when current_user.manager? then active_manager_customers_path
+    when current_user.cashier? then active_cashier_customers_path
+    end
+  end
+
   def inactive_customers_path
     case
     when current_user.super_admin? then inactive_admin_customers_path

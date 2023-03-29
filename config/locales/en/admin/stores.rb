@@ -8,8 +8,12 @@
       stores: {
         index: {
           title: "Stores",
+          all: "All",
           active: "Active",
           inactive: "Inactive"
+        },
+        active: {
+          title: "Stores",
         },
         inactive: {
           title: "Stores",
