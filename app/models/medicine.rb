@@ -125,7 +125,10 @@ class Medicine < ApplicationRecord
 
   before_save :set_store
   after_create :create_stock, :create_replenishment
-  after_commit :broadcast_active_medicines_count
+  after_commit :broadcast_active_medicines_count, on: [:create, :destroy]
+  after_commit on: :update do
+    broadcast_active_medicines_count if is_active_previously_changed?
+  end
 
   delegate :quantity_in_hand, to: :stock
   delegate :quantity_pending_from_supplier, to: :replenishment

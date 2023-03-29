@@ -50,7 +50,10 @@ class Store < ApplicationRecord
   delegate :name, to: :country, prefix: true, allow_nil: true
   delegate :name, :iso_code, :symbol, to: :currency, prefix: true, allow_nil: true
 
-  after_commit :broadcast_active_stores_count
+  after_commit :broadcast_active_stores_count, on: [:create, :destroy]
+  after_commit on: :update do
+    broadcast_active_stores_count if is_active_previously_changed?
+  end
 
   accepts_nested_attributes_for :address, update_only: true
   accepts_nested_attributes_for :cash_counters,
@@ -73,8 +76,8 @@ class Store < ApplicationRecord
 
   def broadcast_active_stores_count
     broadcast_update_to(
-      :stores, 
-      target: :active_stores_count, 
+      :stores,
+      target: :active_stores_count,
       html: ::Store.active.count
     )
   end
