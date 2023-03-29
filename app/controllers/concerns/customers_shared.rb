@@ -8,9 +8,9 @@ module CustomersShared
   def self.included(base_class)
     base_class.class_eval do
 
-      before_action :find_customer, except: [:index, :inactive, :new, :create]
+      before_action :find_customer, except: [:index, :active, :inactive, :new, :create]
       before_action do
-        if action_name.in?(["index", "inactive", "new", "create"])
+        if action_name.in?(["index", "active", "inactive", "new", "create"])
           authorize ::Customer
         else
           authorize @customer
@@ -19,6 +19,12 @@ module CustomersShared
 
       # GET /(admin|manager|cashier)/customers
       def index
+        @customers = policy_scope(::Customer).active.includes(:address)
+        @pagy, @customers = pagy(@customers)
+      end
+
+      # GET /(admin|manager|cashier)/customers/active
+      def active
         @customers = policy_scope(::Customer).active.includes(:address)
         @pagy, @customers = pagy(@customers)
       end

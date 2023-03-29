@@ -7,8 +7,12 @@
     customers: {
       index: {
         title: "Customers",
+        all: "All",
         active: "Active",
         inactive: "Inactive",
+      },
+      active: {
+        title: "Customers",
       },
       inactive: {
         title: "Customers",
