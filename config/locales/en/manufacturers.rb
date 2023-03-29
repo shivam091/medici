@@ -7,8 +7,12 @@
     manufacturers: {
       index: {
         title: "Manufacturers",
+        all: "All",
         active: "Active",
         inactive: "Inactive",
+      },
+      active: {
+        title: "Manufacturers",
       },
       inactive: {
         title: "Manufacturers",
