@@ -29,6 +29,9 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
   before_action :set_store, if: :user_signed_in?
+  before_action if: :user_signed_in? do
+    ::Current.user = current_user
+  end
 
   helper_method def root_path
     case
