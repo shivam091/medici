@@ -143,16 +143,8 @@ class Medicine < ApplicationRecord
 
   class << self
     def select_options
-      if (Current.user.super_admin? || ::Current.user.admin?)
-        active.collect do |medicine|
-          ["#{medicine.name} (#{medicine.reference_code})", medicine.id]
-        end
-      elsif Current.user.manager?
-        active.where(store: Current.user.store).collect do |medicine|
-          ["#{medicine.name} (#{medicine.reference_code})", medicine.id]
-        end
-      else
-        none
+      active.collect do |medicine|
+        ["#{medicine.name} (#{medicine.reference_code})", medicine.id]
       end
     end
   end
