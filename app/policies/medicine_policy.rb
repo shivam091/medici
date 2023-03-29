@@ -5,10 +5,8 @@
 class MedicinePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if (user.super_admin? || user.admin?)
+      if (user.super_admin? || user.admin? || user.manager?)
         scope.all
-      elsif user.manager?
-        scope.where(store: user.store)
       else
         scope.none
       end
