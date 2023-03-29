@@ -26,7 +26,9 @@
           delete_shift_confirmation_text: "Are you sure you want to delete the shift '%{shift_name}'?",
           activate_shift_confirmation_text: "Are you sure you want to activate the shift '%{shift_name}'?",
           deactivate_shift_confirmation_text: "Are you sure you want to deactivate the shift '%{shift_name}'?",
-          no_shifts_to_display: "No shifts to display."
+          no_shifts_to_display: "No shifts to display.",
+          no_active_shifts_to_display: "There are no active shifts to display.",
+          no_inactive_shifts_to_display: "There are no inactive shifts to display.",
         },
         new: {
           title: "New shift",
