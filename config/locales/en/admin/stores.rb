@@ -13,10 +13,10 @@
           inactive: "Inactive"
         },
         active: {
-          title: "Stores",
+          title: "Active stores",
         },
         inactive: {
-          title: "Stores",
+          title: "Inactive stores",
         },
         store: {
           reference_code: "Reference code",

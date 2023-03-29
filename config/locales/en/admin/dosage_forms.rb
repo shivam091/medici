@@ -13,10 +13,10 @@
           inactive: "Inactive",
         },
         active: {
-          title: "Dosage forms",
+          title: "Active dosage forms",
         },
         inactive: {
-          title: "Dosage forms",
+          title: "inactive dosage forms",
         },
         dosage_form: {
           name: "Name",

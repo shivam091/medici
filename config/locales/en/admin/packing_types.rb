@@ -13,10 +13,10 @@
           inactive: "Inactive",
         },
         active: {
-          title: "Package types",
+          title: "Active package types",
         },
         inactive: {
-          title: "Package types",
+          title: "Inactive package types",
         },
         packing_type: {
           name: "Name",

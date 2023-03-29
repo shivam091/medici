@@ -12,10 +12,10 @@
         inactive: "Inactive",
       },
       active: {
-        title: "Customers",
+        title: "Active customers",
       },
       inactive: {
-        title: "Customers",
+        title: "Inactive customers",
       },
       customer: {
         reference_code: "Reference code",

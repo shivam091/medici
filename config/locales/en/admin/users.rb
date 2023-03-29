@@ -13,10 +13,10 @@
           inactive: "Inactive"
         },
         active: {
-          title: "Users",
+          title: "Active users",
         },
         inactive: {
-          title: "Users",
+          title: "Inactive users",
         },
         user: {
           reference_code: "Reference code",

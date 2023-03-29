@@ -12,10 +12,10 @@
         inactive: "Inactive",
       },
       active: {
-        title: "Medicines",
+        title: "Active medicines",
       },
       inactive: {
-        title: "Medicines",
+        title: "Inactive medicines",
       },
       medicine: {
         reference_code: "Reference code",

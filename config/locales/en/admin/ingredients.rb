@@ -13,10 +13,10 @@
           inactive: "Inactive",
         },
         active: {
-          title: "Ingredients",
+          title: "Active ingredients",
         },
         inactive: {
-          title: "Ingredients",
+          title: "Inactive ingredients",
         },
         ingredient: {
           reference_code: "Reference code",

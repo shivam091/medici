@@ -13,10 +13,10 @@
           inactive: "Inactive",
         },
         active: {
-          title: "Medicine categories",
+          title: "Active medicine categories",
         },
         inactive: {
-          title: "Medicine categories",
+          title: "Inactive medicine categories",
         },
         medicine_category: {
           name: "Name",

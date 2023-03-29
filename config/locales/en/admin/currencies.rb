@@ -13,10 +13,10 @@
           inactive: "Inactive",
         },
         active: {
-          title: "Currencies",
+          title: "Active currencies",
         },
         inactive: {
-          title: "Currencies",
+          title: "Inactive currencies",
         },
         currency: {
           name: "Name",

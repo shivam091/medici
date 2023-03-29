@@ -12,10 +12,10 @@
         inactive: "Inactive",
       },
       active: {
-        title: "Suppliers",
+        title: "Active suppliers",
       },
       inactive: {
-        title: "Suppliers",
+        title: "Inactive suppliers",
       },
       supplier: {
         reference_code: "Reference code",

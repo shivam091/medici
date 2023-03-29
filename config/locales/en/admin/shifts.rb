@@ -13,10 +13,10 @@
           inactive: "Inactive",
         },
         active: {
-          title: "Shifts",
+          title: "Active shifts",
         },
         inactive: {
-          title: "Shifts",
+          title: "Inactive shifts",
         },
         shift: {
           name: "Name",

@@ -12,10 +12,10 @@
         inactive: "Inactive",
       },
       active: {
-        title: "Manufacturers",
+        title: "Active manufacturers",
       },
       inactive: {
-        title: "Manufacturers",
+        title: "Inactive manufacturers",
       },
       manufacturer: {
         reference_code: "Reference code",

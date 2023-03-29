@@ -13,10 +13,10 @@
           inactive: "Inactive",
         },
         active: {
-          title: "Countries",
+          title: "Active countries",
         },
         inactive: {
-          title: "Countries",
+          title: "Inactive countries",
         },
         country: {
           name: "Name",
