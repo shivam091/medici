@@ -8,8 +8,12 @@
       ingredients: {
         index: {
           title: "Ingredients",
+          all: "All",
           active: "Active",
           inactive: "Inactive",
+        },
+        active: {
+          title: "Ingredients",
         },
         inactive: {
           title: "Ingredients",

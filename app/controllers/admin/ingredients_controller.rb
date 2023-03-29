@@ -4,9 +4,9 @@
 
 class Admin::IngredientsController < Admin::BaseController
 
-  before_action :find_ingredient, except: [:index, :inactive, :new, :create]
+  before_action :find_ingredient, except: [:index, :active, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "inactive", "new", "create"])
+    if action_name.in?(["index", "active", "inactive", "new", "create"])
       authorize ::Ingredient
     else
       authorize @ingredient
@@ -15,6 +15,12 @@ class Admin::IngredientsController < Admin::BaseController
 
   # GET /admin/ingredients
   def index
+    @ingredients = policy_scope(::Ingredient).active
+    @pagy, @ingredients = pagy(@ingredients)
+  end
+
+  # GET /admin/ingredients/active
+  def active
     @ingredients = policy_scope(::Ingredient).active
     @pagy, @ingredients = pagy(@ingredients)
   end
