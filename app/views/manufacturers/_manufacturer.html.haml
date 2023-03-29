@@ -40,4 +40,9 @@
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::Manufacturer.columns.count}
-            = t(".no_manufacturers_to_display")
+            - if current_action?("active")
+              = t(".no_active_manufacturers_to_display")
+            - elsif current_action?("inactive")
+              = t(".no_inactive_manufacturers_to_display")
+            - else
+              = t(".no_manufacturers_to_display")
