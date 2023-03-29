@@ -47,11 +47,11 @@
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::PurchaseOrder.columns.count}
-            - if action_name.eql?("pending")
+            - if current_action?("pending")
               = t(".no_pending_purchase_orders_to_display")
-            - elsif action_name.eql?("incomplete")
+            - elsif current_action?("incomplete")
               = t(".no_incomplete_purchase_orders_to_display")
-            - elsif action_name.eql?("received")
+            - elsif current_action?("received")
               = t(".no_received_purchase_orders_to_display")
             - else
               = t(".no_purchase_orders_to_display")
