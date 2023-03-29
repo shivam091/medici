@@ -31,7 +31,10 @@ class Manufacturer < ApplicationRecord
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true
 
-  after_commit :send_active_manufacturers_count
+  after_commit :broadcast_active_manufacturers_count, on: [:create, :destroy]
+  after_commit on: :update do
+    broadcast_active_manufacturers_count if is_active_previously_changed?
+  end
 
   accepts_nested_attributes_for :address, update_only: true
 
@@ -49,9 +52,11 @@ class Manufacturer < ApplicationRecord
 
   private
 
-  def send_active_manufacturers_count
-    if is_active_previously_changed?
-      broadcast_update_to(:manufacturers, target: :active_manufacturers_count, html: ::Manufacturer.active.count)
-    end
+  def broadcast_active_manufacturers_count
+    broadcast_update_to(
+      :manufacturers,
+      target: :active_manufacturers_count,
+      html: ::Manufacturer.active.count
+    )
   end
 end
