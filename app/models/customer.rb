@@ -30,7 +30,7 @@ class Customer < ApplicationRecord
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true
 
-  after_commit :send_active_customers_count
+  after_commit :broadcast_active_customers_count
 
   accepts_nested_attributes_for :address, update_only: true
 
@@ -42,9 +42,11 @@ class Customer < ApplicationRecord
 
   private
 
-  def send_active_customers_count
-    if is_active_previously_changed?
-      broadcast_update_to(:customers, target: :active_customers_count, html: ::Customer.active.count)
-    end
+  def broadcast_active_customers_count
+    broadcast_update_to(
+      :customers, 
+      target: :active_customers_count, 
+      html: ::Customer.active.count
+    )
   end
 end
