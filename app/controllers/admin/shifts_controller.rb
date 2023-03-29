@@ -15,7 +15,7 @@ class Admin::ShiftsController < Admin::BaseController
 
   # GET /admin/shifts
   def index
-    @shifts = policy_scope(::Shift).active
+    @shifts = policy_scope(::Shift)
     @pagy, @shifts = pagy(@shifts)
   end
 

@@ -15,7 +15,7 @@ class Admin::PackingTypesController < Admin::BaseController
 
   # GET /admin/packing-types
   def index
-    @packing_types = policy_scope(::PackingType).active
+    @packing_types = policy_scope(::PackingType)
     @pagy, @packing_types = pagy(@packing_types)
   end
 

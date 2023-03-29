@@ -19,7 +19,7 @@ module CustomersShared
 
       # GET /(admin|manager|cashier)/customers
       def index
-        @customers = policy_scope(::Customer).active.includes(:address)
+        @customers = policy_scope(::Customer).includes(:address)
         @pagy, @customers = pagy(@customers)
       end
 

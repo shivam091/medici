@@ -15,7 +15,7 @@ class Admin::MedicineCategoriesController < Admin::BaseController
 
   # GET /admin/medicine-categories
   def index
-    @medicine_categories = policy_scope(::MedicineCategory).active
+    @medicine_categories = policy_scope(::MedicineCategory)
     @pagy, @medicine_categories = pagy(@medicine_categories)
   end
 

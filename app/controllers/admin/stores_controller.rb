@@ -15,7 +15,7 @@ class Admin::StoresController < Admin::BaseController
 
   # GET /admin/stores
   def index
-    @stores = policy_scope(::Store).active.includes(:address)
+    @stores = policy_scope(::Store).includes(:address)
     @pagy, @stores = pagy(@stores)
   end
 

@@ -19,7 +19,7 @@ module ManufacturersShared
 
       # GET /(admin|manager)/manufacturers
       def index
-        @manufacturers = policy_scope(::Manufacturer).active.includes(:address)
+        @manufacturers = policy_scope(::Manufacturer).includes(:address)
         @pagy, @manufacturers = pagy(@manufacturers)
       end
 

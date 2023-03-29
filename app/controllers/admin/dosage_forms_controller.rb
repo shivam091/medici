@@ -15,7 +15,7 @@ class Admin::DosageFormsController < Admin::BaseController
 
   # GET /admin/dosage-forms
   def index
-    @dosage_forms = policy_scope(::DosageForm).active
+    @dosage_forms = policy_scope(::DosageForm)
     @pagy, @dosage_forms = pagy(@dosage_forms)
   end
 

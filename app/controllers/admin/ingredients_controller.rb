@@ -15,7 +15,7 @@ class Admin::IngredientsController < Admin::BaseController
 
   # GET /admin/ingredients
   def index
-    @ingredients = policy_scope(::Ingredient).active
+    @ingredients = policy_scope(::Ingredient)
     @pagy, @ingredients = pagy(@ingredients)
   end
 

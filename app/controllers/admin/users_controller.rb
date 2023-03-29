@@ -15,7 +15,7 @@ class Admin::UsersController < Admin::BaseController
 
   # GET /admin/users
   def index
-    @users = policy_scope(::User).active.includes(:role, :store)
+    @users = policy_scope(::User).includes(:role, :store)
     @pagy, @users = pagy(@users)
   end
 

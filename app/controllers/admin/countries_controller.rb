@@ -15,7 +15,7 @@ class Admin::CountriesController < Admin::BaseController
 
   # GET /admin/countries
   def index
-    @countries = policy_scope(::Country).active.includes(:currency)
+    @countries = policy_scope(::Country).includes(:currency)
     @pagy, @countries = pagy(@countries)
   end
 

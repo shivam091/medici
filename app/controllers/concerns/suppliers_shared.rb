@@ -19,7 +19,7 @@ module SuppliersShared
 
       # GET /(admin|manager)/suppliers
       def index
-        @suppliers = policy_scope(::Supplier).active.includes(:address)
+        @suppliers = policy_scope(::Supplier).includes(:address)
         @pagy, @suppliers = pagy(@suppliers)
       end
 
