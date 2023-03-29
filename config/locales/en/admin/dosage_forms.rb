@@ -8,8 +8,12 @@
       dosage_forms: {
         index: {
           title: "Dosage forms",
+          all: "All",
           active: "Active",
           inactive: "Inactive",
+        },
+        active: {
+          title: "Dosage forms",
         },
         inactive: {
           title: "Dosage forms",

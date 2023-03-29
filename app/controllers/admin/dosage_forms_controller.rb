@@ -4,9 +4,9 @@
 
 class Admin::DosageFormsController < Admin::BaseController
 
-  before_action :find_dosage_form, except: [:index, :inactive, :new, :create]
+  before_action :find_dosage_form, except: [:index, :active, :inactive, :new, :create]
   before_action do
-    if action_name.in?(["index", "inactive", "new", "create"])
+    if action_name.in?(["index", "active", "inactive", "new", "create"])
       authorize ::DosageForm
     else
       authorize @dosage_form
@@ -15,6 +15,12 @@ class Admin::DosageFormsController < Admin::BaseController
 
   # GET /admin/dosage-forms
   def index
+    @dosage_forms = policy_scope(::DosageForm).active
+    @pagy, @dosage_forms = pagy(@dosage_forms)
+  end
+
+  # GET /admin/dosage-forms/active
+  def active
     @dosage_forms = policy_scope(::DosageForm).active
     @pagy, @dosage_forms = pagy(@dosage_forms)
   end
