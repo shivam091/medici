@@ -69,8 +69,7 @@
             .d-flex.align-items-start
               .flex-grow-1
                 %h3.mb-2
-                  = turbo_frame_tag :own_purchase_orders_count do
-                    = current_user.purchase_orders.count
+                  = @store.purchase_orders.count
                 %p.mb-2= t(".total_purchase_orders")
               .d-inline-block
                 = external_svg_tag("svgs/file.svg", height: "48px", width: "48px")
