@@ -40,7 +40,7 @@ class Supplier < ApplicationRecord
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true
 
-  after_commit :send_active_suppliers_count
+  after_commit :broadcast_active_suppliers_count
 
   accepts_nested_attributes_for :address, update_only: true
 
@@ -58,9 +58,11 @@ class Supplier < ApplicationRecord
 
   private
 
-  def send_active_suppliers_count
-    if is_active_previously_changed?
-      broadcast_update_to(:suppliers, target: :active_suppliers_count, html: ::Supplier.active.count)
-    end
+  def broadcast_active_suppliers_count
+    broadcast_update_to(
+      :suppliers,
+      target: :active_suppliers_count,
+      html: ::Supplier.active.count
+    )
   end
 end
