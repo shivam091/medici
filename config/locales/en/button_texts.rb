@@ -42,6 +42,7 @@
       update_packing_type: "Update packing type",
       new_manufacturer: "New manufacturer",
       create_manufacturer: "Create manufacturer",
+      edit_manufacturer: "Edit manufacturer",
       update_manufacturer: "Update manufacturer",
       new_medicine: "New medicine",
       create_medicine: "Create medicine",

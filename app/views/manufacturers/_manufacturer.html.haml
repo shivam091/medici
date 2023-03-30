@@ -21,7 +21,7 @@
           %td
             = check_box_tag "manufacturer_ids[]", manufacturer.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
           %td.fw-bold= manufacturer.reference_code
-          %td= manufacturer.name
+          %td= link_to manufacturer.name, manufacturer_path(manufacturer), data: {turbo_frame: :remote_modal}
           %td= mail_to manufacturer.email
           %td= manufacturer.phone_number
           %td= manufacturer.country_name

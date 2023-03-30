@@ -84,6 +84,10 @@ module ManufacturersShared
         end
       end
 
+      # GET /(admin|manager)/manufacturers/:uuid
+      def show
+      end
+
       # DELETE /(admin|manager)/manufacturers/:uuid
       def destroy
         response = ::Manufacturers::DestroyService.(@manufacturer)
