@@ -42,6 +42,7 @@ class Expense < ApplicationRecord
   belongs_to :user, inverse_of: :expenses
 
   before_save :set_store
+  after_commit :broadcast_expenses_count, on: [:create, :destroy]
 
   delegate :name, :phone_number, :email, to: :store, prefix: true
   delegate :full_name, to: :user, prefix: true
@@ -68,5 +69,13 @@ class Expense < ApplicationRecord
     if user.present?
       self.store = self.user.store
     end
+  end
+
+  def broadcast_expenses_count
+    broadcast_update_to(
+      :expenses,
+      target: :expenses_count,
+      html: ::Expense.count
+    )
   end
 end
