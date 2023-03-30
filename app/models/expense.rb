@@ -47,6 +47,7 @@ class Expense < ApplicationRecord
   delegate :name, :phone_number, :email, to: :store, prefix: true
   delegate :full_name, to: :user, prefix: true
 
+  scope :with_associations, -> { includes(user: [:role], store: [:currency]) }
   default_scope -> { order_created_desc }
 
   class << self
@@ -60,6 +61,16 @@ class Expense < ApplicationRecord
       where(
         ::Medici::SQL::Functions.date(::Expense[:created_at]).in(Date.current.all_month)
       )
+    end
+
+    def accessible(user)
+      if (user.super_admin? || user.admin?)
+        all
+      elsif user.manager?
+        all.where(store: user.store)
+      else
+        user.expenses
+      end
     end
   end
 
