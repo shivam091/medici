@@ -50,4 +50,8 @@ class CustomerPolicy < ApplicationPolicy
   def destroy?
     user.super_admin?
   end
+
+  def show?
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+  end
 end

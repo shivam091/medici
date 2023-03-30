@@ -84,6 +84,10 @@ module CustomersShared
         end
       end
 
+      # GET /(admin|manager|cashier)/customers/:uuid
+      def show
+      end
+
       # DELETE /(admin|manager|cashier)/customers/:uuid
       def destroy
         response = ::Customers::DestroyService.(@customer)

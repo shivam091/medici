@@ -57,6 +57,7 @@
       previous_page: "Previous page",
       new_customer: "New customer",
       create_customer: "Create customer",
+      edit_customer: "Edit customer",
       update_customer: "Update customer",
       new_shift: "New shift",
       create_shift: "Create shift",

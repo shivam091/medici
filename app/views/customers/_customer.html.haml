@@ -21,7 +21,7 @@
           %td
             = check_box_tag "customer_ids[]", customer.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
           %td.fw-bold= customer.reference_code
-          %td= customer.name
+          %td= link_to customer.name, customer_path(customer), data: {turbo_frame: :remote_modal}
           %td= mail_to customer.email
           %td= customer.mobile_number
           %td= customer.country_name
