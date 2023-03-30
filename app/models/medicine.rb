@@ -145,8 +145,18 @@ class Medicine < ApplicationRecord
   default_scope -> { order_reference_code_asc }
 
   class << self
-    def select_options
-      active.collect do |medicine|
+    def accessible(user)
+      if (user.super_admin? || user.admin?)
+        all
+      elsif user.manager?
+        all.where(store: user.store)
+      else
+        none
+      end
+    end
+
+    def select_options(user)
+      accessible(user).collect do |medicine|
         ["#{medicine.name} (#{medicine.reference_code})", medicine.id]
       end
     end
