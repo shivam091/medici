@@ -78,6 +78,18 @@ class PurchaseOrder < ApplicationRecord
 
   default_scope -> { order_reference_code_asc }
 
+  class << self
+    def accessible(user)
+      if (user.super_admin? || user.admin?)
+        all
+      elsif user.manager?
+        all.where(store: user.store)
+      else
+        none
+      end
+    end
+  end
+
   private
 
   def reject_purchase_order_medicine?(attributes)
