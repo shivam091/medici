@@ -84,6 +84,10 @@ module SuppliersShared
         end
       end
 
+      # GET /(admin|manager)/suppliers/:uuid
+      def show
+      end
+
       # DELETE /(admin|manager)/suppliers/:uuid
       def destroy
         response = ::Suppliers::DestroyService.(@supplier)

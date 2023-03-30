@@ -52,4 +52,8 @@ class SupplierPolicy < ApplicationPolicy
   def deactivate?
     (user.super_admin? || user.admin?)
   end
+
+  def show?
+    (user.super_admin? || user.admin? || user.manager?)
+  end
 end

@@ -31,6 +31,7 @@
       create_medicine_category: "Create medicine category",
       update_medicine_category: "Update medicine category",
       new_supplier: "New supplier",
+      edit_supplier: "Edit supplier",
       create_supplier: "Create supplier",
       update_supplier: "Update supplier",
       new_store: "New store",
