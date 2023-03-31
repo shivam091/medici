@@ -19,25 +19,25 @@ module ExpensesShared
 
       # GET /(admin|manager|cashier)/expenses
       def index
-        @expenses = policy_scope(::Expense).with_associations
+        @expenses = policy_scope(::Expense)
         @pagy, @expenses = pagy(@expenses)
       end
 
       # GET /(admin|manager|cashier)/expenses/pending
       def pending
-        @expenses = policy_scope(::Expense).pending.with_associations
+        @expenses = policy_scope(::Expense).pending
         @pagy, @expenses = pagy(@expenses)
       end
 
       # GET /(admin|manager|cashier)/expenses/approved
       def approved
-        @expenses = policy_scope(::Expense).approved.with_associations
+        @expenses = policy_scope(::Expense).approved
         @pagy, @expenses = pagy(@expenses)
       end
 
       # GET /(admin|manager|cashier)/expenses/rejected
       def rejected
-        @expenses = policy_scope(::Expense).rejected.with_associations
+        @expenses = policy_scope(::Expense).rejected
         @pagy, @expenses = pagy(@expenses)
       end
 

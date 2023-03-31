@@ -47,7 +47,7 @@ class Expense < ApplicationRecord
   delegate :name, :phone_number, :email, to: :store, prefix: true
   delegate :full_name, to: :user, prefix: true
 
-  scope :with_associations, -> { includes(user: [:role], store: [:currency]) }
+  scope :including_user_and_store, -> { includes(user: [:role], store: [:currency]) }
   default_scope -> { order_created_desc }
 
   class << self
