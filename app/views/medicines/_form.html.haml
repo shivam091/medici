@@ -1,37 +1,50 @@
 = bootstrap_form_with model: medicine_object(@medicine) do |form|
   .subheader
     = t(".basic_details")
-  .row.row-cols-1.row-cols-md-2
-    = form.text_field :name, data: {controller: "autofocus"}
-    = form.text_field :proprietary_name
-  .row.row-cols-1
-    = form.text_area :description
-  .row.row-cols-1.row-cols-md-2.row-cols-lg-4
-    = form.select :medicine_category_id, options_for_select(::MedicineCategory.select_options, form.object.medicine_category_id),
-      {include_blank: t(".select_medicine_category")}
-    = form.select :dosage_form_id, options_for_select(::DosageForm.select_options, form.object.dosage_form_id),
-      {include_blank: t(".select_dosage_form")}
-    = form.select :packing_type_id, options_for_select(::PackingType.select_options, form.object.packing_type_id),
-      {include_blank: t(".select_packing_type")}
-    = form.select :manufacturer_id, options_for_select(::Manufacturer.select_options, form.object.manufacturer_id),
-      {include_blank: t(".select_manufacturer")}
-  .row.row-cols-1.row-cols-md-2.row-cols-lg-4
-    = form.select :supplier_ids, options_for_select(::Supplier.select_options, form.object.supplier_ids),
-      {include_blank: t(".select_suppliers")}, multiple: true, size: 1
-    = form.text_field :batch_number
-    = form.number_field :purchase_price
-    = form.number_field :sell_price
-  .row.row-cols-1.row-cols-md-2.row-cols-lg-3
-    = form.date_field :manufacture_date
-    = form.date_field :expiry_date
-    = form.number_field :pack_size
-  .row.row-cols-1.row-cols-md-2.row-cols-lg-3
-    = form.number_field :strength
-    = form.select :uom, enum_options_for_select(::Medicine, :unit_of_measurements),
-      {include_blank: t(".select_uom")}
-    = form.text_field :therapeutic_areas
-  .row.row-cols-1
-    = form.check_box :is_active, switch: true
+  .row
+    .col-12.col-lg-6.col-xl-6
+      = form.text_field :name, data: {controller: "autofocus"}
+    .col-12.col-lg-6.col-xl-6
+      = form.text_field :proprietary_name
+    .col-12
+      = form.text_area :description
+    .col-12.col-lg-6.col-xl-3
+      = form.select :medicine_category_id, options_for_select(::MedicineCategory.select_options, form.object.medicine_category_id),
+        {include_blank: t(".select_medicine_category")}
+    .col-12.col-lg-6.col-xl-3
+      = form.select :dosage_form_id, options_for_select(::DosageForm.select_options, form.object.dosage_form_id),
+        {include_blank: t(".select_dosage_form")}
+    .col-12.col-lg-6.col-xl-3
+      = form.select :packing_type_id, options_for_select(::PackingType.select_options, form.object.packing_type_id),
+        {include_blank: t(".select_packing_type")}
+    .col-12.col-lg-6.col-xl-3
+      = form.select :manufacturer_id, options_for_select(::Manufacturer.select_options, form.object.manufacturer_id),
+        {include_blank: t(".select_manufacturer")}
+    .col-12.col-lg-6.col-xl-3
+      = form.select :supplier_ids, options_for_select(::Supplier.select_options, form.object.supplier_ids),
+        {include_blank: t(".select_suppliers")}, multiple: true, size: 1
+    .col-12.col-lg-6.col-xl-3
+      = form.text_field :batch_number
+    .col-12.col-lg-6.col-xl-3
+      = form.number_field :purchase_price
+    .col-12.col-lg-6.col-xl-3
+      = form.number_field :sell_price
+    .col-12.col-lg-6.col-xl-3
+      = form.date_field :manufacture_date
+    .col-12.col-lg-6.col-xl-3
+      = form.date_field :expiry_date
+    .col-12.col-lg-6.col-xl-3
+      = form.number_field :pack_size
+    .col-12.col-lg-6.col-xl-3
+      = form.number_field :strength
+    .col-12.col-lg-6.col-xl-3
+      = form.select :uom, enum_options_for_select(::Medicine, :unit_of_measurements),
+        {include_blank: t(".select_uom")}
+    .col-12.col-lg-6.col-xl-3
+      = form.text_field :therapeutic_areas
+  .row
+    .col-12.col-lg-6.col-xl-3
+      = form.check_box :is_active, switch: true
   .subheader
     = t(".ingredients")
   = render_if_exists("medicines/medicine_ingredients", locals: {form:})
