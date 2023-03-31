@@ -1,22 +1,2 @@
 = render_modal(title: @customer.reference_code) do
-  %dl
-    %dt Name
-    %dd= @customer.name
-  %dl
-    %dt Mobile number
-    %dd= phone_to @customer.mobile_number
-  %dl
-    %dt Phone number
-    %dd= mail_to @customer.email
-  %dl
-    %dt Address
-    %dd= @customer.address.humanize
-  .modal-actions
-    = button_tag type: :button, class: "btn btn-secondary", data: {action: "click->remote-modal#hide"} do
-      = external_svg_tag("svgs/cancel.svg")
-      = button_text("cancel")
-    - if policy(@customer).edit?
-      = link_to edit_customer_path(@customer), class: "btn btn-secondary" do
-        = external_svg_tag("svgs/pencil.svg")
-        %span.d-block.d-lg-none= button_text("edit")
-        %span.d-none.d-lg-block= button_text("edit_customer")
+  = render_if_exists("customers/show")
