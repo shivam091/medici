@@ -16,8 +16,6 @@ class CashCounter < ApplicationRecord
 
   belongs_to :store, touch: true
 
-  delegate :name, :phone_number, :email, to: :store
-
   accepts_nested_attributes_for :cash_counter_operators,
                                 allow_destroy: true,
                                 reject_if: :reject_cash_counter_operator?

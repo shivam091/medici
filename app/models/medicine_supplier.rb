@@ -19,9 +19,6 @@ class MedicineSupplier < ApplicationRecord
 
   before_save :set_store
 
-  delegate :name, :email, :phone_number, to: :supplier, prefix: true
-  delegate :name, to: :medicine, prefix: true
-
   def set_store
     self.store = self.medicine.store
   end

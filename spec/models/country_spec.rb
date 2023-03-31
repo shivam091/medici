@@ -70,8 +70,6 @@ RSpec.describe Country, type: :model do
 
   describe "delegates" do
     it { is_expected.to delegate_method(:name).to(:currency).with_prefix(true) }
-    it { is_expected.to delegate_method(:iso_code).to(:currency).with_prefix(true) }
-    it { is_expected.to delegate_method(:symbol).to(:currency).with_prefix(true) }
   end
 
   describe "default scope" do

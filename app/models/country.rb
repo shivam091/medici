@@ -38,7 +38,7 @@ class Country < ApplicationRecord
 
   belongs_to :currency, inverse_of: :countries
 
-  delegate :name, :iso_code, :symbol, to: :currency, prefix: true
+  delegate :name, to: :currency, prefix: true
 
   default_scope -> { order(arel_table[:iso2].asc) }
 
