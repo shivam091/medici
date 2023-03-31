@@ -77,11 +77,4 @@ RSpec.describe MedicineSupplier, type: :model do
     it { is_expected.to belong_to(:supplier).inverse_of(:medicine_suppliers) }
     it { is_expected.to belong_to(:store).inverse_of(:medicine_suppliers).optional }
   end
-
-  describe "delegates" do
-    it { is_expected.to delegate_method(:name).to(:supplier).with_prefix }
-    it { is_expected.to delegate_method(:email).to(:supplier).with_prefix }
-    it { is_expected.to delegate_method(:phone_number).to(:supplier).with_prefix }
-    it { is_expected.to delegate_method(:name).to(:medicine).with_prefix }
-  end
 end

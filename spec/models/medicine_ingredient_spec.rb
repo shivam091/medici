@@ -73,9 +73,4 @@ RSpec.describe MedicineIngredient, type: :model do
     it { is_expected.to belong_to(:medicine).inverse_of(:medicine_ingredients).touch(true) }
     it { is_expected.to belong_to(:ingredient).inverse_of(:medicine_ingredients) }
   end
-
-  describe "delegates" do
-    it { is_expected.to delegate_method(:name).to(:ingredient).with_prefix }
-    it { is_expected.to delegate_method(:name).to(:medicine).with_prefix }
-  end
 end

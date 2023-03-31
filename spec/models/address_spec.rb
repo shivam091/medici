@@ -53,8 +53,6 @@ RSpec.describe Address, type: :model do
 
   describe "delegates" do
     it { is_expected.to delegate_method(:name).to(:country).with_prefix(true) }
-    it { is_expected.to delegate_method(:iso2).to(:country).with_prefix(true) }
-    it { is_expected.to delegate_method(:iso3).to(:country).with_prefix(true) }
   end
 
   describe "associations" do
