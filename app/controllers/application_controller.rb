@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
           Pagy::Backend,
           Pundit::Authorization
 
-  # rescue_from Exception, with: :internal_server_error
+  rescue_from Exception, with: :internal_server_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken do |exception|
     if user_signed_in?
