@@ -4,7 +4,7 @@
 
 # spec/routing/user/registration_routing_spec.rb
 
-RSpec.describe User::RegistrationsController, "routing" do
+RSpec.describe User::RegistrationsController, type: :routing do
   # cancel_user_registration GET      /auth/cancel(.:format)  user/registrations#cancel
   #    new_user_registration GET      /auth/sign-up(.:format) user/registrations#new
   #   edit_user_registration GET      /auth/edit(.:format)    user/registrations#edit

@@ -4,7 +4,7 @@
 
 # spec/routing/user/unlock_routing_spec.rb
 
-RSpec.describe User::UnlocksController, "routing" do
+RSpec.describe User::UnlocksController, type: :routing do
   # new_user_unlock GET       /auth/unlock/new(.:format) user/unlocks#new
   #     user_unlock GET       /auth/unlock(.:format)     user/unlocks#show
   #                 POST      /auth/unlock(.:format)     user/unlocks#create

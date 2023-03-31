@@ -4,7 +4,7 @@
 
 # spec/routing/user/confirmation_routing_spec.rb
 
-RSpec.describe User::ConfirmationsController, "routing" do
+RSpec.describe User::ConfirmationsController, type: :routing do
   # new_user_confirmation GET      /auth/verification/new(.:format) user/confirmations#new
   #     user_confirmation GET      /auth/verification(.:format)     user/confirmations#show
   #                       POST     /auth/verification(.:format)     user/confirmations#create

@@ -4,7 +4,7 @@
 
 # spec/routing/user/password_routing_spec.rb
 
-RSpec.describe User::PasswordsController, "routing" do
+RSpec.describe User::PasswordsController, type: :routing do
   #  new_user_password GET      /auth/password/new(.:format)  user/passwords#new
   # edit_user_password GET      /auth/password/edit(.:format) user/passwords#edit
   #      user_password PATCH    /auth/password(.:format)      user/passwords#update
