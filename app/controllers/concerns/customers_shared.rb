@@ -19,19 +19,19 @@ module CustomersShared
 
       # GET /(admin|manager|cashier)/customers
       def index
-        @customers = policy_scope(::Customer).includes(:address)
+        @customers = policy_scope(::Customer).including_address
         @pagy, @customers = pagy(@customers)
       end
 
       # GET /(admin|manager|cashier)/customers/active
       def active
-        @customers = policy_scope(::Customer).active.includes(:address)
+        @customers = policy_scope(::Customer).active.including_address
         @pagy, @customers = pagy(@customers)
       end
 
       # GET /(admin|manager|cashier)/customers/inactive
       def inactive
-        @customers = policy_scope(::Customer).inactive.includes(:address)
+        @customers = policy_scope(::Customer).inactive.including_address
         @pagy, @customers = pagy(@customers)
       end
 
