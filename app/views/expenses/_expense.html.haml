@@ -11,6 +11,8 @@
         - if (current_user.super_admin? || current_user.admin?)
           %th{scope: "col"}= t(".user")
           %th{scope: "col"}= t(".store")
+        - if current_user.manager?
+          %th{scope: "col"}= t(".store")
         %th{scope: "col"}= t(".criteria")
         %th{scope: "col"}= t(".amount")
         %th{width: "25px", scope: "col"}= t(".actions")
@@ -25,6 +27,8 @@
           %td.fw-bold= expense.reference_code
           - if (current_user.super_admin? || current_user.admin?)
             %td= expense.user_full_name
+            %td= expense.store_name
+          - if current_user.manager?
             %td= expense.store_name
           %td= expense.criteria
           %td= number_to_currency(expense.amount, unit: store.currency_symbol)

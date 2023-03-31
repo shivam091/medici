@@ -20,9 +20,9 @@
             = (@pagy.offset + index)
           %td
             = check_box_tag "supplier_ids[]", supplier.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
-          %td.fw-bold= supplier.reference_code
+          %td.fw-bold= link_to supplier.reference_code, supplier_path(supplier), data: {turbo_frame: :remote_modal}
           %td= supplier.name
-          %td= mail_to supplier.email
+          %td= supplier.email
           %td= supplier.phone_number
           %td= supplier.country_name
           %td.actions

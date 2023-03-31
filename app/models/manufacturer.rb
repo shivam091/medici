@@ -38,6 +38,7 @@ class Manufacturer < ApplicationRecord
 
   accepts_nested_attributes_for :address, update_only: true
 
+  scope :including_address, -> { includes(:address) }
   default_scope -> { order_reference_code_asc }
 
   def address

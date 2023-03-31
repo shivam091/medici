@@ -41,6 +41,12 @@
         basic_details: "Basic details",
         address: "Address",
       },
+      show: {
+        name: "Name",
+        email: "Email address",
+        phone_number: "Phone number",
+        address: "Address",
+      },
     }
   }
 }

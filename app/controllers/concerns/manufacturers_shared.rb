@@ -19,19 +19,19 @@ module ManufacturersShared
 
       # GET /(admin|manager)/manufacturers
       def index
-        @manufacturers = policy_scope(::Manufacturer).includes(:address)
+        @manufacturers = policy_scope(::Manufacturer).including_address
         @pagy, @manufacturers = pagy(@manufacturers)
       end
 
       # GET /(admin|manager)/manufacturers/active
       def active
-        @manufacturers = policy_scope(::Manufacturer).active.includes(:address)
+        @manufacturers = policy_scope(::Manufacturer).active.including_address
         @pagy, @manufacturers = pagy(@manufacturers)
       end
 
       # GET /(admin|manager)/manufacturers/inactive
       def inactive
-        @manufacturers = policy_scope(::Manufacturer).inactive.includes(:address)
+        @manufacturers = policy_scope(::Manufacturer).inactive.including_address
         @pagy, @manufacturers = pagy(@manufacturers)
       end
 
@@ -82,6 +82,10 @@ module ManufacturersShared
             end
           end
         end
+      end
+
+      # GET /(admin|manager)/manufacturers/:uuid
+      def show
       end
 
       # DELETE /(admin|manager)/manufacturers/:uuid

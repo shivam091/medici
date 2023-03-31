@@ -94,6 +94,19 @@
           .card-body
             .d-flex.align-items-start
               .flex-grow-1
+                %h3.mb-2
+                  = @store.expenses.count
+                %p.mb-2= t(".total_expenses")
+              .d-inline-block{style: "font-size: 45px;"}
+                = @store.currency_symbol
+          .card-footer
+            .float-end
+              = link_to t(".view_all"), manager_expenses_path, class: "text-decoration-none"
+      .col-12.col-sm-6.col-lg-4.col-xxl-3.d-flex
+        .card.flex-fill.mb-2
+          .card-body
+            .d-flex.align-items-start
+              .flex-grow-1
                 %h3.mb-2 1
                 %p.mb-2= t(".low_stock_medicines")
               .d-inline-block

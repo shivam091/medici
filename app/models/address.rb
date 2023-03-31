@@ -38,4 +38,10 @@ class Address < ApplicationRecord
   delegate :name, :iso2, :iso3, to: :country, prefix: true
 
   default_scope -> { order_created_desc }
+
+  def humanize
+    [
+      address1, address2, city, region, country_name, postal_code
+    ].compact.reject(&:blank?).join(", ")
+  end
 end

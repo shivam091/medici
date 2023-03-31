@@ -19,19 +19,19 @@ module SuppliersShared
 
       # GET /(admin|manager)/suppliers
       def index
-        @suppliers = policy_scope(::Supplier).includes(:address)
+        @suppliers = policy_scope(::Supplier).including_address
         @pagy, @suppliers = pagy(@suppliers)
       end
 
       # GET /(admin|manager)/suppliers/active
       def active
-        @suppliers = policy_scope(::Supplier).active.includes(:address)
+        @suppliers = policy_scope(::Supplier).active.including_address
         @pagy, @suppliers = pagy(@suppliers)
       end
 
       # GET /(admin|manager)/suppliers/inactive
       def inactive
-        @suppliers = policy_scope(::Supplier).inactive.includes(:address)
+        @suppliers = policy_scope(::Supplier).inactive.including_address
         @pagy, @suppliers = pagy(@suppliers)
       end
 
@@ -82,6 +82,10 @@ module SuppliersShared
             end
           end
         end
+      end
+
+      # GET /(admin|manager)/suppliers/:uuid
+      def show
       end
 
       # DELETE /(admin|manager)/suppliers/:uuid

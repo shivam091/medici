@@ -1,0 +1,21 @@
+%dl
+  %dt= t(".name")
+  %dd= @supplier.name
+%dl
+  %dt= t(".phone_number")
+  %dd= phone_to @supplier.phone_number
+%dl
+  %dt= t(".email")
+  %dd= mail_to @supplier.email
+%dl
+  %dt= t(".address")
+  %dd= @supplier.address.humanize
+.modal-actions
+  = button_tag type: :button, class: "btn btn-secondary", data: {action: "click->remote-modal#hide"} do
+    = external_svg_tag("svgs/cancel.svg")
+    = button_text("cancel")
+  - if policy(@supplier).edit?
+    = link_to edit_supplier_path(@supplier), class: "btn btn-secondary" do
+      = external_svg_tag("svgs/pencil.svg")
+      %span.d-block.d-lg-none= button_text("edit")
+      %span.d-none.d-lg-block= button_text("edit_supplier")
