@@ -126,6 +126,7 @@ a {
 }
 .form-label, .form-check-label {
   font-weight: 600;
+  vertical-align: middle;
 }
 .form-control, .form-select, .form-floating > .form-control, .form-floating > .form-select {
   color: var(--bs-body-color);
