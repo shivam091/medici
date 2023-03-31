@@ -67,7 +67,7 @@ class Expense < ApplicationRecord
       if (user.super_admin? || user.admin?)
         all
       elsif user.manager?
-        all.where(store: user.store)
+        user.store.expenses
       else
         user.expenses
       end

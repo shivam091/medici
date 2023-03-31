@@ -150,7 +150,7 @@ class Medicine < ApplicationRecord
       if (user.super_admin? || user.admin?)
         all
       elsif user.manager?
-        all.where(store: user.store)
+        user.store.medicines
       else
         none
       end

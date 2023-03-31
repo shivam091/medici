@@ -83,7 +83,7 @@ class PurchaseOrder < ApplicationRecord
       if (user.super_admin? || user.admin?)
         all
       elsif user.manager?
-        all.where(store: user.store)
+        user.store.purchase_orders
       else
         none
       end
