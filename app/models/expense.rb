@@ -59,7 +59,7 @@ class Expense < ApplicationRecord
 
     def this_month
       where(
-        ::Medici::SQL::Functions.date(::Expense[:created_at]).in(Date.current.all_month)
+        ::Medici::SQL::Functions.date(::Expense[:created_at]).between(Date.current.all_month)
       )
     end
 
