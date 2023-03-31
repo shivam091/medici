@@ -19,19 +19,19 @@ module MedicinesShared
 
       # GET /(admin|manager)/medicines
       def index
-        @medicines = policy_scope(::Medicine).includes(:stock, :replenishment)
+        @medicines = policy_scope(::Medicine).including_inventory
         @pagy, @medicines = pagy(@medicines)
       end
 
       # GET /(admin|manager)/medicines/active
       def active
-        @medicines = policy_scope(::Medicine).active.includes(:stock, :replenishment)
+        @medicines = policy_scope(::Medicine).active.including_inventory
         @pagy, @medicines = pagy(@medicines)
       end
 
       # GET /(admin|manager)/medicines/inactive
       def inactive
-        @medicines = policy_scope(::Medicine).inactive.includes(:stock, :replenishment)
+        @medicines = policy_scope(::Medicine).inactive.including_inventory
         @pagy, @medicines = pagy(@medicines)
       end
 

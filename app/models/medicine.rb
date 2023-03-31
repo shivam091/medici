@@ -142,6 +142,7 @@ class Medicine < ApplicationRecord
                                 allow_destroy: true,
                                 reject_if: :reject_medicine_ingredient?
 
+  scope :including_inventory, -> { includes(:stock, :replenishment) }
   default_scope -> { order_reference_code_asc }
 
   class << self
@@ -156,7 +157,7 @@ class Medicine < ApplicationRecord
     end
 
     def select_options(user)
-      accessible(user).collect do |medicine|
+      accessible(user).active.collect do |medicine|
         ["#{medicine.name} (#{medicine.reference_code})", medicine.id]
       end
     end
