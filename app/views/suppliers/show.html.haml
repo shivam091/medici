@@ -1,22 +1,2 @@
 = render_modal(title: @supplier.reference_code) do
-  %dl
-    %dt Name
-    %dd= @supplier.name
-  %dl
-    %dt Phone number
-    %dd= phone_to @supplier.phone_number
-  %dl
-    %dt Phone number
-    %dd= mail_to @supplier.email
-  %dl
-    %dt Address
-    %dd= @supplier.address.humanize
-  .modal-actions
-    = button_tag type: :button, class: "btn btn-secondary", data: {action: "click->remote-modal#hide"} do
-      = external_svg_tag("svgs/cancel.svg")
-      = button_text("cancel")
-    - if policy(@supplier).edit?
-      = link_to edit_supplier_path(@supplier), class: "btn btn-secondary" do
-        = external_svg_tag("svgs/pencil.svg")
-        %span.d-block.d-lg-none= button_text("edit")
-        %span.d-none.d-lg-block= button_text("edit_supplier")
+  = render_if_exists("suppliers/show")
