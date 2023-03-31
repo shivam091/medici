@@ -10,50 +10,50 @@ RSpec.describe User::UnlocksController, "routing" do
   #                 POST      /auth/unlock(.:format)     user/unlocks#create
 
   it "GET /auth/unlock/new should be routable" do
-    expect(get("/auth/unlock/new").should be_routable)
+    expect(get("/auth/unlock/new")).to be_routable
   end
 
   it "GET /auth/unlock/new should route to user/unlocks#new" do
-    expect(get("/auth/unlock/new").should route_to("user/unlocks#new"))
+    expect(get("/auth/unlock/new")).to route_to("user/unlocks#new")
   end
 
   it "GET new_user_unlock_path should route to user/unlocks#new" do
-    expect(get(new_user_unlock_path).should route_to("user/unlocks#new"))
+    expect(get(new_user_unlock_path)).to route_to("user/unlocks#new")
   end
 
   it "GET /auth/unlock/new should route to user/unlocks#new" do
-    expect(get("/auth/unlock/new").should route_to(controller: "user/unlocks", action: "new"))
+    expect(get("/auth/unlock/new")).to route_to(controller: "user/unlocks", action: "new")
   end
 
   it "GET /auth/unlock should be routable" do
-    expect(get("/auth/unlock").should be_routable)
+    expect(get("/auth/unlock")).to be_routable
   end
 
   it "GET /auth/unlock should route to user/unlocks#show" do
-    expect(get("/auth/unlock").should route_to("user/unlocks#show"))
+    expect(get("/auth/unlock")).to route_to("user/unlocks#show")
   end
 
   it "GET user_unlock_path should route to user/unlocks#show" do
-    expect(get(user_unlock_path).should route_to("user/unlocks#show"))
+    expect(get(user_unlock_path)).to route_to("user/unlocks#show")
   end
 
   it "GET /auth/unlock should route to user/unlocks#show" do
-    expect(get("/auth/unlock").should route_to(controller: "user/unlocks", action: "show"))
+    expect(get("/auth/unlock")).to route_to(controller: "user/unlocks", action: "show")
   end
 
   it "POST /auth/unlock should be routable" do
-    expect(post("/auth/unlock").should be_routable)
+    expect(post("/auth/unlock")).to be_routable
   end
 
   it "POST /auth/unlock should route to user/unlocks#create" do
-    expect(post("/auth/unlock").should route_to("user/unlocks#create"))
+    expect(post("/auth/unlock")).to route_to("user/unlocks#create")
   end
 
   it "POST user_unlock_path should route to user/unlocks#create" do
-    expect(post(user_unlock_path).should route_to("user/unlocks#create"))
+    expect(post(user_unlock_path)).to route_to("user/unlocks#create")
   end
 
   it "POST /auth/unlock should route to user/unlocks#create" do
-    expect(post("/auth/unlock").should route_to(controller: "user/unlocks", action: "create"))
+    expect(post("/auth/unlock")).to route_to(controller: "user/unlocks", action: "create")
   end
 end
