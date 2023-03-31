@@ -1,14 +1,18 @@
 = bootstrap_form_with model: purchase_order_object(@purchase_order) do |form|
   .subheader
     = t(".order_details")
-  .row.row-cols-1.row-cols-md-3
-    = form.select :supplier_id, options_for_select(::Supplier.select_options, form.object.supplier_id),
-      {include_blank: t(".select_supplier")}, data: {controller: "autofocus"}
-    = form.text_field :invoice_number
-    = form.text_field :tracking_number
-  .row.row-cols-1.row-cols-md-3
-    = form.date_field :ordered_at
-    = form.date_field :expected_arrival_at
+  .row
+    .col-12.col-lg-6.col-xl-4
+      = form.select :supplier_id, options_for_select(::Supplier.select_options, form.object.supplier_id),
+        {include_blank: t(".select_supplier")}, data: {controller: "autofocus"}
+    .col-12.col-lg-6.col-xl-4
+      = form.text_field :invoice_number
+    .col-12.col-lg-6.col-xl-4
+      = form.text_field :tracking_number
+    .col-12.col-lg-6.col-xl-4
+      = form.date_field :ordered_at
+    .col-12.col-lg-6.col-xl-4
+      = form.date_field :expected_arrival_at
   .subheader
     = t(".medicines")
   = render_if_exists("purchase_orders/purchase_order_medicines", locals: {form:})

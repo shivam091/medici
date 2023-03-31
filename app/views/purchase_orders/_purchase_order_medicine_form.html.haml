@@ -1,12 +1,16 @@
 %fieldset.border-dashed.purchase-order-medicine-form-wrapper{data: {new_record: form.object.new_record?}}
   = form.hidden_field :id, value: form.object.id
   = form.hidden_field :_destroy
-  .row.row-cols-1.row-cols-lg-4.align-items-center
-    = form.select :medicine_id, options_for_select(::Medicine.select_options(current_user), form.object.medicine_id),
-      {include_blank: t(".select_medicine")}
-    = form.number_field :quantity
-    = form.number_field :cost
-    = form.check_box :is_received
+  .row.align-items-center
+    .col-12.col-lg-6.col-xl-3
+      = form.select :medicine_id, options_for_select(::Medicine.select_options(current_user), form.object.medicine_id),
+        {include_blank: t(".select_medicine")}
+    .col-12.col-lg-6.col-xl-3
+      = form.number_field :quantity
+    .col-12.col-lg-6.col-xl-3
+      = form.number_field :cost
+    .col-12.col-lg-6.col-xl-3
+      = form.check_box :is_received
   = button_tag :remove, class: "btn btn-sm btn-danger", data: {action: "click->nested-forms#removeAssociation"} do
     = external_svg_tag("svgs/trash.svg")
     = button_text("remove_medicine")
