@@ -50,7 +50,4 @@ class MedicineIngredient < ApplicationRecord
 
   belongs_to :medicine, inverse_of: :medicine_ingredients, touch: true
   belongs_to :ingredient, inverse_of: :medicine_ingredients
-
-  delegate :name, to: :ingredient, prefix: true
-  delegate :name, to: :medicine, prefix: true
 end

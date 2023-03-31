@@ -14,7 +14,7 @@ class Discount < ApplicationRecord
 
   belongs_to :country, inverse_of: :tax_rate
 
-  delegate :name, :iso2, :iso3, to: :country, prefix: true
+  delegate :name, to: :country, prefix: true
 
   default_scope do
     discounts_arel = ::Discount.arel_table

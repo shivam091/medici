@@ -48,7 +48,7 @@ class Store < ApplicationRecord
 
   delegate :country, to: :address
   delegate :name, to: :country, prefix: true, allow_nil: true
-  delegate :name, :iso_code, :symbol, to: :currency, prefix: true, allow_nil: true
+  delegate :name, :symbol, to: :currency, prefix: true, allow_nil: true
 
   after_commit :broadcast_active_stores_count, on: [:create, :destroy]
   after_commit on: :update do

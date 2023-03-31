@@ -44,7 +44,7 @@ class Expense < ApplicationRecord
   before_save :set_store
   after_commit :broadcast_expenses_count, on: [:create, :destroy]
 
-  delegate :name, :phone_number, :email, to: :store, prefix: true
+  delegate :name, to: :store, prefix: true
   delegate :full_name, to: :user, prefix: true
 
   scope :including_user_and_store, -> { includes(user: [:role], store: [:currency]) }
