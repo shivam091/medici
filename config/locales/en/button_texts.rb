@@ -82,6 +82,7 @@
       remove_medicine: "Remove medicine",
       import: "Import",
       import_medicines: "Import medicines",
+      import_ingredients: "Import ingredients",
     }
   }
 }
