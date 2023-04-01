@@ -19,6 +19,7 @@ RSpec.describe StorePolicy, type: :policy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to permit_action(:destroy) }
+    it { is_expected.to permit_action(:show) }
 
     it { is_expected.to match_policy_scope(super_admin, [store]) }
   end
@@ -33,6 +34,7 @@ RSpec.describe StorePolicy, type: :policy do
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:show) }
 
     it { is_expected.to match_policy_scope(admin, [store]) }
   end
@@ -47,6 +49,7 @@ RSpec.describe StorePolicy, type: :policy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:show) }
 
     it { is_expected.to match_policy_scope(manager, []) }
   end
@@ -61,6 +64,7 @@ RSpec.describe StorePolicy, type: :policy do
     it { is_expected.to forbid_action(:edit) }
     it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to forbid_action(:show) }
 
     it { is_expected.to match_policy_scope(cashier, []) }
   end
