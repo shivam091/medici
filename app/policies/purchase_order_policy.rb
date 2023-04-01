@@ -42,6 +42,6 @@ class PurchaseOrderPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.super_admin?
+    user.super_admin? && record.pending?
   end
 end
