@@ -21,7 +21,7 @@ class PurchaseOrder < ApplicationRecord
       transitions from: :pending, to: :incomplete
     end
 
-    event :mark_as_received do
+    event :mark_as_received, after: [:receive_medicines] do
       transitions from: [:pending, :incomplete], to: :received
     end
   end
@@ -91,6 +91,12 @@ class PurchaseOrder < ApplicationRecord
   end
 
   private
+
+  def receive_medicines
+    purchase_order_medicines.each do |purchase_order_medicine|
+      purchase_order_medicine.receive!
+    end
+  end
 
   def reject_purchase_order_medicine?(attributes)
     [

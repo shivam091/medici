@@ -30,7 +30,42 @@ class PurchaseOrderMedicine < ApplicationRecord
 
   scope :received, -> { where(::PurchaseOrderMedicine[:is_received].eq(true)) }
 
+  def receive!
+    ::PurchaseOrderMedicine.transaction do
+      if self.update_column(:is_received, true)
+        update_stock
+        update_replenishment
+        update_total_supplied_quantity
+      end
+    end
+  end
+
   private
+
+  def update_stock
+    stock = self.medicine.stock
+    stock.lock!
+    stock.update_column(:quantity_in_hand, (stock.quantity_in_hand + self.quantity))
+  end
+
+  def update_replenishment
+    replenishment = self.medicine.replenishment
+    replenishment.lock!
+
+    replenishment.update_column(
+      :quantity_pending_from_supplier,
+      (replenishment.quantity_pending_from_supplier - self.quantity)
+    )
+  end
+
+  def update_total_supplied_quantity
+    supplier = purchase_order.supplier
+    medicine_supplier = self.medicine.medicine_suppliers.find_by(supplier_id: supplier.id)
+    medicine_supplier.lock!
+    medicine_supplier.update(
+      total_quantity_supplied: (medicine_supplier.total_quantity_supplied + self.quantity)
+    )
+  end
 
   def update_po_status
     po_medicines = purchase_order.purchase_order_medicines
