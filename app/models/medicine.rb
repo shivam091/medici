@@ -183,14 +183,6 @@ class Medicine < ApplicationRecord
     end
   end
 
-  def humanized_stock
-    "#{self.quantity_in_hand} #{self.packing_type_name}"
-  end
-
-  def humanized_replenishment
-    "#{self.quantity_pending_from_supplier} #{self.packing_type_name}"
-  end
-
   private
 
   def set_store

@@ -9,8 +9,9 @@
       = form.number_field :quantity
     .col-12.col-lg-6.col-xl-3
       = form.number_field :cost
-    .col-12.col-lg-6.col-xl-3
-      = form.check_box :is_received
+    - unless form.object.is_received? || form.object.new_record?
+      .col-12.col-lg-6.col-xl-3
+        = form.check_box :is_received
   = button_tag :remove, class: "btn btn-sm btn-danger", data: {action: "click->nested-forms#removeAssociation"} do
     = external_svg_tag("svgs/trash.svg")
     = button_text("remove_medicine")
