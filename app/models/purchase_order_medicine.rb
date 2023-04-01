@@ -24,6 +24,7 @@ class PurchaseOrderMedicine < ApplicationRecord
   after_save :update_po_status, if: :is_received_previously_changed?
   after_create :add_quantity_pending_from_supplier
   before_update :update_quantity_pending_from_supplier, if: :quantity_changed?
+  after_destroy :subtract_quantity_pending_from_supplier
 
   delegate :name, to: :medicine, prefix: true
 
@@ -59,6 +60,16 @@ class PurchaseOrderMedicine < ApplicationRecord
     replenishment.update_column(
       :quantity_pending_from_supplier,
       (replenishment.quantity_pending_from_supplier + difference_in_quantity)
+    )
+  end
+
+  def subtract_quantity_pending_from_supplier
+    replenishment = self.medicine.replenishment
+    replenishment.lock!
+
+    replenishment.update_column(
+      :quantity_pending_from_supplier,
+      (replenishment.quantity_pending_from_supplier - self.quantity)
     )
   end
 end
