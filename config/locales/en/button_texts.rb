@@ -83,6 +83,7 @@
       import: "Import",
       import_medicines: "Import medicines",
       import_ingredients: "Import ingredients",
+      edit_store: "Edit store",
     }
   }
 }

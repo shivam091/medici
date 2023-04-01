@@ -53,6 +53,16 @@
           select_operator: "Select operator",
           select_shift: "Select shift",
         },
+        show: {
+          name: "Name",
+          email: "Email address",
+          phone_number: "Phone number",
+          registration_number: "Registration number",
+          currency: "Currency",
+          registration_number: "Registration number",
+          address: "Address",
+          cash_counter_and_operators: "Cash counter & operators",
+        },
       }
     }
   }
