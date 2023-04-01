@@ -80,6 +80,8 @@
       update_purchase_order: "Update purchase order",
       add_medicine: "Add medicine",
       remove_medicine: "Remove medicine",
+      import: "Import",
+      import_medicines: "Import medicines",
     }
   }
 }
