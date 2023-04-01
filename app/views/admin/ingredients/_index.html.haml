@@ -11,11 +11,16 @@
         - if policy(::Ingredient).inactive?
           %li.nav-item
             = link_to t(".inactive"), inactive_admin_ingredients_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
-      - if policy(::Ingredient).new?
-        = link_to new_admin_ingredient_path, class: "btn btn-primary", data: {turbo_frame: :remote_modal} do
-          = external_svg_tag("svgs/plus.svg")
-          %span.d-block.d-lg-none= button_text("new")
-          %span.d-none.d-lg-block= button_text("new_ingredient")
+      .d-flex.justify-content-between.flex-column.flex-lg-row
+        = link_to "javascript:void(0)", class: "btn btn-secondary me-0 me-lg-2 mb-2 mb-lg-0" do
+          = external_svg_tag("svgs/cloud-upload.svg")
+          %span.d-block.d-lg-none= button_text("import")
+          %span.d-none.d-lg-block= button_text("import_ingredients")
+        - if policy(::Ingredient).new?
+          = link_to new_admin_ingredient_path, class: "btn btn-primary", data: {turbo_frame: :remote_modal} do
+            = external_svg_tag("svgs/plus.svg")
+            %span.d-block.d-lg-none= button_text("new")
+            %span.d-none.d-lg-block= button_text("new_ingredient")
   .card-body{data: {controller: "select-all-checkbox"}}
     = render_if_exists("admin/ingredients/ingredient")
   - if @pagy.pages > 1
