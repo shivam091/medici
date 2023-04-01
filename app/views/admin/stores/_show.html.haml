@@ -1,0 +1,30 @@
+%dl
+  %dt= t(".name")
+  %dd= @store.name
+%dl
+  %dt= t(".registration_number")
+  %dd= @store.registration_number
+%dl
+  %dt= t(".phone_number")
+  %dd= phone_to @store.phone_number
+%dl
+  %dt= t(".email")
+  %dd= mail_to @store.email
+%dl
+  %dt= t(".currency")
+  %dd= @store.currency_name
+%dl
+  %dt= t(".address")
+  %dd= @store.address.humanize
+.subheader
+  = t(".cash_counter_and_operators")
+= render_if_exists("admin/cash_counters/cash_counter", locals: {store: @store})
+.modal-actions
+  = button_tag type: :button, class: "btn btn-secondary", data: {action: "click->remote-modal#hide"} do
+    = external_svg_tag("svgs/cancel.svg")
+    = button_text("cancel")
+  - if policy(@store).edit?
+    = link_to edit_admin_store_path(@store), class: "btn btn-secondary" do
+      = external_svg_tag("svgs/pencil.svg")
+      %span.d-block.d-lg-none= button_text("edit")
+      %span.d-none.d-lg-block= button_text("edit_store")

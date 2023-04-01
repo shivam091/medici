@@ -1,0 +1,23 @@
+.table-responsive.mb-3
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th{width: "25px", scope: "col"}#
+        %th{scope: "col"}= t(".identifier")
+        %th{scope: "col"}= t(".operator")
+        %th{scope: "col"}= t(".shift")
+    %tbody
+      - if store.cash_counters.each.with_index(1) do |cash_counter, index|
+        %tr
+          %td.fw-bold{rowspan: (cash_counter.cash_counter_operators.count + 1)}= index
+          %td{rowspan: (cash_counter.cash_counter_operators.count + 1)}= cash_counter.identifier
+          - cash_counter.cash_counter_operators.including_users_and_shifts.each do |cash_counter_operator|
+            - present(cash_counter_operator.shift) do |shift|
+              %tr.bg-secondary.bg-opacity-10
+                %td= cash_counter_operator.user_full_name
+                %td
+                  = "#{cash_counter_operator.shift_name} (#{shift.starts_at} - #{shift.ends_at})"
+      - end.empty?
+        %tr
+          %td.fw-bold{colspan: ::CashCounter.columns.count}
+            = t(".no_cash_counters_to_display")

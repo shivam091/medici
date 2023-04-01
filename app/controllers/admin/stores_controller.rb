@@ -80,6 +80,10 @@ class Admin::StoresController < Admin::BaseController
     end
   end
 
+  # GET /admin/stores/:uuid
+  def show
+  end
+
   # DELETE /admin/stores/:uuid
   def destroy
     response = ::Stores::DestroyService.(@store)
