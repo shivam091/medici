@@ -23,6 +23,7 @@ class PurchaseOrderMedicine < ApplicationRecord
 
   after_save :update_po_status, if: :is_received_previously_changed?
   after_create :add_quantity_pending_from_supplier
+  before_update :update_quantity_pending_from_supplier, if: :quantity_changed?
 
   delegate :name, to: :medicine, prefix: true
 
@@ -47,6 +48,17 @@ class PurchaseOrderMedicine < ApplicationRecord
     replenishment.update_column(
       :quantity_pending_from_supplier,
       (replenishment.quantity_pending_from_supplier + self.quantity)
+    )
+  end
+
+  def update_quantity_pending_from_supplier
+    replenishment = self.medicine.replenishment
+    replenishment.lock!
+
+    difference_in_quantity = quantity - quantity_was
+    replenishment.update_column(
+      :quantity_pending_from_supplier,
+      (replenishment.quantity_pending_from_supplier + difference_in_quantity)
     )
   end
 end
