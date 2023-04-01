@@ -32,8 +32,8 @@
           %td.fw-bold= medicine.name
           %td= medicine.medicine_category_name
           %td= medicine.manufacturer_name
-          %td= medicine.humanized_stock
-          %td= medicine.humanized_replenishment
+          %td= humanized_stock(medicine)
+          %td= humanized_replenishment(medicine)
           %td= number_to_currency(medicine.purchase_price, unit: medicine.store_currency.symbol)
           %td= number_to_currency(medicine.sell_price, unit: medicine.store_currency.symbol)
           %td= medicine.manufacture_date.to_fs(:long)
