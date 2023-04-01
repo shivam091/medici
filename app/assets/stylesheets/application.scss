@@ -320,6 +320,14 @@ thead input[type="checkbox"], tbody input[type="checkbox"] {
 .actions form + form {
   margin-left: 0.25rem;
 }
+.modal-dialog {
+  overflow-y: initial;
+}
+.modal-content {
+  max-height: 85vh;
+  overflow-y: auto;
+  height: auto;
+}
 .modal-actions, .actions {
   border-top: 1px solid var(--bs-border-color);
   padding-top: 0.5rem;
