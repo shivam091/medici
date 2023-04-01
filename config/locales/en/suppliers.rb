@@ -30,6 +30,9 @@
         delete_supplier_confirmation_text: "Are you sure you want to delete the supplier '%{supplier_name}'?",
         activate_supplier_confirmation_text: "Are you sure you want to activate the supplier '%{supplier_name}'?",
         deactivate_supplier_confirmation_text: "Are you sure you want to deactivate the supplier '%{supplier_name}'?",
+        total_medicines_supplied: "Total medicines supplied",
+        store: "Store",
+        quantity: "Quantity",
       },
       new: {
         title: "New supplier",

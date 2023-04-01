@@ -78,4 +78,12 @@ module MedicinesHelper
   def humanized_strength(medicine)
     "#{medicine.try(:strength)} #{medicine.try(:uom)}"
   end
+
+  def humanized_stock(medicine)
+    pluralize(medicine.try(:quantity_in_hand), medicine.try(:packing_type_name))
+  end
+
+  def humanized_replenishment(medicine)
+    pluralize(medicine.try(:quantity_pending_from_supplier), medicine.try(:packing_type_name))
+  end
 end

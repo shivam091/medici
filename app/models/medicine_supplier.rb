@@ -19,6 +19,8 @@ class MedicineSupplier < ApplicationRecord
 
   before_save :set_store
 
+  delegate :name, to: :store, prefix: true
+
   def set_store
     self.store = self.medicine.store
   end
