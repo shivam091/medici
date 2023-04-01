@@ -22,6 +22,7 @@ class PurchaseOrderMedicine < ApplicationRecord
   belongs_to :medicine, inverse_of: :purchase_order_medicines
 
   after_save :update_po_status, if: :is_received_previously_changed?
+  after_create :add_quantity_pending_from_supplier
 
   delegate :name, to: :medicine, prefix: true
 
@@ -37,5 +38,15 @@ class PurchaseOrderMedicine < ApplicationRecord
     elsif is_received? && !purchase_order.incomplete?
       purchase_order.mark_as_incomplete!
     end
+  end
+
+  def add_quantity_pending_from_supplier
+    replenishment = self.medicine.replenishment
+    replenishment.lock!
+
+    replenishment.update_column(
+      :quantity_pending_from_supplier,
+      (replenishment.quantity_pending_from_supplier + self.quantity)
+    )
   end
 end
