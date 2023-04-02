@@ -2,5 +2,5 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class IngredientPolicy < AdminPolicy
+class IngredientPolicy < SuperAdminPolicy
 end

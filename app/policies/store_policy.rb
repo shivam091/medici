@@ -2,7 +2,7 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class StorePolicy < AdminPolicy
+class StorePolicy < SuperAdminPolicy
   def show?
     (user.super_admin? || user.admin?)
   end

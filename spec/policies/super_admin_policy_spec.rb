@@ -2,9 +2,9 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-# spec/policies/admin_policy_spec.rb
+# spec/policies/super_admin_policy_spec.rb
 
 require "spec_helper"
 
-RSpec.describe AdminPolicy, type: :policy do
+RSpec.describe SuperAdminPolicy, type: :policy do
 end
