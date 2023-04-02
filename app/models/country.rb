@@ -40,7 +40,7 @@ class Country < ApplicationRecord
 
   delegate :name, to: :currency, prefix: true
 
-  default_scope -> { order(arel_table[:iso2].asc) }
+  default_scope -> { order(::Country[:iso2].asc) }
 
   class << self
     def select_options

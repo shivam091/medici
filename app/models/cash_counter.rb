@@ -20,7 +20,7 @@ class CashCounter < ApplicationRecord
                                 allow_destroy: true,
                                 reject_if: :reject_cash_counter_operator?
 
-  default_scope -> { order(arel_table[:identifier].asc) }
+  default_scope -> { order(::CashCounter[:identifier].asc) }
 
   private
 

@@ -33,7 +33,7 @@ class Currency < ApplicationRecord
   has_many :countries, dependent: :nullify
   has_many :stores, dependent: :restrict_with_exception
 
-  default_scope -> { order(arel_table[:iso_code].asc) }
+  default_scope -> { order(::Currency[:iso_code].asc) }
 
   class << self
     def select_options

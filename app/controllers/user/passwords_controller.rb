@@ -28,7 +28,7 @@ class User::PasswordsController < Devise::PasswordsController
     )
     unless reset_password_token.nil?
       user = ::User.where(
-        ::User.arel_table[:reset_password_token].eq(reset_password_token)
+        ::User[:reset_password_token].eq(reset_password_token)
       ).first_or_initialize
 
       if user.present?

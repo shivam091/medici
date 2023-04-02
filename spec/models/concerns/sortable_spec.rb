@@ -33,18 +33,17 @@ RSpec.describe Sortable do
   end
 
   describe ".order_by" do
-    let(:arel_table) { ::DosageForm.arel_table }
     let(:relation) { ::DosageForm.all }
 
     describe "ordering by id" do
       it "ascending" do
-        expect(relation).to receive(:reorder).with(arel_table[:id].asc)
+        expect(relation).to receive(:reorder).with(::DosageForm[:id].asc)
 
         relation.order_by(:id_asc)
       end
 
       it "descending" do
-        expect(relation).to receive(:reorder).with(arel_table[:id].desc)
+        expect(relation).to receive(:reorder).with(::DosageForm[:id].desc)
 
         relation.order_by(:id_desc)
       end
@@ -52,19 +51,19 @@ RSpec.describe Sortable do
 
     describe "ordering by created_at" do
       it "ascending" do
-        expect(relation).to receive(:reorder).with(arel_table[:created_at].asc)
+        expect(relation).to receive(:reorder).with(::DosageForm[:created_at].asc)
 
         relation.order_by(:created_asc)
       end
 
       it "descending" do
-        expect(relation).to receive(:reorder).with(arel_table[:created_at].desc)
+        expect(relation).to receive(:reorder).with(::DosageForm[:created_at].desc)
 
         relation.order_by(:created_desc)
       end
 
       it "order by 'created_at'" do
-        expect(relation).to receive(:reorder).with(arel_table[:created_at].desc)
+        expect(relation).to receive(:reorder).with(::DosageForm[:created_at].desc)
 
         relation.order_by(:created_date)
       end
@@ -96,19 +95,19 @@ RSpec.describe Sortable do
 
     describe "ordering by updated_at" do
       it "ascending" do
-        expect(relation).to receive(:reorder).with(arel_table[:updated_at].asc)
+        expect(relation).to receive(:reorder).with(::DosageForm[:updated_at].asc)
 
         relation.order_by(:updated_asc)
       end
 
       it "descending" do
-        expect(relation).to receive(:reorder).with(arel_table[:updated_at].desc)
+        expect(relation).to receive(:reorder).with(::DosageForm[:updated_at].desc)
 
         relation.order_by(:updated_desc)
       end
 
       it "order by 'updated_at'" do
-        expect(relation).to receive(:reorder).with(arel_table[:updated_at].desc)
+        expect(relation).to receive(:reorder).with(::DosageForm[:updated_at].desc)
 
         relation.order_by(:updated_date)
       end
