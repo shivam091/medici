@@ -20,7 +20,9 @@
             = (@pagy.offset + index)
           %td
             = check_box_tag "customer_ids[]", customer.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
-          %td.fw-bold= link_to customer.reference_code, customer_path(customer), data: {turbo_frame: :remote_modal}
+          %td.fw-bold
+            = conditional_link_to policy(customer).show?, customer_path(customer), data: {turbo_frame: :remote_modal} do
+              = customer.reference_code
           %td= customer.name
           %td= customer.email
           %td= customer.mobile_number
