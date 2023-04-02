@@ -10,23 +10,23 @@ class MedicinePolicy < ApplicationPolicy
   end
 
   def index?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin?)
   end
 
   def active?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
   def inactive?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin?)
   end
 
   def new?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin?)
   end
 
   def create?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin?)
   end
 
   def edit?
@@ -47,5 +47,13 @@ class MedicinePolicy < ApplicationPolicy
 
   def destroy?
     user.super_admin?
+  end
+
+  def show?
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+  end
+
+  def import?
+    (user.super_admin? || user.admin?)
   end
 end
