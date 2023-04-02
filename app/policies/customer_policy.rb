@@ -12,7 +12,7 @@ class CustomerPolicy < ApplicationPolicy
   end
 
   def index?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin?)
   end
 
   def active?
@@ -20,23 +20,23 @@ class CustomerPolicy < ApplicationPolicy
   end
 
   def inactive?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin?)
   end
 
   def new?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin? || user.manager?)
   end
 
   def create?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin? || user.manager?)
   end
 
   def edit?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin? || user.manager?)
   end
 
   def update?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.super_admin? || user.admin? || user.manager?)
   end
 
   def activate?

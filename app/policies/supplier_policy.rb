@@ -2,27 +2,25 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class SupplierPolicy < ApplicationPolicy
+class CustomerPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if (user.super_admin? || user.admin? || user.manager?)
+      if (user.super_admin? || user.admin? || user.manager? || user.cashier?)
         scope.all
-      else
-        scope.none
       end
     end
   end
 
   def index?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin?)
   end
 
   def active?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
   def inactive?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin?)
   end
 
   def new?
@@ -41,10 +39,6 @@ class SupplierPolicy < ApplicationPolicy
     (user.super_admin? || user.admin? || user.manager?)
   end
 
-  def destroy?
-    user.super_admin?
-  end
-
   def activate?
     (user.super_admin? || user.admin?)
   end
@@ -53,7 +47,11 @@ class SupplierPolicy < ApplicationPolicy
     (user.super_admin? || user.admin?)
   end
 
+  def destroy?
+    user.super_admin?
+  end
+
   def show?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 end
