@@ -4,6 +4,7 @@
 
 FactoryBot.define do
   factory :expense do
-
+    criteria { "Salary" }
+    amount { "20000" }
   end
 end
