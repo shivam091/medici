@@ -12,7 +12,7 @@ RSpec.shared_examples "has address" do
     end
 
     context "when address is present" do
-      let!(:address) { create(:address, addressable: subject) }
+      let!(:address) { create(:address, :with_country, addressable: subject) }
 
       it "returns the existing address" do
         expect(subject.address).to eq(address)

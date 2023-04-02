@@ -10,8 +10,8 @@ FactoryBot.define do
     batch_number { "AFY1154" }
     purchase_price { 467.00 }
     sell_price { 455.23 }
-    manufacture_date { Date.today }
-    expiry_date { (Date.today + 1.year) }
+    manufacture_date { Date.current }
+    expiry_date { (Date.current + 1.year) }
     strength { 27.5 }
     uom { "mcg" }
     therapeutic_areas { "used to treat allergic symptoms" }

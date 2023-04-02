@@ -4,7 +4,7 @@
 
 FactoryBot.define do
   factory :store do
-    name { "Pharmacy store" }
+    name { "Store" }
     email { generate(:email) }
     phone_number { generate(:phone_number) }
     fax_number { generate(:fax_number) }
@@ -14,7 +14,6 @@ FactoryBot.define do
     trait :with_users do
       after(:create) do |store|
         store.users << [
-          create(:super_admin, :confirmed, :active, :with_address),
           create(:admin, :confirmed, :active, :with_address),
           create(:manager, :confirmed, :active, :with_address),
           create(:cashier, :confirmed, :active, :with_address)
