@@ -9,7 +9,7 @@ FactoryBot.define do
 
   trait :with_address do
     after(:create) do |object|
-      create(:address, addressable: object)
+      create(:address, :with_country, addressable: object)
     end
   end
 
@@ -28,6 +28,12 @@ FactoryBot.define do
   trait :with_medicine do
     after(:build) do |object, evaluator|
       object.medicine = (::Medicine.first || create(:medicine, :with_suppliers, :with_ingredients, :with_user, :active))
+    end
+  end
+
+  trait :with_country do
+    after(:build) do |object, evaluator|
+      object.country = (::Country.first || create(:country, :active))
     end
   end
 end
