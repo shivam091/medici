@@ -19,7 +19,7 @@
             = link_to manager_dashboard_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("manager/dashboards"))}" do
               = external_svg_tag("svgs/home.svg")
               = t(".home")
-          - if policy(::Medicine).index?
+          - if policy(::Medicine).active?
             %li.nav-item
               = link_to active_manager_medicines_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("manager/medicines"))}" do
                 = external_svg_tag("svgs/medicine-bag.svg")

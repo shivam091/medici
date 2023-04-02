@@ -1,22 +1,22 @@
 .nav-scroller.shadow-sm.border-bottom.bg-light
   %nav.nav.nav-underline{aria: {label: t(".secondary_navigation")}}
-    - if policy(::Customer).index?
+    - if policy(::Customer).active?
       = link_to active_admin_customers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/customers"))}" do
         = external_svg_tag("svgs/handshake.svg")
         = t(".customers")
-    - if policy(::Supplier).index?
+    - if policy(::Supplier).active?
       = link_to active_admin_suppliers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/suppliers"))}" do
         = external_svg_tag("svgs/truck.svg")
         = t(".suppliers")
-    - if policy(::Manufacturer).index?
+    - if policy(::Manufacturer).active?
       = link_to active_admin_manufacturers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/manufacturers"))}" do
         = external_svg_tag("svgs/company.svg")
         = t(".manufacturers")
-    - if policy(::Shift).index?
+    - if policy(::Shift).active?
       = link_to active_admin_shifts_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/shifts"))}" do
         = external_svg_tag("svgs/clock.svg")
         = t(".shifts")
-    - if policy(::PurchaseOrder).index?
+    - if policy(::PurchaseOrder).pending?
       = link_to pending_admin_purchase_orders_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/purchase_orders"))}" do
         = external_svg_tag("svgs/file.svg")
         = t(".purchase_orders")
@@ -28,7 +28,7 @@
       = link_to admin_discounts_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/discounts"))}" do
         = external_svg_tag("svgs/gift.svg")
         = t(".discounts")
-    - if policy(::Expense).index?
+    - if policy(::Expense).pending?
       = link_to pending_admin_expenses_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/expenses"))}" do
         = @store.currency_symbol
         = t(".expenses")

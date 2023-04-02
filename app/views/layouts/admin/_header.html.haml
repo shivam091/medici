@@ -19,17 +19,17 @@
             = link_to admin_dashboard_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/dashboards"))}" do
               = external_svg_tag("svgs/home.svg")
               = t(".home")
-          - if policy(::User).index?
+          - if policy(::User).active?
             %li.nav-item
               = link_to active_admin_users_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/users"))}" do
                 = external_svg_tag("svgs/users.svg")
                 = t(".users")
-          - if policy(::Store).index?
+          - if policy(::Store).active?
             %li.nav-item
               = link_to active_admin_stores_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/stores"))}" do
                 = external_svg_tag("svgs/store.svg")
                 = t(".stores")
-          - if policy(::Medicine).index?
+          - if policy(::Medicine).active?
             %li.nav-item
               = link_to active_admin_medicines_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/medicines"))}" do
                 = external_svg_tag("svgs/medicine-bag.svg")
@@ -41,27 +41,27 @@
                 = external_svg_tag("svgs/database.svg")
                 = t(".metadata")
               %ul.dropdown-menu
-                - if policy(::Currency).index?
+                - if policy(::Currency).active?
                   %li
                     = link_to active_admin_currencies_path, class: "dropdown-item" do
                       = t(".currencies")
-                - if policy(::Country).index?
+                - if policy(::Country).active?
                   %li
                     = link_to active_admin_countries_path, class: "dropdown-item" do
                       = t(".countries")
-                - if policy(::DosageForm).index?
+                - if policy(::DosageForm).active?
                   %li
                     = link_to active_admin_dosage_forms_path, class: "dropdown-item" do
                       = t(".dosage_forms")
-                - if policy(::MedicineCategory).index?
+                - if policy(::MedicineCategory).active?
                   %li
                     = link_to active_admin_medicine_categories_path, class: "dropdown-item" do
                       = t(".medicine_categories")
-                - if policy(::Ingredient).index?
+                - if policy(::Ingredient).active?
                   %li
                     = link_to active_admin_ingredients_path, class: "dropdown-item" do
                       = t(".ingredients")
-                - if policy(::PackingType).index?
+                - if policy(::PackingType).active?
                   %li
                     = link_to active_admin_packing_types_path, class: "dropdown-item" do
                       = t(".packing_types")
