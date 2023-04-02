@@ -34,36 +34,37 @@
               = link_to admin_medicines_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("admin/medicines"))}" do
                 = external_svg_tag("svgs/medicine-bag.svg")
                 = t(".medicines")
-          %li.nav-item.dropdown
-            = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center dropdown-toggle",
-              aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
-              = external_svg_tag("svgs/database.svg")
-              = t(".metadata")
-            %ul.dropdown-menu
-              - if policy(::Currency).index?
-                %li
-                  = link_to admin_currencies_path, class: "dropdown-item" do
-                    = t(".currencies")
-              - if policy(::Country).index?
-                %li
-                  = link_to admin_countries_path, class: "dropdown-item" do
-                    = t(".countries")
-              - if policy(::DosageForm).index?
-                %li
-                  = link_to admin_dosage_forms_path, class: "dropdown-item" do
-                    = t(".dosage_forms")
-              - if policy(::MedicineCategory).index?
-                %li
-                  = link_to admin_medicine_categories_path, class: "dropdown-item" do
-                    = t(".medicine_categories")
-              - if policy(::Ingredient).index?
-                %li
-                  = link_to admin_ingredients_path, class: "dropdown-item" do
-                    = t(".ingredients")
-              - if policy(::PackingType).index?
-                %li
-                  = link_to admin_packing_types_path, class: "dropdown-item" do
-                    = t(".packing_types")
+          - if current_user.super_admin?
+            %li.nav-item.dropdown
+              = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center dropdown-toggle",
+                aria: {expanded: false}, data: {bs_toggle: "dropdown"} do
+                = external_svg_tag("svgs/database.svg")
+                = t(".metadata")
+              %ul.dropdown-menu
+                - if policy(::Currency).index?
+                  %li
+                    = link_to admin_currencies_path, class: "dropdown-item" do
+                      = t(".currencies")
+                - if policy(::Country).index?
+                  %li
+                    = link_to admin_countries_path, class: "dropdown-item" do
+                      = t(".countries")
+                - if policy(::DosageForm).index?
+                  %li
+                    = link_to admin_dosage_forms_path, class: "dropdown-item" do
+                      = t(".dosage_forms")
+                - if policy(::MedicineCategory).index?
+                  %li
+                    = link_to admin_medicine_categories_path, class: "dropdown-item" do
+                      = t(".medicine_categories")
+                - if policy(::Ingredient).index?
+                  %li
+                    = link_to admin_ingredients_path, class: "dropdown-item" do
+                      = t(".ingredients")
+                - if policy(::PackingType).index?
+                  %li
+                    = link_to admin_packing_types_path, class: "dropdown-item" do
+                      = t(".packing_types")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
           = render_if_exists("layouts/admin/menu")
         %ul.navbar-nav.d-lg-none
