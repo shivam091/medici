@@ -4,6 +4,6 @@
 
 FactoryBot.define do
   factory :discount do
-
+    percent_off { 20.5 }
   end
 end
