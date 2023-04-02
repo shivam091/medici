@@ -77,6 +77,7 @@ class User < ApplicationRecord
   scope :admins, -> { with_role("admin") }
   scope :managers, -> { with_role("manager") }
   scope :cashiers, -> { with_role("cashier") }
+  scope :banned, -> { where(::User[:is_banned].eq(true)) }
 
   default_scope -> { order_reference_code_asc }
 

@@ -3,4 +3,7 @@
 # -*- warn_indent: true -*-
 
 class UserPolicy < SuperAdminPolicy
+  def banned?
+    user.super_admin?
+  end
 end

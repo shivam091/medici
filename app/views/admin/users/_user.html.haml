@@ -46,5 +46,7 @@
               = t(".no_active_users_to_display")
             - elsif current_action?("inactive")
               = t(".no_inactive_users_to_display")
+            - elsif current_action?("banned")
+              = t(".no_banned_users_to_display")
             - else
               = t(".no_users_to_display")

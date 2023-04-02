@@ -69,10 +69,15 @@ Rails.application.routes.draw do
         :currencies,
         :countries,
         :ingredients,
-        :users,
         :shifts,
         :discounts
       ], except: :show, param: :uuid, concerns: :toggleable
+
+      resources :users, param: :uuid, concerns: :toggleable do
+        collection do
+          get :banned
+        end
+      end
 
       resources :tax_rates, except: :show, param: :uuid, path: "tax-rates"
       resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms", concerns: :toggleable
