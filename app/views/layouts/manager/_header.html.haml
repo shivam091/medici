@@ -21,7 +21,7 @@
               = t(".home")
           - if policy(::Medicine).index?
             %li.nav-item
-              = link_to manager_medicines_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("manager/medicines"))}" do
+              = link_to active_manager_medicines_path, class: "nav-link d-inline-flex align-items-center #{active_when(current_controller?("manager/medicines"))}" do
                 = external_svg_tag("svgs/medicine-bag.svg")
                 = t(".medicines")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
