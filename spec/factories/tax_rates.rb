@@ -4,6 +4,7 @@
 
 FactoryBot.define do
   factory :tax_rate do
-
+    rate { 4.0 }
+    type { "vat" }
   end
 end
