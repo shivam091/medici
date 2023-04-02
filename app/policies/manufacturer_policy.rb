@@ -2,7 +2,7 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class CustomerPolicy < ApplicationPolicy
+class ManufacturerPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if (user.super_admin? || user.admin? || user.manager? || user.cashier?)
