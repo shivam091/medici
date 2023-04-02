@@ -137,7 +137,7 @@ module ManufacturersShared
       :name,
       :email,
       :phone_number,
-      :manufacturer_care_number,
+      :customer_care_number,
       :is_active,
       address_attributes: [
         :address1,
