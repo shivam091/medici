@@ -44,4 +44,8 @@ class PurchaseOrderPolicy < ApplicationPolicy
   def destroy?
     (user.super_admin? || user.admin?) && record.pending?
   end
+
+  def mark_as_received?
+    (user.super_admin? || user.admin?) && !record.received?
+  end
 end
