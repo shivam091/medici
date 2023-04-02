@@ -44,4 +44,12 @@ class ExpensePolicy < ApplicationPolicy
   def destroy?
     user.super_admin?
   end
+
+  def approve?
+    (user.super_admin? || user.admin? || user.manager?) && record.pending?
+  end
+
+  def reject?
+    (user.super_admin? || user.admin? || user.manager?) && record.pending?
+  end
 end
