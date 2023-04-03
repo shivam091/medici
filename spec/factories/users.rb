@@ -4,8 +4,7 @@
 
 FactoryBot.define do
   factory :user do
-    first_name { "Harshal" }
-    last_name { "Ladhe" }
+    first_name { "Medici" }
     password { Rails.application.credentials.config[:TEST_PASSWORD] }
     password_confirmation { Rails.application.credentials.config[:TEST_PASSWORD] }
     last_password_updated_at { DateTime.now }
@@ -13,6 +12,7 @@ FactoryBot.define do
     password_automatically_set { false }
 
     factory :super_admin, parent: :user do
+      last_name { "Super Admin" }
       email { "super_admin@medici.com" }
       mobile_number { generate(:mobile_number) }
 
@@ -20,6 +20,7 @@ FactoryBot.define do
     end
 
     factory :admin, parent: :user do
+      last_name { "Admin" }
       email { "admin@medici.com" }
       mobile_number { generate(:mobile_number) }
 
@@ -28,6 +29,7 @@ FactoryBot.define do
     end
 
     factory :manager, parent: :user do
+      last_name { "Manager" }
       email { "manager@medici.com" }
       mobile_number { generate(:mobile_number) }
 
@@ -36,6 +38,7 @@ FactoryBot.define do
     end
 
     factory :cashier, parent: :user do
+      last_name { "Cashier" }
       email { "cashier@medici.com" }
       mobile_number { generate(:mobile_number) }
 
