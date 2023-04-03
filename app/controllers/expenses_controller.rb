@@ -85,7 +85,7 @@ class ExpensesController < ApplicationController
     end
   end
 
-  # DELETE /(admin|manager|cashier)/expenses/:uuid
+  # DELETE /(admin)/expenses/:uuid
   def destroy
     response = ::Expenses::DestroyService.(@expense)
     @expense = response.payload[:expense]
