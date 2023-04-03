@@ -123,6 +123,7 @@ Rails.application.routes.draw do
       resources :medicines, only: [:show], param: :uuid, concerns: :toggleable
       resources :manufacturers, only: [:show], param: :uuid, concerns: :toggleable
       resources :suppliers, only: [:show], param: :uuid, concerns: :toggleable
+      resources :customers, only: [:show], param: :uuid, concerns: :toggleable
     end
   end
 

@@ -15,6 +15,7 @@ Medici::Application.configure do
     Cashier::ManufacturersController.layout    "cashier"
     Cashier::MedicinesController.layout        "cashier"
     Cashier::SuppliersController.layout        "cashier"
+    Cashier::CustomersController.layout        "cashier"
 
     Admin::BaseController.layout               "admin"
     Admin::SuppliersController.layout          "admin"
