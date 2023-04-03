@@ -3,5 +3,4 @@
 # -*- warn_indent: true -*-
 
 class Cashier::MedicinesController < MedicinesController
-  include MedicinesShared
 end

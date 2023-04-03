@@ -3,5 +3,4 @@
 # -*- warn_indent: true -*-
 
 class Manager::MedicinesController < MedicinesController
-  include MedicinesShared
 end
