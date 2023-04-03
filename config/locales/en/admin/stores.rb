@@ -57,7 +57,6 @@
           name: "Name",
           email: "Email address",
           phone_number: "Phone number",
-          registration_number: "Registration number",
           currency: "Currency",
           registration_number: "Registration number",
           address: "Address",
