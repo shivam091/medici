@@ -120,8 +120,9 @@ Rails.application.routes.draw do
 
       resource :profile, only: [:show, :edit, :update]
 
-      resources :medicines, only: [], concerns: :toggleable
-      resources :manufacturers, only: [], concerns: :toggleable
+      resources :medicines, only: [:show], param: :uuid, concerns: :toggleable
+      resources :manufacturers, only: [:show], param: :uuid, concerns: :toggleable
+      resources :suppliers, only: [:show], param: :uuid, concerns: :toggleable
     end
   end
 
