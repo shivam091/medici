@@ -18,7 +18,7 @@ class MedicinesController < ApplicationController
     @pagy, @medicines = pagy(@medicines)
   end
 
-  # GET /(admin|manager)/medicines/active
+  # GET /(admin|manager|cashier)/medicines/active
   def active
     @medicines = policy_scope(::Medicine).active.including_inventory
     @pagy, @medicines = pagy(@medicines)
@@ -30,12 +30,12 @@ class MedicinesController < ApplicationController
     @pagy, @medicines = pagy(@medicines)
   end
 
-  # GET /(admin|manager)/medicines/new
+  # GET /(admin)/medicines/new
   def new
     @medicine = ::Medicine.new
   end
 
-  # POST /(admin|manager)/medicines
+  # POST /(admin)/medicines
   def create
     response = ::Medicines::CreateService.(current_user, medicine_params)
     @medicine = response.payload[:medicine]
@@ -55,11 +55,11 @@ class MedicinesController < ApplicationController
     end
   end
 
-  # GET /(admin|manager)/medicines/:uuid/edit
+  # GET /(admin)/medicines/:uuid/edit
   def edit
   end
 
-  # PUT/PATCH /(admin|manager)/medicines/:uuid
+  # PUT/PATCH /(admin)/medicines/:uuid
   def update
     response = ::Medicines::UpdateService.(@medicine, medicine_params)
     @medicine = response.payload[:medicine]
@@ -79,7 +79,7 @@ class MedicinesController < ApplicationController
     end
   end
 
-  # DELETE /(admin|manager)/medicines/:uuid
+  # DELETE /(admin)/medicines/:uuid
   def destroy
     response = ::Medicines::DestroyService.(@medicine)
     @medicine = response.payload[:medicine]
@@ -91,7 +91,7 @@ class MedicinesController < ApplicationController
     redirect_to helpers.medicines_path
   end
 
-  # PATCH /admin/medicines/:uuid/activate
+  # PATCH /(admin)/medicines/:uuid/activate
   def activate
     response = ::Medicines::ActivateService.(@medicine)
     @medicine = response.payload[:medicine]
@@ -103,7 +103,7 @@ class MedicinesController < ApplicationController
     redirect_to helpers.inactive_medicines_path
   end
 
-  # PATCH /admin/medicines/:uuid/deactivate
+  # PATCH /(admin)/medicines/:uuid/deactivate
   def deactivate
     response = ::Medicines::DeactivateService.(@medicine)
     @medicine = response.payload[:medicine]
