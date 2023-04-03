@@ -64,6 +64,7 @@ module ManufacturersHelper
     when current_user.super_admin? then admin_manufacturer_path(manufacturer)
     when current_user.admin? then admin_manufacturer_path(manufacturer)
     when current_user.manager? then manager_manufacturer_path(manufacturer)
+    when current_user.cashier? then cashier_manufacturer_path(manufacturer)
     end
   end
 

@@ -64,6 +64,7 @@ module SuppliersHelper
     when current_user.super_admin? then admin_supplier_path(supplier)
     when current_user.admin? then admin_supplier_path(supplier)
     when current_user.manager? then manager_supplier_path(supplier)
+    when current_user.cashier? then cashier_supplier_path(supplier)
     end
   end
 
