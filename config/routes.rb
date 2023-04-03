@@ -41,12 +41,6 @@ Rails.application.routes.draw do
     end
   end
 
-  concern :shareable do
-    resource :dashboard, only: :show
-    resources :customers, param: :uuid, concerns: :toggleable
-    resources :expenses, param: :uuid, concerns: :reviewable
-  end
-
   concern :toggleable do
     collection do
       get :active
@@ -61,9 +55,11 @@ Rails.application.routes.draw do
 
   authenticate :user, -> (user) { (user.admin? || user.super_admin?) } do
     namespace :admin do
-      concerns :shareable
-
+      resource :dashboard, only: :show
       resource :profile, only: [:show, :edit, :update]
+
+      resources :customers, param: :uuid, concerns: :toggleable
+      resources :expenses, param: :uuid, concerns: :reviewable
 
       resources *[
         :currencies,
@@ -98,9 +94,11 @@ Rails.application.routes.draw do
 
   authenticate :user, -> (user) { user.manager? } do
     namespace :manager do
-      concerns :shareable
-
+      resource :dashboard, only: :show
       resource :profile, only: [:show, :edit, :update]
+
+      resources :customers, param: :uuid, concerns: :toggleable
+      resources :expenses, param: :uuid, concerns: :reviewable
 
       resources :suppliers, :manufacturers, :medicines, param: :uuid, concerns: :toggleable
 
@@ -116,9 +114,13 @@ Rails.application.routes.draw do
 
   authenticate :user, -> (user) { user.cashier? } do
     namespace :cashier do
-      concerns :shareable
-
+      resource :dashboard, only: :show
       resource :profile, only: [:show, :edit, :update]
+
+      resources :customers, param: :uuid, concerns: :toggleable
+      resources :expenses, param: :uuid, concerns: :reviewable
+
+      resources :suppliers, :manufacturers, :medicines, param: :uuid, concerns: :toggleable
 
       resources :medicines, only: [:show], param: :uuid, concerns: :toggleable
       resources :manufacturers, only: [:show], param: :uuid, concerns: :toggleable
