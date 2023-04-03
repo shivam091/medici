@@ -3,5 +3,4 @@
 # -*- warn_indent: true -*-
 
 class Cashier::ExpensesController < ExpensesController
-  include ExpensesShared
 end

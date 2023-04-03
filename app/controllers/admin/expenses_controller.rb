@@ -3,5 +3,4 @@
 # -*- warn_indent: true -*-
 
 class Admin::ExpensesController < ExpensesController
-  include ExpensesShared
 end
