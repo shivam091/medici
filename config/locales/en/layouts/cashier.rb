@@ -13,6 +13,12 @@
           sells: "Sells",
           daily_sells: "Daily sells",
           pos: "PoS",
+          medicines: "Medicines",
+        },
+        navbar: {
+          customers: "Customers",
+          suppliers: "Suppliers",
+          manufacturers: "Manufacturers",
           expenses: "Expenses",
         },
         menu: {

@@ -19,6 +19,11 @@
             = link_to cashier_dashboard_path, class: "nav-link d-inline-flex align-items-center gap-1" do
               = external_svg_tag("svgs/home.svg")
               = t(".home")
+          - if policy(::Medicine).active?
+            %li.nav-item
+              = link_to active_cashier_medicines_path, class: "nav-link d-inline-flex align-items-center gap-1 #{active_when(current_controller?("cashier/medicines"))}" do
+                = external_svg_tag("svgs/medicine-bag.svg")
+                = t(".medicines")
           %li.nav-item
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
               = external_svg_tag("svgs/checkout.svg")
@@ -31,11 +36,6 @@
             = link_to "javascript:void(0)", class: "nav-link d-inline-flex align-items-center gap-1" do
               = external_svg_tag("svgs/calendar.svg")
               = t(".daily_sells")
-          - if policy(::Expense).pending?
-            %li.nav-item
-              = link_to pending_cashier_expenses_path, class: "nav-link d-inline-flex align-items-center gap-1" do
-                = @store.currency_symbol
-                = t(".expenses")
         %ul.navbar-nav.d-none.d-lg-flex.ms-2.order-3
           = render_if_exists("layouts/cashier/menu")
         %ul.navbar-nav.d-lg-none

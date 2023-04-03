@@ -1,0 +1,18 @@
+.nav-scroller.shadow-sm.border-bottom.bg-light
+  %nav.nav.nav-underline{aria: {label: t(".secondary_navigation")}}
+    - if policy(::Customer).active?
+      = link_to active_cashier_customers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("cashier/customers"))}" do
+        = external_svg_tag("svgs/handshake.svg")
+        = t(".customers")
+    - if policy(::Supplier).active?
+      = link_to active_cashier_suppliers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("cashier/suppliers"))}" do
+        = external_svg_tag("svgs/truck.svg")
+        = t(".suppliers")
+    - if policy(::Manufacturer).active?
+      = link_to active_cashier_manufacturers_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("cashier/manufacturers"))}" do
+        = external_svg_tag("svgs/company.svg")
+        = t(".manufacturers")
+    - if policy(::Expense).pending?
+      = link_to pending_cashier_expenses_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("cashier/expenses"))}" do
+        = @store.currency_symbol
+        = t(".expenses")

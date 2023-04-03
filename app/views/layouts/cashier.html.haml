@@ -23,6 +23,7 @@
   %body
     #main-container
       = render_if_exists("layouts/cashier/header")
+      = render_if_exists("layouts/cashier/navbar")
       .clearfix
       %main.container-fluid.p-2
         = turbo_frame_tag :flash do
