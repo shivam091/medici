@@ -12,7 +12,7 @@ class CustomersController < ApplicationController
     end
   end
 
-  # GET /(admin|manager|cashier)/customers
+  # GET /(admin)/customers
   def index
     @customers = policy_scope(::Customer).including_address
     @pagy, @customers = pagy(@customers)
@@ -24,7 +24,7 @@ class CustomersController < ApplicationController
     @pagy, @customers = pagy(@customers)
   end
 
-  # GET /(admin|manager|cashier)/customers/inactive
+  # GET /(admin)/customers/inactive
   def inactive
     @customers = policy_scope(::Customer).inactive.including_address
     @pagy, @customers = pagy(@customers)
@@ -83,7 +83,7 @@ class CustomersController < ApplicationController
   def show
   end
 
-  # DELETE /(admin|manager|cashier)/customers/:uuid
+  # DELETE /(admin)/customers/:uuid
   def destroy
     response = ::Customers::DestroyService.(@customer)
     @customer = response.payload[:customer]
@@ -95,7 +95,7 @@ class CustomersController < ApplicationController
     redirect_to helpers.customers_path
   end
 
-  # PATCH /admin/customers/:uuid/activate
+  # PATCH /(admin)/customers/:uuid/activate
   def activate
     response = ::Customers::ActivateService.(@customer)
     @customer = response.payload[:customer]
@@ -107,7 +107,7 @@ class CustomersController < ApplicationController
     redirect_to helpers.inactive_customers_path
   end
 
-  # PATCH /admin/customer/:uuid/deactivate
+  # PATCH /(admin)/customer/:uuid/deactivate
   def deactivate
     response = ::Customers::DeactivateService.(@customer)
     @customer = response.payload[:customer]
