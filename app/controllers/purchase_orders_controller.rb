@@ -36,12 +36,12 @@ class PurchaseOrdersController < ApplicationController
     @pagy, @purchase_orders = pagy(@purchase_orders)
   end
 
-  # GET /(admin|manager)/purchase-orders/new
+  # GET /(admin)/purchase-orders/new
   def new
     @purchase_order = current_user.purchase_orders.build
   end
 
-  # POST /(admin|manager)/purchase-orders
+  # POST /(admin)/purchase-orders
   def create
     response = ::PurchaseOrders::CreateService.(current_user, purchase_order_params)
     @purchase_order = response.payload[:purchase_order]
@@ -61,11 +61,11 @@ class PurchaseOrdersController < ApplicationController
     end
   end
 
-  # GET /(admin|manager)/purchase-orders/:uuid/edit
+  # GET /(admin)/purchase-orders/:uuid/edit
   def edit
   end
 
-  # PUT/PATCH /(admin|manager)/purchase-orders/:uuid
+  # PUT/PATCH /(admin)/purchase-orders/:uuid
   def update
     response = ::PurchaseOrders::UpdateService.(@purchase_order, purchase_order_params)
     @purchase_order = response.payload[:purchase_order]
@@ -85,7 +85,7 @@ class PurchaseOrdersController < ApplicationController
     end
   end
 
-  # DELETE /(admin|manager)/purchase-orders/:uuid
+  # DELETE /(admin)/purchase-orders/:uuid
   def destroy
     response = ::PurchaseOrders::DestroyService.(@purchase_order)
     @purchase_order = response.payload[:purchase_order]
