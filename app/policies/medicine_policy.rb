@@ -10,7 +10,7 @@ class MedicinePolicy < ApplicationPolicy
   end
 
   def index?
-    (user.super_admin? || user.admin?)
+    (user.super_admin? || user.admin? || user.manager?)
   end
 
   def active?
@@ -18,7 +18,7 @@ class MedicinePolicy < ApplicationPolicy
   end
 
   def inactive?
-    (user.super_admin? || user.admin?)
+    (user.super_admin? || user.admin? || user.manager?)
   end
 
   def new?
@@ -30,11 +30,11 @@ class MedicinePolicy < ApplicationPolicy
   end
 
   def edit?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin?)
   end
 
   def update?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin?)
   end
 
   def activate?

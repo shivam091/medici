@@ -41,11 +41,11 @@ RSpec.describe MedicinePolicy, type: :policy do
     let(:manager) { build(:manager, :with_store, :confirmed) }
     subject { described_class.new(manager, medicine) }
 
-    it { is_expected.to forbid_action(:index) }
+    it { is_expected.to permit_action(:index) }
     it { is_expected.to forbid_action(:new) }
     it { is_expected.to forbid_action(:create) }
-    it { is_expected.to permit_action(:edit) }
-    it { is_expected.to permit_action(:update) }
+    it { is_expected.to forbid_action(:edit) }
+    it { is_expected.to forbid_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
 
     it { is_expected.to match_policy_scope(manager, [medicine]) }
