@@ -120,6 +120,7 @@ Rails.application.routes.draw do
 
       resource :profile, only: [:show, :edit, :update]
 
+      resources :medicines, only: [], concerns: :toggleable
       resources :manufacturers, only: [], concerns: :toggleable
     end
   end

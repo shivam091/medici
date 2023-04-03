@@ -2,9 +2,9 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-# spec/requests/cashier/manufacturers_spec.rb
+# spec/requests/cashier/medicines_spec.rb
 
 require "spec_helper"
 
-RSpec.describe "Cashier::Manufacturers", type: :request do
+RSpec.describe "Cashier::Medicines", type: :request do
 end
