@@ -3,5 +3,4 @@
 # -*- warn_indent: true -*-
 
 class Admin::ProfilesController < ProfilesController
-  include ProfilesShared
 end
