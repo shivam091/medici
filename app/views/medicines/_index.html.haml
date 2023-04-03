@@ -2,16 +2,15 @@
   .card-header
     .d-flex.justify-content-between.align-items-center
       %ul.nav.nav-pills.flex-column.flex-lg-row.nav-justified
-        - unless (current_user.manager? || current_user.cashier?)
-          - if policy(::Medicine).index?
-            %li.nav-item
-              = link_to t(".all"), medicines_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
-          - if policy(::Medicine).active?
-            %li.nav-item
-              = link_to t(".active"), active_medicines_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("active"))}"
-          - if policy(::Medicine).inactive?
-            %li.nav-item
-              = link_to t(".inactive"), inactive_medicines_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
+        - if policy(::Medicine).index?
+          %li.nav-item
+            = link_to t(".all"), medicines_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
+        - if policy(::Medicine).active?
+          %li.nav-item
+            = link_to t(".active"), active_medicines_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("active"))}"
+        - if policy(::Medicine).inactive?
+          %li.nav-item
+            = link_to t(".inactive"), inactive_medicines_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
       .d-flex.justify-content-between.flex-column.flex-lg-row
         - if policy(::Medicine).import?
           = link_to "javascript:void(0)", class: "btn btn-secondary me-0 me-lg-2 mb-2 mb-lg-0" do

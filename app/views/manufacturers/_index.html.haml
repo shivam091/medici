@@ -2,16 +2,15 @@
   .card-header
     .d-flex.justify-content-between.align-items-center
       %ul.nav.nav-pills.flex-column.flex-lg-row.nav-justified
-        - unless (current_user.manager? || current_user.cashier?)
-          - if policy(::Manufacturer).index?
-            %li.nav-item
-              = link_to t(".all"), manufacturers_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
-          - if policy(::Manufacturer).active?
-            %li.nav-item
-              = link_to t(".active"), active_manufacturers_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("active"))}"
-          - if policy(::Manufacturer).index?
-            %li.nav-item
-              = link_to t(".inactive"), inactive_manufacturers_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
+        - if policy(::Manufacturer).index?
+          %li.nav-item
+            = link_to t(".all"), manufacturers_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("index"))}"
+        - if policy(::Manufacturer).active?
+          %li.nav-item
+            = link_to t(".active"), active_manufacturers_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("active"))}"
+        - if policy(::Manufacturer).index?
+          %li.nav-item
+            = link_to t(".inactive"), inactive_manufacturers_path, class: "flex-sm-fill text-sm-center nav-link #{active_when(current_action?("inactive"))}"
       - if policy(::Manufacturer).new?
         = link_to new_manufacturer_path, class: "btn btn-primary" do
           = external_svg_tag("svgs/plus.svg")
