@@ -119,6 +119,8 @@ Rails.application.routes.draw do
       concerns :shareable
 
       resource :profile, only: [:show, :edit, :update]
+
+      resources :manufacturers, only: [], concerns: :toggleable
     end
   end
 
