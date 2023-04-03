@@ -12,19 +12,19 @@ class SuppliersController < ApplicationController
     end
   end
 
-  # GET /(admin|manager)/suppliers
+  # GET /(admin)/suppliers
   def index
     @suppliers = policy_scope(::Supplier).including_address
     @pagy, @suppliers = pagy(@suppliers)
   end
 
-  # GET /(admin|manager)/suppliers/active
+  # GET /(admin|manager|cashier)/suppliers/active
   def active
     @suppliers = policy_scope(::Supplier).active.including_address
     @pagy, @suppliers = pagy(@suppliers)
   end
 
-  # GET /(admin|manager)/suppliers/inactive
+  # GET /(admin)/suppliers/inactive
   def inactive
     @suppliers = policy_scope(::Supplier).inactive.including_address
     @pagy, @suppliers = pagy(@suppliers)
@@ -79,11 +79,11 @@ class SuppliersController < ApplicationController
     end
   end
 
-  # GET /(admin|manager)/suppliers/:uuid
+  # GET /(admin|manager|cashier)/suppliers/:uuid
   def show
   end
 
-  # DELETE /(admin|manager)/suppliers/:uuid
+  # DELETE /(admin)/suppliers/:uuid
   def destroy
     response = ::Suppliers::DestroyService.(@supplier)
     @supplier = response.payload[:supplier]
@@ -96,7 +96,7 @@ class SuppliersController < ApplicationController
     redirect_to helpers.suppliers_path
   end
 
-  # PATCH /admin/suppliers/:uuid/activate
+  # PATCH /(admin)/suppliers/:uuid/activate
   def activate
     response = ::Suppliers::ActivateService.(@supplier)
     @supplier = response.payload[:supplier]
@@ -109,7 +109,7 @@ class SuppliersController < ApplicationController
     redirect_to helpers.inactive_suppliers_path
   end
 
-  # PATCH /admin/supplier/:uuid/deactivate
+  # PATCH /(admin)/supplier/:uuid/deactivate
   def deactivate
     response = ::Suppliers::DeactivateService.(@supplier)
     @supplier = response.payload[:supplier]
