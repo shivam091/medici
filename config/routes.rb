@@ -53,6 +53,19 @@ Rails.application.routes.draw do
     end
   end
 
+  concern :shareable do
+    resource :dashboard, only: :show
+    resource :profile, only: [:show, :edit, :update]
+
+    resources :expenses, param: :uuid, concerns: :reviewable
+    resources *[
+      :customers,
+      :suppliers,
+      :manufacturers,
+      :medicines
+    ], param: :uuid, concerns: :toggleable
+  end
+
   authenticate :user, -> (user) { user.super_admin? } do
     namespace :admin do
       resources *[
@@ -62,6 +75,8 @@ Rails.application.routes.draw do
         :shifts,
         :discounts
       ], except: :show, param: :uuid, concerns: :toggleable
+
+      resources :stores, param: :uuid, concerns: :toggleable
 
       resources :users, param: :uuid, concerns: :toggleable do
         collection do
@@ -78,13 +93,7 @@ Rails.application.routes.draw do
 
   authenticate :user, -> (user) { (user.admin? || user.super_admin?) } do
     namespace :admin do
-      resource :dashboard, only: :show
-      resource :profile, only: [:show, :edit, :update]
-
-      resources :customers, param: :uuid, concerns: :toggleable
-      resources :expenses, param: :uuid, concerns: :reviewable
-
-      resources :suppliers, :manufacturers, :medicines, :stores, param: :uuid, concerns: :toggleable
+      concerns :shareable
 
       resources :purchase_orders, path: "purchase-orders", param: :uuid do
         collection do
@@ -98,13 +107,7 @@ Rails.application.routes.draw do
 
   authenticate :user, -> (user) { user.manager? } do
     namespace :manager do
-      resource :dashboard, only: :show
-      resource :profile, only: [:show, :edit, :update]
-
-      resources :customers, param: :uuid, concerns: :toggleable
-      resources :expenses, param: :uuid, concerns: :reviewable
-
-      resources :suppliers, :manufacturers, :medicines, param: :uuid, concerns: :toggleable
+      concerns :shareable
 
       resources :purchase_orders, path: "purchase-orders", param: :uuid do
         collection do
@@ -118,18 +121,7 @@ Rails.application.routes.draw do
 
   authenticate :user, -> (user) { user.cashier? } do
     namespace :cashier do
-      resource :dashboard, only: :show
-      resource :profile, only: [:show, :edit, :update]
-
-      resources :customers, param: :uuid, concerns: :toggleable
-      resources :expenses, param: :uuid, concerns: :reviewable
-
-      resources :suppliers, :manufacturers, :medicines, param: :uuid, concerns: :toggleable
-
-      resources :medicines, only: [:show], param: :uuid, concerns: :toggleable
-      resources :manufacturers, only: [:show], param: :uuid, concerns: :toggleable
-      resources :suppliers, only: [:show], param: :uuid, concerns: :toggleable
-      resources :customers, only: [:show], param: :uuid, concerns: :toggleable
+      concerns :shareable
     end
   end
 
