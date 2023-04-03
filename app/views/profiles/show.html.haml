@@ -14,6 +14,10 @@
         .flex-auto
           .widget-row-title= t(".name")
           .widget-row-body= current_user.full_name
+      .widget-row.d-flex
+        .flex-auto
+          .widget-row-title= t(".address")
+          .widget-row-body= current_user.address.humanize
     .widget
       .widget-header
         .widget-title
