@@ -3,5 +3,4 @@
 # -*- warn_indent: true -*-
 
 class Admin::SuppliersController < SuppliersController
-  include SuppliersShared
 end
