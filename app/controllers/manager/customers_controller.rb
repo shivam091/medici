@@ -3,5 +3,4 @@
 # -*- warn_indent: true -*-
 
 class Manager::CustomersController < CustomersController
-  include CustomersShared
 end
