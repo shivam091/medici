@@ -24,19 +24,19 @@ class CustomerPolicy < ApplicationPolicy
   end
 
   def new?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
   def create?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
   def edit?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
   def update?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
   end
 
   def activate?
