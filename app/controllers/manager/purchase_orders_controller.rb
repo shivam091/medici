@@ -3,5 +3,4 @@
 # -*- warn_indent: true -*-
 
 class Manager::PurchaseOrdersController < PurchaseOrdersController
-  include PurchaseOrdersShared
 end
