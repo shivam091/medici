@@ -2,5 +2,5 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class ShiftPolicy < SuperAdminPolicy
+class ShiftPolicy < AdminPolicy
 end

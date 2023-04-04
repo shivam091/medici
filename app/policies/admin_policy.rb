@@ -2,10 +2,10 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class SuperAdminPolicy < ApplicationPolicy
+class AdminPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.super_admin?
+      if user.admin?
         scope.all
       else
         scope.none

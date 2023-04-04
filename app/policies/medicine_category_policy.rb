@@ -2,5 +2,5 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class MedicineCategoryPolicy < SuperAdminPolicy
+class MedicineCategoryPolicy < AdminPolicy
 end
