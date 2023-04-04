@@ -12,7 +12,7 @@ class CustomerPolicy < ApplicationPolicy
   end
 
   def index?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def active?
@@ -20,7 +20,7 @@ class CustomerPolicy < ApplicationPolicy
   end
 
   def inactive?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def new?
@@ -40,11 +40,11 @@ class CustomerPolicy < ApplicationPolicy
   end
 
   def activate?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def deactivate?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def destroy?
