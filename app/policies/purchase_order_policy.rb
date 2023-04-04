@@ -26,26 +26,26 @@ class PurchaseOrderPolicy < ApplicationPolicy
   end
 
   def new?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def create?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def edit?
-    user.admin? && !record.received?
+    (user.admin? && !record.received?)
   end
 
   def update?
-    user.admin? && !record.received?
+    (user.admin? && !record.received?)
   end
 
   def destroy?
-    user.admin? && record.pending?
+    (user.admin? && record.pending?)
   end
 
   def mark_as_received?
-    user.admin? && !record.received?
+    (user.admin? && !record.received?)
   end
 end
