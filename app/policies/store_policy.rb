@@ -4,6 +4,6 @@
 
 class StorePolicy < AdminPolicy
   def show?
-    user.super_admin?
+    user.admin?
   end
 end

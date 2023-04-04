@@ -1,5 +1,5 @@
 = bootstrap_form_with model: expense_object(@expense) do |form|
-  - if (current_user.super_admin? || current_user.admin?)
+  - if current_user.admin?
     = form.select :user_id, options_for_select(::User.select_options, form.object.user_id),
       {include_blank: t(".select_user")}
   = form.text_field :criteria, data: {controller: "autofocus"}

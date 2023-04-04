@@ -147,7 +147,7 @@ class Medicine < ApplicationRecord
 
   class << self
     def accessible(user)
-      if (user.super_admin? || user.admin?)
+      if user.admin?
         all
       elsif (user.manager? || user.cashier?)
         user.store.medicines

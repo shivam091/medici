@@ -6,7 +6,7 @@ require "sidekiq/web"
 require "sidekiq-scheduler/web"
 
 Rails.application.routes.draw do
-  authenticate :user, -> (user) { user.super_admin? } do
+  authenticate :user, -> (user) { user.admin? } do
     mount Sidekiq::Web => "/sidekiq"
   end
 
@@ -66,8 +66,10 @@ Rails.application.routes.draw do
     ], param: :uuid, concerns: :toggleable
   end
 
-  authenticate :user, -> (user) { user.super_admin? } do
+  authenticate :user, -> (user) { user.admin? } do
     namespace :admin do
+      concerns :shareable
+
       resources *[
         :currencies,
         :countries,
@@ -88,12 +90,6 @@ Rails.application.routes.draw do
       resources :dosage_forms, except: :show, param: :uuid, path: "dosage-forms", concerns: :toggleable
       resources :medicine_categories, except: :show, param: :uuid, path: "medicine-categories", concerns: :toggleable
       resources :packing_types, except: :show, param: :uuid, path: "packing-types", concerns: :toggleable
-    end
-  end
-
-  authenticate :user, -> (user) { (user.admin? || user.super_admin?) } do
-    namespace :admin do
-      concerns :shareable
 
       resources :purchase_orders, path: "purchase-orders", param: :uuid do
         collection do

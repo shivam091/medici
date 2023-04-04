@@ -10,46 +10,46 @@ class ExpensePolicy < ApplicationPolicy
   end
 
   def index?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.admin? || user.manager? || user.cashier?)
   end
 
   def pending?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.admin? || user.manager? || user.cashier?)
   end
 
   def approved?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.admin? || user.manager? || user.cashier?)
   end
 
   def rejected?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.admin? || user.manager? || user.cashier?)
   end
 
   def new?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.admin? || user.manager? || user.cashier?)
   end
 
   def create?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?)
+    (user.admin? || user.manager? || user.cashier?)
   end
 
   def edit?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?) && record.pending?
+    (user.admin? || user.manager? || user.cashier?) && record.pending?
   end
 
   def update?
-    (user.super_admin? || user.admin? || user.manager? || user.cashier?) && record.pending?
+    (user.admin? || user.manager? || user.cashier?) && record.pending?
   end
 
   def destroy?
-    user.super_admin?
+    user.admin?
   end
 
   def approve?
-    (user.super_admin? || user.admin? || user.manager?) && record.pending?
+    (user.admin? || user.manager?) && record.pending?
   end
 
   def reject?
-    (user.super_admin? || user.admin? || user.manager?) && record.pending?
+    (user.admin? || user.manager?) && record.pending?
   end
 end

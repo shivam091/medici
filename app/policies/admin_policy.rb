@@ -14,42 +14,42 @@ class AdminPolicy < ApplicationPolicy
   end
 
   def index?
-    user.super_admin?
+    user.admin?
   end
 
   def active?
-    user.super_admin?
+    user.admin?
   end
 
   def inactive?
-    user.super_admin?
+    user.admin?
   end
 
   def new?
-    user.super_admin?
+    user.admin?
   end
 
   def create?
-    user.super_admin?
+    user.admin?
   end
 
   def edit?
-    user.super_admin?
+    user.admin?
   end
 
   def update?
-    user.super_admin?
+    user.admin?
   end
 
   def activate?
-    user.super_admin?
+    user.admin?
   end
 
   def deactivate?
-    user.super_admin?
+    user.admin?
   end
 
   def destroy?
-    user.super_admin?
+    user.admin?
   end
 end

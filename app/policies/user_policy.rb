@@ -4,6 +4,6 @@
 
 class UserPolicy < AdminPolicy
   def banned?
-    user.super_admin?
+    user.admin?
   end
 end

@@ -64,7 +64,7 @@ class Expense < ApplicationRecord
     end
 
     def accessible(user)
-      if (user.super_admin? || user.admin?)
+      if user.admin?
         all
       elsif user.manager?
         user.store.expenses
