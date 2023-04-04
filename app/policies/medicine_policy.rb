@@ -22,27 +22,27 @@ class MedicinePolicy < ApplicationPolicy
   end
 
   def new?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def create?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def edit?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def update?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def activate?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def deactivate?
-    user.admin?
+    (user.admin? || user.manager?)
   end
 
   def destroy?
