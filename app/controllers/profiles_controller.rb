@@ -3,15 +3,15 @@
 # -*- warn_indent: true -*-
 
 class ProfilesController < ApplicationController
-  # GET /(admin|manager|cashier)/profile
+  # GET /(:role)/profile
   def show
   end
 
-  # GET /(admin|manager|cashier)/profile/edit
+  # GET /(:role)/profile/edit
   def edit
   end
 
-  # PUT/PATCH /(admin|manager|cashier)/profile
+  # PUT/PATCH /(:role)/profile
   def update
     response = ::Profiles::UpdateService.(current_user, user_params)
     @user = response.payload[:user]

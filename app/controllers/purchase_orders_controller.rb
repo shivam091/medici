@@ -12,36 +12,36 @@ class PurchaseOrdersController < ApplicationController
     end
   end
 
-  # GET /(admin|manager)/purchase-orders
+  # GET /(:role)/purchase-orders
   def index
     @purchase_orders = policy_scope(::PurchaseOrder).includes(:purchase_order_medicines)
     @pagy, @purchase_orders = pagy(@purchase_orders)
   end
 
-  # GET /(admin|manager)/purchase-orders/pending
+  # GET /(:role)/purchase-orders/pending
   def pending
     @purchase_orders = policy_scope(::PurchaseOrder).pending.includes(:purchase_order_medicines)
     @pagy, @purchase_orders = pagy(@purchase_orders)
   end
 
-  # GET /(admin|manager)/purchase-orders/incomplete
+  # GET /(:role)/purchase-orders/incomplete
   def incomplete
     @purchase_orders = policy_scope(::PurchaseOrder).incomplete.includes(:purchase_order_medicines)
     @pagy, @purchase_orders = pagy(@purchase_orders)
   end
 
-  # GET /(admin|manager)/purchase-orders/received
+  # GET /(:role)/purchase-orders/received
   def received
     @purchase_orders = policy_scope(::PurchaseOrder).received.includes(:purchase_order_medicines)
     @pagy, @purchase_orders = pagy(@purchase_orders)
   end
 
-  # GET /(admin)/purchase-orders/new
+  # GET /(:role)/purchase-orders/new
   def new
     @purchase_order = current_user.purchase_orders.build
   end
 
-  # POST /(admin)/purchase-orders
+  # POST /(:role)/purchase-orders
   def create
     response = ::PurchaseOrders::CreateService.(current_user, purchase_order_params)
     @purchase_order = response.payload[:purchase_order]
@@ -61,11 +61,11 @@ class PurchaseOrdersController < ApplicationController
     end
   end
 
-  # GET /(admin)/purchase-orders/:uuid/edit
+  # GET /(:role)/purchase-orders/:uuid/edit
   def edit
   end
 
-  # PUT/PATCH /(admin)/purchase-orders/:uuid
+  # PUT/PATCH /(:role)/purchase-orders/:uuid
   def update
     response = ::PurchaseOrders::UpdateService.(@purchase_order, purchase_order_params)
     @purchase_order = response.payload[:purchase_order]
@@ -85,7 +85,7 @@ class PurchaseOrdersController < ApplicationController
     end
   end
 
-  # DELETE /(admin)/purchase-orders/:uuid
+  # DELETE /(:role)/purchase-orders/:uuid
   def destroy
     response = ::PurchaseOrders::DestroyService.(@purchase_order)
     @purchase_order = response.payload[:purchase_order]

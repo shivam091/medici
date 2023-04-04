@@ -36,7 +36,7 @@ class Admin::StoresController < Admin::BaseController
     @store = ::Store.new
   end
 
-  # POST /(admin|manager)/stores
+  # POST /admin/stores
   def create
     response = ::Stores::CreateService.(store_params)
     @store = response.payload[:store]
