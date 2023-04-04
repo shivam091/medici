@@ -7,6 +7,7 @@ module ManufacturersHelper
     case
     when current_user.admin? then admin_manufacturers_path
     when current_user.manager? then manager_manufacturers_path
+    when current_user.cashier? then cashier_manufacturers_path
     end
   end
 
@@ -14,6 +15,7 @@ module ManufacturersHelper
     case
     when current_user.admin? then active_admin_manufacturers_path
     when current_user.manager? then active_manager_manufacturers_path
+    when current_user.cashier? then active_cashier_manufacturers_path
     end
   end
 
@@ -21,6 +23,7 @@ module ManufacturersHelper
     case
     when current_user.admin? then inactive_admin_manufacturers_path
     when current_user.manager? then inactive_manager_manufacturers_path
+    when current_user.cashier? then inactive_cashier_manufacturers_path
     end
   end
 
@@ -28,6 +31,7 @@ module ManufacturersHelper
     case
     when current_user.admin? then new_admin_manufacturer_path
     when current_user.manager? then new_manager_manufacturer_path
+    when current_user.cashier? then new_cashier_manufacturer_path
     end
   end
 
@@ -35,6 +39,7 @@ module ManufacturersHelper
     case
     when current_user.admin? then edit_admin_manufacturer_path(manufacturer)
     when current_user.manager? then edit_manager_manufacturer_path(manufacturer)
+    when current_user.cashier? then edit_cashier_manufacturer_path(manufacturer)
     end
   end
 
@@ -42,6 +47,7 @@ module ManufacturersHelper
     case
     when current_user.admin? then activate_admin_manufacturer_path(manufacturer)
     when current_user.manager? then activate_manager_manufacturer_path(manufacturer)
+    when current_user.cashier? then activate_cashier_manufacturer_path(manufacturer)
     end
   end
 
@@ -49,6 +55,7 @@ module ManufacturersHelper
     case
     when current_user.admin? then deactivate_admin_manufacturer_path(manufacturer)
     when current_user.manager? then deactivate_manager_manufacturer_path(manufacturer)
+    when current_user.cashier? then deactivate_cashier_manufacturer_path(manufacturer)
     end
   end
 
