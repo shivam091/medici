@@ -34,11 +34,11 @@ class PurchaseOrderPolicy < ApplicationPolicy
   end
 
   def edit?
-    (user.admin? && !record.received?)
+    (user.admin? || user.manager?) && !record.received?
   end
 
   def update?
-    (user.admin? && !record.received?)
+    (user.admin? || user.manager?) && !record.received?
   end
 
   def destroy?
