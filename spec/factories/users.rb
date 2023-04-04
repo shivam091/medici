@@ -11,20 +11,11 @@ FactoryBot.define do
     password_expires_at { ::User::DEFAULT_PASSWORD_EXPIRY_PERIOD }
     password_automatically_set { false }
 
-    factory :super_admin, parent: :user do
-      last_name { "Super Admin" }
-      email { "super_admin@medici.com" }
-      mobile_number { generate(:mobile_number) }
-
-      role { ::Role.find_by(name: "super_admin") || create(:super_admin_role, :active) }
-    end
-
     factory :admin, parent: :user do
       last_name { "Admin" }
       email { "admin@medici.com" }
       mobile_number { generate(:mobile_number) }
 
-      store { ::Store.first || create(:store, :with_address, :active) }
       role { ::Role.find_by(name: "admin") || create(:admin_role, :active) }
     end
 

@@ -21,7 +21,6 @@ module ReferenceCode
     Manufacturer: "MFGR",
     Medicine: "MED",
     Manager: "MGR",
-    Super_Admin: "SA",
     Admin: "ADM",
     Cashier: "CAS",
     Customer: "CUST",
@@ -48,9 +47,6 @@ module ReferenceCode
       last_code = relation.maximum(:reference_code)
     when "User"
       case
-      when self.super_admin?
-        new_reference_code = REFERENCE_CODE_MAPPINGS["Super_Admin"] + "-"
-        last_code = relation.super_admins.maximum(:reference_code)
       when self.admin?
         new_reference_code = REFERENCE_CODE_MAPPINGS["Admin"] + "-"
         last_code = relation.admins.maximum(:reference_code)
