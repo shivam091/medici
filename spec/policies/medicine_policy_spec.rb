@@ -18,7 +18,7 @@ RSpec.describe MedicinePolicy, type: :policy do
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
+    it { is_expected.to permit_action(:destroy) }
 
     it { is_expected.to match_policy_scope(admin, [medicine]) }
   end
@@ -28,10 +28,10 @@ RSpec.describe MedicinePolicy, type: :policy do
     subject { described_class.new(manager, medicine) }
 
     it { is_expected.to permit_action(:index) }
-    it { is_expected.to forbid_action(:new) }
-    it { is_expected.to forbid_action(:create) }
-    it { is_expected.to forbid_action(:edit) }
-    it { is_expected.to forbid_action(:update) }
+    it { is_expected.to permit_action(:new) }
+    it { is_expected.to permit_action(:create) }
+    it { is_expected.to permit_action(:edit) }
+    it { is_expected.to permit_action(:update) }
     it { is_expected.to forbid_action(:destroy) }
 
     it { is_expected.to match_policy_scope(manager, [medicine]) }
