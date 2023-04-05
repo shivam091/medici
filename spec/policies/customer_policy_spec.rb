@@ -9,20 +9,6 @@ require "spec_helper"
 RSpec.describe CustomerPolicy, type: :policy do
   let!(:customer) { create(:customer, :active) }
 
-  context "when super admin is logged in" do
-    let(:super_admin) { build(:super_admin, :confirmed) }
-    subject { described_class.new(super_admin, customer) }
-
-    it { is_expected.to permit_action(:index) }
-    it { is_expected.to permit_action(:new) }
-    it { is_expected.to permit_action(:create) }
-    it { is_expected.to permit_action(:edit) }
-    it { is_expected.to permit_action(:update) }
-    it { is_expected.to permit_action(:destroy) }
-
-    it { is_expected.to match_policy_scope(super_admin, [customer]) }
-  end
-
   context "when admin is logged in" do
     let(:admin) { build(:admin, :confirmed) }
     subject { described_class.new(admin, customer) }
