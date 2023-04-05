@@ -58,6 +58,7 @@
           email: "Email address",
           phone_number: "Phone number",
           currency: "Currency",
+          fax_number: "Fax number",
           registration_number: "Registration number",
           address: "Address",
           cash_counter_and_operators: "Cash counter & operators",
