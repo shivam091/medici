@@ -255,10 +255,11 @@ a {
   z-index: 4;
 }
 .btn {
+  --bs-btn-padding-y: 0.5rem;
+  --bs-btn-padding-x: 0.5rem;
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.4rem 0.5rem;
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
@@ -275,9 +276,8 @@ a {
   background: transparent image-url("svgs/x-mark.svg") center/1em auto no-repeat;
 }
 .btn-sm, .btn-group-sm > .btn {
-  --bs-btn-padding-y: 0.3rem;
-  --bs-btn-padding-x: 0.3rem;
-  padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+  --bs-btn-padding-y: 0.25rem;
+  --bs-btn-padding-x: 0.25rem;
 }
 p {
   word-wrap: break-word;
