@@ -30,7 +30,7 @@
         = t(".discounts")
     - if policy(::Expense).pending?
       = link_to pending_admin_expenses_path, class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/expenses"))}" do
-        = @store.currency_symbol
+        = external_svg_tag("svgs/rupee.svg")
         = t(".expenses")
     = link_to "javascript:void(0)", class: "nav-link d-flex px-2 align-items-center #{active_when(current_controller?("admin/sells"))}" do
       = external_svg_tag("svgs/monitoring-dashboard.svg")
