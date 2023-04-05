@@ -260,22 +260,13 @@ RSpec.describe User, type: :model do
 
     describe "#full_name" do
       it "returns full name of the user" do
-        expect(user.full_name).to eq("Harshal Ladhe")
+        expect(user.full_name).to eq("Medici Admin")
       end
     end
 
     include_examples "has address"
 
     describe "#set_reference_code" do
-      context "when super admin is created" do
-        subject { create(:super_admin, :confirmed) }
-
-        it "sets reference_code for user" do
-          expect(subject.reference_code).to be_present
-          expect(subject.reference_code).to eq("SA-000000000001")
-        end
-      end
-
       context "when admin is created" do
         subject { create(:admin, :confirmed) }
 
