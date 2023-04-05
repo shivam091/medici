@@ -1,6 +1,11 @@
 = bootstrap_form_with model: medicine_object(@medicine) do |form|
   .subheader
     = t(".basic_details")
+  - if current_user.admin?
+    .row
+      .col-12.col-lg-6.col-xl-4
+        = form.select :store_id, options_for_select(::Store.select_options, form.object.store_id),
+          {include_blank: t(".select_store")}
   .row
     .col-12.col-lg-6.col-xl-6
       = form.text_field :name, data: {controller: "autofocus"}

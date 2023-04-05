@@ -123,6 +123,7 @@ class MedicinesController < ApplicationController
 
   def medicine_params
     params.require(:medicine).permit(
+      :store_id,
       :medicine_category_id,
       :dosage_form_id,
       :packing_type_id,
