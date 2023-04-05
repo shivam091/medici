@@ -1,6 +1,11 @@
 = bootstrap_form_with model: purchase_order_object(@purchase_order) do |form|
   .subheader
     = t(".order_details")
+  - if current_user.admin?
+    .row
+      .col-12.col-lg-6.col-xl-4
+        = form.select :store_id, options_for_select(::Store.select_options, form.object.store_id),
+          {include_blank: t(".select_store")}
   .row
     .col-12.col-lg-6.col-xl-4
       = form.select :supplier_id, options_for_select(::Supplier.select_options, form.object.supplier_id),

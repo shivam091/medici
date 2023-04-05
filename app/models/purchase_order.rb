@@ -107,7 +107,7 @@ class PurchaseOrder < ApplicationRecord
   end
 
   def set_store
-    if user.present?
+    if (store.nil? && user.present?)
       self.store = self.user.store
     end
   end

@@ -105,6 +105,7 @@ class PurchaseOrdersController < ApplicationController
 
   def purchase_order_params
     params.require(:purchase_order).permit(
+      :store_id,
       :supplier_id,
       :invoice_number,
       :tracking_number,
