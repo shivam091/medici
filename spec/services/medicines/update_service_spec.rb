@@ -13,24 +13,23 @@ RSpec.describe Medicines::UpdateService, type: :service do
     subject { described_class.(medicine, medicine_attributes) }
 
     context "when update is successful" do
-      it "returns a success response" do
-        expect(subject).to be_success
-        expect(subject.payload[:medicine]).to eq(medicine)
-        expect(medicine.reload.name).to eq(medicine.name)
-        expect(subject.message).to eq("Medicine '#{subject.payload[:medicine].reference_code} (#{medicine.name})' was successfully updated.")
+      it "updates the medicine" do
+        expect(subject.payload[:medicine].name).to eq(medicine.name)
+        expect(subject.message).to eq("Medicine 'MED-FL000000001 (New name)' was successfully updated.")
       end
+
+      include_examples "returns a success response"
     end
 
     context "when update fails" do
-      before do
-        allow(medicine).to receive(:update).and_return(false)
+      before { allow(medicine).to receive(:update).and_return(false) }
+
+      it "does not update the medicine" do
+        expect(subject.payload[:medicine]).to eq(medicine)
+        expect(subject.message).to eq("Medicine could not be updated.")
       end
 
-      it "returns an error response" do
-        expect(subject).to be_error
-        expect(subject.message).to eq("Medicine could not be updated.")
-        expect(subject.payload[:medicine]).to eq(medicine)
-      end
+      include_examples "returns an error response"
     end
   end
 end

@@ -13,24 +13,23 @@ RSpec.describe Stores::UpdateService, type: :service do
     subject { described_class.(store, store_attributes) }
 
     context "when update is successful" do
-      it "returns a success response" do
-        expect(subject).to be_success
-        expect(subject.payload[:store]).to eq(store)
-        expect(store.reload.name).to eq(store.name)
-        expect(subject.message).to eq("Store '#{store.name}' was successfully updated.")
+      it "updates the store" do
+        expect(subject.payload[:store].name).to eq("New name")
+        expect(subject.message).to eq("Store 'New name' was successfully updated.")
       end
+
+      include_examples "returns a success response"
     end
 
     context "when update fails" do
-      before do
-        allow(store).to receive(:update).and_return(false)
+      before { allow(store).to receive(:update).and_return(false) }
+
+      it "does not update the store" do
+        expect(subject.payload[:store]).to eq(store)
+        expect(subject.message).to eq("Store could not be updated.")
       end
 
-      it "returns an error response" do
-        expect(subject).to be_error
-        expect(subject.message).to eq("Store could not be updated.")
-        expect(subject.payload[:store]).to eq(store)
-      end
+      include_examples "returns an error response"
     end
   end
 end
