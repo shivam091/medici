@@ -15,7 +15,7 @@ RSpec.describe MedicineCategories::UpdateService, type: :service do
     context "when update is successful" do
       it "updates the medicine category" do
         expect(subject.payload[:medicine_category].name).to eq("New name")
-        expect(subject.message).to eq("Medicine category '#{medicine_category.name}' was successfully updated.")
+        expect(subject.message).to eq("Medicine category 'New name' was successfully updated.")
       end
 
       include_examples "returns a success response"

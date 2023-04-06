@@ -15,7 +15,7 @@ RSpec.describe DosageForms::UpdateService, type: :service do
     context "when update is successful" do
       it "updates the dosage form" do
         expect(subject.payload[:dosage_form].name).to eq("New name")
-        expect(subject.message).to eq("Dosage form '#{dosage_form.name}' was successfully updated.")
+        expect(subject.message).to eq("Dosage form 'New name' was successfully updated.")
       end
 
       include_examples "returns a success response"

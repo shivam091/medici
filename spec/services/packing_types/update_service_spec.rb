@@ -15,7 +15,7 @@ RSpec.describe PackingTypes::UpdateService, type: :service do
     context "when update is successful" do
       it "updates the packing type" do
         expect(subject.payload[:packing_type].name).to eq("New name")
-        expect(subject.message).to eq("Packing type '#{packing_type.name}' was successfully updated.")
+        expect(subject.message).to eq("Packing type 'New name' was successfully updated.")
       end
 
       include_examples "returns a success response"

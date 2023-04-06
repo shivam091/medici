@@ -15,7 +15,7 @@ RSpec.describe Currencies::UpdateService, type: :service do
     context "when update is successful" do
       it "updates the currency" do
         expect(subject.payload[:currency].name).to eq("New name")
-        expect(subject.message).to eq("Currency '#{currency.name}' was successfully updated.")
+        expect(subject.message).to eq("Currency 'New name' was successfully updated.")
       end
 
       include_examples "returns a success response"
