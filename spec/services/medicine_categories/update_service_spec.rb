@@ -22,11 +22,9 @@ RSpec.describe MedicineCategories::UpdateService, type: :service do
     end
 
     context "when update fails" do
-      before do
-        allow(medicine_category).to receive(:update).and_return(false)
-      end
-
       it "returns an error response" do
+        allow(medicine_category).to receive(:update).and_return(false)
+
         expect(subject).to be_error
         expect(subject.message).to eq("Medicine category could not be updated.")
         expect(subject.payload[:medicine_category]).to eq(medicine_category)

@@ -22,11 +22,9 @@ RSpec.describe PackingTypes::UpdateService, type: :service do
     end
 
     context "when update fails" do
-      before do
-        allow(packing_type).to receive(:update).and_return(false)
-      end
-
       it "returns an error response" do
+        allow(packing_type).to receive(:update).and_return(false)
+
         expect(subject).to be_error
         expect(subject.message).to eq("Packing type could not be updated.")
         expect(subject.payload[:packing_type]).to eq(packing_type)

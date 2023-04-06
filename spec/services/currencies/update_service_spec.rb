@@ -22,11 +22,9 @@ RSpec.describe Currencies::UpdateService, type: :service do
     end
 
     context "when update fails" do
-      before do
-        allow(currency).to receive(:update).and_return(false)
-      end
-
       it "returns an error response" do
+        allow(currency).to receive(:update).and_return(false)
+
         expect(subject).to be_error
         expect(subject.message).to eq("Currency could not be updated.")
         expect(subject.payload[:currency]).to eq(currency)
