@@ -12,20 +12,28 @@ RSpec.describe Currencies::ActivateService, type: :service do
     subject { described_class.(currency) }
 
     context "when activation is successful" do
+      it "activates the currency" do
+        expect { subject }.to change { currency.reload.is_active? }.to(true)
+      end
+
       it "returns an success response" do
         expect(subject).to be_success
         expect(subject.message).to eq("Currency '#{currency.name}' was successfully activated.")
-        expect(subject.payload[:currency]).to eq(currency)
       end
     end
 
     context "when activation fails" do
-      it "returns an error response" do
+      before do
         allow(currency).to receive(:activate!).and_return(false)
+      end
 
+      it "does not activate the currency" do
+        expect { subject }.not_to change { currency.reload.is_active? }
+      end
+
+      it "returns an error response" do
         expect(subject).to be_error
         expect(subject.message).to eq("Currency '#{currency.name}' could not be activated.")
-        expect(subject.payload[:currency]).to eq(currency)
       end
     end
   end

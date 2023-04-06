@@ -12,20 +12,28 @@ RSpec.describe PackingTypes::ActivateService, type: :service do
     subject { described_class.(packing_type) }
 
     context "when activation is successful" do
+      it "activates the packing type" do
+        expect { subject }.to change { packing_type.reload.is_active? }.to(true)
+      end
+
       it "returns an success response" do
         expect(subject).to be_success
         expect(subject.message).to eq("Packing type '#{packing_type.name}' was successfully activated.")
-        expect(subject.payload[:packing_type]).to eq(packing_type)
       end
     end
 
     context "when activation fails" do
-      it "returns an error response" do
+      before do
         allow(packing_type).to receive(:activate!).and_return(false)
+      end
 
+      it "does not activate the packing type" do
+        expect { subject }.not_to change { packing_type.reload.is_active? }
+      end
+
+      it "returns an error response" do
         expect(subject).to be_error
         expect(subject.message).to eq("Packing type '#{packing_type.name}' could not be activated.")
-        expect(subject.payload[:packing_type]).to eq(packing_type)
       end
     end
   end

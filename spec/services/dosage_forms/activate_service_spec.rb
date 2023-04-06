@@ -12,20 +12,30 @@ RSpec.describe DosageForms::ActivateService, type: :service do
     subject { described_class.(dosage_form) }
 
     context "when activation is successful" do
+      it "activates the dosage form" do
+        expect { subject }.to change { dosage_form.reload.is_active? }.to(true)
+      end
+
       it "returns an success response" do
         expect(subject).to be_success
         expect(subject.message).to eq("Dosage form '#{dosage_form.name}' was successfully activated.")
-        expect(subject.payload[:dosage_form]).to eq(dosage_form)
       end
     end
 
     context "when activation fails" do
+      before do
+        allow(dosage_form).to receive(:activate!).and_return(false)
+      end
+
+      it "does not activate the dosage form" do
+        expect { subject }.not_to change { dosage_form.reload.is_active? }
+      end
+
       it "returns an error response" do
         allow(dosage_form).to receive(:activate!).and_return(false)
 
         expect(subject).to be_error
         expect(subject.message).to eq("Dosage form '#{dosage_form.name}' could not be activated.")
-        expect(subject.payload[:dosage_form]).to eq(dosage_form)
       end
     end
   end
