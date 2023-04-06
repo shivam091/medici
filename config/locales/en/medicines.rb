@@ -20,6 +20,7 @@
       medicine: {
         reference_code: "Reference code",
         name: "Name",
+        store: "Store",
         code: "Code",
         category: "Category",
         manufacturer: "Manufacturer",
@@ -54,6 +55,7 @@
         select_manufacturer: "Select manufacturer",
         select_suppliers: "Select suppliers",
         select_uom: "Select unit of measurement",
+        select_store: "Select store",
       },
       medicine_ingredient_form: {
         select_ingredient: "Select ingredient",

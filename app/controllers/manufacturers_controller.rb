@@ -12,30 +12,30 @@ class ManufacturersController < ApplicationController
     end
   end
 
-  # GET /(admin)/manufacturers
+  # GET /(:role)/manufacturers
   def index
     @manufacturers = policy_scope(::Manufacturer).including_address
     @pagy, @manufacturers = pagy(@manufacturers)
   end
 
-  # GET /(admin|manager|cashier)/manufacturers/active
+  # GET /(:role)/manufacturers/active
   def active
     @manufacturers = policy_scope(::Manufacturer).active.including_address
     @pagy, @manufacturers = pagy(@manufacturers)
   end
 
-  # GET /(admin)/manufacturers/inactive
+  # GET /(:role)/manufacturers/inactive
   def inactive
     @manufacturers = policy_scope(::Manufacturer).inactive.including_address
     @pagy, @manufacturers = pagy(@manufacturers)
   end
 
-  # GET /(admin|manager)/manufacturers/new
+  # GET /(:role)/manufacturers/new
   def new
     @manufacturer = ::Manufacturer.new
   end
 
-  # POST /(admin|manager)/manufacturers
+  # POST /(:role)/manufacturers
   def create
     response = ::Manufacturers::CreateService.(manufacturer_params)
     @manufacturer = response.payload[:manufacturer]
@@ -55,11 +55,11 @@ class ManufacturersController < ApplicationController
     end
   end
 
-  # GET /(admin|manager)/manufacturers/:uuid/edit
+  # GET /(:role)/manufacturers/:uuid/edit
   def edit
   end
 
-  # PUT/PATCH /(admin|manager)/manufacturers/:uuid
+  # PUT/PATCH /(:role)/manufacturers/:uuid
   def update
     response = ::Manufacturers::UpdateService.(@manufacturer, manufacturer_params)
     @manufacturer = response.payload[:manufacturer]
@@ -79,11 +79,11 @@ class ManufacturersController < ApplicationController
     end
   end
 
-  # GET /(admin|manager|cashier)/manufacturers/:uuid
+  # GET /(:role)/manufacturers/:uuid
   def show
   end
 
-  # DELETE /(admin)/manufacturers/:uuid
+  # DELETE /(:role)/manufacturers/:uuid
   def destroy
     response = ::Manufacturers::DestroyService.(@manufacturer)
     @manufacturer = response.payload[:manufacturer]
@@ -95,7 +95,7 @@ class ManufacturersController < ApplicationController
     redirect_to helpers.manufacturers_path
   end
 
-  # PATCH /(admin)/manufacturers/:uuid/activate
+  # PATCH /(:role)/manufacturers/:uuid/activate
   def activate
     response = ::Manufacturers::ActivateService.(@manufacturer)
     @manufacturer = response.payload[:manufacturer]
@@ -107,7 +107,7 @@ class ManufacturersController < ApplicationController
     redirect_to helpers.inactive_manufacturers_path
   end
 
-  # PATCH /(admin)/manufacturer/:uuid/deactivate
+  # PATCH /(:role)/manufacturer/:uuid/deactivate
   def deactivate
     response = ::Manufacturers::DeactivateService.(@manufacturer)
     @manufacturer = response.payload[:manufacturer]

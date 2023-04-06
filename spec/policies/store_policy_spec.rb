@@ -9,9 +9,9 @@ require "spec_helper"
 RSpec.describe StorePolicy, type: :policy do
   let!(:store) { create(:store, :active) }
 
-  context "when super admin is logged in" do
-    let(:super_admin) { build(:super_admin, :confirmed) }
-    subject { described_class.new(super_admin, store) }
+  context "when admin is logged in" do
+    let(:admin) { build(:admin, :confirmed) }
+    subject { described_class.new(admin, store) }
 
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:new) }
@@ -21,22 +21,7 @@ RSpec.describe StorePolicy, type: :policy do
     it { is_expected.to permit_action(:destroy) }
     it { is_expected.to permit_action(:show) }
 
-    it { is_expected.to match_policy_scope(super_admin, [store]) }
-  end
-
-  context "when admin is logged in" do
-    let(:admin) { build(:admin, :confirmed) }
-    subject { described_class.new(admin, store) }
-
-    it { is_expected.to forbid_action(:index) }
-    it { is_expected.to forbid_action(:new) }
-    it { is_expected.to forbid_action(:create) }
-    it { is_expected.to forbid_action(:edit) }
-    it { is_expected.to forbid_action(:update) }
-    it { is_expected.to forbid_action(:destroy) }
-    it { is_expected.to forbid_action(:show) }
-
-    it { is_expected.to match_policy_scope(admin, []) }
+    it { is_expected.to match_policy_scope(admin, [store]) }
   end
 
   context "when manager is logged in" do

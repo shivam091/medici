@@ -187,7 +187,7 @@
           expected_arrival_at: "Expected arrival at",
           status: "Status",
         },
-        purchase_order_medicine: {
+        purchase_order_item: {
           purchase_order_id: "Purchase order",
           medicine_id: "Medicine",
           quantity: "Quantity",

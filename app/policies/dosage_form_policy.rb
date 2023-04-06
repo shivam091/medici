@@ -2,5 +2,5 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class DosageFormPolicy < SuperAdminPolicy
+class DosageFormPolicy < AdminPolicy
 end

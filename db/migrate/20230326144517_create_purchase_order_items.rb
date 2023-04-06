@@ -2,14 +2,14 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class CreatePurchaseOrderMedicines < Medici::Database::Migration[1.0]
+class CreatePurchaseOrderItems < Medici::Database::Migration[1.0]
   def change
-    create_table_with_constraints :purchase_order_medicines, id: :uuid do |t|
+    create_table_with_constraints :purchase_order_items, id: :uuid do |t|
       t.references :purchase_order,
                    type: :uuid,
                    foreign_key: {
                      to_table: :purchase_orders,
-                     name: :fk_purchase_order_medicines_purchase_order_id_on_purchase_orders,
+                     name: :fk_purchase_order_items_purchase_order_id_on_purchase_orders,
                      on_delete: :cascade
                    },
                    index: {using: :btree}
@@ -17,7 +17,7 @@ class CreatePurchaseOrderMedicines < Medici::Database::Migration[1.0]
                    type: :uuid,
                    foreign_key: {
                      to_table: :medicines,
-                     name: :fk_purchase_order_medicines_medicine_id_on_medicines,
+                     name: :fk_purchase_order_items_medicine_id_on_medicines,
                      on_delete: :cascade
                    },
                    index: {using: :btree}

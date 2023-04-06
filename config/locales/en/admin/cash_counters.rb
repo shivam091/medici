@@ -10,7 +10,8 @@
           identifier: "Identifier",
           operator: "Operator",
           shift: "Shift",
-          no_cash_counters_to_display: "There are no cash counters to display."
+          no_cash_counters_to_display: "There are no cash counters to display.",
+          no_operators_to_display: "There are no operators for this cash counter.",
         }
       },
     }

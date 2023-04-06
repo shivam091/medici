@@ -7,16 +7,21 @@
         %th{scope: "col"}= t(".operator")
         %th{scope: "col"}= t(".shift")
     %tbody
-      - if store.cash_counters.each.with_index(1) do |cash_counter, index|
+      - if store.cash_counters.active.each.with_index(1) do |cash_counter, index|
+        - rowspan = (cash_counter.cash_counter_operators.present? ? (cash_counter.cash_counter_operators.count + 1) : 2)
         %tr
-          %td.fw-bold{rowspan: (cash_counter.cash_counter_operators.count + 1)}= index
-          %td{rowspan: (cash_counter.cash_counter_operators.count + 1)}= cash_counter.identifier
-          - cash_counter.cash_counter_operators.including_users_and_shifts.each do |cash_counter_operator|
+          %td.fw-bold{rowspan: rowspan}= index
+          %td{rowspan: rowspan}= cash_counter.identifier
+          - if cash_counter.cash_counter_operators.including_users_and_shifts.each do |cash_counter_operator|
             - present(cash_counter_operator.shift) do |shift|
               %tr.bg-secondary.bg-opacity-10
                 %td= cash_counter_operator.user_full_name
                 %td
                   = "#{cash_counter_operator.shift_name} (#{shift.starts_at} - #{shift.ends_at})"
+          - end.empty?
+            %tr.bg-secondary.bg-opacity-10
+              %td.fw-bold{colspan: ::CashCounter.columns.count}
+                = t(".no_operators_to_display")
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::CashCounter.columns.count}

@@ -2,8 +2,8 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class UserPolicy < SuperAdminPolicy
+class UserPolicy < AdminPolicy
   def banned?
-    user.super_admin?
+    user.admin?
   end
 end

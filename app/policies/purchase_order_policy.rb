@@ -10,42 +10,42 @@ class PurchaseOrderPolicy < ApplicationPolicy
   end
 
   def index?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.admin? || user.manager?)
   end
 
   def pending?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.admin? || user.manager?)
   end
 
   def incomplete?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.admin? || user.manager?)
   end
 
   def received?
-    (user.super_admin? || user.admin? || user.manager?)
+    (user.admin? || user.manager?)
   end
 
   def new?
-    (user.super_admin? || user.admin?)
+    (user.admin? || user.manager?)
   end
 
   def create?
-    (user.super_admin? || user.admin?)
+    (user.admin? || user.manager?)
   end
 
   def edit?
-    (user.super_admin? || user.admin?) && !record.received?
+    (user.admin? || user.manager?) && !record.received?
   end
 
   def update?
-    (user.super_admin? || user.admin?) && !record.received?
+    (user.admin? || user.manager?) && !record.received?
   end
 
   def destroy?
-    (user.super_admin? || user.admin?) && record.pending?
+    (user.admin? && record.pending?)
   end
 
   def mark_as_received?
-    (user.super_admin? || user.admin?) && !record.received?
+    (user.admin? && !record.received?)
   end
 end

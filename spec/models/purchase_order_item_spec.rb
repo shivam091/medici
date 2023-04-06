@@ -2,9 +2,9 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-# spec/policies/super_admin_policy_spec.rb
+# spec/models/purchase_order_item_spec.rb
 
 require "spec_helper"
 
-RSpec.describe SuperAdminPolicy, type: :policy do
+RSpec.describe PurchaseOrderItem, type: :model do
 end

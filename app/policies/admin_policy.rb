@@ -2,10 +2,10 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class SuperAdminPolicy < ApplicationPolicy
+class AdminPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.super_admin?
+      if user.admin?
         scope.all
       else
         scope.none
@@ -14,42 +14,42 @@ class SuperAdminPolicy < ApplicationPolicy
   end
 
   def index?
-    user.super_admin?
+    user.admin?
   end
 
   def active?
-    user.super_admin?
+    user.admin?
   end
 
   def inactive?
-    user.super_admin?
+    user.admin?
   end
 
   def new?
-    user.super_admin?
+    user.admin?
   end
 
   def create?
-    user.super_admin?
+    user.admin?
   end
 
   def edit?
-    user.super_admin?
+    user.admin?
   end
 
   def update?
-    user.super_admin?
+    user.admin?
   end
 
   def activate?
-    user.super_admin?
+    user.admin?
   end
 
   def deactivate?
-    user.super_admin?
+    user.admin?
   end
 
   def destroy?
-    user.super_admin?
+    user.admin?
   end
 end

@@ -12,36 +12,36 @@ class ExpensesController < ApplicationController
     end
   end
 
-  # GET /(admin|manager|cashier)/expenses
+  # GET /(:role)/expenses
   def index
     @expenses = policy_scope(::Expense)
     @pagy, @expenses = pagy(@expenses)
   end
 
-  # GET /(admin|manager|cashier)/expenses/pending
+  # GET /(:role)/expenses/pending
   def pending
     @expenses = policy_scope(::Expense).pending
     @pagy, @expenses = pagy(@expenses)
   end
 
-  # GET /(admin|manager|cashier)/expenses/approved
+  # GET /(:role)/expenses/approved
   def approved
     @expenses = policy_scope(::Expense).approved
     @pagy, @expenses = pagy(@expenses)
   end
 
-  # GET /(admin|manager|cashier)/expenses/rejected
+  # GET /(:role)/expenses/rejected
   def rejected
     @expenses = policy_scope(::Expense).rejected
     @pagy, @expenses = pagy(@expenses)
   end
 
-  # GET /(admin|manager|cashier)/expenses/new
+  # GET /(:role)/expenses/new
   def new
     @expense = ::Expense.new
   end
 
-  # POST /(admin|manager|cashier)/expenses
+  # POST /(:role)/expenses
   def create
     response = ::Expenses::CreateService.(user, expense_params)
     @expense = response.payload[:expense]
@@ -61,11 +61,11 @@ class ExpensesController < ApplicationController
     end
   end
 
-  # GET /(admin|manager|cashier)/expenses/:uuid/edit
+  # GET /(:role)/expenses/:uuid/edit
   def edit
   end
 
-  # PUT/PATCH /(admin|manager|cashier)/expenses/:uuid
+  # PUT/PATCH /(:role)/expenses/:uuid
   def update
     response = ::Expenses::UpdateService.(@expense, expense_params)
     @expense = response.payload[:expense]
@@ -85,7 +85,7 @@ class ExpensesController < ApplicationController
     end
   end
 
-  # DELETE /(admin)/expenses/:uuid
+  # DELETE /(:role)/expenses/:uuid
   def destroy
     response = ::Expenses::DestroyService.(@expense)
     @expense = response.payload[:expense]

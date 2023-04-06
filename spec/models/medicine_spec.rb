@@ -110,7 +110,7 @@ RSpec.describe Medicine, type: :model do
     end
 
     describe "#store_id" do
-      it { is_expected.to validate_presence_of(:store_id).on(:update).with_message("is required") }
+      it { is_expected.to validate_presence_of(:store_id).with_message("is required") }
     end
 
     describe "#name" do
@@ -195,8 +195,8 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_many(:suppliers).through(:medicine_suppliers).source(:supplier).inverse_of(:medicine_suppliers) }
     it { is_expected.to have_many(:medicine_ingredients).dependent(:destroy) }
     it { is_expected.to have_many(:ingredients).through(:medicine_ingredients).source(:ingredient).inverse_of(:medicine_ingredients) }
-    it { is_expected.to have_many(:purchase_order_medicines).dependent(:destroy) }
-    it { is_expected.to have_many(:purchase_orders).through(:purchase_order_medicines).source(:purchase_order).inverse_of(:purchase_order_medicines) }
+    it { is_expected.to have_many(:purchase_order_items).dependent(:destroy) }
+    it { is_expected.to have_many(:purchase_orders).through(:purchase_order_items).source(:purchase_order).inverse_of(:purchase_order_items) }
 
     it { is_expected.to belong_to(:manufacturer).inverse_of(:medicines) }
     it { is_expected.to belong_to(:medicine_category).inverse_of(:medicines) }
@@ -211,7 +211,7 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to have_callback(:after, :create, :create_stock) }
     it { is_expected.to have_callback(:after, :create, :create_replenishment) }
     it { is_expected.to have_callback(:after, :commit, :broadcast_active_medicines_count) }
-    it { is_expected.to have_callback(:before, :save, :set_store) }
+    it { is_expected.to have_callback(:before, :validation, :set_store) }
   end
 
   describe "delegates" do
@@ -223,6 +223,7 @@ RSpec.describe Medicine, type: :model do
     it { is_expected.to delegate_method(:name).to(:medicine_category).with_prefix(true) }
     it { is_expected.to delegate_method(:name).to(:packing_type).with_prefix(true) }
     it { is_expected.to delegate_method(:name).to(:dosage_form).with_prefix(true) }
+    it { is_expected.to delegate_method(:name).to(:store).with_prefix(true) }
     it { is_expected.to delegate_method(:currency).to(:store).with_prefix(true) }
   end
 
@@ -347,8 +348,8 @@ RSpec.describe Medicine, type: :model do
   describe "class methods" do
     describe ".select_options" do
       it "should return array of medicines for select list" do
-        medicine = create(:medicine, :active)
-        expect(described_class.select_options).to eq([["#{medicine.name} (#{medicine.reference_code})", medicine.id]])
+        medicine = create(:medicine, :active, :with_user)
+        expect(described_class.select_options(medicine.user)).to eq([["#{medicine.name} (#{medicine.reference_code})", medicine.id]])
       end
     end
   end

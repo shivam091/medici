@@ -54,33 +54,34 @@ class PurchaseOrder < ApplicationRecord
             comparison: {greater_than_or_equal_to: Date.today},
             allow_nil: true,
             reduce: true
+  validates :store_id, presence: true, reduce: true
 
-  has_many :purchase_order_medicines, dependent: :destroy
+  has_many :purchase_order_items, dependent: :destroy
   has_many :medicines,
-           through: :purchase_order_medicines,
+           through: :purchase_order_items,
            source: :medicine,
-           inverse_of: :purchase_order_medicines
+           inverse_of: :purchase_order_items
 
   belongs_to :store, inverse_of: :purchase_orders, optional: true
   belongs_to :supplier, inverse_of: :purchase_orders
   belongs_to :user, inverse_of: :purchase_orders
 
-  before_save :set_store
+  before_validation :set_store
   after_commit :broadcast_purchase_orders_count, on: [:create, :destroy]
 
   delegate :name, to: :store, prefix: true
   delegate :full_name, to: :user, prefix: true
   delegate :name, to: :supplier, prefix: true
 
-  accepts_nested_attributes_for :purchase_order_medicines,
+  accepts_nested_attributes_for :purchase_order_items,
                                 allow_destroy: true,
-                                reject_if: :reject_purchase_order_medicine?
+                                reject_if: :reject_purchase_order_item?
 
   default_scope -> { order_reference_code_asc }
 
   class << self
     def accessible(user)
-      if (user.super_admin? || user.admin?)
+      if user.admin?
         all
       elsif user.manager?
         user.store.purchase_orders
@@ -93,12 +94,12 @@ class PurchaseOrder < ApplicationRecord
   private
 
   def receive_medicines
-    purchase_order_medicines.each do |purchase_order_medicine|
-      purchase_order_medicine.receive!
+    purchase_order_items.each do |purchase_order_item|
+      purchase_order_item.receive!
     end
   end
 
-  def reject_purchase_order_medicine?(attributes)
+  def reject_purchase_order_item?(attributes)
     [
       attributes[:medicine_id],
       attributes[:quantity],
@@ -107,7 +108,7 @@ class PurchaseOrder < ApplicationRecord
   end
 
   def set_store
-    if user.present?
+    if (store.nil? && user.present?)
       self.store = self.user.store
     end
   end

@@ -346,7 +346,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_144517) do
     t.check_constraint "name IS NOT NULL AND name::text <> ''::text", name: "chk_c41aed63fb"
   end
 
-  create_table "purchase_order_medicines", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "purchase_order_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "purchase_order_id"
     t.uuid "medicine_id"
     t.integer "quantity", default: 1
@@ -354,14 +354,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_144517) do
     t.boolean "is_received", default: false
     t.timestamptz "created_at", null: false
     t.timestamptz "updated_at", null: false
-    t.index ["medicine_id"], name: "index_purchase_order_medicines_on_medicine_id"
-    t.index ["purchase_order_id"], name: "index_purchase_order_medicines_on_purchase_order_id"
-    t.check_constraint "cost > 0.0", name: "chk_04a87460f2"
-    t.check_constraint "cost IS NOT NULL", name: "chk_75817d4bd1"
-    t.check_constraint "medicine_id IS NOT NULL", name: "chk_8d0a23fa4d"
-    t.check_constraint "purchase_order_id IS NOT NULL", name: "chk_a9c889e0e6"
-    t.check_constraint "quantity > 0", name: "chk_c72d3c1b02"
-    t.check_constraint "quantity IS NOT NULL", name: "chk_a2773d58f0"
+    t.index ["medicine_id"], name: "index_purchase_order_items_on_medicine_id"
+    t.index ["purchase_order_id"], name: "index_purchase_order_items_on_purchase_order_id"
+    t.check_constraint "cost > 0.0", name: "chk_0a830cb5c4"
+    t.check_constraint "cost IS NOT NULL", name: "chk_06a99090c9"
+    t.check_constraint "medicine_id IS NOT NULL", name: "chk_ea4129c2f2"
+    t.check_constraint "purchase_order_id IS NOT NULL", name: "chk_55b2deaca4"
+    t.check_constraint "quantity > 0", name: "chk_eb40210a9b"
+    t.check_constraint "quantity IS NOT NULL", name: "chk_928e1be5a0"
   end
 
   create_table "purchase_orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -604,8 +604,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_144517) do
   add_foreign_key "medicines", "packing_types", name: "fk_medicines_packing_type_id_on_packing_types", on_delete: :restrict
   add_foreign_key "medicines", "stores", name: "fk_medicines_store_id_on_stores", on_delete: :cascade
   add_foreign_key "medicines", "users", name: "fk_medicines_user_id_on_users", on_delete: :nullify
-  add_foreign_key "purchase_order_medicines", "medicines", name: "fk_purchase_order_medicines_medicine_id_on_medicines", on_delete: :cascade
-  add_foreign_key "purchase_order_medicines", "purchase_orders", name: "fk_purchase_order_medicines_purchase_order_id_on_purchase_order", on_delete: :cascade
+  add_foreign_key "purchase_order_items", "medicines", name: "fk_purchase_order_items_medicine_id_on_medicines", on_delete: :cascade
+  add_foreign_key "purchase_order_items", "purchase_orders", name: "fk_purchase_order_items_purchase_order_id_on_purchase_orders", on_delete: :cascade
   add_foreign_key "purchase_orders", "stores", name: "fk_purchase_orders_store_id_on_stores", on_delete: :restrict
   add_foreign_key "purchase_orders", "suppliers", name: "fk_purchase_orders_supplier_id_on_suppliers", on_delete: :restrict
   add_foreign_key "purchase_orders", "users", name: "fk_purchase_orders_user_id_on_users", on_delete: :nullify

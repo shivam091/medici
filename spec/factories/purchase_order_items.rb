@@ -3,7 +3,7 @@
 # -*- warn_indent: true -*-
 
 FactoryBot.define do
-  factory :purchase_order_medicine do
+  factory :purchase_order_item do
 
   end
 end

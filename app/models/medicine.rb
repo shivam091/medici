@@ -87,7 +87,7 @@ class Medicine < ApplicationRecord
             :user_id,
             presence: true,
             reduce: true
-  validates :store_id, presence: true, on: :update
+  validates :store_id, presence: true
   validates :strength,
             presence: true,
             numericality: {greater_than: 0.0},
@@ -110,11 +110,11 @@ class Medicine < ApplicationRecord
            through: :medicine_ingredients,
            source: :ingredient,
            inverse_of: :medicine_ingredients
-  has_many :purchase_order_medicines, dependent: :destroy
+  has_many :purchase_order_items, dependent: :destroy
   has_many :purchase_orders,
-           through: :purchase_order_medicines,
+           through: :purchase_order_items,
            source: :purchase_order,
-           inverse_of: :purchase_order_medicines
+           inverse_of: :purchase_order_items
 
   belongs_to :manufacturer, inverse_of: :medicines
   belongs_to :medicine_category, inverse_of: :medicines
@@ -123,7 +123,7 @@ class Medicine < ApplicationRecord
   belongs_to :store, inverse_of: :medicines, optional: true
   belongs_to :user, inverse_of: :medicines
 
-  before_save :set_store
+  before_validation :set_store
   after_create :create_stock, :create_replenishment
   after_commit :broadcast_active_medicines_count, on: [:create, :destroy]
   after_commit on: :update do
@@ -136,7 +136,7 @@ class Medicine < ApplicationRecord
   delegate :name, to: :medicine_category, prefix: true
   delegate :name, to: :packing_type, prefix: true
   delegate :name, to: :dosage_form, prefix: true
-  delegate :currency, to: :store, prefix: true
+  delegate :name, :currency, to: :store, prefix: true
 
   accepts_nested_attributes_for :medicine_ingredients,
                                 allow_destroy: true,
@@ -147,7 +147,7 @@ class Medicine < ApplicationRecord
 
   class << self
     def accessible(user)
-      if (user.super_admin? || user.admin?)
+      if user.admin?
         all
       elsif (user.manager? || user.cashier?)
         user.store.medicines
@@ -186,7 +186,7 @@ class Medicine < ApplicationRecord
   private
 
   def set_store
-    if user.present?
+    if (store.nil? && user.present?)
       self.store = self.user.store
     end
   end

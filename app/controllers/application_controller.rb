@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
           Pagy::Backend,
           Pundit::Authorization
 
-  rescue_from Exception, with: :internal_server_error
+  # rescue_from Exception, with: :internal_server_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken do |exception|
     if user_signed_in?
@@ -37,7 +37,6 @@ class ApplicationController < ActionController::Base
     case
     when user_signed_in?
       case
-      when current_user.super_admin? then admin_dashboard_path
       when current_user.admin? then admin_dashboard_path
       when current_user.manager? then manager_dashboard_path
       else cashier_dashboard_path

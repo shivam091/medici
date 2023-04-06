@@ -20,6 +20,7 @@ FactoryBot.define do
     dosage_form { ::DosageForm.first || create(:dosage_form, :active) }
     packing_type { ::PackingType.first || create(:packing_type, :active) }
     manufacturer { ::Manufacturer.first || create(:manufacturer, :with_address, :active) }
+    store { ::Store.first || create(:store, :with_address, :active) }
 
     trait :with_suppliers do
       after(:create) do |medicine, evaluator|
