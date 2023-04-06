@@ -21,9 +21,7 @@ RSpec.describe Ingredients::DeactivateService, type: :service do
     end
 
     context "when deactivation fails" do
-      before do
-        allow(ingredient).to receive(:deactivate!).and_return(false)
-      end
+      before { allow(ingredient).to receive(:deactivate!).and_return(false) }
 
       it "does not deactivate the ingredient" do
         expect { subject }.not_to change { ingredient.reload.is_active? }

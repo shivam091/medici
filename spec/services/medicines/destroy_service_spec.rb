@@ -21,9 +21,7 @@ RSpec.describe Medicines::DestroyService, type: :service do
     end
 
     context "when destroy fails" do
-      before do
-        allow(medicine).to receive(:destroy).and_return(false)
-      end
+      before { allow(medicine).to receive(:destroy).and_return(false) }
 
       it "returns an error response" do
         expect(subject).to be_error

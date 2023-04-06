@@ -21,9 +21,7 @@ RSpec.describe Countries::DeactivateService, type: :service do
     end
 
     context "when deactivation fails" do
-      before do
-        allow(country).to receive(:deactivate!).and_return(false)
-      end
+      before { allow(country).to receive(:deactivate!).and_return(false) }
 
       it "does not deactivate the country" do
         expect { subject }.not_to change { country.reload.is_active? }

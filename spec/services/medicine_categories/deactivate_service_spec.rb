@@ -21,9 +21,7 @@ RSpec.describe MedicineCategories::DeactivateService, type: :service do
     end
 
     context "when deactivation fails" do
-      before do
-        allow(medicine_category).to receive(:deactivate!).and_return(false)
-      end
+      before { allow(medicine_category).to receive(:deactivate!).and_return(false) }
 
       it "does not deactivate the medicine category" do
         expect { subject }.not_to change { medicine_category.reload.is_active? }

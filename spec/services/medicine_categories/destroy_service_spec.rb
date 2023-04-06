@@ -8,7 +8,7 @@ require "spec_helper"
 
 RSpec.describe MedicineCategories::DestroyService, type: :service do
   describe "#call" do
-    let(:medicine_category) { create(:medicine_category) }
+    let!(:medicine_category) { create(:medicine_category) }
     subject { described_class.(medicine_category) }
 
     context "when destroy is successful" do
@@ -18,12 +18,12 @@ RSpec.describe MedicineCategories::DestroyService, type: :service do
         expect(subject.payload[:medicine_category]).to eq(medicine_category)
         expect(::MedicineCategory.find_by(id: medicine_category.id)).to be_nil
       end
+
+      include_examples "deletes an object", ::MedicineCategory
     end
 
     context "when destroy fails" do
-      before do
-        allow(medicine_category).to receive(:destroy).and_return(false)
-      end
+      before { allow(medicine_category).to receive(:destroy).and_return(false) }
 
       it "returns an error response" do
         expect(subject).to be_error

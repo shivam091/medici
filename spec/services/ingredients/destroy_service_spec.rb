@@ -21,9 +21,7 @@ RSpec.describe Ingredients::DestroyService, type: :service do
     end
 
     context "when destroy fails" do
-      before do
-        allow(ingredient).to receive(:destroy).and_return(false)
-      end
+      before { allow(ingredient).to receive(:destroy).and_return(false) }
 
       it "returns an error response" do
         expect(subject).to be_error

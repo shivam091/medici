@@ -21,9 +21,7 @@ RSpec.describe Suppliers::DestroyService, type: :service do
     end
 
     context "when destroy fails" do
-      before do
-        allow(supplier).to receive(:destroy).and_return(false)
-      end
+      before { allow(supplier).to receive(:destroy).and_return(false) }
 
       it "returns an error response" do
         expect(subject).to be_error

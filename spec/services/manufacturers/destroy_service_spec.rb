@@ -21,10 +21,8 @@ RSpec.describe Manufacturers::DestroyService, type: :service do
     end
 
     context "when destroy fails" do
-      before do
-        allow(manufacturer).to receive(:destroy).and_return(false)
-      end
-
+      before { allow(manufacturer).to receive(:destroy).and_return(false) }
+      
       it "returns an error response" do
         expect(subject).to be_error
         expect(subject.message).to eq("Manufacturer '#{manufacturer.name}' could not be destroyed.")

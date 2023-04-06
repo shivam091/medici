@@ -21,9 +21,7 @@ RSpec.describe MedicineCategories::ActivateService, type: :service do
     end
 
     context "when activation fails" do
-      before do
-        allow(medicine_category).to receive(:activate!).and_return(false)
-      end
+      before { allow(medicine_category).to receive(:activate!).and_return(false) }
 
       it "does not activate the medicine category" do
         expect { subject }.not_to change { medicine_category.reload.is_active? }

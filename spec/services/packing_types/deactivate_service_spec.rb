@@ -21,9 +21,7 @@ RSpec.describe PackingTypes::DeactivateService, type: :service do
     end
 
     context "when deactivation fails" do
-      before do
-        allow(packing_type).to receive(:deactivate!).and_return(false)
-      end
+      before { allow(packing_type).to receive(:deactivate!).and_return(false) }
 
       it "does not deactivate the packing type" do
         expect { subject }.not_to change { packing_type.reload.is_active? }

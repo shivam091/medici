@@ -21,9 +21,7 @@ RSpec.describe Countries::ActivateService, type: :service do
     end
 
     context "when activation fails" do
-      before do
-        allow(country).to receive(:activate!).and_return(false)
-      end
+      before { allow(country).to receive(:activate!).and_return(false) }
 
       it "does not activate the country" do
         expect { subject }.not_to change { country.reload.is_active? }

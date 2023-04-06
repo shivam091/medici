@@ -21,9 +21,7 @@ RSpec.describe PackingTypes::DestroyService, type: :service do
     end
 
     context "when destroy fails" do
-      before do
-        allow(packing_type).to receive(:destroy).and_return(false)
-      end
+      before { allow(packing_type).to receive(:destroy).and_return(false) }
 
       it "returns an error response" do
         expect(subject).to be_error

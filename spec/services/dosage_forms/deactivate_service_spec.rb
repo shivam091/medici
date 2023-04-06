@@ -21,9 +21,7 @@ RSpec.describe DosageForms::DeactivateService, type: :service do
     end
 
     context "when deactivation fails" do
-      before do
-        allow(dosage_form).to receive(:deactivate!).and_return(false)
-      end
+      before { allow(dosage_form).to receive(:deactivate!).and_return(false) }
 
       it "does not deactivate the dosage form" do
         expect { subject }.not_to change { dosage_form.reload.is_active? }

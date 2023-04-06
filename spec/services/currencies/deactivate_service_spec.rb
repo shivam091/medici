@@ -21,9 +21,7 @@ RSpec.describe Currencies::DeactivateService, type: :service do
     end
 
     context "when deactivation fails" do
-      before do
-        allow(currency).to receive(:deactivate!).and_return(false)
-      end
+      before { allow(currency).to receive(:deactivate!).and_return(false) }
 
       it "does not deactivate the currency" do
         expect { subject }.not_to change { currency.reload.is_active? }
