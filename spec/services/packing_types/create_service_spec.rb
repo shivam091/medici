@@ -12,27 +12,25 @@ RSpec.describe PackingTypes::CreateService, type: :service do
 
   describe "#call" do
     context "when packing type is valid" do
-      it "returns a success response with the packing type" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_success
-        expect(subject.message).to eq("Packing type '#{subject.payload[:packing_type].name}' was successfully created.")
-        expect(subject.payload).to include(packing_type: instance_of(::PackingType))
+      it "sets flash message" do
+        expect(subject.message).to eq("Packing type 'Bottles' was successfully created.")
       end
 
       include_examples "creates a new object", ::PackingType
+
+      include_examples "returns a success response"
     end
 
     context "when packing type is invalid" do
       let(:packing_type_attributes) { attributes_for(:packing_type, name: "") }
 
-      it "returns an error response with the packing type" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_error
+      it "sets flash message" do
         expect(subject.message).to eq("Packing type could not be created.")
-        expect(subject.payload).to include(packing_type: instance_of(::PackingType))
       end
 
       include_examples "does not change count of objects", ::PackingType
+
+      include_examples "returns an error response"
     end
   end
 end

@@ -12,27 +12,25 @@ RSpec.describe Countries::CreateService, type: :service do
 
   describe "#call" do
     context "when country is valid" do
-      it "returns a success response with the country" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_success
-        expect(subject.message).to eq("Country '#{subject.payload[:country].name}' was successfully created.")
-        expect(subject.payload).to include(country: instance_of(::Country))
+      it "sets flash message" do
+        expect(subject.message).to eq("Country 'India' was successfully created.")
       end
 
       include_examples "creates a new object", ::Country
+
+      include_examples "returns a success response"
     end
 
     context "when country is invalid" do
       let(:country_attributes) { attributes_for(:country, name: "") }
 
-      it "returns an error response with the country" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_error
+      it "sets flash message" do
         expect(subject.message).to eq("Country could not be created.")
-        expect(subject.payload).to include(country: instance_of(::Country))
       end
 
       include_examples "does not change count of objects", ::Country
+
+      include_examples "returns an error response"
     end
   end
 end

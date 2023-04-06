@@ -12,27 +12,25 @@ RSpec.describe Suppliers::CreateService, type: :service do
 
   describe "#call" do
     context "when supplier is valid" do
-      it "returns a success response with the supplier" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_success
-        expect(subject.message).to eq("Supplier '#{subject.payload[:supplier].name}' was successfully created.")
-        expect(subject.payload).to include(supplier: instance_of(::Supplier))
+      it "sets flash message" do
+        expect(subject.message).to eq("Supplier 'Supplier' was successfully created.")
       end
 
       include_examples "creates a new object", ::Supplier
+
+      include_examples "returns a success response"
     end
 
     context "when supplier is invalid" do
       let(:supplier_attributes) { attributes_for(:supplier, name: "") }
 
-      it "returns an error response with the supplier" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_error
+      it "sets flash message" do
         expect(subject.message).to eq("Supplier could not be created.")
-        expect(subject.payload).to include(supplier: instance_of(::Supplier))
       end
 
       include_examples "does not change count of objects", ::Supplier
+
+      include_examples "returns an error response"
     end
   end
 end

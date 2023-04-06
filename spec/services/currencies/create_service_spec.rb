@@ -12,27 +12,25 @@ RSpec.describe Currencies::CreateService, type: :service do
 
   describe "#call" do
     context "when currency is valid" do
-      it "returns a success response with the currency" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_success
-        expect(subject.message).to eq("Currency '#{subject.payload[:currency].name}' was successfully created.")
-        expect(subject.payload).to include(currency: instance_of(::Currency))
+      it "sets flash message" do
+        expect(subject.message).to eq("Currency 'Indian rupee' was successfully created.")
       end
 
       include_examples "creates a new object", ::Currency
+
+      include_examples "returns a success response"
     end
 
     context "when currency is invalid" do
       let(:currency_attributes) { attributes_for(:currency, name: "") }
 
-      it "returns an error response with the currency" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_error
+      it "sets flash message" do
         expect(subject.message).to eq("Currency could not be created.")
-        expect(subject.payload).to include(currency: instance_of(::Currency))
       end
 
       include_examples "does not change count of objects", ::Currency
+
+      include_examples "returns an error response"
     end
   end
 end

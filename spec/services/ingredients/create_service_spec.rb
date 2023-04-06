@@ -12,27 +12,25 @@ RSpec.describe Ingredients::CreateService, type: :service do
 
   describe "#call" do
     context "when ingredient is valid" do
-      it "returns a success response with the ingredient" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_success
-        expect(subject.message).to eq("Ingredient '#{subject.payload[:ingredient].name}' was successfully created.")
-        expect(subject.payload).to include(ingredient: instance_of(::Ingredient))
+      it "sets flash message" do
+        expect(subject.message).to eq("Ingredient 'Fluticasone furoate' was successfully created.")
       end
 
       include_examples "creates a new object", ::Ingredient
+
+      include_examples "returns a success response"
     end
 
     context "when ingredient is invalid" do
       let(:ingredient_attributes) { attributes_for(:ingredient, name: "") }
 
-      it "returns an error response with the ingredient" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_error
+      it "sets flash message" do
         expect(subject.message).to eq("Ingredient could not be created.")
-        expect(subject.payload).to include(ingredient: instance_of(::Ingredient))
       end
 
       include_examples "does not change count of objects", ::Ingredient
+
+      include_examples "returns an error response"
     end
   end
 end

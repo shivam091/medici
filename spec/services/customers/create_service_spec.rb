@@ -12,27 +12,25 @@ RSpec.describe Customers::CreateService, type: :service do
 
   describe "#call" do
     context "when customer is valid" do
-      it "returns a success response with the customer" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_success
-        expect(subject.message).to eq("Customer '#{subject.payload[:customer].name}' was successfully created.")
-        expect(subject.payload).to include(customer: instance_of(::Customer))
+      it "sets flash message" do
+        expect(subject.message).to eq("Customer 'Customer' was successfully created.")
       end
 
       include_examples "creates a new object", ::Customer
+
+      include_examples "returns a success response"
     end
 
     context "when customer is invalid" do
       let(:customer_attributes) { attributes_for(:customer, name: "") }
 
-      it "returns an error response with the customer" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_error
+      it "sets flash message" do
         expect(subject.message).to eq("Customer could not be created.")
-        expect(subject.payload).to include(customer: instance_of(::Customer))
       end
 
       include_examples "does not change count of objects", ::Customer
+
+      include_examples "returns an error response"
     end
   end
 end

@@ -12,27 +12,25 @@ RSpec.describe Stores::CreateService, type: :service do
 
   describe "#call" do
     context "when store is valid" do
-      it "returns a success response with the store" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_success
-        expect(subject.message).to eq("Store '#{subject.payload[:store].name}' was successfully created.")
-        expect(subject.payload).to include(store: instance_of(::Store))
+      it "sets flash message" do
+        expect(subject.message).to eq("Store 'Store' was successfully created.")
       end
 
       include_examples "creates a new object", ::Store
+
+      include_examples "returns a success response"
     end
 
     context "when store is invalid" do
       let(:store_attributes) { attributes_for(:store, name: "") }
 
-      it "returns an error response with the store" do
-        expect(subject).to be_a(ServiceResponse)
-        expect(subject).to be_error
+      it "sets flash message" do
         expect(subject.message).to eq("Store could not be created.")
-        expect(subject.payload).to include(store: instance_of(::Store))
       end
 
       include_examples "does not change count of objects", ::Store
+
+      include_examples "returns an error response"
     end
   end
 end
