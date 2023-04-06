@@ -28,10 +28,10 @@ class PurchaseOrderItem < ApplicationRecord
 
   delegate :name, to: :medicine, prefix: true
 
-  scope :received, -> { where(::PurchaseOrderMedicine[:is_received].eq(true)) }
+  scope :received, -> { where(::PurchaseOrderItem[:is_received].eq(true)) }
 
   def receive!
-    ::PurchaseOrderMedicine.transaction do
+    ::PurchaseOrderItem.transaction do
       if self.update_column(:is_received, true)
         update_stock
         update_replenishment
