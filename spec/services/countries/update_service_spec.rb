@@ -14,7 +14,7 @@ RSpec.describe Countries::UpdateService, type: :service do
 
     context "when update is successful" do
       it "updates the country" do
-        expect(subject.payload[:country].name).to eq(country.name)
+        expect(subject.payload[:country].name).to eq("New name")
         expect(subject.message).to eq("Country '#{country.name}' was successfully updated.")
       end
 
