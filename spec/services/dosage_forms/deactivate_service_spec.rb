@@ -14,12 +14,10 @@ RSpec.describe DosageForms::DeactivateService, type: :service do
     context "when deactivation is successful" do
       it "deactivates the dosage form" do
         expect { subject }.to change { dosage_form.reload.is_active? }.to(false)
-      end
-
-      it "returns an success response" do
-        expect(subject).to be_success
         expect(subject.message).to eq("Dosage form '#{dosage_form.name}' was successfully deactivated.")
       end
+
+      include_examples "returns a success response"
     end
 
     context "when deactivation fails" do
@@ -29,12 +27,10 @@ RSpec.describe DosageForms::DeactivateService, type: :service do
 
       it "does not deactivate the dosage form" do
         expect { subject }.not_to change { dosage_form.reload.is_active? }
-      end
-
-      it "returns an error response" do
-        expect(subject).to be_error
         expect(subject.message).to eq("Dosage form '#{dosage_form.name}' could not be deactivated.")
       end
+
+      include_examples "returns an error response"
     end
   end
 end

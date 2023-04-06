@@ -14,12 +14,10 @@ RSpec.describe Currencies::DeactivateService, type: :service do
     context "when deactivation is successful" do
       it "deactivates the currency" do
         expect { subject }.to change { currency.reload.is_active? }.to(false)
-      end
-
-      it "returns an success response" do
-        expect(subject).to be_success
         expect(subject.message).to eq("Currency '#{currency.name}' was successfully deactivated.")
       end
+
+      include_examples "returns a success response"
     end
 
     context "when deactivation fails" do
@@ -29,12 +27,10 @@ RSpec.describe Currencies::DeactivateService, type: :service do
 
       it "does not deactivate the currency" do
         expect { subject }.not_to change { currency.reload.is_active? }
-      end
-
-      it "returns an error response" do
-        expect(subject).to be_error
         expect(subject.message).to eq("Currency '#{currency.name}' could not be deactivated.")
       end
+
+      include_examples "returns an error response"
     end
   end
 end
