@@ -2,7 +2,7 @@
 # -*- frozen_string_literal: true -*-
 # -*- warn_indent: true -*-
 
-class PurchaseOrderMedicine < ApplicationRecord
+class PurchaseOrderItem < ApplicationRecord
   attribute :quantity, default: 1
   attribute :cost, default: 0.0
 
@@ -18,8 +18,8 @@ class PurchaseOrderMedicine < ApplicationRecord
             numericality: {greater_than: 0.0},
             reduce: true
 
-  belongs_to :purchase_order, inverse_of: :purchase_order_medicines, touch: true
-  belongs_to :medicine, inverse_of: :purchase_order_medicines
+  belongs_to :purchase_order, inverse_of: :purchase_order_items, touch: true
+  belongs_to :medicine, inverse_of: :purchase_order_items
 
   after_save :update_po_status, if: :is_received_previously_changed?
   after_create :add_quantity_pending_from_supplier
@@ -68,7 +68,7 @@ class PurchaseOrderMedicine < ApplicationRecord
   end
 
   def update_po_status
-    po_medicines = purchase_order.purchase_order_medicines
+    po_medicines = purchase_order.purchase_order_items
 
     if po_medicines.received.size == po_medicines.size
       purchase_order.mark_as_received!

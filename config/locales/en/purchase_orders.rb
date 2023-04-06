@@ -50,7 +50,7 @@
         medicines: "Medicines",
         select_supplier: "Select supplier",
       },
-      purchase_order_medicine_form: {
+      purchase_order_item_form: {
         select_medicine: "Select medicine",
       },
     }

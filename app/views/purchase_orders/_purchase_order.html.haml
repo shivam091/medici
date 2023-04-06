@@ -23,27 +23,27 @@
       - if @purchase_orders&.each.with_index(1) do |purchase_order, index|
         - store = purchase_order.store
         - user = purchase_order.user
-        - purchase_order_medicines = purchase_order.purchase_order_medicines
+        - purchase_order_items = purchase_order.purchase_order_items
         %tr
-          %td.fw-bold{rowspan: (purchase_order_medicines.size + 1)}
+          %td.fw-bold{rowspan: (purchase_order_items.size + 1)}
             = (@pagy.offset + index)
-          %td{rowspan: (purchase_order_medicines.size + 1)}
+          %td{rowspan: (purchase_order_items.size + 1)}
             = check_box_tag "purchase_order_ids[]", purchase_order.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
-          %td.fw-bold{rowspan: (purchase_order_medicines.size + 1)}= purchase_order.reference_code
+          %td.fw-bold{rowspan: (purchase_order_items.size + 1)}= purchase_order.reference_code
           - if current_user.admin?
-            %td{rowspan: (purchase_order_medicines.size + 1)}= purchase_order.user_full_name
-            %td{rowspan: (purchase_order_medicines.size + 1)}= purchase_order.store_name
-          %td.d-none.d-xl-table-cell{rowspan: (purchase_order_medicines.size + 1)}= purchase_order.invoice_number
-          %td.d-none.d-xl-table-cell{rowspan: (purchase_order_medicines.size + 1)}= purchase_order.tracking_number
-          %td{rowspan: (purchase_order_medicines.size + 1)}= purchase_order.supplier_name
-          %td.actions{rowspan: (purchase_order_medicines.size + 1)}
+            %td{rowspan: (purchase_order_items.size + 1)}= purchase_order.user_full_name
+            %td{rowspan: (purchase_order_items.size + 1)}= purchase_order.store_name
+          %td.d-none.d-xl-table-cell{rowspan: (purchase_order_items.size + 1)}= purchase_order.invoice_number
+          %td.d-none.d-xl-table-cell{rowspan: (purchase_order_items.size + 1)}= purchase_order.tracking_number
+          %td{rowspan: (purchase_order_items.size + 1)}= purchase_order.supplier_name
+          %td.actions{rowspan: (purchase_order_items.size + 1)}
             - if policy(purchase_order).edit?
               = link_to external_svg_tag("svgs/pencil.svg"), edit_purchase_order_path(purchase_order), class: "btn btn-sm btn-secondary"
             - if policy(purchase_order).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), purchase_order_path(purchase_order), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_purchase_order_confirmation_text"), turbo_method: :delete}
-        - purchase_order_medicines.each do |purchase_order_medicine|
-          = render_if_exists("purchase_orders/purchase_order_medicine", locals: {purchase_order_medicine:, store:})
+        - purchase_order_items.each do |purchase_order_item|
+          = render_if_exists("purchase_orders/purchase_order_item", locals: {purchase_order_item:, store:})
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::PurchaseOrder.columns.count}

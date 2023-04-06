@@ -14,25 +14,25 @@ class PurchaseOrdersController < ApplicationController
 
   # GET /(:role)/purchase-orders
   def index
-    @purchase_orders = policy_scope(::PurchaseOrder).includes(:purchase_order_medicines)
+    @purchase_orders = policy_scope(::PurchaseOrder).includes(:purchase_order_items)
     @pagy, @purchase_orders = pagy(@purchase_orders)
   end
 
   # GET /(:role)/purchase-orders/pending
   def pending
-    @purchase_orders = policy_scope(::PurchaseOrder).pending.includes(:purchase_order_medicines)
+    @purchase_orders = policy_scope(::PurchaseOrder).pending.includes(:purchase_order_items)
     @pagy, @purchase_orders = pagy(@purchase_orders)
   end
 
   # GET /(:role)/purchase-orders/incomplete
   def incomplete
-    @purchase_orders = policy_scope(::PurchaseOrder).incomplete.includes(:purchase_order_medicines)
+    @purchase_orders = policy_scope(::PurchaseOrder).incomplete.includes(:purchase_order_items)
     @pagy, @purchase_orders = pagy(@purchase_orders)
   end
 
   # GET /(:role)/purchase-orders/received
   def received
-    @purchase_orders = policy_scope(::PurchaseOrder).received.includes(:purchase_order_medicines)
+    @purchase_orders = policy_scope(::PurchaseOrder).received.includes(:purchase_order_items)
     @pagy, @purchase_orders = pagy(@purchase_orders)
   end
 
@@ -111,7 +111,7 @@ class PurchaseOrdersController < ApplicationController
       :tracking_number,
       :ordered_at,
       :expected_arrival_at,
-      purchase_order_medicines_attributes: [
+      purchase_order_items_attributes: [
         :id,
         :_destroy,
         :medicine_id,

@@ -1,9 +1,9 @@
-- medicine = purchase_order_medicine.medicine
+- medicine = purchase_order_item.medicine
 %tr.bg-secondary.bg-opacity-10
-  %td.fw-bold= purchase_order_medicine.medicine_name
+  %td.fw-bold= purchase_order_item.medicine_name
   %td
-    = pluralize(purchase_order_medicine.quantity, medicine.packing_type_name)
-  %td= number_to_currency(purchase_order_medicine.cost, unit: store.currency_symbol)
+    = pluralize(purchase_order_item.quantity, medicine.packing_type_name)
+  %td= number_to_currency(purchase_order_item.cost, unit: store.currency_symbol)
   %td.actions
     = link_to external_svg_tag("svgs/pencil.svg"), "javascript:void(0)", class: "btn btn-sm btn-secondary",
       data: {turbo_frame: :remote_modal}
