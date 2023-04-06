@@ -13,22 +13,23 @@ RSpec.describe MedicineCategories::UpdateService, type: :service do
     subject { described_class.(medicine_category, medicine_category_attributes) }
 
     context "when update is successful" do
-      it "returns a success response" do
-        expect(subject).to be_success
-        expect(subject.payload[:medicine_category]).to eq(medicine_category)
-        expect(medicine_category.reload.name).to eq(medicine_category.name)
+      it "updates the medicine category" do
+        expect(subject.payload[:medicine_category].name).to eq("New name")
         expect(subject.message).to eq("Medicine category '#{medicine_category.name}' was successfully updated.")
       end
+
+      include_examples "returns a success response"
     end
 
     context "when update fails" do
-      it "returns an error response" do
-        allow(medicine_category).to receive(:update).and_return(false)
+      before { allow(medicine_category).to receive(:update).and_return(false) }
 
-        expect(subject).to be_error
-        expect(subject.message).to eq("Medicine category could not be updated.")
+      it "does not update the medicine category" do
         expect(subject.payload[:medicine_category]).to eq(medicine_category)
+        expect(subject.message).to eq("Medicine category could not be updated.")
       end
+
+      include_examples "returns an error response"
     end
   end
 end

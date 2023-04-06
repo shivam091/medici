@@ -13,22 +13,23 @@ RSpec.describe Ingredients::UpdateService, type: :service do
     subject { described_class.(ingredient, ingredient_attributes) }
 
     context "when update is successful" do
-      it "returns a success response" do
-        expect(subject).to be_success
-        expect(subject.payload[:ingredient]).to eq(ingredient)
-        expect(ingredient.reload.name).to eq(ingredient.name)
+      it "updates the ingredient" do
+        expect(subject.payload[:ingredient].name).to eq("New name")
         expect(subject.message).to eq("Ingredient '#{ingredient.name}' was successfully updated.")
       end
+
+      include_examples "returns a success response"
     end
 
     context "when update fails" do
-      it "returns an error response" do
-        allow(ingredient).to receive(:update).and_return(false)
+      before { allow(ingredient).to receive(:update).and_return(false) }
 
-        expect(subject).to be_error
-        expect(subject.message).to eq("Ingredient could not be updated.")
+      it "does not update the ingredient" do
         expect(subject.payload[:ingredient]).to eq(ingredient)
+        expect(subject.message).to eq("Ingredient could not be updated.")
       end
+
+      include_examples "returns an error response"
     end
   end
 end

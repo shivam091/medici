@@ -13,22 +13,23 @@ RSpec.describe DosageForms::UpdateService, type: :service do
     subject { described_class.(dosage_form, dosage_form_attributes) }
 
     context "when update is successful" do
-      it "returns a success response" do
-        expect(subject).to be_success
-        expect(subject.payload[:dosage_form]).to eq(dosage_form)
-        expect(dosage_form.reload.name).to eq(dosage_form.name)
+      it "updates the dosage form" do
+        expect(subject.payload[:dosage_form].name).to eq("New name")
         expect(subject.message).to eq("Dosage form '#{dosage_form.name}' was successfully updated.")
       end
+
+      include_examples "returns a success response"
     end
 
     context "when update fails" do
-      it "returns an error response" do
-        allow(dosage_form).to receive(:update).and_return(false)
+      before { allow(dosage_form).to receive(:update).and_return(false) }
 
-        expect(subject).to be_error
-        expect(subject.message).to eq("Dosage form could not be updated.")
+      it "does not update the dosage form" do
         expect(subject.payload[:dosage_form]).to eq(dosage_form)
+        expect(subject.message).to eq("Dosage form could not be updated.")
       end
+
+      include_examples "returns an error response"
     end
   end
 end

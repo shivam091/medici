@@ -13,24 +13,23 @@ RSpec.describe Countries::UpdateService, type: :service do
     subject { described_class.(country, country_attributes) }
 
     context "when update is successful" do
-      it "returns a success response" do
-        expect(subject).to be_success
-        expect(subject.payload[:country]).to eq(country)
-        expect(country.reload.name).to eq(country.name)
+      it "updates the country" do
+        expect(subject.payload[:country].name).to eq(country.name)
         expect(subject.message).to eq("Country '#{country.name}' was successfully updated.")
       end
+
+      include_examples "returns a success response"
     end
 
     context "when update fails" do
-      before do
-        allow(country).to receive(:update).and_return(false)
+      before { allow(country).to receive(:update).and_return(false) }
+
+      it "does not update the country" do
+        expect(subject.payload[:country]).to eq(country)
+        expect(subject.message).to eq("Country could not be updated.")
       end
 
-      it "returns an error response" do
-        expect(subject).to be_error
-        expect(subject.message).to eq("Country could not be updated.")
-        expect(subject.payload[:country]).to eq(country)
-      end
+      include_examples "returns an error response"
     end
   end
 end

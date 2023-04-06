@@ -13,22 +13,23 @@ RSpec.describe Currencies::UpdateService, type: :service do
     subject { described_class.(currency, currency_attributes) }
 
     context "when update is successful" do
-      it "returns a success response" do
-        expect(subject).to be_success
-        expect(subject.payload[:currency]).to eq(currency)
-        expect(currency.reload.name).to eq(currency.name)
+      it "updates the currency" do
+        expect(subject.payload[:currency].name).to eq("New name")
         expect(subject.message).to eq("Currency '#{currency.name}' was successfully updated.")
       end
+
+      include_examples "returns a success response"
     end
 
     context "when update fails" do
-      it "returns an error response" do
-        allow(currency).to receive(:update).and_return(false)
+      before { allow(currency).to receive(:update).and_return(false) }
 
-        expect(subject).to be_error
-        expect(subject.message).to eq("Currency could not be updated.")
+      it "does not update the currency" do
         expect(subject.payload[:currency]).to eq(currency)
+        expect(subject.message).to eq("Currency could not be updated.")
       end
+
+      include_examples "returns an error response"
     end
   end
 end
