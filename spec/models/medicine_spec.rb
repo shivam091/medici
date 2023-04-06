@@ -110,7 +110,7 @@ RSpec.describe Medicine, type: :model do
     end
 
     describe "#store_id" do
-      it { is_expected.to validate_presence_of(:store_id).on(:update).with_message("is required") }
+      it { is_expected.to validate_presence_of(:store_id).with_message("is required") }
     end
 
     describe "#name" do

@@ -54,6 +54,7 @@ class PurchaseOrder < ApplicationRecord
             comparison: {greater_than_or_equal_to: Date.today},
             allow_nil: true,
             reduce: true
+  validates :store_id, presence: true, reduce: true
 
   has_many :purchase_order_medicines, dependent: :destroy
   has_many :medicines,

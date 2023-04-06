@@ -87,7 +87,7 @@ class Medicine < ApplicationRecord
             :user_id,
             presence: true,
             reduce: true
-  validates :store_id, presence: true, on: :update
+  validates :store_id, presence: true
   validates :strength,
             presence: true,
             numericality: {greater_than: 0.0},
