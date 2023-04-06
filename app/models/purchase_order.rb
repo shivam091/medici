@@ -66,7 +66,7 @@ class PurchaseOrder < ApplicationRecord
   belongs_to :supplier, inverse_of: :purchase_orders
   belongs_to :user, inverse_of: :purchase_orders
 
-  before_save :set_store
+  before_validation :set_store
   after_commit :broadcast_purchase_orders_count, on: [:create, :destroy]
 
   delegate :name, to: :store, prefix: true

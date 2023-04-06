@@ -123,7 +123,7 @@ class Medicine < ApplicationRecord
   belongs_to :store, inverse_of: :medicines, optional: true
   belongs_to :user, inverse_of: :medicines
 
-  before_save :set_store
+  before_validation :set_store
   after_create :create_stock, :create_replenishment
   after_commit :broadcast_active_medicines_count, on: [:create, :destroy]
   after_commit on: :update do
