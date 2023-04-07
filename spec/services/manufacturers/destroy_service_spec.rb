@@ -8,28 +8,30 @@ require "spec_helper"
 
 RSpec.describe Manufacturers::DestroyService, type: :service do
   describe "#call" do
-    let(:manufacturer) { create(:manufacturer) }
+    let!(:manufacturer) { create(:manufacturer) }
     subject { described_class.(manufacturer) }
 
     context "when destroy is successful" do
-      it "returns an success response" do
-        expect(subject).to be_success
-        expect(subject.message).to eq("Manufacturer '#{manufacturer.name}' was successfully destroyed.")
-        expect(subject.payload[:manufacturer]).to eq(manufacturer)
+      include_examples "deletes an object", ::Manufacturer
+
+      it "sets flash message" do
+        expect(subject.message).to eq("Manufacturer 'Manufacturer' was successfully destroyed.")
         expect(::Manufacturer.find_by(id: manufacturer.id)).to be_nil
       end
+
+      include_examples "returns a success response"
     end
 
     context "when destroy fails" do
       before { allow(manufacturer).to receive(:destroy).and_return(false) }
-      
-      it "returns an error response" do
-        expect(subject).to be_error
-        expect(subject.message).to eq("Manufacturer '#{manufacturer.name}' could not be destroyed.")
-        expect(subject.payload[:manufacturer]).to eq(manufacturer)
-      end
 
       include_examples "does not change count of objects", ::Manufacturer
+
+      it "sets flash message" do
+        expect(subject.message).to eq("Manufacturer 'Manufacturer' could not be destroyed.")
+      end
+
+      include_examples "returns an error response"
     end
   end
 end
