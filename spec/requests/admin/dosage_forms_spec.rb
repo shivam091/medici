@@ -8,10 +8,23 @@ require "spec_helper"
 
 RSpec.describe "Admin::DosageForms", type: :request do
   let!(:dosage_form) { create(:dosage_form, :active) }
+  let!(:inactive_dosage_form) { create(:dosage_form, name: "Inactive dosage form") }
 
   context "when user is not logged in" do
     describe "GET /admin/dosage-forms" do
       subject { get admin_dosage_forms_path }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "GET /admin/dosage-forms/active" do
+      subject { get active_admin_dosage_forms_path }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "GET /admin/dosage-forms/inactive" do
+      subject { get inactive_admin_dosage_forms_path }
 
       it { is_expected.to require_login }
     end
@@ -40,6 +53,18 @@ RSpec.describe "Admin::DosageForms", type: :request do
       it { is_expected.to require_login }
     end
 
+    describe "PATCH /admin/dosage-forms/:uuid/activate" do
+      subject { patch activate_admin_dosage_form_path(dosage_form) }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "PATCH /admin/dosage-forms/:uuid/deactivate" do
+      subject { patch deactivate_admin_dosage_form_path(dosage_form) }
+
+      it { is_expected.to require_login }
+    end
+
     describe "DELETE /admin/dosage-forms/:uuid" do
       subject { delete admin_dosage_form_path(dosage_form) }
 
@@ -54,7 +79,31 @@ RSpec.describe "Admin::DosageForms", type: :request do
       before { get admin_dosage_forms_path }
 
       it "assigns @dosage_forms" do
-        expect(ivar(:dosage_forms).reload).to match([dosage_form])
+        expect(ivar(:dosage_forms).reload).to include(dosage_form)
+      end
+
+      it "returns :ok status" do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    describe "GET /admin/dosage-forms/active" do
+      before { get active_admin_dosage_forms_path }
+
+      it "checks if all dosage forms are active" do
+        expect(ivar(:dosage_forms)).to all(be_active)
+      end
+
+      it "returns :ok status" do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    describe "GET /admin/dosage-forms/inactive" do
+      before { get inactive_admin_dosage_forms_path }
+
+      it "checks if all dosage forms are inactive" do
+        expect(ivar(:dosage_forms)).to all(be_inactive)
       end
 
       it "returns :ok status" do
@@ -65,7 +114,7 @@ RSpec.describe "Admin::DosageForms", type: :request do
     describe "GET /admin/dosage-forms/new" do
       before { get new_admin_dosage_form_path }
 
-      include_examples "assigns a new object", :dosage_form, ::DosageForm
+      include_examples "initializes a new instance", :dosage_form, ::DosageForm
 
       it "returns :ok status" do
         expect(response).to have_http_status(:ok)
@@ -227,6 +276,88 @@ RSpec.describe "Admin::DosageForms", type: :request do
         end
 
         include_examples "does not change count of objects", ::DosageForm
+      end
+    end
+
+    describe "PATCH /admin/dosage-forms/:uuid/activate" do
+      context "when the activation is successful" do
+        before do
+          patch activate_admin_dosage_form_path(inactive_dosage_form)
+        end
+
+        it "activates the dosage form" do
+          expect(inactive_dosage_form.reload.is_active?).to be_truthy
+        end
+
+        it "sets a success flash message" do
+          expect(flash[:notice]).to eq("Dosage form 'Inactive dosage form' was successfully activated.")
+        end
+
+        it "redirects to inactive dosage forms page" do
+          expect(response).to redirect_to(inactive_admin_dosage_forms_path)
+        end
+      end
+
+      context "when the activation fails" do
+        before do
+          allow(::DosageForms::ActivateService).to receive(:call).and_return(
+            ServiceResponse.error(message: "Dosage form 'Inactive dosage form' could not be activated.")
+          )
+          patch activate_admin_dosage_form_path(inactive_dosage_form)
+        end
+
+        it "does not activate the dosage form" do
+          expect(inactive_dosage_form.reload.is_active?).to be_falsy
+        end
+
+        it "sets an alert flash message" do
+          expect(flash[:alert]).to be_present
+        end
+
+        it "redirects to inactive dosage forms page" do
+          expect(response).to redirect_to(inactive_admin_dosage_forms_path)
+        end
+      end
+    end
+
+    describe "PATCH /admin/dosage-forms/:uuid/deactivate" do
+      context "when the deactivation is successful" do
+        before do
+          patch deactivate_admin_dosage_form_path(dosage_form)
+        end
+
+        it "deactivates the dosage form" do
+          expect(dosage_form.reload.is_active?).to be_falsy
+        end
+
+        it "sets a warning flash message" do
+          expect(flash[:warning]).to eq("Dosage form 'Spray' was successfully deactivated.")
+        end
+
+        it "redirects to dosage forms list page" do
+          expect(response).to redirect_to(admin_dosage_forms_path)
+        end
+      end
+
+      context "when the deactivation fails" do
+        before do
+          allow(::DosageForms::DeactivateService).to receive(:call).and_return(
+            ServiceResponse.error(message: "Dosage form 'Spray' could not be deactivated.")
+          )
+          patch deactivate_admin_dosage_form_path(dosage_form)
+        end
+
+        it "does not deactivate the dosage form" do
+          expect(dosage_form.reload.is_active?).to be_truthy
+        end
+
+        it "sets an alert flash message" do
+          expect(flash[:alert]).to be_present
+        end
+
+        it "redirects to dosage forms list page" do
+          expect(response).to redirect_to(admin_dosage_forms_path)
+        end
       end
     end
   end
