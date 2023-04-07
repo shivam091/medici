@@ -8,10 +8,23 @@ require "spec_helper"
 
 RSpec.describe "Admin::Ingredients", type: :request do
   let!(:ingredient) { create(:ingredient, :active) }
+  let!(:inactive_ingredient) { create(:ingredient, name: "Inactive ingredient") }
 
   context "when user is not logged in" do
     describe "GET /admin/ingredients" do
       subject { get admin_ingredients_path }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "GET /admin/ingredients/active" do
+      subject { get active_admin_ingredients_path }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "GET /admin/ingredients/inactive" do
+      subject { get inactive_admin_ingredients_path }
 
       it { is_expected.to require_login }
     end
@@ -40,6 +53,18 @@ RSpec.describe "Admin::Ingredients", type: :request do
       it { is_expected.to require_login }
     end
 
+    describe "PATCH /admin/ingredients/:uuid/activate" do
+      subject { patch activate_admin_ingredient_path(ingredient) }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "PATCH /admin/ingredients/:uuid/deactivate" do
+      subject { patch deactivate_admin_ingredient_path(ingredient) }
+
+      it { is_expected.to require_login }
+    end
+
     describe "DELETE /admin/ingredients/:uuid" do
       subject { delete admin_ingredient_path(ingredient) }
 
@@ -54,7 +79,31 @@ RSpec.describe "Admin::Ingredients", type: :request do
       before { get admin_ingredients_path }
 
       it "assigns @ingredients" do
-        expect(ivar(:ingredients).reload).to match([ingredient])
+        expect(ivar(:ingredients).reload).to include(ingredient)
+      end
+
+      it "returns :ok status" do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    describe "GET /admin/ingredients/active" do
+      before { get active_admin_ingredients_path }
+
+      it "checks if all ingredients are active" do
+        expect(ivar(:ingredients)).to all(be_active)
+      end
+
+      it "returns :ok status" do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    describe "GET /admin/ingredients/inactive" do
+      before { get inactive_admin_ingredients_path }
+
+      it "checks if all ingredients are inactive" do
+        expect(ivar(:ingredients)).to all(be_inactive)
       end
 
       it "returns :ok status" do
@@ -65,7 +114,7 @@ RSpec.describe "Admin::Ingredients", type: :request do
     describe "GET /admin/ingredients/new" do
       before { get new_admin_ingredient_path }
 
-      include_examples "assigns a new object", :ingredient, ::Ingredient
+      include_examples "initializes a new instance", :ingredient, ::Ingredient
 
       it "returns :ok status" do
         expect(response).to have_http_status(:ok)
@@ -227,6 +276,88 @@ RSpec.describe "Admin::Ingredients", type: :request do
         end
 
         include_examples "does not change count of objects", ::Ingredient
+      end
+    end
+
+    describe "PATCH /admin/ingredients/:uuid/activate" do
+      context "when the activation is successful" do
+        before do
+          patch activate_admin_ingredient_path(inactive_ingredient)
+        end
+
+        it "activates the ingredient" do
+          expect(inactive_ingredient.reload.is_active?).to be_truthy
+        end
+
+        it "sets a success flash message" do
+          expect(flash[:notice]).to eq("Ingredient 'Inactive ingredient' was successfully activated.")
+        end
+
+        it "redirects to inactive ingredients page" do
+          expect(response).to redirect_to(inactive_admin_ingredients_path)
+        end
+      end
+
+      context "when the activation fails" do
+        before do
+          allow(::Ingredients::ActivateService).to receive(:call).and_return(
+            ServiceResponse.error(message: "Ingredient 'Inactive ingredient' could not be activated.")
+          )
+          patch activate_admin_ingredient_path(inactive_ingredient)
+        end
+
+        it "does not activate the ingredient" do
+          expect(inactive_ingredient.reload.is_active?).to be_falsy
+        end
+
+        it "sets an alert flash message" do
+          expect(flash[:alert]).to be_present
+        end
+
+        it "redirects to inactive ingredients page" do
+          expect(response).to redirect_to(inactive_admin_ingredients_path)
+        end
+      end
+    end
+
+    describe "PATCH /admin/ingredients/:uuid/deactivate" do
+      context "when the deactivation is successful" do
+        before do
+          patch deactivate_admin_ingredient_path(ingredient)
+        end
+
+        it "deactivates the ingredient" do
+          expect(ingredient.reload.is_active?).to be_falsy
+        end
+
+        it "sets a warning flash message" do
+          expect(flash[:warning]).to eq("Ingredient 'Fluticasone furoate' was successfully deactivated.")
+        end
+
+        it "redirects to ingredients list page" do
+          expect(response).to redirect_to(admin_ingredients_path)
+        end
+      end
+
+      context "when the deactivation fails" do
+        before do
+          allow(::Ingredients::DeactivateService).to receive(:call).and_return(
+            ServiceResponse.error(message: "Ingredient 'Fluticasone furoate' could not be deactivated.")
+          )
+          patch deactivate_admin_ingredient_path(ingredient)
+        end
+
+        it "does not deactivate the ingredient" do
+          expect(ingredient.reload.is_active?).to be_truthy
+        end
+
+        it "sets an alert flash message" do
+          expect(flash[:alert]).to be_present
+        end
+
+        it "redirects to ingredients list page" do
+          expect(response).to redirect_to(admin_ingredients_path)
+        end
       end
     end
   end

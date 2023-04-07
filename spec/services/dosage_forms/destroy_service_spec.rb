@@ -8,30 +8,30 @@ require "spec_helper"
 
 RSpec.describe DosageForms::DestroyService, type: :service do
   describe "#call" do
-    let(:dosage_form) { create(:dosage_form) }
+    let!(:dosage_form) { create(:dosage_form) }
     subject { described_class.(dosage_form) }
 
     context "when destroy is successful" do
-      it "returns an success response" do
-        expect(subject).to be_success
-        expect(subject.message).to eq("Dosage form '#{dosage_form.name}' was successfully destroyed.")
-        expect(subject.payload[:dosage_form]).to eq(dosage_form)
+      include_examples "deletes an object", ::DosageForm
+
+      it "sets flash mmesage" do
+        expect(subject.message).to eq("Dosage form 'Spray' was successfully destroyed.")
         expect(::DosageForm.find_by(id: dosage_form.id)).to be_nil
       end
+
+      include_examples "returns a success response"
     end
 
     context "when destroy fails" do
-      before do
-        allow(dosage_form).to receive(:destroy).and_return(false)
-      end
-
-      it "returns an error response" do
-        expect(subject).to be_error
-        expect(subject.message).to eq("Dosage form '#{dosage_form.name}' could not be destroyed.")
-        expect(subject.payload[:dosage_form]).to eq(dosage_form)
-      end
+      before { allow(dosage_form).to receive(:destroy).and_return(false) }
 
       include_examples "does not change count of objects", ::DosageForm
+
+      it "sets flash mmesage" do
+        expect(subject.message).to eq("Dosage form 'Spray' could not be destroyed.")
+      end
+
+      include_examples "returns an error response"
     end
   end
 end

@@ -9,28 +9,27 @@ require "spec_helper"
 RSpec.describe Profiles::UpdateService, type: :service do
   describe "#call" do
     let(:user) { create(:cashier) }
-    let(:user_attributes) { attributes_for(:cashier, first_name: "New name") }
+    let(:user_attributes) { attributes_for(:cashier, first_name: "First", last_name: "Last") }
     subject { described_class.(user, user_attributes) }
 
     context "when update is successful" do
-      it "returns a success response" do
-        expect(subject).to be_success
-        expect(subject.payload[:user]).to eq(user)
-        expect(user.reload.full_name).to eq(user.full_name)
+      it "updates the user" do
+        expect(subject.payload[:user].full_name).to eq("First Last")
         expect(subject.message).to eq("Your profile was successfully updated.")
       end
+
+      include_examples "returns a success response"
     end
 
     context "when update fails" do
-      before do
-        allow(user).to receive(:update).and_return(false)
+      before { allow(user).to receive(:update).and_return(false) }
+
+      it "does not update the user" do
+        expect(subject.payload[:user]).to eq(user)
+        expect(subject.message).to eq("Your profile could not be updated.")
       end
 
-      it "returns an error response" do
-        expect(subject).to be_error
-        expect(subject.message).to eq("Your profile could not be updated.")
-        expect(subject.payload[:user]).to eq(user)
-      end
+      include_examples "returns an error response"
     end
   end
 end

@@ -8,30 +8,30 @@ require "spec_helper"
 
 RSpec.describe Currencies::DestroyService, type: :service do
   describe "#call" do
-    let(:currency) { create(:currency) }
+    let!(:currency) { create(:currency) }
     subject { described_class.(currency) }
 
     context "when destroy is successful" do
-      it "returns an success response" do
-        expect(subject).to be_success
-        expect(subject.message).to eq("Currency '#{currency.name}' was successfully destroyed.")
-        expect(subject.payload[:currency]).to eq(currency)
+      include_examples "deletes an object", ::Currency
+
+      it "sets flash message" do
+        expect(subject.message).to eq("Currency 'Indian rupee' was successfully destroyed.")
         expect(::Currency.find_by(id: currency.id)).to be_nil
       end
+
+      include_examples "returns a success response"
     end
 
     context "when destroy fails" do
-      before do
-        allow(currency).to receive(:destroy).and_return(false)
-      end
-
-      it "returns an error response" do
-        expect(subject).to be_error
-        expect(subject.message).to eq("Currency '#{currency.name}' could not be destroyed.")
-        expect(subject.payload[:currency]).to eq(currency)
-      end
+      before { allow(currency).to receive(:destroy).and_return(false) }
 
       include_examples "does not change count of objects", ::Currency
+
+      it "sets flash message" do
+        expect(subject.message).to eq("Currency 'Indian rupee' could not be destroyed.")
+      end
+
+      include_examples "returns an error response"
     end
   end
 end

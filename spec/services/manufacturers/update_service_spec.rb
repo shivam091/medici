@@ -13,24 +13,23 @@ RSpec.describe Manufacturers::UpdateService, type: :service do
     subject { described_class.(manufacturer, manufacturer_attributes) }
 
     context "when update is successful" do
-      it "returns a success response" do
-        expect(subject).to be_success
-        expect(subject.payload[:manufacturer]).to eq(manufacturer)
-        expect(manufacturer.reload.name).to eq(manufacturer.name)
-        expect(subject.message).to eq("Manufacturer '#{manufacturer.name}' was successfully updated.")
+      it "updates the manufacturer" do
+        expect(subject.payload[:manufacturer].name).to eq("New name")
+        expect(subject.message).to eq("Manufacturer 'New name' was successfully updated.")
       end
+
+      include_examples "returns a success response"
     end
 
     context "when update fails" do
-      before do
-        allow(manufacturer).to receive(:update).and_return(false)
+      before { allow(manufacturer).to receive(:update).and_return(false) }
+
+      it "does not update the manufacturer" do
+        expect(subject.payload[:manufacturer]).to eq(manufacturer)
+        expect(subject.message).to eq("Manufacturer could not be updated.")
       end
 
-      it "returns an error response" do
-        expect(subject).to be_error
-        expect(subject.message).to eq("Manufacturer could not be updated.")
-        expect(subject.payload[:manufacturer]).to eq(manufacturer)
-      end
+      include_examples "returns an error response"
     end
   end
 end

@@ -8,30 +8,30 @@ require "spec_helper"
 
 RSpec.describe MedicineCategories::DestroyService, type: :service do
   describe "#call" do
-    let(:medicine_category) { create(:medicine_category) }
+    let!(:medicine_category) { create(:medicine_category) }
     subject { described_class.(medicine_category) }
 
     context "when destroy is successful" do
-      it "returns an success response" do
-        expect(subject).to be_success
-        expect(subject.message).to eq("Medicine category '#{medicine_category.name}' was successfully destroyed.")
-        expect(subject.payload[:medicine_category]).to eq(medicine_category)
+      include_examples "deletes an object", ::MedicineCategory
+
+      it "sets flash message" do
+        expect(subject.message).to eq("Medicine category 'Antihistamines' was successfully destroyed.")
         expect(::MedicineCategory.find_by(id: medicine_category.id)).to be_nil
       end
+
+      include_examples "returns a success response"
     end
 
     context "when destroy fails" do
-      before do
-        allow(medicine_category).to receive(:destroy).and_return(false)
-      end
-
-      it "returns an error response" do
-        expect(subject).to be_error
-        expect(subject.message).to eq("Medicine category '#{medicine_category.name}' could not be destroyed.")
-        expect(subject.payload[:medicine_category]).to eq(medicine_category)
-      end
+      before { allow(medicine_category).to receive(:destroy).and_return(false) }
 
       include_examples "does not change count of objects", ::MedicineCategory
+
+      it "sets flash message" do
+        expect(subject.message).to eq("Medicine category 'Antihistamines' could not be destroyed.")
+      end
+
+      include_examples "returns an error response"
     end
   end
 end

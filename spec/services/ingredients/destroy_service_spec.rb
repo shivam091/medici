@@ -8,30 +8,30 @@ require "spec_helper"
 
 RSpec.describe Ingredients::DestroyService, type: :service do
   describe "#call" do
-    let(:ingredient) { create(:ingredient) }
+    let!(:ingredient) { create(:ingredient) }
     subject { described_class.(ingredient) }
 
     context "when destroy is successful" do
-      it "returns an success response" do
-        expect(subject).to be_success
-        expect(subject.message).to eq("Ingredient '#{ingredient.name}' was successfully destroyed.")
-        expect(subject.payload[:ingredient]).to eq(ingredient)
+      include_examples "deletes an object", ::Ingredient
+
+      it "sets flash message" do
+        expect(subject.message).to eq("Ingredient 'Fluticasone furoate' was successfully destroyed.")
         expect(::Ingredient.find_by(id: ingredient.id)).to be_nil
       end
+
+      include_examples "returns a success response"
     end
 
     context "when destroy fails" do
-      before do
-        allow(ingredient).to receive(:destroy).and_return(false)
-      end
-
-      it "returns an error response" do
-        expect(subject).to be_error
-        expect(subject.message).to eq("Ingredient '#{ingredient.name}' could not be destroyed.")
-        expect(subject.payload[:ingredient]).to eq(ingredient)
-      end
+      before { allow(ingredient).to receive(:destroy).and_return(false) }
 
       include_examples "does not change count of objects", ::Ingredient
+
+      it "sets flash message" do
+        expect(subject.message).to eq("Ingredient 'Fluticasone furoate' could not be destroyed.")
+      end
+
+      include_examples "returns an error response"
     end
   end
 end

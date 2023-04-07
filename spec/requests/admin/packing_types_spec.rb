@@ -8,10 +8,23 @@ require "spec_helper"
 
 RSpec.describe "Admin::PackingTypes", type: :request do
   let!(:packing_type) { create(:packing_type, :active) }
+  let!(:inactive_packing_type) { create(:packing_type, name: "Inactive packing type") }
 
   context "when user is not logged in" do
     describe "GET /admin/packing-types" do
       subject { get admin_packing_types_path }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "GET /admin/packing-types/active" do
+      subject { get active_admin_packing_types_path }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "GET /admin/packing-types/inactive" do
+      subject { get inactive_admin_packing_types_path }
 
       it { is_expected.to require_login }
     end
@@ -40,6 +53,18 @@ RSpec.describe "Admin::PackingTypes", type: :request do
       it { is_expected.to require_login }
     end
 
+    describe "PATCH /admin/packing-types/:uuid/activate" do
+      subject { patch activate_admin_packing_type_path(packing_type) }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "PATCH /admin/packing-types/:uuid/deactivate" do
+      subject { patch deactivate_admin_packing_type_path(packing_type) }
+
+      it { is_expected.to require_login }
+    end
+
     describe "DELETE /admin/packing-types/:uuid" do
       subject { delete admin_packing_type_path(packing_type) }
 
@@ -54,7 +79,31 @@ RSpec.describe "Admin::PackingTypes", type: :request do
       before { get admin_packing_types_path }
 
       it "assigns @packing_types" do
-        expect(ivar(:packing_types).reload).to match([packing_type])
+        expect(ivar(:packing_types).reload).to include(packing_type)
+      end
+
+      it "returns :ok status" do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    describe "GET /admin/packing-types/active" do
+      before { get active_admin_packing_types_path }
+
+      it "checks if all packing types are active" do
+        expect(ivar(:packing_types)).to all(be_active)
+      end
+
+      it "returns :ok status" do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    describe "GET /admin/packing-types/inactive" do
+      before { get inactive_admin_packing_types_path }
+
+      it "checks if all packing types are inactive" do
+        expect(ivar(:packing_types)).to all(be_inactive)
       end
 
       it "returns :ok status" do
@@ -65,7 +114,7 @@ RSpec.describe "Admin::PackingTypes", type: :request do
     describe "GET /admin/packing-types/new" do
       before { get new_admin_packing_type_path }
 
-      include_examples "assigns a new object", :packing_type, ::PackingType
+      include_examples "initializes a new instance", :packing_type, ::PackingType
 
       it "returns :ok status" do
         expect(response).to have_http_status(:ok)
@@ -227,6 +276,88 @@ RSpec.describe "Admin::PackingTypes", type: :request do
         end
 
         include_examples "does not change count of objects", ::PackingType
+      end
+    end
+
+    describe "PATCH /admin/packing-types/:uuid/activate" do
+      context "when the activation is successful" do
+        before do
+          patch activate_admin_packing_type_path(inactive_packing_type)
+        end
+
+        it "activates the packing type" do
+          expect(inactive_packing_type.reload.is_active?).to be_truthy
+        end
+
+        it "sets a success flash message" do
+          expect(flash[:notice]).to eq("Packing type 'Inactive packing type' was successfully activated.")
+        end
+
+        it "redirects to inactive packing types page" do
+          expect(response).to redirect_to(inactive_admin_packing_types_path)
+        end
+      end
+
+      context "when the activation fails" do
+        before do
+          allow(::PackingTypes::ActivateService).to receive(:call).and_return(
+            ServiceResponse.error(message: "Packing type 'Inactive packing type' could not be activated.")
+          )
+          patch activate_admin_packing_type_path(inactive_packing_type)
+        end
+
+        it "does not activate the packing type" do
+          expect(inactive_packing_type.reload.is_active?).to be_falsy
+        end
+
+        it "sets an alert flash message" do
+          expect(flash[:alert]).to be_present
+        end
+
+        it "redirects to inactive packing types page" do
+          expect(response).to redirect_to(inactive_admin_packing_types_path)
+        end
+      end
+    end
+
+    describe "PATCH /admin/packing-types/:uuid/deactivate" do
+      context "when the deactivation is successful" do
+        before do
+          patch deactivate_admin_packing_type_path(packing_type)
+        end
+
+        it "deactivates the packing type" do
+          expect(packing_type.reload.is_active?).to be_falsy
+        end
+
+        it "sets a warning flash message" do
+          expect(flash[:warning]).to eq("Packing type 'Bottles' was successfully deactivated.")
+        end
+
+        it "redirects to packing types list page" do
+          expect(response).to redirect_to(admin_packing_types_path)
+        end
+      end
+
+      context "when the deactivation fails" do
+        before do
+          allow(::PackingTypes::DeactivateService).to receive(:call).and_return(
+            ServiceResponse.error(message: "Packing type 'Bottles' could not be deactivated.")
+          )
+          patch deactivate_admin_packing_type_path(packing_type)
+        end
+
+        it "does not deactivate the packing type" do
+          expect(packing_type.reload.is_active?).to be_truthy
+        end
+
+        it "sets an alert flash message" do
+          expect(flash[:alert]).to be_present
+        end
+
+        it "redirects to packing types list page" do
+          expect(response).to redirect_to(admin_packing_types_path)
+        end
       end
     end
   end
