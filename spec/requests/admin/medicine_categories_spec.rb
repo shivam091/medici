@@ -8,10 +8,23 @@ require "spec_helper"
 
 RSpec.describe "Admin::MedicineCategories", type: :request do
   let!(:medicine_category) { create(:medicine_category, :active) }
+  let!(:inactive_medicine_category) { create(:medicine_category, name: "Inactive medicine category") }
 
   context "when user is not logged in" do
     describe "GET /admin/medicine-categories" do
       subject { get admin_medicine_categories_path }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "GET /admin/medicine-categories/active" do
+      subject { get active_admin_medicine_categories_path }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "GET /admin/medicine-categories/inactive" do
+      subject { get inactive_admin_medicine_categories_path }
 
       it { is_expected.to require_login }
     end
@@ -40,6 +53,18 @@ RSpec.describe "Admin::MedicineCategories", type: :request do
       it { is_expected.to require_login }
     end
 
+    describe "PATCH /admin/medicine-categories/:uuid/activate" do
+      subject { patch activate_admin_medicine_category_path(medicine_category) }
+
+      it { is_expected.to require_login }
+    end
+
+    describe "PATCH /admin/medicine-categories/:uuid/deactivate" do
+      subject { patch deactivate_admin_medicine_category_path(medicine_category) }
+
+      it { is_expected.to require_login }
+    end
+
     describe "DELETE /admin/medicine-categories/:uuid" do
       subject { delete admin_medicine_category_path(medicine_category) }
 
@@ -54,7 +79,31 @@ RSpec.describe "Admin::MedicineCategories", type: :request do
       before { get admin_medicine_categories_path }
 
       it "assigns @medicine_categories" do
-        expect(ivar(:medicine_categories).reload).to match([medicine_category])
+        expect(ivar(:medicine_categories).reload).to include(medicine_category)
+      end
+
+      it "returns :ok status" do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    describe "GET /admin/medicine-categories/active" do
+      before { get active_admin_medicine_categories_path }
+
+      it "checks if all medicine categories are active" do
+        expect(ivar(:medicine_categories)).to all(be_active)
+      end
+
+      it "returns :ok status" do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    describe "GET /admin/medicine-categories/inactive" do
+      before { get inactive_admin_medicine_categories_path }
+
+      it "checks if all medicine categories are inactive" do
+        expect(ivar(:medicine_categories)).to all(be_inactive)
       end
 
       it "returns :ok status" do
@@ -65,7 +114,7 @@ RSpec.describe "Admin::MedicineCategories", type: :request do
     describe "GET /admin/medicine-categories/new" do
       before { get new_admin_medicine_category_path }
 
-      include_examples "assigns a new object", :medicine_category, ::MedicineCategory
+      include_examples "initializes a new instance", :medicine_category, ::MedicineCategory
 
       it "returns :ok status" do
         expect(response).to have_http_status(:ok)
@@ -227,6 +276,88 @@ RSpec.describe "Admin::MedicineCategories", type: :request do
         end
 
         include_examples "does not change count of objects", ::MedicineCategory
+      end
+    end
+
+    describe "PATCH /admin/medicine-categories/:uuid/activate" do
+      context "when the activation is successful" do
+        before do
+          patch activate_admin_medicine_category_path(inactive_medicine_category)
+        end
+
+        it "activates the medicine category" do
+          expect(inactive_medicine_category.reload.is_active?).to be_truthy
+        end
+
+        it "sets a success flash message" do
+          expect(flash[:notice]).to eq("Medicine category 'Inactive medicine category' was successfully activated.")
+        end
+
+        it "redirects to inactive medicine categories page" do
+          expect(response).to redirect_to(inactive_admin_medicine_categories_path)
+        end
+      end
+
+      context "when the activation fails" do
+        before do
+          allow(::MedicineCategories::ActivateService).to receive(:call).and_return(
+            ServiceResponse.error(message: "Medicine category 'Inactive medicine category' could not be activated.")
+          )
+          patch activate_admin_medicine_category_path(inactive_medicine_category)
+        end
+
+        it "does not activate the medicine category" do
+          expect(inactive_medicine_category.reload.is_active?).to be_falsy
+        end
+
+        it "sets an alert flash message" do
+          expect(flash[:alert]).to be_present
+        end
+
+        it "redirects to inactive medicine categories page" do
+          expect(response).to redirect_to(inactive_admin_medicine_categories_path)
+        end
+      end
+    end
+
+    describe "PATCH /admin/medicine-categories/:uuid/deactivate" do
+      context "when the deactivation is successful" do
+        before do
+          patch deactivate_admin_medicine_category_path(medicine_category)
+        end
+
+        it "deactivates the medicine category" do
+          expect(medicine_category.reload.is_active?).to be_falsy
+        end
+
+        it "sets a warning flash message" do
+          expect(flash[:warning]).to eq("Medicine category 'Antihistamines' was successfully deactivated.")
+        end
+
+        it "redirects to medicine categories list page" do
+          expect(response).to redirect_to(admin_medicine_categories_path)
+        end
+      end
+
+      context "when the deactivation fails" do
+        before do
+          allow(::MedicineCategories::DeactivateService).to receive(:call).and_return(
+            ServiceResponse.error(message: "Medicine category 'Antihistamines' could not be deactivated.")
+          )
+          patch deactivate_admin_medicine_category_path(medicine_category)
+        end
+
+        it "does not deactivate the medicine category" do
+          expect(medicine_category.reload.is_active?).to be_truthy
+        end
+
+        it "sets an alert flash message" do
+          expect(flash[:alert]).to be_present
+        end
+
+        it "redirects to medicine categories list page" do
+          expect(response).to redirect_to(admin_medicine_categories_path)
+        end
       end
     end
   end
