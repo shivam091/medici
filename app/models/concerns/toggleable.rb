@@ -42,13 +42,13 @@ module Toggleable
   end
 
   class_methods do
-    def activate_all!
+    def activate!
       all.each do |record|
         record.public_send(:activate!)
       end
     end
 
-    def deactivate_all!
+    def deactivate!
       all.each do |record|
         record.public_send(:deactivate!)
       end
