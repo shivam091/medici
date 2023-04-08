@@ -25,7 +25,7 @@ RSpec.describe Suppliers::UpdateService, type: :service do
       before { allow(supplier).to receive(:update).and_return(false) }
 
       it "does not update the supplier" do
-        expect(subject.payload[:supplier]).to eq(supplier)
+        expect(subject.payload[:supplier].name).to eq("Supplier")
         expect(subject.message).to eq("Supplier could not be updated.")
       end
 

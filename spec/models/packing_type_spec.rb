@@ -30,6 +30,7 @@ RSpec.describe PackingType, type: :model do
     it { is_expected.to have_db_column(:updated_at).of_type(:timestamptz).with_options(null: false) }
 
     it { is_expected.to have_db_index(:name).unique(true) }
+    it { is_expected.to have_db_index(:is_active) }
 
     it { is_expected.to have_check_constraint("chk_9ef2625dfe").with_condition("char_length(name::text) <= 55") }
     it { is_expected.to have_check_constraint("chk_c41aed63fb").with_condition("name IS NOT NULL AND name::text <> ''::text") }

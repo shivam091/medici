@@ -25,7 +25,7 @@ RSpec.describe MedicineCategories::UpdateService, type: :service do
       before { allow(medicine_category).to receive(:update).and_return(false) }
 
       it "does not update the medicine category" do
-        expect(subject.payload[:medicine_category]).to eq(medicine_category)
+        expect(subject.payload[:medicine_category].name).to eq("Antihistamines")
         expect(subject.message).to eq("Medicine category could not be updated.")
       end
 

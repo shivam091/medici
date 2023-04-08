@@ -25,7 +25,7 @@ RSpec.describe Stores::UpdateService, type: :service do
       before { allow(store).to receive(:update).and_return(false) }
 
       it "does not update the store" do
-        expect(subject.payload[:store]).to eq(store)
+        expect(subject.payload[:store].name).to eq("Store")
         expect(subject.message).to eq("Store could not be updated.")
       end
 

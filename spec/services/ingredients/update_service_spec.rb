@@ -25,7 +25,7 @@ RSpec.describe Ingredients::UpdateService, type: :service do
       before { allow(ingredient).to receive(:update).and_return(false) }
 
       it "does not update the ingredient" do
-        expect(subject.payload[:ingredient]).to eq(ingredient)
+        expect(subject.payload[:ingredient].name).to eq("Fluticasone furoate")
         expect(subject.message).to eq("Ingredient could not be updated.")
       end
 

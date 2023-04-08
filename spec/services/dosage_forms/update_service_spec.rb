@@ -25,7 +25,7 @@ RSpec.describe DosageForms::UpdateService, type: :service do
       before { allow(dosage_form).to receive(:update).and_return(false) }
 
       it "does not update the dosage form" do
-        expect(subject.payload[:dosage_form]).to eq(dosage_form)
+        expect(subject.payload[:dosage_form].name).to eq("Spray")
         expect(subject.message).to eq("Dosage form could not be updated.")
       end
 

@@ -25,7 +25,7 @@ RSpec.describe PackingTypes::UpdateService, type: :service do
       before { allow(packing_type).to receive(:update).and_return(false) }
 
       it "does not update the packing type" do
-        expect(subject.payload[:packing_type]).to eq(packing_type)
+        expect(subject.payload[:packing_type].name).to eq("Bottles")
         expect(subject.message).to eq("Packing type could not be updated.")
       end
 
