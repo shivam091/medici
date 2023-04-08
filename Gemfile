@@ -5,10 +5,10 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.0"
+ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "7.0.4.2"
+gem "rails", "7.0.4.3"
 
 # Add bootstrap support
 gem "bootstrap", "~> 5.2.3"
