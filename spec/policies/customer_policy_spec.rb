@@ -14,10 +14,15 @@ RSpec.describe CustomerPolicy, type: :policy do
     subject { described_class.new(admin, customer) }
 
     it { is_expected.to permit_action(:index) }
+    it { is_expected.to permit_action(:active) }
+    it { is_expected.to permit_action(:inactive) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
+    it { is_expected.to permit_action(:activate) }
+    it { is_expected.to permit_action(:deactivate) }
+    it { is_expected.to permit_action(:show) }
     it { is_expected.to permit_action(:destroy) }
 
     it { is_expected.to match_policy_scope(admin, [customer]) }
@@ -28,10 +33,15 @@ RSpec.describe CustomerPolicy, type: :policy do
     subject { described_class.new(manager, customer) }
 
     it { is_expected.to permit_action(:index) }
+    it { is_expected.to permit_action(:active) }
+    it { is_expected.to permit_action(:inactive) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
+    it { is_expected.to permit_action(:activate) }
+    it { is_expected.to permit_action(:deactivate) }
+    it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:destroy) }
 
     it { is_expected.to match_policy_scope(manager, [customer]) }
@@ -42,10 +52,15 @@ RSpec.describe CustomerPolicy, type: :policy do
     subject { described_class.new(cashier, customer) }
 
     it { is_expected.to forbid_action(:index) }
+    it { is_expected.to permit_action(:active) }
+    it { is_expected.to forbid_action(:inactive) }
     it { is_expected.to permit_action(:new) }
     it { is_expected.to permit_action(:create) }
     it { is_expected.to permit_action(:edit) }
     it { is_expected.to permit_action(:update) }
+    it { is_expected.to forbid_action(:activate) }
+    it { is_expected.to forbid_action(:deactivate) }
+    it { is_expected.to permit_action(:show) }
     it { is_expected.to forbid_action(:destroy) }
 
     it { is_expected.to match_policy_scope(cashier, [customer]) }
