@@ -10,8 +10,6 @@
     = form.text_field :decimal_mark
   .row.row-cols-1.row-cols-lg-2
     = form.text_field :thousands_separator
-    = form.select :country_ids, options_for_select(::Country.select_options, form.object.country_ids),
-      {include_blank: t(".select_countries")}, multiple: true, rows: 1
   .row.row-cols-1.row-cols-lg-2
     = form.check_box :symbol_first, switch: true
     = form.check_box :is_active, switch: true
