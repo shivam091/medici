@@ -25,7 +25,7 @@ RSpec.describe Customers::UpdateService, type: :service do
       before { allow(customer).to receive(:update).and_return(false) }
 
       it "does not update the customer" do
-        expect(subject.payload[:customer]).to eq(customer)
+        expect(subject.payload[:customer].name).to eq("Customer")
         expect(subject.message).to eq("Customer could not be updated.")
       end
 

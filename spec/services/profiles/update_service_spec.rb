@@ -25,7 +25,7 @@ RSpec.describe Profiles::UpdateService, type: :service do
       before { allow(user).to receive(:update).and_return(false) }
 
       it "does not update the user" do
-        expect(subject.payload[:user]).to eq(user)
+        expect(subject.payload[:user].full_name).to eq("Medici Cashier")
         expect(subject.message).to eq("Your profile could not be updated.")
       end
 

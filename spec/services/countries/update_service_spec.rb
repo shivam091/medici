@@ -25,7 +25,7 @@ RSpec.describe Countries::UpdateService, type: :service do
       before { allow(country).to receive(:update).and_return(false) }
 
       it "does not update the country" do
-        expect(subject.payload[:country]).to eq(country)
+        expect(subject.payload[:country].name).to eq("India")
         expect(subject.message).to eq("Country could not be updated.")
       end
 

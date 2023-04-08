@@ -25,7 +25,7 @@ RSpec.describe Currencies::UpdateService, type: :service do
       before { allow(currency).to receive(:update).and_return(false) }
 
       it "does not update the currency" do
-        expect(subject.payload[:currency]).to eq(currency)
+        expect(subject.payload[:currency].name).to eq("Indian rupee")
         expect(subject.message).to eq("Currency could not be updated.")
       end
 

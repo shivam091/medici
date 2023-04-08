@@ -14,7 +14,7 @@ RSpec.describe Medicines::UpdateService, type: :service do
 
     context "when update is successful" do
       it "updates the medicine" do
-        expect(subject.payload[:medicine].name).to eq(medicine.name)
+        expect(subject.payload[:medicine].name).to eq("New name")
         expect(subject.message).to eq("Medicine 'MED-FL000000001 (New name)' was successfully updated.")
       end
 
@@ -25,7 +25,7 @@ RSpec.describe Medicines::UpdateService, type: :service do
       before { allow(medicine).to receive(:update).and_return(false) }
 
       it "does not update the medicine" do
-        expect(subject.payload[:medicine]).to eq(medicine)
+        expect(subject.payload[:medicine].name).to eq("Fluticasone Furoate Aqueous Nasal Spray")
         expect(subject.message).to eq("Medicine could not be updated.")
       end
 
