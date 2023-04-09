@@ -21,7 +21,7 @@ module PurchaseOrdersHelper
     case
     when current_user.admin? then incomplete_admin_purchase_orders_path
     when current_user.manager? then incomplete_manager_purchase_orders_path
-    when current_user.cashier? ten incomplete_cashier_purchase_orders_path
+    when current_user.cashier? then incomplete_cashier_purchase_orders_path
     end
   end
 
