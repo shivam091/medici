@@ -59,6 +59,14 @@ module PurchaseOrdersHelper
     end
   end
 
+  def mark_as_received_purchase_order_path(purchase_order)
+    case
+    when current_user.admin? then mark_as_received_admin_purchase_order_path(purchase_order)
+    when current_user.manager? then mark_as_received_manager_purchase_order_path(purchase_order)
+    when current_user.cashier? then mark_as_received_cashier_purchase_order_path(purchase_order)
+    end
+  end
+
   def purchase_order_object(purchase_order)
     case
     when current_user.admin? then [:admin, purchase_order]

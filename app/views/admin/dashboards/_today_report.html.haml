@@ -17,7 +17,7 @@
               %th{scope: "col"}= t(".amount")
         %tbody
           - @stores.each.with_index(1) do |store, index|
-            - today_expenses = store.expenses.today
+            - today_expenses = store.expenses.approved.today
             %tr
               %td.fw-bold{rowspan: 2}= index
               %td.fw-bold{rowspan: 2}= store.name

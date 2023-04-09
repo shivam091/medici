@@ -36,6 +36,12 @@
             - if policy(expense).edit?
               = link_to external_svg_tag("svgs/pencil.svg"), edit_expense_path(expense), class: "btn btn-sm btn-secondary",
                 data: {turbo_frame: :remote_modal}
+            - if policy(expense).approve?
+              = link_to external_svg_tag("svgs/check-mark.svg"), approve_expense_path(expense), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".approve_expense_confirmation_text"), turbo_method: :patch}
+            - if policy(expense).reject?
+              = link_to external_svg_tag("svgs/cancel.svg"), reject_expense_path(expense), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".reject_expense_confirmation_text"), turbo_method: :patch}
             - if policy(expense).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), expense_path(expense), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_expense_confirmation_text"), turbo_method: :delete}

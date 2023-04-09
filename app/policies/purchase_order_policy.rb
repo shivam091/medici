@@ -46,6 +46,6 @@ class PurchaseOrderPolicy < ApplicationPolicy
   end
 
   def mark_as_received?
-    (user.admin? && !record.received?)
+    (user.admin? || user.manager?) && !record.received?
   end
 end
