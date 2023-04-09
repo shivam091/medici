@@ -3,9 +3,9 @@
 # -*- warn_indent: true -*-
 
 class PurchaseOrdersController < ApplicationController
-  before_action :find_purchase_order, only: [:edit, :update, :destroy]
+  before_action :find_purchase_order, only: [:edit, :update, :destroy, :mark_as_received]
   before_action do
-    if action_name.in?(["edit", "update", "destroy"])
+    if action_name.in?(["edit", "update", "destroy", "mark_as_received"])
       authorize @purchase_order
     else
       authorize ::PurchaseOrder
@@ -83,6 +83,18 @@ class PurchaseOrdersController < ApplicationController
         end
       end
     end
+  end
+
+  # PATCH /(:role)/purchase-orders/:uuid/mark-as-received
+  def mark_as_received
+    response = ::PurchaseOrders::MarkAsReceivedService.(@purchase_order)
+    @purchase_order = response.payload[:purchase_order]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to helpers.purchase_orders_path
   end
 
   # DELETE /(:role)/purchase-orders/:uuid
