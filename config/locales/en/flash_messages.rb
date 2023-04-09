@@ -365,6 +365,16 @@
           error: "Purchase order could not be marked as received.",
         }
       },
+      purchase_order_items: {
+        update: {
+          success: "Purchase order item was successfully updated.",
+          error: "Purchase order item could not be updated.",
+        },
+        destroy: {
+          success: "Purchase order item was successfully destroyed.",
+          error: "Purchase order item could not be destroyed.",
+        },
+      },
     }
   }
 }
