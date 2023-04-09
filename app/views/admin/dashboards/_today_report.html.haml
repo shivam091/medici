@@ -18,13 +18,14 @@
         %tbody
           - @stores.each.with_index(1) do |store, index|
             - today_expenses = store.expenses.approved.today
+            - today_purchases = store.purchase_orders.received.today
             %tr
               %td.fw-bold{rowspan: 2}= index
               %td.fw-bold{rowspan: 2}= store.name
               %tr
                 %td 0
                 %td= number_to_currency(0, unit: store.currency_symbol)
-                %td 0
-                %td= number_to_currency(0, unit: store.currency_symbol)
-                %td= today_expenses.count
-                %td= number_to_currency(today_expenses.sum(&:amount), unit: store.currency_symbol)
+                %td= today_purchases.size
+                %td= number_to_currency(today_purchases.total_cost, unit: store.currency_symbol)
+                %td= today_expenses.size
+                %td= number_to_currency(today_expenses.total_amount, unit: store.currency_symbol)
