@@ -1,0 +1,16 @@
+= bootstrap_form_with model: purchase_order_item_object(@purchase_order, @purchase_order_item) do |form|
+  = form.select :medicine_id, options_for_select(::Medicine.select_options(current_user), form.object.medicine_id),
+    {include_blank: t(".select_medicine")}, data: {controller: "autofocus"}
+  = form.number_field :quantity
+  = form.number_field :cost
+  - unless form.object.is_received? || form.object.new_record?
+    = form.check_box :is_received
+  .modal-actions
+    - if policy(@purchase_order_item).update?
+      = button_tag type: :submit, class: "btn btn-primary" do
+        = external_svg_tag("svgs/floppy.svg")
+        %span.d-block.d-lg-none= button_text("update")
+        %span.d-none.d-lg-block= button_text("update_purchase_order_item")
+    = button_tag type: :button, class: "btn btn-secondary", data: {action: "click->remote-modal#hide"} do
+      = external_svg_tag("svgs/cancel.svg")
+      = button_text("cancel")
