@@ -31,6 +31,14 @@ class PurchaseOrderItemsController < ApplicationController
 
   # DELETE /(:role)/purchase-orders/:purchase_order_uuid/purchase-order-items/:uuid
   def destroy
+    response = ::PurchaseOrderItems::DestroyService.(@purchase_order_item)
+    @purchase_order_item = response.payload[:purchase_order_item]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to helpers.purchase_orders_path
   end
 
   private
