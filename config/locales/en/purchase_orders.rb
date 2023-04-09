@@ -51,6 +51,9 @@
         medicines: "Medicines",
         select_supplier: "Select supplier",
       },
+      purchase_order_item: {
+        delete_purchase_order_item_confirmation_text: "Are you sure you want to delete this purchase order item?"
+      },
       purchase_order_item_form: {
         select_medicine: "Select medicine",
       },

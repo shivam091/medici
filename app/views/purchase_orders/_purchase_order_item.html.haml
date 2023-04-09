@@ -5,7 +5,9 @@
     = pluralize(purchase_order_item.quantity, medicine.packing_type_name)
   %td= number_to_currency(purchase_order_item.cost, unit: store.currency_symbol)
   %td.actions
-    = link_to external_svg_tag("svgs/pencil.svg"), "javascript:void(0)", class: "btn btn-sm btn-secondary",
-      data: {turbo_frame: :remote_modal}
-    = link_to external_svg_tag("svgs/trash.svg"), "javascript:void(0)", class: "btn btn-sm btn-danger",
-      data: {turbo_method: :delete}
+    - if policy(purchase_order_item).edit?
+      = link_to external_svg_tag("svgs/pencil.svg"), edit_purchase_order_item_path(purchase_order, purchase_order_item), class: "btn btn-sm btn-secondary",
+        data: {turbo_frame: :remote_modal}
+    - if policy(purchase_order_item).destroy?
+      = link_to external_svg_tag("svgs/trash.svg"), purchase_order_item_path(purchase_order, purchase_order_item), class: "btn btn-sm btn-danger",
+        data: {turbo_method: :delete, turbo_confirm: t(".delete_purchase_order_item_confirmation_text")}

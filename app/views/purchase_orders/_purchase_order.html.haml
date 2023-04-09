@@ -46,7 +46,7 @@
               = link_to external_svg_tag("svgs/trash.svg"), purchase_order_path(purchase_order), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_purchase_order_confirmation_text"), turbo_method: :delete}
         - purchase_order_items.each do |purchase_order_item|
-          = render_if_exists("purchase_orders/purchase_order_item", locals: {purchase_order_item:, store:})
+          = render_if_exists("purchase_orders/purchase_order_item", locals: {purchase_order:, purchase_order_item:, store:})
       - end.empty?
         %tr
           %td.fw-bold{colspan: ::PurchaseOrder.columns.count}

@@ -1,0 +1,3 @@
+= render_modal(title: t(".title")) do
+  = turbo_frame_tag :purchase_order_item_form do
+    = render_if_exists "purchase_order_items/form"

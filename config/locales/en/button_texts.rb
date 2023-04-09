@@ -84,6 +84,7 @@
       import_medicines: "Import medicines",
       import_ingredients: "Import ingredients",
       edit_store: "Edit store",
+      update_purchase_order_item: "Update purchase order item",
     }
   }
 }
