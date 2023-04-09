@@ -38,6 +38,7 @@
         no_incomplete_purchase_orders_to_display: "There are no incomplete purchase orders to display.",
         no_received_purchase_orders_to_display: "There are no received purchase orders to display.",
         delete_purchase_order_confirmation_text: "Are you sure you want to delete the purchase order?",
+        mark_purchase_order_as_received_confirmation_text: "Are you sure you want to mark the purchase order as received?",
       },
       new: {
         title: "New purchase order",

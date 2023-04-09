@@ -4,7 +4,7 @@
   .card-body
     .table-responsive
       %table.table.table-striped.table-bordered
-        - today_expenses = @store.expenses.today
+        - today_expenses = @store.expenses.approved.today
         - today_purchases = @store.purchase_orders.received.today
         %tbody
           %tr

@@ -4,7 +4,7 @@
   .card-body
     .table-responsive
       %table.table.table-striped.table-bordered
-        - month_expenses = @store.expenses.this_month
+        - month_expenses = @store.expenses.approved.this_month
         - month_purchases = @store.purchase_orders.received.this_month
         %tbody
           %tr
