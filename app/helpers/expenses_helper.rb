@@ -59,6 +59,22 @@ module ExpensesHelper
     end
   end
 
+  def approve_expense_path(expense)
+    case
+    when current_user.admin? then approve_admin_expense_path(expense)
+    when current_user.manager? then approve_manager_expense_path(expense)
+    when current_user.cashier? then approve_cashier_expense_path(expense)
+    end
+  end
+
+  def reject_expense_path(expense)
+    case
+    when current_user.admin? then reject_admin_expense_path(expense)
+    when current_user.manager? then reject_manager_expense_path(expense)
+    when current_user.cashier? then reject_cashier_expense_path(expense)
+    end
+  end
+
   def expense_object(expense)
     case
     when current_user.admin? then [:admin, expense]
