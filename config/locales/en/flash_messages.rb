@@ -351,6 +351,10 @@
         destroy: {
           success: "Purchase order was successfully destroyed.",
           error: "Purchase order could not be destroyed.",
+        },
+        mark_as_received: {
+          success: "Purchase order was successfully marked as received.",
+          error: "Purchase order could not be marked as received.",
         }
       },
     }
