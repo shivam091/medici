@@ -309,6 +309,14 @@
         destroy: {
           success: "Expense was successfully destroyed.",
           error: "Expense could not be destroyed.",
+        },
+        approve: {
+          success: "Expense was successfully approved.",
+          error: "Expense could not be approved.",
+        },
+        reject: {
+          success: "Expense was successfully rejected.",
+          error: "Expense could not be rejected.",
         }
       },
       tax_rates: {
