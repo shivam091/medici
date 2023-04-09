@@ -14,6 +14,7 @@
         %tbody
           - @stores.each.with_index(1) do |store, index|
             - month_expenses = store.expenses.this_month
+            - month_purchases = store.purchase_orders.received.this_month
             %tr
               %td.fw-bold{rowspan: 4}= index
               %td.fw-bold{rowspan: 4}= store.name
@@ -23,9 +24,9 @@
                 %td= number_to_currency(0, unit: store.currency_symbol)
               %tr
                 %th= t(".purchases")
-                %td 0
-                %td= number_to_currency(0, unit: store.currency_symbol)
+                %td= month_purchases.size
+                %td= number_to_currency(month_purchases.total_cost, unit: store.currency_symbol)
               %tr
                 %th= t(".expenses")
-                %td= month_expenses.count
-                %td= number_to_currency(month_expenses.sum(&:amount), unit: store.currency_symbol)
+                %td= month_expenses.size
+                %td= number_to_currency(month_expenses.total_amount, unit: store.currency_symbol)
