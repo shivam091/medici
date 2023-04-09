@@ -7,7 +7,6 @@ module PurchaseOrdersHelper
     case
     when current_user.admin? then admin_purchase_orders_path
     when current_user.manager? then manager_purchase_orders_path
-    when current_user.cashier? then cashier_purchase_orders_path
     end
   end
 
@@ -15,7 +14,6 @@ module PurchaseOrdersHelper
     case
     when current_user.admin? then pending_admin_purchase_orders_path
     when current_user.manager? then pending_manager_purchase_orders_path
-    when current_user.cashier? then pending_cashier_purchase_orders_path
     end
   end
 
@@ -23,7 +21,7 @@ module PurchaseOrdersHelper
     case
     when current_user.admin? then incomplete_admin_purchase_orders_path
     when current_user.manager? then incomplete_manager_purchase_orders_path
-    when current_user.cashier? then incomplete_cashier_purchase_orders_path
+    when current_user.cashier? ten incomplete_cashier_purchase_orders_path
     end
   end
 
@@ -31,7 +29,6 @@ module PurchaseOrdersHelper
     case
     when current_user.admin? then received_admin_purchase_orders_path
     when current_user.manager? then received_manager_purchase_orders_path
-    when current_user.cashier? then received_cashier_purchase_orders_path
     end
   end
 
@@ -39,7 +36,6 @@ module PurchaseOrdersHelper
     case
     when current_user.admin? then new_admin_purchase_order_path
     when current_user.manager? then new_manager_purchase_order_path
-    when current_user.cashier? then new_cashier_purchase_order_path
     end
   end
 
@@ -47,7 +43,6 @@ module PurchaseOrdersHelper
     case
     when current_user.admin? then edit_admin_purchase_order_path(purchase_order)
     when current_user.manager? then edit_manager_purchase_order_path(purchase_order)
-    when current_user.cashier? then edit_cashier_purchase_order_path(purchase_order)
     end
   end
 
@@ -55,7 +50,6 @@ module PurchaseOrdersHelper
     case
     when current_user.admin? then admin_purchase_order_path(purchase_order)
     when current_user.manager? then manager_purchase_order_path(purchase_order)
-    when current_user.cashier? then cashier_purchase_order_path(purchase_order)
     end
   end
 
@@ -63,7 +57,6 @@ module PurchaseOrdersHelper
     case
     when current_user.admin? then mark_as_received_admin_purchase_order_path(purchase_order)
     when current_user.manager? then mark_as_received_manager_purchase_order_path(purchase_order)
-    when current_user.cashier? then mark_as_received_cashier_purchase_order_path(purchase_order)
     end
   end
 
@@ -71,7 +64,6 @@ module PurchaseOrdersHelper
     case
     when current_user.admin? then [:admin, purchase_order]
     when current_user.manager? then [:manager, purchase_order]
-    when current_user.cashier? then [:cashier, purchase_order]
     end
   end
 end
