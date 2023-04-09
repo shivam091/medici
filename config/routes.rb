@@ -97,6 +97,8 @@ Rails.application.routes.draw do
       resources :packing_types, except: :show, param: :uuid, path: "packing-types", concerns: :toggleable
 
       resources :purchase_orders, path: "purchase-orders", param: :uuid do
+        resources :purchase_order_items, path: "purchase-order-items", param: :uuid, only: [:edit, :update, :destroy]
+
         collection do
           get :pending
           get :incomplete
@@ -115,6 +117,8 @@ Rails.application.routes.draw do
       concerns :shareable
 
       resources :purchase_orders, path: "purchase-orders", param: :uuid do
+        resources :purchase_order_items, path: "purchase-order-items", param: :uuid, only: [:edit, :update, :destroy]
+
         collection do
           get :pending
           get :incomplete
