@@ -4,7 +4,7 @@
   .card-body
     .table-responsive
       %table.table.table-striped.table-bordered
-        - today_expenses = @store.expenses.today
+        - today_expenses = @store.expenses.approved.today
         %tbody
           %tr
             %th{width: "25px", scope: "col"}= t(".number_of_sells")
