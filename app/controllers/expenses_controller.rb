@@ -106,7 +106,19 @@ class ExpensesController < ApplicationController
     else
       flash[:alert] = response.message
     end
-    redirect_to helpers.expenses_path
+    redirect_to helpers.pending_expenses_path
+  end
+
+  # PATCH /(:role)/expenses/:uuid/reject
+  def reject
+    response = ::Expenses::RejectService.(@expense)
+    @expense = response.payload[:expense]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to helpers.pending_expenses_path
   end
 
   private
