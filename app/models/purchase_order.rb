@@ -89,6 +89,26 @@ class PurchaseOrder < ApplicationRecord
         none
       end
     end
+
+    def today
+      where(
+        ::Medici::SQL::Functions.date(::PurchaseOrder[:created_at]).eq(Date.current)
+      )
+    end
+
+    def this_month
+      where(
+        ::Medici::SQL::Functions.date(::PurchaseOrder[:created_at]).between(Date.current.all_month)
+      )
+    end
+
+    def total_cost
+      all.extract_associated(:purchase_order_items).flatten.sum(&:cost)
+    end
+  end
+
+  def total_cost
+    purchase_order_items.sum(&:cost)
   end
 
   private
