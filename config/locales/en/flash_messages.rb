@@ -309,6 +309,14 @@
         destroy: {
           success: "Expense was successfully destroyed.",
           error: "Expense could not be destroyed.",
+        },
+        approve: {
+          success: "Expense was successfully approved.",
+          error: "Expense could not be approved.",
+        },
+        reject: {
+          success: "Expense was successfully rejected.",
+          error: "Expense could not be rejected.",
         }
       },
       tax_rates: {
@@ -351,6 +359,10 @@
         destroy: {
           success: "Purchase order was successfully destroyed.",
           error: "Purchase order could not be destroyed.",
+        },
+        mark_as_received: {
+          success: "Purchase order was successfully marked as received.",
+          error: "Purchase order could not be marked as received.",
         }
       },
     }

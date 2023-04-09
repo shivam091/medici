@@ -72,6 +72,10 @@ class Expense < ApplicationRecord
         user.expenses
       end
     end
+
+    def total_amount
+      all.sum(&:amount)
+    end
   end
 
   private

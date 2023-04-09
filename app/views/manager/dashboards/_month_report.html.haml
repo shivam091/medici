@@ -4,7 +4,8 @@
   .card-body
     .table-responsive
       %table.table.table-striped.table-bordered
-        - month_expenses = @store.expenses.this_month
+        - month_expenses = @store.expenses.approved.this_month
+        - month_purchases = @store.purchase_orders.received.this_month
         %tbody
           %tr
             %th{width: "25px", scope: "col"}= t(".number_of_sells")
@@ -14,13 +15,13 @@
             %td= number_to_currency(0, unit: @store.currency_symbol)
           %tr
             %th{width: "25px", scope: "col"}= t(".number_of_purchases")
-            %td 0
+            %td= month_purchases.size
           %tr
             %th{width: "25px", scope: "col"}= t(".total_purchases_amount")
-            %td= number_to_currency(0, unit: @store.currency_symbol)
+            %td= number_to_currency(month_purchases.total_cost, unit: @store.currency_symbol)
           %tr
             %th{width: "25px", scope: "col"}= t(".number_of_expenses")
-            %td= month_expenses.count
+            %td= month_expenses.size
           %tr
             %th{width: "25px", scope: "col"}= t(".total_expenses_amount")
-            %td= number_to_currency(month_expenses.sum(&:amount), unit: @store.currency_symbol)
+            %td= number_to_currency(month_expenses.total_amount, unit: @store.currency_symbol)

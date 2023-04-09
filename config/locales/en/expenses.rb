@@ -33,6 +33,8 @@
         no_approved_expenses_to_display: "There are no approved expenses to display.",
         no_rejected_expenses_to_display: "There are no rejected expenses to display.",
         delete_expense_confirmation_text: "Are you sure you want to delete the expense?",
+        approve_expense_confirmation_text: "Are you sure you want to approve the expense?",
+        reject_expense_confirmation_text: "Are you sure you want to reject the expense?",
       },
       new: {
         title: "New expense",

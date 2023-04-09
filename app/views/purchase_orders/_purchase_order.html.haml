@@ -9,9 +9,9 @@
             = check_box_tag "checkbox", nil, false, class: "form-check-input", data: {select_all_checkbox_target: "selectAllCheckbox"}
         %th{width: "25px", scope: "col"}= t(".reference_code")
         - if current_user.admin?
-          %th{scope: "col"}= t(".user")
+          %th.d-none.d-xl-table-cell{scope: "col"}= t(".user")
           %th{scope: "col"}= t(".store")
-        %th.d-none.d-xl-table-cell{scope: "col"}= t(".invoice_number")
+        %th{scope: "col"}= t(".invoice_number")
         %th.d-none.d-xl-table-cell{scope: "col"}= t(".tracking_number")
         %th{scope: "col"}= t(".supplier")
         %th{width: "25px", scope: "col"}= t(".actions")
@@ -31,14 +31,17 @@
             = check_box_tag "purchase_order_ids[]", purchase_order.id, false, class: "form-check-input", data: {select_all_checkbox_target: "checkbox"}
           %td.fw-bold{rowspan: (purchase_order_items.size + 1)}= purchase_order.reference_code
           - if current_user.admin?
-            %td{rowspan: (purchase_order_items.size + 1)}= purchase_order.user_full_name
+            %td.d-none.d-xl-table-cell{rowspan: (purchase_order_items.size + 1)}= purchase_order.user_full_name
             %td{rowspan: (purchase_order_items.size + 1)}= purchase_order.store_name
-          %td.d-none.d-xl-table-cell{rowspan: (purchase_order_items.size + 1)}= purchase_order.invoice_number
+          %td{rowspan: (purchase_order_items.size + 1)}= purchase_order.invoice_number
           %td.d-none.d-xl-table-cell{rowspan: (purchase_order_items.size + 1)}= purchase_order.tracking_number
           %td{rowspan: (purchase_order_items.size + 1)}= purchase_order.supplier_name
           %td.actions{rowspan: (purchase_order_items.size + 1)}
             - if policy(purchase_order).edit?
               = link_to external_svg_tag("svgs/pencil.svg"), edit_purchase_order_path(purchase_order), class: "btn btn-sm btn-secondary"
+            - if policy(purchase_order).mark_as_received?
+              = link_to external_svg_tag("svgs/check-mark.svg"), mark_as_received_purchase_order_path(purchase_order), class: "btn btn-sm btn-secondary",
+                data: {turbo_confirm: t(".mark_purchase_order_as_received_confirmation_text"), turbo_method: :patch}
             - if policy(purchase_order).destroy?
               = link_to external_svg_tag("svgs/trash.svg"), purchase_order_path(purchase_order), class: "btn btn-sm btn-danger",
                 data: {turbo_confirm: t(".delete_purchase_order_confirmation_text"), turbo_method: :delete}

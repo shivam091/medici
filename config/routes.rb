@@ -39,6 +39,11 @@ Rails.application.routes.draw do
       get :approved
       get :rejected
     end
+
+    member do
+      patch :approve
+      patch :reject
+    end
   end
 
   concern :toggleable do
@@ -97,6 +102,10 @@ Rails.application.routes.draw do
           get :incomplete
           get :received
         end
+
+        member do
+          patch :mark_as_received, path: "mark-as-received"
+        end
       end
     end
   end
@@ -110,6 +119,10 @@ Rails.application.routes.draw do
           get :pending
           get :incomplete
           get :received
+        end
+
+        member do
+          patch :mark_as_received, path: "mark-as-received"
         end
       end
     end

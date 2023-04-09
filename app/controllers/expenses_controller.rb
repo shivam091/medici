@@ -3,9 +3,9 @@
 # -*- warn_indent: true -*-
 
 class ExpensesController < ApplicationController
-  before_action :find_expense, only: [:edit, :update, :destroy]
+  before_action :find_expense, only: [:edit, :update, :destroy, :approve, :reject]
   before_action do
-    if action_name.in?(["edit", "update", "destroy"])
+    if action_name.in?(["edit", "update", "destroy", "approve", "reject"])
       authorize @expense
     else
       authorize ::Expense
@@ -95,6 +95,30 @@ class ExpensesController < ApplicationController
       flash[:alert] = response.message
     end
     redirect_to helpers.expenses_path
+  end
+
+  # PATCH /(:role)/expenses/:uuid/approve
+  def approve
+    response = ::Expenses::ApproveService.(@expense)
+    @expense = response.payload[:expense]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to helpers.pending_expenses_path
+  end
+
+  # PATCH /(:role)/expenses/:uuid/reject
+  def reject
+    response = ::Expenses::RejectService.(@expense)
+    @expense = response.payload[:expense]
+    if response.success?
+      flash[:info] = response.message
+    else
+      flash[:alert] = response.message
+    end
+    redirect_to helpers.pending_expenses_path
   end
 
   private
