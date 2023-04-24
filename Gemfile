@@ -44,7 +44,7 @@ gem "jbuilder"
 gem "haml"
 
 # Job and worker scheduler
-gem "sidekiq", "~> 6"
+gem "sidekiq", "~> 7"
 gem "sidekiq-scheduler", "~> 5"
 
 # Use Redis adapter to run Action Cable in production
